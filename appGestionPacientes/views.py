@@ -14,6 +14,7 @@ from appGestionPacientes.query import filterSearch, filterByIdPatient, generateK
 from webtooth.config import logger, sendEmailContact, getLogin
 from appGestionPacientes.permissions import *
 from webtooth.decorators import validRequest
+from django.contrib import messages
 
 log = logger('appGestionPacientes',True)
 
@@ -164,7 +165,8 @@ def actualizarPaciente(request,idPatient):
             formAdress.save()
             
             log.info("Se ha actualizado el registro en BD para el Expediente {}".format(dataPatient['numexp']))
-            return render(request, "patient/datosPacienteEnviada.html", {"exp": dataPatient['numexp'],"idPatient":idPatient})
+            messages.success(request, "Los datos han sido actualizados correctamente para el expediente: {}".format(dataPatient['numexp']))
+            return render(request,"patient/datosPaciente.html",{"form": formPatient,"id":idPatient,"formAdress":formAdress})
         else:
             log.error("Formulario recibido no pasa la validacion...")
             validErrors(formPatient)

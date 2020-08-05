@@ -1,0 +1,20 @@
+{% load static %}
+{% for message in messages %}
+<div id="alertMessage">
+<div style="text-align: center;color:{{request.session.fg_color}}">
+  <div class="alert {{message.tags}}{{request.session.bg_color}} alert-dismissible animated--grow-in" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <strong>{{message}}</strong>
+  </div>
+</div>
+</div>
+
+<script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+<script type="text/javascript">
+  $(document).ready(function() {
+  	$("#alertMessage").fadeTo(2000, 500).slideUp(500);
+  });
+</script>
+{% endfor %}

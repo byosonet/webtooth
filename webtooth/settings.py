@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+from django.contrib.messages import constants as messages
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -230,3 +231,11 @@ EMAIL_TO = []
 #SESSION_COOKIE_AGE = 10  #5min
 #SESSION_SAVE_EVERY_REQUEST = True
 MAX_TIME_MINUTES_SESSION = 5
+
+MESSAGE_TAGS = {
+    messages.DEBUG: 'bg-',
+    messages.INFO: 'bg-',
+    messages.SUCCESS: 'bg-',
+    messages.WARNING: 'bg-',
+    messages.ERROR: 'bg-',
+ }
