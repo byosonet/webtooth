@@ -253,11 +253,13 @@ def listarArchivo(request):
 @permission_required(deleteFile(), login_url=notPermission())
 @validRequest
 def eliminarArchivo(request, idFile):
+    listadoArchivos = File.objects.all().order_by('-fechaSubida')
     try:
         log.info("ID File recibido: "+str(idFile))
         file = File.objects.get(pk=idFile)
         fileOld = file.path
         log.info("Se ha eliminado el archivo de BD: {}".format(file.fileName))
+        fileN = file.path.name.split("/")[1]
         file.delete()
         try:
             if fileOld:
@@ -266,10 +268,12 @@ def eliminarArchivo(request, idFile):
         except Exception as ex:
             log.error("No se pudo eliminar el archivo {} por el siguiente error:  {}".format(
                 fileOld, ex))
-        return redirect(urls.URL_LISTAR_ARCHIVO)
+        messages.success(request, "El archivo: {} fue eliminado correctamente".format(str(fileN)))
+        return render(request, "file/listaArchivos.html", {"listaArchivo": listadoArchivos})
     except Exception as ex:
         log.error("Error: "+str(ex))
-        return redirect(urls.URL_LISTAR_ARCHIVO)
+        messages.error(request, f"Mensaje de error: {str(ex)}")
+        return render(request, "file/listaArchivos.html", {"listaArchivo": listadoArchivos})
 
 
 @login_required(login_url=getLogin())
