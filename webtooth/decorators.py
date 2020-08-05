@@ -1,4 +1,4 @@
-from webtooth.config import loadPropertie
+from webtooth.config import loadPropertie, createFirstOnly
 import logging
 
 from django.utils import timezone
@@ -12,7 +12,11 @@ def validRequest(viewReceived):
             log.info("Ha vencido la sesión")
        	    data = {"timeModal": 500}
             return render(request, 'other/session.html', data)
-        loadPropertie(request)
+        try:
+            loadPropertie(request)
+        except Exception as ex:
+            log.error("Error load propertie: "+str(ex))
+            createFirstOnly(request)
         log.info("Load decorators for var sessions in request")
         return viewReceived(request, *args, **kwargs)
     return validRequestInternal

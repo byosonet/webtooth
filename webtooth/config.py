@@ -70,6 +70,13 @@ def loadPropertie(request):
 	request.session[lr.key] = lr.value
 	log.info("{}, {}, {}".format(bg,bt,fg))
 
+def createFirstOnly(request):
+	createPropertie('bg_color','gradient-primary')
+	createPropertie('fg_color', 'white')
+	createPropertie('bt_color', 'primary')
+	createPropertie('ad_color', '#4e73df')
+	createPropertie('last_row', str(0))
+
 def setColorSystem(request,idColor):
 	log.info("Cambiando el color al sistema, idColor recibido: {}".format(idColor))
 	if idColor == 1:
@@ -79,7 +86,7 @@ def setColorSystem(request,idColor):
 		updatePropertie('ad_color', '#5a5c69')
 		loadPropertie(request)
 
-		log.info("Cambiandp color de tema a negro")
+		log.info("Cambiando color de tema a negro")
 	elif idColor == 2:
 		updatePropertie('bg_color', 'gradient-success')
 		updatePropertie('bt_color', 'success')
@@ -87,7 +94,7 @@ def setColorSystem(request,idColor):
 		updatePropertie('ad_color', '#1cc88a')
 		loadPropertie(request)
 
-		log.info("Cambiandp color de tema a verde")
+		log.info("Cambiando color de tema a verde")
 	elif idColor == 3:
 		updatePropertie('bg_color', 'gradient-light')
 		updatePropertie('bt_color', 'secondary')
@@ -95,7 +102,7 @@ def setColorSystem(request,idColor):
 		updatePropertie('ad_color', '#858796')
 		loadPropertie(request)
 
-		log.info("Cambiandp color de tema a Blanco")
+		log.info("Cambiando color de tema a Blanco")
 	elif idColor == 4:
 		updatePropertie('bg_color', 'gradient-secondary')
 		updatePropertie('bt_color', 'secondary')
@@ -103,7 +110,7 @@ def setColorSystem(request,idColor):
 		updatePropertie('ad_color', '#858796')
 		loadPropertie(request)
 
-		log.info("Cambiandp color de tema a gris")
+		log.info("Cambiando color de tema a gris")
 	elif idColor == 5:
 		updatePropertie('bg_color', 'gradient-danger')
 		updatePropertie('bt_color', 'danger')
@@ -111,7 +118,7 @@ def setColorSystem(request,idColor):
 		updatePropertie('ad_color', '#e74a3b')
 		loadPropertie(request)
 
-		log.info("Cambiandp color de tema a rojo")
+		log.info("Cambiando color de tema a rojo")
 	elif idColor == 6:
 		updatePropertie('bg_color', 'gradient-warning')
 		updatePropertie('bt_color', 'warning')
@@ -119,7 +126,7 @@ def setColorSystem(request,idColor):
 		updatePropertie('ad_color', '#f6c23e')
 		loadPropertie(request)
 
-		log.info("Cambiandp color de tema a naranja")
+		log.info("Cambiando color de tema a naranja")
 	elif idColor == 7:
 		updatePropertie('bg_color', 'gradient-primary')
 		updatePropertie('bt_color', 'primary')
@@ -127,6 +134,6 @@ def setColorSystem(request,idColor):
 		updatePropertie('ad_color', '#4e73df')
 		loadPropertie(request)
 
-		log.info("Cambiandp color de tema a Default")
+		log.info("Cambiando color de tema a Default")
 	request.session['color_default'] = True
 	return request
