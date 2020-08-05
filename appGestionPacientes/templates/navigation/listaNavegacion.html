@@ -46,11 +46,11 @@
 	      <tbody>
 	      	{% for nav in listaNavegacion %}
 	        <tr>
-	          <td style="width: 250px;">{{nav.userName|title}}</td>
+	          <td style="width: 240px;">{{nav.userName|title}}</td>
 	          <td style="text-align: center;">{{nav.host}}</td>
 	          <td>{{nav.path}}</td>
-	          <td style="text-align: center;">{{nav.method}}</td>
-			  <td style="text-align: center;">
+	          <td style="width: 150px;text-align: center;">{{nav.method}}</td>
+			  <td style="width: 150px;text-align: center;">
 				{% if nav.status == 200 %}
 				<span class="btn btn-success" style="font-size: 12px;"> {{nav.status}} </span>
 				{% elif nav.status == 500 %}
@@ -59,7 +59,7 @@
 				<span class="btn btn-warning" style="font-size: 12px;"> {{nav.status}} </span>
 				{% endif %}
 			  </td>
-			  <td style="text-align: center;">{{nav.eventTime}}</td>
+			  <td style="width: 200px;text-align: center;">{{nav.eventTime}}</td>
 	        </tr>
 	        {% endfor %}
 	      </tbody>
