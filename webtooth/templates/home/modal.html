@@ -1,0 +1,22 @@
+{% if timeModal %}
+    <script>
+        $(document).ready(function () {
+            setTimeout(function () { jQuery('#sessionModal').modal({ backdrop: 'static', keyboard: false }); }, {{timeModal}});
+        });
+    </script>
+
+    <div class="modal fade" id="sessionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Aviso de sistema</h5>
+                </div>
+                <div class="modal-body">La sesión actual ha terminado, vuelve a iniciar para continuar</div>
+                <div class="modal-footer">
+                    <a class="btn btn-{{request.session.bt_color}}" href="/admin/logout/">Aceptar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}

@@ -1,0 +1,33 @@
+{% extends "extends.html" %}
+
+{% block title %} B&uacute;squeda de pacientes {%endblock%}
+{% block titlepage %} B&uacute;squeda de pacientes {%endblock%}
+
+{% block body %} 
+
+<form class="user" action="{% url 'buscarNombre' %}" method="POST">{% csrf_token %}
+     <div class="form-group row">
+        <div class="col-sm-4">
+            <input type="text" class="form-control form-control-user" id="name" name="name" placeholder="Nombre(s)">
+        </div>
+        <div class="col-sm-4">
+            <input type="text" class="form-control form-control-user" id="apellidos" name="apellidos" placeholder="Apellido(s)">
+        </div>
+         <div class="col-sm-4">
+            <input type="text" class="form-control form-control-user" id="numexp" name="numexp" placeholder="Número de expediente">
+        </div>
+    </div>
+
+  	<div class="form-group row">
+  		<div class="col-sm-2">
+            <button type="reset" class="btn btn-{{request.session.bt_color}} btn-user btn-block"><i class="fa fa-eraser"></i> Limpiar</button>
+        </div>
+    	</br></br>
+        <div class="col-sm-2">
+            <button type="submit" class="btn btn-{{request.session.bt_color}} btn-user btn-block"><i class="fa fa-search"></i> Buscar</button>
+        </div>
+    </div>
+</form>
+
+{% endblock %}
+

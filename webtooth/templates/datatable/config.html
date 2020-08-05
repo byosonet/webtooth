@@ -1,0 +1,169 @@
+{% load static %}
+
+<script src="{% static 'js/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'js/dataTables.bootstrap4.min.js' %}"></script>
+
+<script src="{% static 'js/buttons.print.min.js' %}"></script>
+<script src="{% static 'js/dataTables.buttons.min.js' %}"></script>
+<script src="{% static 'js/jszip.min.js' %}"></script>
+<script src="{% static 'js/buttons.html5.min.js' %}"></script>
+<script src="{% static 'js/pdfmake.min.js' %}"></script>
+<script src="{% static 'js/vfs_fonts.js' %}"></script>
+
+<link href="{% static 'css/table.css' %}" rel="stylesheet">
+
+<script type="text/javascript">
+	$(document).ready(function() {
+	 /*Para pacientes*/
+	 tablePatient = $('#dataTablePatient').DataTable({
+	  		"language": {
+    			"url": "{% static 'json/spanish.json' %}"
+			},
+			"lengthMenu": [7, 14, 20, 25],
+			"aaSorting": [],
+        	buttons: [{
+					extend : 'excelHtml5',
+					title: 'Listado de pacientes',
+					exportOptions: {
+						columns: [0, 1, 2, 3, 4, 5,7]
+					}
+				},
+            	{
+					extend: 'pdfHtml5',
+					title: 'Listado de pacientes',
+					exportOptions: {
+						columns: [0, 1, 2, 3, 4, 5,]
+					}
+				},{
+					extend: 'print',
+					title: 'Listado de pacientes',
+					exportOptions: {
+						columns: [0, 1, 2, 3, 4, 5,]
+					}
+				}]
+	  });
+		$("#ReporteExcel").on("click", function() {
+    		tablePatient.button( '.buttons-excel' ).trigger();
+		});
+		$("#ReportePdf").on("click", function() {
+    		tablePatient.button( '.buttons-pdf' ).trigger();
+		});
+		$("#ReportePrint").on("click", function() {
+    		tablePatient.button( '.buttons-print' ).trigger();
+		});
+
+		/*Para direcciones*/
+		tableAdress = $('#dataTableAdress').DataTable({
+			"language": {
+				"url": "{% static 'json/spanish.json' %}"
+			},
+			"lengthMenu": [7, 14, 20, 25],
+			"aaSorting": [],
+			buttons: [{
+				extend: 'excelHtml5',
+				title: 'Listado de direcciones',
+				exportOptions: {
+					columns: [0, 1, 2, 3, 4, 5, 6, 7]
+				}
+			},
+			{
+				extend: 'pdfHtml5',
+				title: 'Listado de direcciones',
+				exportOptions: {
+					columns: [0, 1, 2, 3, 4, 5, 6, 7]
+				}
+			}, {
+				extend: 'print',
+				title: 'Listado de direcciones',
+				exportOptions: {
+					columns: [0, 1, 2, 3, 4, 5, 6, 7]
+				}
+			}]
+		});
+		$("#ReporteExcelAdress").on("click", function () {
+			tableAdress.button('.buttons-excel').trigger();
+		});
+		$("#ReportePdfAdress").on("click", function () {
+			tableAdress.button('.buttons-pdf').trigger();
+		});
+		$("#ReportePrintAdress").on("click", function () {
+			tableAdress.button('.buttons-print').trigger();
+		});
+
+		/*Para archivos*/
+		tableFile = $('#dataTableFile').DataTable({
+			"language": {
+				"url": "{% static 'json/spanish.json' %}"
+			},
+			"lengthMenu": [7, 14, 20, 25],
+			"aaSorting": [],
+			buttons: [{
+				extend: 'excelHtml5',
+				title: 'Listado de archivos',
+				exportOptions: {
+					columns: [0, 1, 2, 3]
+				}
+			},
+			{
+				extend: 'pdfHtml5',
+				title: 'Listado de archivos',
+				exportOptions: {
+					columns: [0, 1, 2, 3]
+				}
+			}, {
+				extend: 'print',
+				title: 'Listado de archivos',
+				exportOptions: {
+					columns: [0, 1, 2, 3]
+				}
+			}]
+		});
+		$("#ReporteExcelFile").on("click", function () {
+			tableFile.button('.buttons-excel').trigger();
+		});
+		$("#ReportePdfFile").on("click", function () {
+			tableFile.button('.buttons-pdf').trigger();
+		});
+		$("#ReportePrintFile").on("click", function () {
+			tableFile.button('.buttons-print').trigger();
+		});
+
+		/*Para navigation*/
+		tableNavigation = $('#dataTableNavigation').DataTable({
+			"language": {
+				"url": "{% static 'json/spanish.json' %}"
+			},
+			"lengthMenu": [7,14,20,25],
+			"aaSorting": [],
+			buttons: [{
+				extend: 'excelHtml5',
+				title: 'Listado de navegación',
+				exportOptions: {
+					columns: [0, 1, 2, 3, 4, 5]
+				}
+			},
+			{
+				extend: 'pdfHtml5',
+				title: 'Listado de navegación',
+				exportOptions: {
+					columns: [0, 1, 2, 3, 4, 5]
+				}
+			}, {
+				extend: 'print',
+				title: 'Listado de navegación',
+				exportOptions: {
+					columns: [0, 1, 2, 3, 4, 5]
+				}
+			}]
+		});
+		$("#ReporteExcelNavigation").on("click", function () {
+			tableNavigation.button('.buttons-excel').trigger();
+		});
+		$("#ReportePdfNavigation").on("click", function () {
+			tableNavigation.button('.buttons-pdf').trigger();
+		});
+		$("#ReportePrintNavigation").on("click", function () {
+			tableNavigation.button('.buttons-print').trigger();
+		});
+	});
+</script>

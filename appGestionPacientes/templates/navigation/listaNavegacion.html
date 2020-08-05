@@ -1,0 +1,84 @@
+{% extends "extends.html" %}
+
+{% block title %} Historial de navegación {%endblock%}
+{% block titlepage %} Historial de navegación {%endblock%}
+
+
+
+{% block report %}
+	{% if listaNavegacion %}
+	<div>
+		<a href="#" id="ReportePrintNavigation" class="d-none d-sm-inline-block btn btn-sm btn-{{request.session.bt_color}} shadow-sm"><i class="fas fa-print"></i> Imprimir reporte</a>
+
+		<a href="#" id="ReporteExcelNavigation" class="d-none d-sm-inline-block btn btn-sm btn-{{request.session.bt_color}} shadow-sm"><i class="fas fa-file-excel"></i> Exportar a Excel</a>
+
+		<a href="#" id="ReportePdfNavigation" class="d-none d-sm-inline-block btn btn-sm btn-{{request.session.bt_color}} shadow-sm"><i class="fas fa-file-pdf"></i> Exportar a PDF</a>
+	</div>
+	{% endif %}
+{% endblock %}
+
+
+{% block body %} 
+
+{% if listaNavegacion %}
+
+	<div class="card shadow mb-4">
+	<div class="card-header py-3">
+	  <h6 class="m-0 font-weight-bold text-primary">    
+	  	<div class="col-sm-2"></div>
+       </h6>
+	</div>
+	<div class="card-body">
+	  <div class="table-responsive">
+	    <table class="table table-bordered webtooth" id="dataTableNavigation" width="100%" cellspacing="0">
+	      <thead>
+	        <tr>
+	          <th>Usuario</th>
+	          <th>Host</th>
+	          <th>Url</th>
+	          <th>M&eacute;todo</th>
+			  <th>Estado</th>
+			  <th>Fecha</th>
+	        </tr>
+	      </thead>
+	      <tfoot>
+	      </tfoot>
+	      <tbody>
+	      	{% for nav in listaNavegacion %}
+	        <tr>
+	          <td style="width: 250px;">{{nav.userName|title}}</td>
+	          <td style="text-align: center;">{{nav.host}}</td>
+	          <td>{{nav.path}}</td>
+	          <td style="text-align: center;">{{nav.method}}</td>
+			  <td style="text-align: center;">
+				{% if nav.status == 200 %}
+				<span class="btn btn-success" style="font-size: 12px;"> {{nav.status}} </span>
+				{% elif nav.status == 500 %}
+				<span class="btn btn-danger" style="font-size: 12px;"> {{nav.status}} </span>
+				{% else %}
+				<span class="btn btn-warning" style="font-size: 12px;"> {{nav.status}} </span>
+				{% endif %}
+			  </td>
+			  <td style="text-align: center;">{{nav.eventTime}}</td>
+	        </tr>
+	        {% endfor %}
+	      </tbody>
+	    </table>
+	  </div>
+	</div>
+	</div>
+
+{% else %}
+<div class="card-header py-3">
+	<h6 class="m-0 font-weight-bold text-primary">No hay ningún registro en la base de datos actual</h6>
+</div>
+</br>
+<div class="col-sm-2">
+	<a class="btn btn-{{request.session.bt_color}} btn-user btn-block" href="{% url 'home' %}" role="button"><i
+			class="fa fa-arrow-left"></i> Regresar</a>
+</div>
+{% endif %}
+
+
+{% endblock %}
+

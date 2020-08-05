@@ -1,0 +1,158 @@
+{% extends "extends.html" %}
+
+{% block title %} Datos del paciente {%endblock%}
+{% block titlepage %} Datos del paciente {%endblock%}
+
+{% block body %}
+
+{% if form %}
+
+{% if form.errors %}
+{% for field in form %}
+{% if field.errors %}
+<strong style="color:red;">{{ field.errors }}</strong>
+{% endif %}
+{% endfor %}
+{% endif %}
+
+{% if formAdress.errors %}
+{% for field in formAdress %}
+{% if field.errors %}
+<strong style="color:red;">{{ field.errors }}</strong>
+{% endif %}
+{% endfor %}
+{% endif %}
+
+<form class="user" action="{% url 'actualizarPaciente' id %}" method="POST" enctype="multipart/form-data">{% csrf_token %}
+    <div class="form-group row">
+        <div class="col-sm-4">
+            {{form.nombre}}
+        </div>
+        <div class="col-sm-4">
+            {{form.apellidoPaterno}}
+        </div>
+        <div class="col-sm-4">
+            {{form.apellidoMaterno}}
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-sm-4">
+            {{form.rfc}}
+        </div>
+        <div class="col-sm-4">
+            {{form.email}}
+        </div>
+        <div class="col-sm-4">
+            {{form.telefono}}
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-sm-4">
+            {{formAdress.calle}}
+        </div>
+        <div class="col-sm-4">
+            {{formAdress.numeroExt}}
+        </div>
+        <div class="col-sm-4">
+            {{formAdress.numeroInt}}
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-sm-4">
+            {{formAdress.ciudad}}
+        </div>
+        <div class="col-sm-4">
+            {{formAdress.estado}}
+        </div>
+        <div class="col-sm-4">
+            {{formAdress.cp}}
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-sm-4">
+            {% if form.foto.value  %}
+                <a target="_blank" href="{{ form.foto.value.url }}">Foto del paciente: </a>
+            {% else %}
+                Foto del paciente:
+            {% endif %}
+
+            {% if form.foto.value %}
+                <img style="height: 50px;border-radius: 55px;" src="{{form.foto.value.url}}" />
+                </br></br>
+            {% else %}
+                <i class="fas fa-user fa-2x text-gray-300"></i> 
+            {% endif %}
+            {{form.foto}}
+        </div>
+        <div class="col-sm-8">
+            </br>
+            <div>
+                {{form.activo}}
+                {% if form.activo.value %}
+                    <span class="btn btn-success" style="font-size: 12px;"> Activo </span>
+                {% else %}
+                    <span class="btn btn-warning" style="font-size: 12px;"> Inactivo </span>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group row">
+
+        <div class="col-sm-3">
+            {{form.numexp}}
+        </div>
+        <div class="col-sm-3">
+            <a class="btn btn-danger btn-user btn-block" href="#" data-toggle="modal" data-target="#deleteModal" role="button"><i class="fa fa-trash"></i> Eliminar</a>
+        </div>
+        <div class="col-sm-3">
+            <button type="submit" class="btn btn-{{request.session.bt_color}} btn-user btn-block"><i class="fa fa-check"></i> Actualizar</button>
+        </div>
+    </div>
+</form>
+
+<!-- Logout Modal-->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Aviso de sistema</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">¿Est&aacute; seguro de eliminar el registro actual que contiene los siguientes datos? </br></br>Nombre: {{form.nombre.value}} {{form.apellidoPaterno.value}} {{form.apellidoMaterno.value}}</br>Correo: {{form.email.value}}</div>
+            <div class="modal-footer">
+                <button class="btn btn-{{request.session.bt_color}}" type="button"
+                    data-dismiss="modal">Cancelar</button>
+                <a class="btn btn-{{request.session.bt_color}}" href="{% url 'eliminarPaciente' id %}">Continuar</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% load static %}
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script>
+    $(function () {
+        $("input[name='telefono']").on('input', function (e) {
+            $(this).val($(this).val().replace(/[^0-9]/g, ''));
+        });
+    });
+</script>
+
+{% else %}
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">No existe ning&uacute;n registro con los datos recibidos</h6>
+    </div>
+    </br>
+    <div class="col-sm-2">
+        <a class="btn btn-{{request.session.bt_color}} btn-user btn-block" href="{% url 'listarPaciente' %}" role="button">Regresar</a>
+    </div>
+{% endif %}
+{% endblock %}

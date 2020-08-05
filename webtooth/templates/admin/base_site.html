@@ -1,0 +1,175 @@
+{% extends "admin/base_site.html" %}  
+
+{% load static %}
+
+{% block extrahead %}
+    <link rel="shortcut icon" href="{% static 'favicon/favicon.ico' %}" />  
+    <link href="{% static 'css/all.min.css' %}" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block extrastyle %}
+<style>
+{% if request.session.ad_color %}
+.module h2, .module caption, .inline-group h2, #header
+{   
+    font-size: 13px;
+    text-align: left;
+    background: {{ request.session.ad_color }};
+    color: #fff;
+}
+
+#user-tools {
+    font-size: 14px;
+}
+
+
+#branding h1, #branding h1 a:link, #branding h1 a:visited {
+    color: white;
+}
+
+div.breadcrumbs {
+    background: {{ request.session.ad_color }};
+    padding: 10px 40px;
+    border: none;
+    font-size: 14px;
+    color: #fff;
+    text-align: left;
+}
+
+.object-tools a:link, .object-tools a:visited {
+    background: {{ request.session.ad_color }};
+}
+
+.dashboard .module table th {
+    font-size: 14px;
+}
+.dashboard .module table td a {
+    font-size: 14px;
+}
+
+td, th {
+ font-size: 14px;   
+}
+
+.selector-chosen h2 {
+    background: {{ request.session.ad_color }} !important;
+}
+
+#user-tools{
+	text-align: center;
+}
+
+.topnav a {
+  padding: 10px 5px;
+}
+
+.button, input[type=submit], input[type=button], .submit-row input, a.button{
+    background: {{ request.session.ad_color }} !important;
+}
+
+.module h2, .module caption, .inline-group h2, #header {
+    background: {{ request.session.ad_color }};
+}
+
+.button, input[type=submit], input[type=button], .submit-row input, a.button {
+    background: {{ request.session.ad_color }};
+}
+
+.object-tools a:link, .object-tools a:visited {
+    background: {{ request.session.ad_color }};
+}
+
+.button.default, input[type=submit].default, .submit-row input.default {
+    background: {{ request.session.ad_color }};
+}
+
+.submit-row a.closelink {
+    background: {{ request.session.ad_color }} !important;
+}
+
+#changelist #toolbar form input[type="submit"] {
+    color: white !important;
+}
+
+#changelist .actions .button {
+    color: white !important;
+}
+{% else %}
+
+.module h2, .module caption, .inline-group h2, #header
+{   
+    font-size: 13px;
+    text-align: left;
+    background: #4e73df;
+    color: #fff;
+}
+
+.button, input[type=submit], input[type=button], .submit-row input, a.button{
+    background: #4e73df;
+}
+
+.module h2, .module caption, .inline-group h2, #header {
+    background: #4e73df;
+}
+
+.button, input[type=submit], input[type=button], .submit-row input, a.button {
+    background: #4e73df !important;
+}
+
+.object-tools a:link, .object-tools a:visited {
+    background: #4e73df;
+}
+
+.button.default, input[type=submit].default, .submit-row input.default {
+    background: #4e73df;
+}
+
+.submit-row a.closelink {
+    background: #4e73df; !important;
+}
+
+#branding h1, #branding h1 a:link, #branding h1 a:visited {
+    color: white;
+}
+
+div.breadcrumbs {
+    background: #4e73df;
+    padding: 10px 40px;
+    border: none;
+    font-size: 14px;
+    color: #fff;
+    text-align: left;
+}
+
+{% endif %}
+</style>
+{% endblock %}
+
+{% block welcome-msg %}
+<nav class="nav justify-content-center">
+	<strong>Bienvenido: {% firstof user.get_full_name user.get_username %}</strong>
+</nav>
+{% endblock %}
+
+{% block userlinks %}
+<div class="topnav">
+<nav class="nav justify-content-end">
+	<a class="nav-link" href="{% url 'home' %}">Webtooth</a><i class="fas fa-heartbeat"></i> /
+	<a class="nav-link" href="{% url 'admin:password_change' %}">Cambiar contraseña</a> /
+	<a class="nav-link" href="{% url 'admin:logout' %}">Terminar sesión</a>
+</nav>
+</div>
+{% endblock %}
+
+{% block sidebar %}
+{% endblock %}
+
+
+{% block branding %}
+    <h1 id="site-name">
+        <div class="sidebar-brand-text mx-3">
+            <a href="{% url 'home' %}">Webtooth </a><i class="fas fa-heartbeat"></i><sup></sup>
+        </div>
+    </h1>
+{% endblock %}
+

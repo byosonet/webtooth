@@ -1,0 +1,98 @@
+{% extends "extends.html" %}
+
+{% block title %} Listado de pacientes {%endblock%}
+{% block titlepage %} Pacientes {%endblock%}
+
+
+
+{% block report %}
+	{% if listaPaciente %}
+	<div>
+		<a href="#" id="ReportePrint" class="d-none d-sm-inline-block btn btn-sm btn-{{request.session.bt_color}} shadow-sm"><i class="fas fa-print"></i> Imprimir reporte</a>
+
+		<a href="#" id="ReporteExcel" class="d-none d-sm-inline-block btn btn-sm btn-{{request.session.bt_color}} shadow-sm"><i class="fas fa-file-excel"></i> Exportar a Excel</a>
+
+		<a href="#" id="ReportePdf" class="d-none d-sm-inline-block btn btn-sm btn-{{request.session.bt_color}} shadow-sm"><i class="fas fa-file-pdf"></i> Exportar a PDF</a>
+	</div>
+	{% endif %}
+{% endblock %}
+
+
+{% block body %} 
+
+{% if listaPaciente %}
+
+	<div class="card shadow mb-4">
+	<div class="card-header py-3">
+	  <h6 class="m-0 font-weight-bold text-primary">    
+	  	<div class="col-sm-2"></div>
+       </h6>
+	</div>
+	<div class="card-body">
+	  <div class="table-responsive">
+	    <table class="table table-bordered webtooth" id="dataTablePatient" width="100%" cellspacing="0">
+	      <thead>
+	        <tr>
+	          <th>Expediente</th>
+	          <th>Nombre(s)</th>
+	          <th>Apellido(s)</th>
+	          <th>Correo</th>
+	          <th>Teléfono</th>
+			  <th>Fecha actualizaci&oacute;n</th>
+			  <th>Foto</th>
+			  <th>Estado</th>
+	        </tr>
+	      </thead>
+	      <tfoot>
+	        <!--tr>
+	          <th>N&uacute;m Expediente</th>
+	          <th>Nombre</th>
+	          <th>Apellido Paterno</th>
+	          <th>Apellido Materno</th>
+	          <th>Correo Electr&oacute;nico</th>
+	          <th>&Uacute;ltima actualizaci&oacute;n</th>
+	        </tr-->
+	      </tfoot>
+	      <tbody>
+	      	{% for paciente in listaPaciente %}
+	        <tr>
+	          <td><b><a href="{% url 'buscarId' paciente.id %}">{{paciente.numexp|upper}}</a></b></td>
+	          <td>{{paciente.nombre}}</td>
+	          <td>{{paciente.apellidoPaterno}} {{paciente.apellidoMaterno}}</td>
+	          <td>{{paciente.email}}</td>
+	          <td>{{paciente.telefono}}</td>
+			  <td style="text-align: center;">{{paciente.fechaUpdate}}</td>
+			  <td style="text-align: center;">{% if paciente.foto %}
+				  <img style="height: 25px;border-radius: 15px;" src="{{paciente.foto.url}}"/>
+				  {% else %} 
+					<i class="fas fa-user fa-2x text-gray-300"></i>
+				  {% endif %}
+			 </td>
+			 <td style="text-align: center;">
+				{% if paciente.activo %}
+					<span class="btn btn-success" style="font-size: 12px;"> Activo </span>
+				{% else %}
+					<span class="btn btn-warning" style="font-size: 12px;"> Inactivo </span>
+				{% endif %}
+			 </td>
+	        </tr>
+	        {% endfor %}
+	      </tbody>
+	    </table>
+	  </div>
+	</div>
+	</div>
+
+{% else %}
+	<div class="card-header py-3">
+  		<h6 class="m-0 font-weight-bold text-primary">Ningún registro encontrado con los datos buscados</h6>
+	</div>
+	</br>
+    <div class="col-sm-2">
+    	<a class="btn btn-{{request.session.bt_color}} btn-user btn-block" href="{% url 'buscarPaciente' %}" role="button"><i class="fa fa-arrow-left"></i> Regresar</a>
+    </div>
+{% endif %}
+
+
+{% endblock %}
+

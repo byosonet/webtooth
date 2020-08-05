@@ -1,0 +1,244 @@
+# Como instalar Django desde el cmd de windows:
+# pip install Django==2.2.3
+
+
+#Para validar la versíón:
+#Desde el cmd hacer lo siguiente:
+
+#1.- python
+#2.- import Django
+#3.- django.VERSION
+
+#Para crear proyecto en Django hacer lo siguiente: crear primero un directorio de trabajo y
+#luego posicionarnos en la ruta desde el cmd
+
+#1.- django-admin startproject proyectowebp1
+
+#Para consultar comandos y ayudas del proyecto
+#2.- manage.py help
+
+#Ir al directorio del proyecto y preparar el proyecto y la BD para activar la funcionalidad del proyecto.
+#3.- python manage.py migrate
+
+#Comprobar para levantar el servidor de aplicaciones
+4.- python manage.py runserver
+
+#Para crear varias ficheros de logs
+4.- python manage.py runserver --noreload
+
+#__init__ 		Para empaquetar el proyecto
+#settings.py 	Para configuraciones del proyecto
+#urls.py 		Almacenar las urls del pruecto		
+#wsgi.py 		Relativo al servidor web django
+
+#Editores recomendados para trabajar con proyectos django
+#Atom
+#Visual studio code
+
+
+#Django trabaja con 2 objetos: request y response
+#Paso con parametros por url
+#Plantillas (HTML con lenguaje embebido) las variables en las plantillas tambien se pueden acceder como propiedades
+#Cuando son listas para acceder desde la plantilla basta solo con indicar el punto y el número de la posición:
+Lista Temas: {{temas.0}}
+
+Orden para leer el punto en las plantillas con python:
+1.- Diccionario
+2.- Atributo
+3.- Metodo
+4.- Indice lista
+
+#En settings se configura el path de las plantillas a utilizar en django
+TEMPLATES = [
+    {
+        'DIRS': ['D:/APPS/practicas_django/proyectoDjango/proyectowebp1/proyectowebp1/templates/'],
+]
+
+#Los metodos se invocan sin parentesis
+#Como iterar elementos en las plantillas, cuando evaluas una lista evalua si existe y si tiene elementos también:
+
+	<p><b>Temas del curso:</b></p>
+	{% if temas %}
+    	<ul>
+    		{% for tema in temas %}
+    			<li>{{tema}}</li>
+    		{% endfor %}
+		</ul>
+	{% else %}
+		<p>No hay cursos disponibles</p>
+	{% endif %}
+
+	{% if persona.nombre == 'Priscila' %}
+
+	{#COMENTARIO DE UNA SOLA LINEA EN CODIGO HTML#}
+
+	{% comment %}
+	COMENTARIO DE VARIAS
+	LINEAS
+	{% endcomment %}
+
+
+#Usando filtros en cadenas con el:
+<p>Nombre de la persona es {{persona.nombre|lower}} 
+<li>{{tema|first}}</li>
+<li>{{tema|first|lower}}</li>
+
+#Utilizando shorcuts e incrustar nuevas plantillas
+
+	def praticaNine(request):
+	persona=Persona("Priscila","Maldonado")
+	listaTemas = ["Historia","Matematicas","Geografia"]
+	return render(request, "template3.html", {"persona":persona, "temas":listaTemas})
+
+#Utilizando herencia de plantillas
+	{% extends "master.html" %}
+
+
+#No es lo mismo una proyecto que una aplicación, por ejemplo una aplicacion que maneje un panel de control manejar el inventario.
+
+1.- App de pagos
+2.- App de inventario
+3.- App de envíos
+4.- App de ventas
+5.- App de promociones
+
+#Y proyecto es todo, contiene n aplicaciones, es como una forma de modularizar los servicios dentro de un proyecto
+
+#Como crear APPS de ejemplo y utilizando 3 tablas usando sqlite3: En python no necesitas crear la tablas, éstas se crean automáticamente al definir los modelos (Clase Model) desde las APPS.
+
+#Los modelos no pueden crearse si no tiene una APP definida, un modelo sin APP no puede funcionar por convención de Python.
+
+#Para crear una APP en nuestro proyecto debemos posicionarnos en el proyecto primero:
+
+1.- django-admin startproject TiendaOnline
+2.- cd .\TiendaOnline\   
+3.- python manage.py startapp appGestionPedidos
+	3.1.- Para revisar si tu aplicación esta bien definida y no tiene errores con el siguiente campo puedes validarlo:
+		python manage.py check appGestionPedidos
+	3.2.- Para crear las base de datos de las apps sin tablas, con el siguiente comando:
+		python manage.py makemigrations -> Se ejecuta cada vez que haya cambio en el modelo
+	3.3.- Para crear el sql de las tablas de las BD de los modelos, se necesita el numero del fichero migrado del comando anterior:
+		python manage.py sqlmigrate appGestionPedidos 0001
+	3.4.- Por último para ejecutar el sql generado y crearse en la BD final es con el comando siguiente:
+		python manage.py migrate
+4.- python manage.py migrate -> Siempre por cada cambio
+
+
+#Como insertar datos desde consola para sqlite3:
+	#Insert
+	1.-python manage.py shell
+	2.-from appGestionPedidos.models import Articulos
+	3.-art=Articulos(nombre="mesa",seccion="decoración",precio=90)
+	4.-art.save()
+	Otra forma de insertar:
+	1.- art3=Articulos.objects.create(nombre="taladro",seccion="ferretería",precio=65)
+
+	#Update
+	1.- art.precio=95
+	2.- art.save()
+	
+	#Delete
+	1.- art_camisa = Articulos.objects.get(id='2')
+	2.- art_camisa.delete()
+
+	#Select 
+	1.- lista = Articulos.objects.all()
+	2.- lista
+	3.- lista.query.__str__()
+	Resultado:
+		'SELECT "appGestionPedidos_articulos"."id", "appGestionPedidos_articulos"."nombre", 
+		"appGestionPedidos_articulos"."seccion", "appGestionPedidos_articulos"."precio" FROM "appGestionPedidos_articulos"'
+
+	#Select utilizando where indicando un filtro:
+	1.-python manage.py shell
+	2.-from appGestionPedidos.models import Articulos
+	3.-Articulos.objects.filter(seccion='deportes')
+
+	#Select Utilizando 2 filtros
+	1.- Articulos.objects.filter(seccion='decoración', nombre='mesa')
+		#El mayor y menor que <> el shell lo interpreta de forma diferente, hay que utilizarlo por:
+		"__gte=10" significa a mayor que
+		"__lte=150" significa menor que
+		"__range=[10,150]" significa rango de valores entre 10 y 150
+
+	2.- Articulos.objects.filter(seccion='deportes', precio__gte=100)
+	#Para ordenar el resultado por un campo ASC
+	3.- Articulos.objects.filter(precio__gte=50).order_by('precio')
+	#Para ordenar el resultado por un campo DESC con el signo menos en el campo -precio
+	4.- Articulos.objects.filter(precio__gte=50).order_by('-precio')
+
+	
+# Para conectar a PostgreSQL se necesita una librería par conectar desde django a PostgreSQL llamada:
+	1.- psycopg2, ejecutar desde el proyecto lo siguiente
+	2.- pip install psycopg2
+	3.- Configurar en el settings:
+	DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'tiendaonline',
+        'USER':'postgres',
+        'PASSWORD':'root',
+        'HOST':'127.0.0.1',
+        'DATABASE_PORT':'5432'
+    }
+}
+
+	from appGestionPedidos.models import Clientes
+	cte = Clientes(nombre="Gustavo", direccion="Tapachula", email="gtrejo.armenta@gmail.com",telefono="1234567")
+	cte.save()
+
+
+#Para usar el admin de django deberá crearse primero un superusuario
+	1.- python manage.py createsuperuser
+	2.- define el usuario
+	3.- crea al password
+
+#Trabajar con formularios:
+1.- crear un controlador para la vista
+2.- crear otro controlador que devuelva los datos del valor buscado
+
+#Para instalar boostrap4 en django: pip install django-bootstrap4
+
+
+#Para realizar una búsqeuda por like en BD:
+Articulos.objects.filter(fieldNameX__icontains=dataY)
+
+#Para enviar emails desde django se utiliza la libreria core.mail
+from django.core.mail import send_mail
+from django.conf import settings
+
+
+#Para securizar todas las views del proyecto:
+pip install django-stronghold
+
+#Add:
+# settings.py
+INSTALLED_APPS = (
+    #...
+    'stronghold',
+)
+MIDDLEWARE_CLASSES = (
+    #...
+    'stronghold.middleware.LoginRequiredMiddleware',
+)
+
+
+#Otra forma de crear formularios en Python es con el API Forms de Python
+1.- Lo único que ha que hacer es crearse un archivo llamado forms.py
+2.- Para formatear el formulario sería de la forma siguiente:
+
+miForm.as_table() -> Formatea por tabla
+miForm.as_p() -> Formatea con parrafo
+miForm.as_ul() -> Formatea con lista
+
+miForm.is_valid() -> Valida el formulario
+miForm.cleaned_data -> Para obtener los datos de los campos del formulario
+
+{{ form.as_table }} will render them as table cells wrapped in <tr> tags
+{{ form.as_p }} will render them wrapped in <p> tags
+{{ form.as_ul }} will render them wrapped in <li> tags
+
+
+#Para habilitar el acceso desde cualquier equipo:
+1.- ALLOWED_HOSTS = ['*']
+2.- python manage.py runserver 0.0.0.0:8000

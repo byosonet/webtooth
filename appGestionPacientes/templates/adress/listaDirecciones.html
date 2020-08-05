@@ -1,0 +1,93 @@
+{% extends "extends.html" %}
+
+{% block title %} Listado de direcciones {%endblock%}
+{% block titlepage %} Direcciones {%endblock%}
+
+
+
+{% block report %}
+{% if listaDireccion %}
+<div>
+    <a href="#" id="ReportePrintAdress"
+        class="d-none d-sm-inline-block btn btn-sm btn-{{request.session.bt_color}} shadow-sm"><i
+            class="fas fa-print"></i> Imprimir reporte</a>
+
+    <a href="#" id="ReporteExcelAdress"
+        class="d-none d-sm-inline-block btn btn-sm btn-{{request.session.bt_color}} shadow-sm"><i
+            class="fas fa-file-excel"></i> Exportar a Excel</a>
+
+    <a href="#" id="ReportePdfAdress"
+        class="d-none d-sm-inline-block btn btn-sm btn-{{request.session.bt_color}} shadow-sm"><i
+            class="fas fa-file-pdf"></i> Exportar a PDF</a>
+</div>
+{% endif %}
+{% endblock %}
+
+
+{% block body %}
+
+{% if listaDireccion %}
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">
+            <div class="col-sm-2"></div>
+        </h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered webtooth" id="dataTableAdress" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Expediente</th>
+                        <th>C&oacute;digo postal</th>
+                        <th>Ciudad</th>
+                        <th>Estado</th>
+                        <th>Calle</th>
+                        <th>N&uacute;mero exterior</th>
+                        <th>N&uacute;mero interior</th>
+                        <th>Fecha actualizaci&oacute;n</th>
+                    </tr>
+                </thead>
+                <tfoot>
+            <!--tr>
+	          <th>N&uacute;m Expediente</th>
+	          <th>Nombre</th>
+	          <th>Apellido Paterno</th>
+	          <th>Apellido Materno</th>
+	          <th>Correo Electr&oacute;nico</th>
+	          <th>&Uacute;ltima actualizaci&oacute;n</th>
+	        </tr-->
+                </tfoot>
+                <tbody>
+                    {% for direccion in listaDireccion %}
+                    <tr>
+                        <td><b><a href="{% url 'buscarId' direccion.patient.id %}">{{direccion.patient.numexp|upper}}</a></b></td>
+                        <td>{{direccion.cp}}</td>
+                        <td>{{direccion.ciudad}}</td>
+                        <td>{{direccion.estado}}</td>
+                        <td>{{direccion.calle}}</td>
+                        <td>{{direccion.numeroExt}}</td>
+                        <td>{{direccion.numeroInt}}</td>
+                        <td style="text-align: center;">{{direccion.patient.fechaUpdate}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% else %}
+<div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">No hay ningún registro en la base de datos actual</h6>
+</div>
+</br>
+<div class="col-sm-2">
+    <a class="btn btn-{{request.session.bt_color}} btn-user btn-block" href="{% url 'home' %}"
+        role="button"><i class="fa fa-arrow-left"></i> Regresar</a>
+</div>
+{% endif %}
+
+
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends "extends.html" %}
+
+{% block title %} El registro se ha actualizado correctamente {%endblock%}
+{% block titlepage %} El registro se ha actualizado correctamente {%endblock%}
+
+{% block body %}
+
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Se ha actualizado correctamente el paciente con número de expediente: <b><a href="{% url 'buscarId' idPatient %}">{{exp|upper}}</a></b></h6>
+    </div>
+    </br>
+    <div class="col-sm-2">
+        <a class="btn btn-{{request.session.bt_color}} btn-user btn-block" href="{% url 'listarPaciente' %}" role="button"><i class="fa fa-arrow-left"></i> Regresar</a>
+    </div>
+
+{% endblock %}

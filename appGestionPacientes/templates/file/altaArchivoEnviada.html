@@ -1,0 +1,19 @@
+{% extends "extends.html" %}
+
+{% block title %} El archivo se ha subido correctamente {%endblock%}
+{% block titlepage %} El archivo se ha subido correctamente {%endblock%}
+
+{% block body %}
+
+<div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">Se ha subido correctamente el nuevo archivo con nombre:
+        <b>{{nombre}}</b></h6>
+</div>
+</br>
+<div class="col-sm-2">
+    <a class="btn btn-{{request.session.bt_color}} btn-user btn-block" href="{% url 'altaArchivo' %}" role="button">
+        <i class="fa fa-plus"></i> Agregar m&aacute;s
+    </a>
+</div>
+
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends "extends.html" %}
+
+
+{% block title %} 
+	{% if exp %}
+		El registro se ha eliminado correctamente
+	{% else %}
+		Datos no existen en los registros
+	{% endif %}
+{%endblock%}
+
+{% block titlepage %} 
+	{% if exp %}
+		El registro se ha eliminado correctamente
+	{% else %}
+		Datos no existen en los registros
+	{% endif %}
+{%endblock%}
+
+
+
+{% block body %}
+
+{% if exp %}
+
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Se ha eliminado correctamente el paciente con número de expediente: <b>{{exp|upper}}</b></h6>
+    </div>
+    </br>
+    <div class="col-sm-2">
+        <a class="btn btn-{{request.session.bt_color}} btn-user btn-block" href="{% url 'listarPaciente' %}" role="button">Regresar</a>
+    </div>
+
+ {% else %}
+
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">No existe ning&uacute;n registro con los datos recibidos</h6>
+    </div>
+    </br>
+    <div class="col-sm-2">
+        <a class="btn btn-{{request.session.bt_color}} btn-user btn-block" href="{% url 'listarPaciente' %}" role="button">Regresar</a>
+    </div>
+
+ {% endif %}
+
+{% endblock %}
