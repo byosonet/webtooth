@@ -56,9 +56,12 @@ def contactoPaciente(request):
             log.info("Formulario valido, preparando envío...")
             dataContact = formContact.cleaned_data
             email=sendEmailContact(dataContact)
-            return render(request,"contact/enviado.html",{"correo":email})
+            messages.success(request, f"El correo se ha enviado correctamente ha: {email}")
+            formContact = ContactForm()
+            return render(request,"contact/contacto.html", {"form":formContact})
         else:
             log.error("Formulario recibido no pasa la validacion...")
+            messages.error(request, "Algunos campos necesitan llenarse de forma correcta.")
             validErrors(formContact)
 
     else:
@@ -104,6 +107,7 @@ def altaPaciente(request):
             return render(request, "patient/altaEnviada.html", {"nombre": name})
         else:
             log.error("Formulario recibido no pasa la validacion...")
+            messages.error(request, "Algunos campos necesitan llenarse de forma correcta.")
             validErrors(formPatient)
             validErrors(formAdress)
 
@@ -229,7 +233,9 @@ def altaArchivo(request):
             log.info("Data recibida del formulario archivo: "+str(dataFile))
             file.save()            
             log.info("Se ha agregado a la BD el nuevo registro de archivo")
-            return render(request, "file/altaArchivoEnviada.html", {"nombre": fileName})
+            messages.success(request, f"El archivo {fileName} ha sido agregado correctamente")
+            formFile = FileForm()
+            return render(request, "file/altaArchivo.html", {"form": formFile})
         else:
             log.error("Formulario recibido no pasa la validacion...")
             validErrors(formFile)
