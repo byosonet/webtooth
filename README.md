@@ -1,1 +1,1 @@
-# webtooth
+# webtooth plataforma para la gestión de pacientes.
