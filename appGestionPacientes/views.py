@@ -97,7 +97,7 @@ def altaPaciente(request):
             adress.numeroInt=adress.numeroInt.title()
             adress.numeroExt=adress.numeroExt.title()
             adress.ciudad=adress.ciudad.title()
-            adress.estado=adress.estado.title()
+            adress.estado=adress.estado
             
             dataAdress = formAdress.cleaned_data
             log.info("Data recibida del formulario adress: "+str(dataAdress))

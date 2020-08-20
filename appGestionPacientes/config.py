@@ -29,6 +29,13 @@ def inputCSS(name):
 	log.info("input: "+str(attrs))
 	return attrs
 
+def selectCSS(name):
+	attrs={}
+	attrs=addClass(attrs,'form-control')
+	attrs=addPlaceHolder(attrs,name)
+	log.info("select: "+str(attrs))
+	return attrs
+
 def addMaxLength(attrs,max):
 	attrs.update({'maxlength':max})
 	return attrs
@@ -66,3 +73,40 @@ def fileCSS():
 	attrs = addClass(attrs, 'btn btn-secondary btn-user')
 	log.info("fileCSS: " + str(attrs))
 	return attrs
+
+
+OPTIONS_ESTADO = (
+	("", "Selecciona un estado"),
+	("Aguascalientes","Aguascalientes"),
+    ("Baja California", "Baja California"),
+    ("Baja California Sur","Baja California Sur"),
+    ("Chihuahua","Chihuahua"),
+    ("Chiapas","Chiapas"),
+    ("Campeche","Campeche"),
+    ("Ciudad de México","Ciudad de México"),
+    ("Coahuila","Coahuila"),
+    ("Colima","Colima"),
+    ("Durango","Durango"),
+    ("Guerrero","Guerrero"),
+    ("Guanajuato","Guanajuato"),
+    ("Hidalgo","Hidalgo"),
+    ("Jalisco","Jalisco"),
+    ("Michoacán","Michoacán"),
+    ("Estado de México","Estado de México"),
+    ("Morelos","Morelos"),
+    ("Nayarit","Nayarit"),
+    ("Nuevo León","Nuevo León"),
+    ("Oaxaca","Oaxaca"),
+    ("Puebla","Puebla"),
+    ("Quintana Roo","Quintana Roo"),
+    ("Querétaro","Querétaro"),
+    ("Sinaloa","Sinaloa"),
+    ("San Luis Potosí","San Luis Potosí"),
+    ("Sonora","Sonora"),
+    ("Tabasco","Tabasco"),
+    ("Tlaxcala","Tlaxcala"),
+    ("Tamaulipas","Tamaulipas"),
+    ("Veracruz","Veracruz"),
+    ("Yucatán","Yucatán"),
+    ("Zacatecas","Zacatecas")
+	)

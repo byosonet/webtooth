@@ -28,11 +28,11 @@ class PatientForm(forms.ModelForm):
                     'email', 'telefono', 'numexp', 'foto', 'activo','rfc']
 
 class AdressForm(forms.ModelForm):
-	calle=forms.CharField(required=False, max_length=50, widget=forms.TextInput(attrs=inputCSS('Calle')))
+	calle=forms.CharField(required=False, max_length=50, widget=forms.TextInput(attrs=inputCSS('Dirección')))
 	numeroExt=forms.CharField(required=False, max_length=50, widget=forms.TextInput(attrs=inputCSS('Número exterior')))
 	numeroInt=forms.CharField(required=False, max_length=50, widget=forms.TextInput(attrs=inputCSS('Número interior')))
 	ciudad=forms.CharField(max_length=50, widget=forms.TextInput(attrs=inputCSS('Ciudad')))
-	estado=forms.CharField(max_length=50, widget=forms.TextInput(attrs=inputCSS('Estado')))
+	estado=forms.CharField(max_length=50, widget=forms.Select(attrs=selectCSS('Estado'),choices=OPTIONS_ESTADO))
 	cp=forms.CharField(max_length=6, widget=forms.TextInput(attrs=inputCSS('C.P.')))
 
 	class Meta:
