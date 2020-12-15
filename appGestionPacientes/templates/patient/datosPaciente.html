@@ -107,10 +107,14 @@
             {{form.numexp}}
         </div>
         <div class="col-sm-3">
+            <a class="btn btn-danger btn-user btn-block" href="#" data-toggle="modal" data-target="#modifyModal"
+                role="button"><i class="fa fa-pen"></i> Modificar</a>
+        </div>
+        <div class="col-sm-3">
             <a class="btn btn-danger btn-user btn-block" href="#" data-toggle="modal" data-target="#deleteModal" role="button"><i class="fa fa-trash"></i> Eliminar</a>
         </div>
         <div class="col-sm-3">
-            <button type="submit" class="btn btn-{{request.session.bt_color}} btn-user btn-block"><i class="fa fa-check"></i> Actualizar</button>
+            <button id="update" disabled type="submit" class="btn btn-{{request.session.bt_color}} btn-user btn-block"><i class="fa fa-check"></i> Actualizar</button>
         </div>
     </div>
 </form>
@@ -136,6 +140,30 @@
     </div>
 </div>
 
+<!-- Logout Modal-->
+<div class="modal fade" id="modifyModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Aviso de sistema</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">¿Est&aacute; seguro de modificar el registro actual que contiene los siguientes
+                datos? </br></br>Nombre: {{form.nombre.value}} {{form.apellidoPaterno.value}}
+                {{form.apellidoMaterno.value}}</br>Correo: {{form.email.value}}</div>
+            <div class="modal-footer">
+                <button class="btn btn-{{request.session.bt_color}}" type="button"
+                    data-dismiss="modal">Cancelar</button>
+                <button id="modidy" class="btn btn-{{request.session.bt_color}}" type="button" 
+                data-dismiss="modal">Aceptar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 {% load static %}
 <script src="{% static 'js/jquery.min.js' %}"></script>
 <script>
@@ -143,6 +171,44 @@
         $("input[name='telefono']").on('input', function (e) {
             $(this).val($(this).val().replace(/[^0-9]/g, ''));
         });
+
+        $("#id_nombre").prop("disabled", true);
+        $("#id_apellidoPaterno").prop("disabled", true);
+        $("#id_apellidoMaterno").prop("disabled", true);
+        $("#id_rfc").prop("disabled", true);
+        $("#id_email").prop("disabled", true);
+        $("#id_telefono").prop("disabled", true);
+        $("#id_calle").prop("disabled", true);
+        $("#id_numeroExt").prop("disabled", true);
+        $("#id_numeroInt").prop("disabled", true);
+        $("#id_cp").prop("disabled", true);
+        $("#id_ciudad").prop("disabled", true);
+        $("#id_estado").prop("disabled", true);
+        $("#id_foto").prop("disabled", true);
+        $("#id_activo").prop("disabled", true);
+        $("#update").prop("disabled", true);
+        
+        
+        $("#modidy").click(function () {
+            $("#id_nombre").prop("disabled", false);
+            $("#id_apellidoPaterno").prop("disabled", false);
+            $("#id_apellidoMaterno").prop("disabled", false);
+            $("#id_rfc").prop("disabled", false);
+            $("#id_email").prop("disabled", false);
+            $("#id_telefono").prop("disabled", false);
+            $("#id_calle").prop("disabled", false);
+            $("#id_numeroExt").prop("disabled", false);
+            $("#id_numeroInt").prop("disabled", false);
+            $("#id_cp").prop("disabled", false);
+            $("#id_ciudad").prop("disabled", false);
+            $("#id_estado").prop("disabled", false);
+            $("#id_foto").prop("disabled", false);
+            $("#id_activo").prop("disabled", false);
+            $("#update").prop("disabled", false);
+            $("#id_estado").select2({});
+            
+        });
+        
     });
 </script>
 

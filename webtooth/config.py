@@ -27,7 +27,8 @@ def getLogin():
 def sendEmailContact(dataContact):
 	subject=dataContact['asunto']
 	email=dataContact['email']
-	message = dataContact['nombre']+": "+dataContact['mensaje']
+	message = "Hola " + dataContact['nombre'].title() + ", aquí tienes tu receta: \n\n" + \
+            dataContact['mensaje'] + "\n\n¡Gracias por tu preferencia!"
 	email_from =  settings.EMAIL_HOST_USER
 	email_to = settings.EMAIL_TO
 	email_to.append(email)
@@ -38,6 +39,7 @@ def sendEmailContact(dataContact):
 		return email
 	except Exception as ex:
 		log.error("Error al enviar correo: "+str(ex))
+		return None
 
 def getAllLoggedUsers():
     sessions = Session.objects.filter(expire_date__gte=timezone.now())

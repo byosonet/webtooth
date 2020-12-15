@@ -44,7 +44,7 @@ def textAreaCSS(placeHolder):
 	attrs={}
 	attrs=addClass(attrs,'form-control')
 	attrs=addPlaceHolder(attrs, placeHolder)
-	attrs=addTextArea(attrs,15,20)
+	attrs=addTextArea(attrs,14,20)
 	attrs=addStyle(attrs,'overflow:auto;resize:none')
 	attrs=addMaxLength(attrs,3500)
 	log.info("textArea: "+str(attrs))

@@ -66,7 +66,7 @@
             {{formAdress.ciudad}}
         </div>
         <div class="col-sm-4">
-            {{formAdress.estado}}
+                {{formAdress.estado}}
         </div>
     </div>
 
@@ -74,10 +74,10 @@
         <div class="col-sm-6">
             <i class="fas fa-user fa-2x text-gray-300"></i> Foto del paciente: {{form.foto}}
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-2">
             <button type="reset" class="btn btn-{{request.session.bt_color}} btn-user btn-block"><i class="fa fa-eraser"></i> Limpiar</button>
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-2">
             <button type="submit" class="btn btn-{{request.session.bt_color}} btn-user btn-block"><i class="fa fa-check"></i> Guardar</button>
         </div>
     </div>
@@ -93,6 +93,11 @@
         });
         $("input[name='cp']").on('input', function (e) {
             $(this).val($(this).val().replace(/[^0-9]/g, ''));
+        });
+
+        $("#id_estado").select2({});
+        $('form').on('reset', function () {
+             $('#id_estado').select2('val', 0);
         });
     });
 </script>

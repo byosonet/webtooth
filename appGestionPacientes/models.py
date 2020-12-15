@@ -46,7 +46,6 @@ class Adress(AuditModel, models.Model):
 
 class File(AuditModel, models.Model):
 	nombre = models.CharField(max_length=50, verbose_name="Nombre del archivo")
-	descripcion = models.CharField(max_length=50, verbose_name="Descripción del archivo")
 	fechaSubida = models.DateTimeField(auto_now_add=True, blank=True, null=True, verbose_name="Fecha de subida")
 	path = models.FileField(blank=True, null=True,verbose_name="Archivo", upload_to="upload")
 

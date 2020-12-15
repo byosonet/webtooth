@@ -14,6 +14,8 @@
   <!--link href="{% static 'css/fonts.css' %}" rel="stylesheet"-->
   <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
   <link href="{% static 'css/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+
+  <link href="{% static 'css/select2.min.css' %}" rel="stylesheet" />
 </head>
 
 <body id="page-top">
@@ -79,6 +81,12 @@
   <!--script src="{% static 'js/chart-area-demo.js' %}"></script-->
   <!--script src="{% static 'js/chart-pie-demo.js' %}"></script-->
 
+  <script src="{% static 'js/select2.min.js' %}"></script>
+
+  <script>
+    $.fn.select2.defaults.set("theme", "classic");
+  </script>
+  
   {% include "datatable/config.html" %}
   {% include "home/modal.html" %}
 </body>

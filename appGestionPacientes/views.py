@@ -56,7 +56,11 @@ def contactoPaciente(request):
             log.info("Formulario valido, preparando envío...")
             dataContact = formContact.cleaned_data
             email=sendEmailContact(dataContact)
-            messages.success(request, f"El correo se ha enviado correctamente ha: {email}")
+            if email == None:
+                messages.error(
+                    request, f"Servidor de correo no disponible, intentelo más tarde.")
+            else:
+                messages.success(request, f"El correo se ha enviado correctamente ha: {email}")
             formContact = ContactForm()
             return render(request,"contact/contacto.html", {"form":formContact})
         else:
@@ -226,7 +230,6 @@ def altaArchivo(request):
             file.fechaSubida = timezone.now()
             fileName = file.nombre+"."+file.path.name.split(".")[1]
             file.path.name = fileName
-            file.descripcion = file.descripcion.capitalize()
             file.nombre = file.nombre.capitalize()
             log.info("Formulario valido, preparando alta de archivo...")
             dataFile = formFile.cleaned_data

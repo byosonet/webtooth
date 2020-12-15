@@ -42,9 +42,8 @@ class AdressForm(forms.ModelForm):
 
 class FileForm(forms.ModelForm):
 	nombre = forms.CharField(max_length=50, widget=forms.TextInput(attrs=inputCSS('Nombre del archivo')))
-	descripcion = forms.CharField(max_length=50, widget=forms.TextInput(attrs=inputCSS('Descripción del archivo')))
 	path = forms.FileField(widget=forms.FileInput(attrs=fileCSS()))
 
 	class Meta:
 		model = File
-		fields = ['nombre','descripcion', 'path']
+		fields = ['nombre', 'path']
