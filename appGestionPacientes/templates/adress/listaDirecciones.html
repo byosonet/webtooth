@@ -1,7 +1,7 @@
 {% extends "extends.html" %}
 
 {% block title %} Listado de direcciones {%endblock%}
-{% block titlepage %} Direcciones {%endblock%}
+{% block titlepage %}  {%endblock%}
 
 
 
@@ -31,12 +31,12 @@
 <div class="card shadow mb-4">
     <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary">
-            <div class="col-sm-2"></div>
+            <div class="col-sm-12"><center>Lista de Direcciones</center></div>
         </h6>
     </div>
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-bordered webtooth" id="dataTableAdress" width="100%" cellspacing="0">
+            <table class="table table-striped table-hover webtooth" id="dataTableAdress" width="100%" cellspacing="0">
                 <thead>
                     <tr>
                         <th>Expediente</th>
@@ -45,7 +45,7 @@
                         <th>Estado</th>
                         <th>Calle</th>
                         <th>N&uacute;mero exterior</th>
-                        <th>N&uacute;mero interior</th>
+                        <!--th>N&uacute;mero interior</th-->
                         <th>Fecha actualizaci&oacute;n</th>
                     </tr>
                 </thead>
@@ -68,7 +68,7 @@
                         <td>{{direccion.estado}}</td>
                         <td>{{direccion.calle}}</td>
                         <td>{{direccion.numeroExt}}</td>
-                        <td>{{direccion.numeroInt}}</td>
+                        <!--td>{{direccion.numeroInt}}</td-->
                         <td style="text-align: center;">{{direccion.patient.fechaUpdate}}</td>
                     </tr>
                     {% endfor %}
