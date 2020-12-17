@@ -43,8 +43,10 @@
     </a>
     <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
       <div class="bg-white py-2 collapse-inner rounded">
+        {% if user.get_username == "admin" %}
         <h6 class="collapse-header">Navegaci&oacute;n:</h6>
         <a class="collapse-item" href="{% url 'listarNavegacion' %}"><i class="fas fa-list-ul fa-sm fa-fw mr-2 text-gray-400"></i>Historial</a>
+        {% endif %}
         <h6 class="collapse-header">Color de tema:</h6>
         <a class="collapse-item" href="{% url 'color' 1 %}"><span class="btn btn-dark btn-circle" style="height: 1.5em;width:0.5em;"></span> Negro</a>
         <!--a class="collapse-item" href="{% url 'color' 2 %}"><span class="btn btn-success btn-circle" style="height: 1.5em;width:0.5em;"></span> Verde</a-->
