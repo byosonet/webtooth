@@ -42,6 +42,12 @@
 					}
 				}]
 	  });
+
+		$('#dataTablePatient tbody').on('click', 'tr', function () {
+			numpatient = tablePatient.row(this).data()[8];
+			console.log(numpatient)
+		});
+
 		$("#ReporteExcel").on("click", function() {
     		tablePatient.button( '.buttons-excel' ).trigger();
 		});

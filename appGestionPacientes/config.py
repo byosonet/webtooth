@@ -40,6 +40,11 @@ def addMaxLength(attrs,max):
 	attrs.update({'maxlength':max})
 	return attrs
 
+
+def addHidden(attrs):
+	attrs.update({'type': 'hidden'})
+	return attrs
+
 def textAreaCSS(placeHolder):
 	attrs={}
 	attrs=addClass(attrs,'form-control')
@@ -59,6 +64,7 @@ def customInputReadOnly(name):
 	attrs=addClass(attrs,'form-control form-control-user')
 	attrs=addPlaceHolder(attrs,name)
 	attrs=addReadOnly(attrs)
+	attrs = addHidden(attrs)
 	log.info("input: "+str(attrs))
 	return attrs
 

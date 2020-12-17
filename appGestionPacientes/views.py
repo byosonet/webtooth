@@ -130,7 +130,10 @@ def buscarId(request, idPatient):
         result = filterByIdPatient(idPatient,formPatient)
         adress = filterByIdPatientAdress(idPatient,formAdress)
 
-        return render(request,"patient/datosPaciente.html",{"form": result,"id":idPatient,"formAdress":adress})
+        expediente = result.fields['numexp'].initial
+        log.info("Expdiente: "+str(expediente))
+
+        return render(request, "patient/datosPaciente.html", {"form": result, "id": idPatient, "formAdress": adress, "expediente": expediente})
     except Exception as ex:
         log.error("Error al buscar por id: "+str(ex))
         return render(request,"patient/datosPaciente.html",{"form": None,"formAdress":None})
@@ -172,9 +175,11 @@ def actualizarPaciente(request,idPatient):
             formPatient.save()
             formAdress.save()
             
+            expediente = dataPatient['numexp']
+
             log.info("Se ha actualizado el registro en BD para el Expediente {}".format(dataPatient['numexp']))
             messages.success(request, "Los datos han sido actualizados correctamente para el expediente: {}".format(dataPatient['numexp']))
-            return render(request,"patient/datosPaciente.html",{"form": formPatient,"id":idPatient,"formAdress":formAdress})
+            return render(request, "patient/datosPaciente.html", {"form": formPatient, "id": idPatient, "formAdress": formAdress, "expediente": expediente})
         else:
             log.error("Formulario recibido no pasa la validacion...")
             validErrors(formPatient)

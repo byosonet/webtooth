@@ -41,6 +41,7 @@
 			  <th>Fecha actualizaci&oacute;n</th>
 			  <th>Foto</th>
 			  <th>Estado</th>
+			  <th style="display: none;">ExpHidden</th>
 	        </tr>
 	      </thead>
 	      <tfoot>
@@ -75,6 +76,7 @@
 					<span class="btn btn-warning" style="font-size: 10px;"> Inactivo </span>
 				{% endif %}
 			 </td>
+			 <td style="display: none;">{{paciente.numexp|upper}}</td>
 	        </tr>
 	        {% endfor %}
 	      </tbody>
