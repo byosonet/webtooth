@@ -125,8 +125,8 @@ USE_L10N = False
 USE_TZ = True
 
 DECIMAL_SEPARATOR = '.'
-DATE_FORMAT ='d M y'
-DATETIME_FORMAT='d/M/y H:i a'
+DATE_FORMAT = 'd-M-y'
+DATETIME_FORMAT='d-M-y H:i a'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
@@ -134,7 +134,7 @@ DATETIME_FORMAT='d/M/y H:i a'
 #Directory allow media files
 MEDIA_URL = '/media/'
 MEDIA_ROOT = projectPath+'media'
-MEDIA_REMOVE = projectPath+'media/'
+MEDIA_PATH = projectPath+'media/'
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [projectPath+'static']

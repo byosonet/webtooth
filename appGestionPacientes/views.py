@@ -7,7 +7,7 @@ import os
 from django.conf import settings
 
 from appGestionPacientes.models import Patient, Adress, File, Navigation
-from appGestionPacientes.forms import ContactForm, PatientForm, AdressForm, FileForm
+from appGestionPacientes.forms import ContactForm, PatientForm, AdressForm, FileForm, ImportForm
 from appGestionPacientes.config import validErrors
 from appGestionPacientes.query import filterSearch, filterByIdPatient, generateKlave, filterByIdPatientAdress
 
@@ -15,6 +15,8 @@ from webtooth.config import logger, sendEmailContact, getLogin
 from appGestionPacientes.permissions import *
 from webtooth.decorators import validRequest
 from django.contrib import messages
+
+import pandas as pd
 
 log = logger('appGestionPacientes',True)
 
@@ -130,6 +132,9 @@ def buscarId(request, idPatient):
         result = filterByIdPatient(idPatient,formPatient)
         adress = filterByIdPatientAdress(idPatient,formAdress)
 
+        if adress == None:
+            adress = formAdress
+
         expediente = result.fields['numexp'].initial
         log.info("Expdiente: "+str(expediente))
 
@@ -148,7 +153,12 @@ def actualizarPaciente(request,idPatient):
     formAdress = None
     try:
         obj = Patient.objects.get(pk=idPatient)
-        objAdress = Adress.objects.get(patient__pk=idPatient)
+        try:
+            objAdress = Adress.objects.get(patient__pk=idPatient)
+        except Exception as ex:
+            log.error("Error: "+str(ex))
+            objAdress = Adress()
+            objAdress.patient = obj
         obj.fechaUpdate=timezone.now()
         imageOld = obj.foto
         formPatient = PatientForm(request.POST,request.FILES,instance=obj)
@@ -162,7 +172,7 @@ def actualizarPaciente(request,idPatient):
                 log.info("Se añade nueva imagen: "+str(imageNew))
                 try:
                     if imageOld:
-                        os.remove(settings.MEDIA_REMOVE+str(imageOld))
+                        os.remove(settings.MEDIA_PATH+str(imageOld))
                         log.info("Se ha eliminado la imagen: "+str(imageOld))
                 except Exception as ex:
                     log.error("No se pudo eliminar la imagen {} por el siguiente error:  {}".format(imageOld,ex))
@@ -203,7 +213,7 @@ def eliminarPaciente(request,idPatient):
         log.info("Se ha eliminado el registro de BD con NumExp: {}".format(numexp))
         try:
             if imageOld:
-                os.remove(settings.MEDIA_REMOVE+str(imageOld))
+                os.remove(settings.MEDIA_PATH+str(imageOld))
                 log.info("Se ha eliminado la imagen: "+str(imageOld))
         except Exception as ex:
             log.error("No se pudo eliminar la imagen {} por el siguiente error:  {}".format(imageOld,ex))
@@ -277,7 +287,7 @@ def eliminarArchivo(request, idFile):
         file.delete()
         try:
             if fileOld:
-                os.remove(settings.MEDIA_REMOVE+str(fileOld))
+                os.remove(settings.MEDIA_PATH+str(fileOld))
                 log.info("Se ha eliminado el archivo: "+str(fileOld))
         except Exception as ex:
             log.error("No se pudo eliminar el archivo {} por el siguiente error:  {}".format(
@@ -297,3 +307,58 @@ def listarNavegacion(request):
     log.info("Obteniendo lista de navegacion")
     listadoNavegacion = Navigation.objects.all().order_by('-eventTime')[:200]
     return render(request, "navigation/listaNavegacion.html", {"listaNavegacion": listadoNavegacion})
+
+
+@login_required(login_url=getLogin())
+@permission_required(importFile(), login_url=notPermission())
+@validRequest
+def importPatients(request):
+    if request.method == 'POST':
+        importFile = ImportForm(request.POST, request.FILES)
+        if importFile.is_valid():
+            file = importFile.save(commit=False)
+            file.fechaSubida = timezone.now()
+            fileName = file.path.name
+            file.tipoSubida = 'Fichero de pacientes'
+            log.info("Formulario valido, preparando sudiba de archivo...")
+            dataFile = importFile.cleaned_data
+            log.info("Data recibida del formulario archivo: "+str(dataFile))
+            file.save()
+
+            xls = pd.read_excel(settings.MEDIA_PATH+str(file.path), skiprows=1)
+            xlsValues = xls.values
+
+            for row in xlsValues:
+                guardarPatientXLS(row)
+
+            log.info("Se ha agregado a la BD el nuevo registro de archivo importado")
+            messages.success(
+                request, f"El archivo {fileName} ha sido importado correctamente")
+            importFile = ImportForm()
+            return render(request, "import/importarPaciente.html", {"form": importFile})
+        else:
+            log.error("Formulario recibido no pasa la validacion...")
+            validErrors(importFile)
+    else:
+        importFile = ImportForm()
+    return render(request, "import/importarPaciente.html", {"form": importFile})
+
+
+def guardarPatientXLS(row):
+    patient = Patient()
+    patient.numexp = generateKlave()
+    patient.nombre = row[0].title()
+    patient.apellidoPaterno = row[1].title()
+    patient.apellidoMaterno = row[2].title()
+    patient.email = row[3].lower()
+    patient.telefono = row[4]
+
+    if row[5] == 'Activo':
+        patient.activo = True
+    else:
+        patient.activo = False
+
+    patient.rfc = row[6].upper()
+    patient.fechaUpdate = timezone.now()
+    log.info("Data recibida del xls patient: "+str(patient))    
+    patient.save()

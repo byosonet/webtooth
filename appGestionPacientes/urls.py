@@ -17,4 +17,6 @@ urlpatterns=[
     path('update/<int:idPatient>/', views.actualizarPaciente, name="actualizarPaciente"),
     path('delete/<int:idPatient>/', views.eliminarPaciente, name="eliminarPaciente"),
     path('delete/file/<int:idFile>/', views.eliminarArchivo, name="eliminarArchivo"),
+
+    path('import/patient/', views.importPatients, name="importPatients"),
 ]

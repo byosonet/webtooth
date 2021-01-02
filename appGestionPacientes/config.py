@@ -81,6 +81,12 @@ def fileCSS():
 	return attrs
 
 
+def xlsCSS():
+	attrs = {'accept': 'application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'}
+	attrs = addClass(attrs, 'btn btn-secondary btn-user')
+	log.info("xlsCSS: " + str(attrs))
+	return attrs
+
 OPTIONS_ESTADO = (
 	("", "Selecciona un estado"),
 	("Aguascalientes","Aguascalientes"),

@@ -28,3 +28,7 @@ def deleteFile():
 
 def listNavigation():
 	return APP_NAME_MANAGEMENT_PATIENT+'viewListNavigation'
+
+#Gestion de permisos para Importar
+def importFile():
+	return APP_NAME_MANAGEMENT_PATIENT+'importFile'

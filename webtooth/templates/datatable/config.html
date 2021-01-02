@@ -23,14 +23,14 @@
 			"aaSorting": [],
         	buttons: [{
 					extend : 'excelHtml5',
-					title: 'Listado de pacientes al día {% now "DATETIME_FORMAT" %}',
+					title: 'Listado de pacientes al día {% now "DATE_FORMAT" %}',
 					exportOptions: {
 						columns: [0, 1, 2, 3, 4, 5, 7, 8]
 					}
 				},
             	{
 					extend: 'pdfHtml5',
-					title: 'Listado de pacientes al día {% now "DATETIME_FORMAT" %}',
+					title: 'Listado de pacientes al día {% now "DATE_FORMAT" %}',
 					orientation: 'landscape',
 					pageSize: 'LETTER',
 					download: 'open',
@@ -42,7 +42,7 @@
 					}
 				},{
 					extend: 'print',
-					title: 'Listado de pacientes al día {% now "DATETIME_FORMAT" %}',
+					title: 'Listado de pacientes al día {% now "DATE_FORMAT" %}',
 					exportOptions: {
 						columns: [0, 1, 2, 3, 4, 5, 7, 8]
 					}
@@ -73,14 +73,14 @@
 			"aaSorting": [],
 			buttons: [{
 				extend: 'excelHtml5',
-				title: 'Listado de direcciones al día {% now "DATETIME_FORMAT" %}',
+				title: 'Listado de direcciones al día {% now "DATE_FORMAT" %}',
 				exportOptions: {
 					columns: [0, 1, 2, 3, 4, 5, 6, 7]
 				}
 			},
 			{
 				extend: 'pdfHtml5',
-				title: 'Listado de direcciones al día {% now "DATETIME_FORMAT" %}',
+				title: 'Listado de direcciones al día {% now "DATE_FORMAT" %}',
 				orientation: 'landscape',
 				pageSize: 'LETTER',
 				download: 'open',
@@ -92,7 +92,7 @@
 				}
 			}, {
 				extend: 'print',
-				title: 'Listado de direcciones al día {% now "DATETIME_FORMAT" %}',
+				title: 'Listado de direcciones al día {% now "DATE_FORMAT" %}',
 				exportOptions: {
 					columns: [0, 1, 2, 3, 4, 5, 6, 7]
 				}
@@ -117,14 +117,14 @@
 			"aaSorting": [],
 			buttons: [{
 				extend: 'excelHtml5',
-				title: 'Listado de archivos al día {% now "DATETIME_FORMAT" %}',
+				title: 'Listado de archivos al día {% now "DATE_FORMAT" %}',
 				exportOptions: {
 					columns: [0, 1, 2]
 				}
 			},
 			{
 				extend: 'pdfHtml5',
-				title: 'Listado de archivos al día {% now "DATETIME_FORMAT" %}',
+				title: 'Listado de archivos al día {% now "DATE_FORMAT" %}',
 				orientation: 'portrait',
 				pageSize: 'LETTER',
 				download: 'open',
@@ -136,7 +136,7 @@
 				}
 			}, {
 				extend: 'print',
-				title: 'Listado de archivos al día {% now "DATETIME_FORMAT" %}',
+				title: 'Listado de archivos al día {% now "DATE_FORMAT" %}',
 				exportOptions: {
 					columns: [0, 1, 2]
 				}
@@ -161,14 +161,14 @@
 			"aaSorting": [],
 			buttons: [{
 				extend: 'excelHtml5',
-				title: 'Listado de navegación al día {% now "DATETIME_FORMAT" %}',
+				title: 'Listado de navegación al día {% now "DATE_FORMAT" %}',
 				exportOptions: {
 					columns: [0, 1, 2, 3, 4, 5]
 				}
 			},
 			{
 				extend: 'pdfHtml5',
-				title: 'Listado de navegación al día {% now "DATETIME_FORMAT" %}',
+				title: 'Listado de navegación al día {% now "DATE_FORMAT" %}',
 				orientation: 'landscape',
 				pageSize: 'LETTER',
 				download: 'open',
@@ -180,7 +180,7 @@
 				}
 			}, {
 				extend: 'print',
-				title: 'Listado de navegación al día {% now "DATETIME_FORMAT" %}',
+				title: 'Listado de navegación al día {% now "DATE_FORMAT" %}',
 				exportOptions: {
 					columns: [0, 1, 2, 3, 4, 5]
 				}

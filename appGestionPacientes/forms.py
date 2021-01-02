@@ -1,6 +1,6 @@
 from django import forms
 from appGestionPacientes.config import *
-from appGestionPacientes.models import Patient, Adress, File
+from appGestionPacientes.models import Patient, Adress, File, Import
 
 class ContactForm(forms.Form):
 	asunto=forms.CharField(max_length=50, widget=forms.TextInput(attrs=inputCSS('Asunto')))
@@ -47,3 +47,11 @@ class FileForm(forms.ModelForm):
 	class Meta:
 		model = File
 		fields = ['nombre', 'path']
+
+
+class ImportForm(forms.ModelForm):
+	path = forms.FileField(widget=forms.FileInput(attrs=xlsCSS()))
+
+	class Meta:
+		model = Import
+		fields = ['path']

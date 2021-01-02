@@ -242,3 +242,5 @@ miForm.cleaned_data -> Para obtener los datos de los campos del formulario
 #Para habilitar el acceso desde cualquier equipo:
 1.- ALLOWED_HOSTS = ['*']
 2.- python manage.py runserver 0.0.0.0:8000
+
+3.- Instalar Pandas: pip install pandas y pip install xlrd==1.2.0

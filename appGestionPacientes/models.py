@@ -117,3 +117,20 @@ class Propertie(models.Model):
 	class Meta:
 		verbose_name = 'propiedad'
 		verbose_name_plural = 'Propiedades'
+
+
+class Import(AuditModel, models.Model):
+	tipoSubida = models.CharField(max_length=50, verbose_name="Tipo de fichero")
+	fechaSubida = models.DateTimeField(auto_now_add=True, blank=True, null=True, verbose_name="Fecha de subida")
+	path = models.FileField(blank=True, null=True,verbose_name="Archivo", upload_to="upload-xls")
+
+	def __str__(self):
+		return "achivo: {}".format(self.path.name.split("/")[1])
+
+	def fileName(self):
+		return self.path.name.split("/")[1]
+
+	class Meta:
+		verbose_name = 'importado'
+		verbose_name_plural = 'Importados'
+		permissions = [("importFile","Subir archivo")]

@@ -80,7 +80,7 @@ def filterSearch(request):
 
 
 def filterByIdPatient(idPatient, formPatient):
-	log.info("Id recibido: "+str(idPatient))
+	log.info("Id recibido for patient: "+str(idPatient))
 	patient = Patient.objects.get(pk=idPatient)
 	if patient:
 		log.info("Paciente encontrado: {} {}".format(
@@ -100,18 +100,22 @@ def filterByIdPatient(idPatient, formPatient):
 
 
 def filterByIdPatientAdress(idPatient, formAdress):
-	log.info("Id recibido: "+str(idPatient))
-	adress = Adress.objects.get(patient__pk=idPatient)
-	if adress:
-		log.info("Address encontrado: {}".format(adress.calle))
-		formAdress.fields['calle'].initial = adress.calle
-		formAdress.fields['numeroInt'].initial = adress.numeroInt
-		formAdress.fields['numeroExt'].initial = adress.numeroExt
-		formAdress.fields['ciudad'].initial = adress.ciudad
-		formAdress.fields['estado'].initial = adress.estado
-		formAdress.fields['cp'].initial = adress.cp
-		return formAdress
-	else:
+	log.info("Id recibido for address: "+str(idPatient))
+	try:
+		adress = Adress.objects.get(patient__pk=idPatient)
+		if adress:
+			log.info("Address encontrado: {}".format(adress.calle))
+			formAdress.fields['calle'].initial = adress.calle
+			formAdress.fields['numeroInt'].initial = adress.numeroInt
+			formAdress.fields['numeroExt'].initial = adress.numeroExt
+			formAdress.fields['ciudad'].initial = adress.ciudad
+			formAdress.fields['estado'].initial = adress.estado
+			formAdress.fields['cp'].initial = adress.cp
+			return formAdress
+		else:
+			return None
+	except Exception as ex:
+		log.error("Error: "+str(ex))
 		return None
 
 
