@@ -5,7 +5,7 @@ from appGestionPacientes.mixins import AuditModel
 class Patient(AuditModel, models.Model):
 	nombre=models.CharField(max_length=50, verbose_name="Nombre")
 	apellidoPaterno=models.CharField(max_length=50, verbose_name="Apellido paterno")
-	apellidoMaterno=models.CharField(max_length=50, verbose_name="Apellido materno")
+	apellidoMaterno = models.CharField(blank=True, null=True, max_length=50, verbose_name="Apellido materno")
 	rfc=models.CharField(blank=True,null=True,max_length=13, verbose_name="RFC")
 	email=models.EmailField(blank=True,null=True,verbose_name="Correo electrónico")
 	telefono = models.CharField(blank=True, null=True, max_length=10, verbose_name="Teléfono")

@@ -11,12 +11,12 @@ class ContactForm(forms.Form):
 
 
 class PatientForm(forms.ModelForm):
-	nombre = forms.CharField(max_length=50, widget=forms.TextInput(attrs=inputCSS('Nombre(s)')))
-	apellidoPaterno = forms.CharField(max_length=50, widget=forms.TextInput(attrs=inputCSS('Apellido paterno')))
-	apellidoMaterno = forms.CharField(max_length=50, widget=forms.TextInput(attrs=inputCSS('Apellido materno')))
+	nombre = forms.CharField(max_length=50, widget=forms.TextInput(attrs=inputCSS('Nombre(s)*')))
+	apellidoPaterno = forms.CharField(max_length=50, widget=forms.TextInput(attrs=inputCSS('Apellido paterno*')))
+	apellidoMaterno = forms.CharField(required=False, max_length=50, widget=forms.TextInput(attrs=inputCSS('Apellido materno')))
 	rfc = forms.CharField(required=False,max_length=13, widget=forms.TextInput(attrs=inputCSS('RFC')))
-	email = forms.EmailField(widget=forms.EmailInput(attrs=inputCSS('Email')))
-	telefono = forms.CharField(max_length=10, widget=forms.TextInput(attrs=inputCSS('Teléfono')))
+	email = forms.EmailField(required=False, widget=forms.EmailInput(attrs=inputCSS('Email')))
+	telefono = forms.CharField(required=False, max_length=10, widget=forms.TextInput(attrs=inputCSS('Teléfono')))
 	numexp = forms.CharField(required=False, max_length=15, widget=forms.TextInput(
 		attrs=customInputReadOnly('Número expediente')))
 	foto = forms.ImageField(required=False,widget=forms.FileInput(attrs=imageCSS()))
@@ -31,9 +31,9 @@ class AdressForm(forms.ModelForm):
 	calle=forms.CharField(required=False, max_length=50, widget=forms.TextInput(attrs=inputCSS('Dirección')))
 	numeroExt=forms.CharField(required=False, max_length=50, widget=forms.TextInput(attrs=inputCSS('Número exterior')))
 	numeroInt=forms.CharField(required=False, max_length=50, widget=forms.TextInput(attrs=inputCSS('Número interior')))
-	ciudad=forms.CharField(max_length=50, widget=forms.TextInput(attrs=inputCSS('Ciudad')))
-	estado=forms.CharField(max_length=50, widget=forms.Select(attrs=selectCSS('Estado'),choices=OPTIONS_ESTADO))
-	cp=forms.CharField(max_length=6, widget=forms.TextInput(attrs=inputCSS('C.P.')))
+	ciudad = forms.CharField(required=False, max_length=50, widget=forms.TextInput(attrs=inputCSS('Ciudad')))
+	estado=forms.CharField(required=False, max_length=50, widget=forms.Select(attrs=selectCSS('Estado'),choices=OPTIONS_ESTADO))
+	cp=forms.CharField(required=False, max_length=6, widget=forms.TextInput(attrs=inputCSS('C.P.')))
 
 	class Meta:
 		model = Adress

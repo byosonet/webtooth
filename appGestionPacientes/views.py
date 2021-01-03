@@ -67,7 +67,7 @@ def contactoPaciente(request):
             return render(request,"contact/contacto.html", {"form":formContact})
         else:
             log.error("Formulario recibido no pasa la validacion...")
-            messages.error(request, "Algunos campos necesitan llenarse de forma correcta.")
+            messages.error(request, "[ERROR]: Algunos campos necesitan llenarse de forma correcta.")
             validErrors(formContact)
 
     else:
@@ -113,7 +113,7 @@ def altaPaciente(request):
             return render(request, "patient/altaEnviada.html", {"nombre": name})
         else:
             log.error("Formulario recibido no pasa la validacion...")
-            messages.error(request, "Algunos campos necesitan llenarse de forma correcta.")
+            messages.error(request, "[ERROR]: Algunos campos necesitan llenarse de forma correcta.")
             validErrors(formPatient)
             validErrors(formAdress)
 
@@ -296,7 +296,7 @@ def eliminarArchivo(request, idFile):
         return render(request, "file/listaArchivos.html", {"listaArchivo": listadoArchivos})
     except Exception as ex:
         log.error("Error: "+str(ex))
-        messages.error(request, f"Mensaje de error: {str(ex)}")
+        messages.error(request, f"[ERROR]: {str(ex)}")
         return render(request, "file/listaArchivos.html", {"listaArchivo": listadoArchivos})
 
 
@@ -328,10 +328,23 @@ def importPatients(request):
             xls = pd.read_excel(settings.MEDIA_PATH+str(file.path), skiprows=1)
             xlsValues = xls.values
 
-            for row in xlsValues:
-                guardarPatientXLS(row)
+            lista = len(xlsValues)
+            if lista > 0:
+                for row in xlsValues:
+                    containsError = guardarPatientXLS(row)
+                    if containsError:
+                        importFile = ImportForm()
+                        log.info("Existen errores de validacion, revisar archivo")
+                        messages.error(request, f"[ERROR]: El archivo {fileName} contiene errores o le faltan campos por cumplimentar.")
+                        return render(request, "import/importarPaciente.html", {"form": importFile})
+            else:
+                importFile = ImportForm()
+                log.info("Existen errores de validacion, revisar archivo")
+                messages.error(request, f"[ERROR]: El archivo {fileName} debe contener al menos un registro")
+                return render(request, "import/importarPaciente.html", {"form": importFile})
 
-            log.info("Se ha agregado a la BD el nuevo registro de archivo importado")
+
+            log.info("Se ha agregado a la BD el nuevo archivo importado")
             messages.success(
                 request, f"El archivo {fileName} ha sido importado correctamente")
             importFile = ImportForm()
@@ -345,20 +358,40 @@ def importPatients(request):
 
 
 def guardarPatientXLS(row):
-    patient = Patient()
-    patient.numexp = generateKlave()
-    patient.nombre = row[0].title()
-    patient.apellidoPaterno = row[1].title()
-    patient.apellidoMaterno = row[2].title()
-    patient.email = row[3].lower()
-    patient.telefono = row[4]
+    try:
+        patient = Patient()
+        patient.numexp = generateKlave()
+        patient.nombre = row[0].title()
+        patient.apellidoPaterno = row[1].title()
 
-    if row[5] == 'Activo':
-        patient.activo = True
+        try:
+            patient.apellidoMaterno = row[2].title()
+            patient.email = row[3].lower()
+            patient.telefono = row[4]
+
+            if row[5] == 'Activo':
+                patient.activo = True
+            else:
+                patient.activo = False
+
+            patient.rfc = row[6].upper()
+        except Exception as error:
+            patient.email = ''
+            patient.telefono = ''
+            patient.rfc = ''
+            log.error("Error: algunos campos no tienen valores en el xls, pero no son obligatorios")
+
+        patient.fechaUpdate = timezone.now()
+        log.info("Data recibida del xls patient: "+str(patient))
+        patient.save()
+        return False
+    except Exception as ex:
+        log.error("Error: "+str(ex))
+        return True
+
+def validCellValue(val):
+    if pd.isnull(val) == True:
+        return True
     else:
-        patient.activo = False
+        return False
 
-    patient.rfc = row[6].upper()
-    patient.fechaUpdate = timezone.now()
-    log.info("Data recibida del xls patient: "+str(patient))    
-    patient.save()
