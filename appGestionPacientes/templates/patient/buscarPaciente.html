@@ -5,32 +5,64 @@
 
 {% block body %} 
 
-<form class="user" action="{% url 'buscarNombre' %}" method="POST">{% csrf_token %}
-     <div class="form-group row">
-        <div class="col-sm-4">
-            <input type="text" class="form-control form-control-user" id="name" name="name" placeholder="Nombre(s)">
+<nav>
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Buscar</a>
+        <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Ayuda</a>
+    </div>
+</nav>
+<div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+        
+        <div style="margin-top: 20px; width: 95%; margin-left: 30px;margin-right: 20px;">
+        
+        <form class="user" action="{% url 'buscarNombre' %}" method="POST">{% csrf_token %}
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <input type="text" class="form-control form-control-user" id="name" name="name" placeholder="Nombre(s)">
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control form-control-user" id="apellidos" name="apellidos"
+                        placeholder="Apellido(s)">
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control form-control-user" id="numexp" name="numexp"
+                        placeholder="Número de expediente">
+                </div>
+            </div>
+        
+            <div class="form-group row">
+                <div class="col-sm-8">
+        
+                </div>
+                <div class="col-sm-2">
+                    <button type="reset" class="btn btn-{{request.session.bt_color}} btn-user btn-block"><i
+                            class="fa fa-eraser"></i> Limpiar</button>
+                </div>
+                </br></br>
+                <div class="col-sm-2">
+                    <button type="submit" class="btn btn-{{request.session.bt_color}} btn-user btn-block"><i
+                            class="fa fa-search"></i> Buscar</button>
+                </div>
+            </div>
+        </form>
+
         </div>
-        <div class="col-sm-4">
-            <input type="text" class="form-control form-control-user" id="apellidos" name="apellidos" placeholder="Apellido(s)">
-        </div>
-         <div class="col-sm-4">
-            <input type="text" class="form-control form-control-user" id="numexp" name="numexp" placeholder="Número de expediente">
-        </div>
+
     </div>
 
-  	<div class="form-group row">
-        <div class="col-sm-8">
+    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+        <div style="margin-top: 20px; width: 95%; margin-left: 30px;margin-right: 20px;">
+            <p style="text-align: justify;">
+                Desde este apartado podr&aacute;s realizar b&uacute;squedas por nombre, apellidos o n&uacute;mero de expediente. Solo da clic en el bot&oacute;n de buscar.
+            </p>
 
         </div>
-  		<div class="col-sm-2">
-            <button type="reset" class="btn btn-{{request.session.bt_color}} btn-user btn-block"><i class="fa fa-eraser"></i> Limpiar</button>
-        </div>
-    	</br></br>
-        <div class="col-sm-2">
-            <button type="submit" class="btn btn-{{request.session.bt_color}} btn-user btn-block"><i class="fa fa-search"></i> Buscar</button>
-        </div>
     </div>
-</form>
+    
+</div>
+
+
 
 {% endblock %}
 
