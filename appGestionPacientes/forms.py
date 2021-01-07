@@ -1,6 +1,6 @@
 from django import forms
 from appGestionPacientes.config import *
-from appGestionPacientes.models import Patient, Adress, File, Import
+from appGestionPacientes.models import Patient, Adress, File, Import, Task
 
 class ContactForm(forms.Form):
 	asunto=forms.CharField(max_length=50, widget=forms.TextInput(attrs=inputCSS('Asunto')))
@@ -55,3 +55,13 @@ class ImportForm(forms.ModelForm):
 	class Meta:
 		model = Import
 		fields = ['path']
+
+
+class TaskForm(forms.ModelForm):
+	nameTask = forms.CharField(required=True,max_length=50, widget=forms.TextInput(attrs=inputCSS('Nombre de la tarea (*)')))
+	descTask = forms.CharField(required=True, widget=forms.Textarea(attrs=textAreaCSS('Descripción de la tarea (*)')))
+	status = forms.BooleanField(required=False)
+
+	class Meta:
+		model = Task
+		fields = ['nameTask', 'descTask', 'status']

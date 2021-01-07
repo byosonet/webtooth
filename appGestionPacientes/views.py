@@ -7,7 +7,7 @@ import os
 from django.conf import settings
 
 from appGestionPacientes.models import Patient, Adress, File, Navigation
-from appGestionPacientes.forms import ContactForm, PatientForm, AdressForm, FileForm, ImportForm
+from appGestionPacientes.forms import ContactForm, PatientForm, AdressForm, FileForm, ImportForm, TaskForm
 from appGestionPacientes.config import validErrors
 from appGestionPacientes.query import filterSearch, filterByIdPatient, generateKlave, filterByIdPatientAdress
 
@@ -15,6 +15,7 @@ from webtooth.config import logger, sendEmailContact, getLogin
 from appGestionPacientes.permissions import *
 from webtooth.decorators import validRequest
 from django.contrib import messages
+from appGestionPacientes.signals import getUser
 
 import pandas as pd
 
@@ -395,3 +396,36 @@ def validCellValue(val):
     else:
         return False
 
+
+@login_required(login_url=getLogin())
+@permission_required(addTask(), login_url=notPermission())
+@validRequest
+def altaTarea(request):
+    if request.method == 'POST':
+        taskForm = TaskForm(request.POST)
+        if all([taskForm.is_valid()]):
+            task = taskForm.save(commit=False)
+            task.nameTask = task.nameTask.title()
+            task.descTask = task.descTask.title()
+
+            user = getUser()
+            task.userId = user.id
+            task.userCode = user.get_username()
+            task.userName = user.get_full_name()
+
+            dataTask = taskForm.cleaned_data
+            log.info("Data recibida del formulario Task: "+str(dataTask))
+            task.save()
+
+            log.info("Se ha agregado a la BD el nuevo registro")
+
+            messages.success(request, f"La tarea {task.nameTask} ha sido agregada correctamente")
+            taskForm = TaskForm()
+            return render(request, "task/altaTarea.html", {"form": taskForm})
+        else:
+            log.error("Formulario recibido no pasa la validacion...")
+            messages.error(request, "[ERROR]: Algunos campos necesitan llenarse de forma correcta.")
+            validErrors(taskForm)
+    else:
+        taskForm = TaskForm()
+    return render(request, "task/altaTarea.html", {"form": taskForm})

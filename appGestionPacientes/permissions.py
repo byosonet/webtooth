@@ -32,3 +32,11 @@ def listNavigation():
 #Gestion de permisos para Importar
 def importFile():
 	return APP_NAME_MANAGEMENT_PATIENT+'importFile'
+
+#Gestion de permisos para Tareas
+def listTask():
+	return APP_NAME_MANAGEMENT_PATIENT+'listTask'
+def addTask():
+	return APP_NAME_MANAGEMENT_PATIENT+'addTask'
+def deleteTask():
+	return APP_NAME_MANAGEMENT_PATIENT+'deleteTask'
