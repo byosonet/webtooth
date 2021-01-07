@@ -45,15 +45,15 @@
       <div class="bg-white py-2 collapse-inner rounded">
         {% if user.get_username == "admin" %}
         <h6 class="collapse-header">Navegaci&oacute;n:</h6>
-        <a class="collapse-item" href="{% url 'listarNavegacion' %}"><i class="fas fa-list-ul fa-sm fa-fw mr-2 text-gray-400"></i>Historial</a>
+        <a class="collapse-item" href="{% url 'listarNavegacion' %}"><i class="fas fa-list-ul fa-sm fa-fw mr-2"></i>Historial</a>
 
         <h6 class="collapse-header">Importar</h6>
-        <a class="collapse-item" href="{% url 'importPatients' %}"><i class="fas fa-upload fa-sm fa-fw mr-2 text-gray-400"></i>Pacientes</a>
+        <a class="collapse-item" href="{% url 'importPatients' %}"><i class="fas fa-upload fa-sm fa-fw mr-2"></i>Pacientes</a>
         {% endif %}
         <h6 class="collapse-header">Color de tema:</h6>
         <a class="collapse-item" href="{% url 'color' 1 %}"><span class="btn btn-dark btn-circle" style="height: 1.5em;width:0.5em;"></span> Negro</a>
         <!--a class="collapse-item" href="{% url 'color' 2 %}"><span class="btn btn-success btn-circle" style="height: 1.5em;width:0.5em;"></span> Verde</a-->
-        <!--a class="collapse-item" href="{% url 'color' 3 %}"><span class="btn btn-light btn-circle" style="height: 1.5em;width:0.5em;"></span> Blanco</a-->
+        <a class="collapse-item" href="{% url 'color' 3 %}"><span class="btn btn-light btn-circle" style="height: 1.5em;width:0.5em;"></span> Blanco</a>
         <!--a class="collapse-item" href="{% url 'color' 4 %}"><span class="btn btn-secondary btn-circle" style="height: 1.5em;width:0.5em;"></span> Gris</a-->
         <a class="collapse-item" href="{% url 'color' 5 %}"><span class="btn btn-danger btn-circle" style="height: 1.5em;width:0.5em;"></span> Rojo</a>        
         <!--a class="collapse-item" href="{% url 'color' 6 %}"><span class="btn btn-warning btn-circle" style="height: 1.5em;width:0.5em;"></span> Naranja</a-->
@@ -79,10 +79,10 @@
     <div id="collapsePagesPatient" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
       <div class="bg-white py-2 collapse-inner rounded">
         <h6 class="collapse-header">Acciones:</h6>
-        <a class="collapse-item" href="{% url 'altaPaciente' %}"><i class="fas fa-plus fa-sm fa-fw mr-2 text-gray-400"></i>Agregar paciente</a>
-        <a class="collapse-item" href="{% url 'buscarPaciente' %}"><i class="fas fa-search fa-sm fa-fw mr-2 text-gray-400"></i>Buscar paciente</a>
-        <a class="collapse-item" href="{% url 'listarPaciente' %}"><i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>Listar pacientes</a>
-        <a class="collapse-item" href="{% url 'contactoPaciente' %}"><i class="fas fa-envelope fa-sm fa-fw mr-2 text-gray-400"></i>Enviar receta</a>
+        <a class="collapse-item" href="{% url 'altaPaciente' %}"><i class="fas fa-plus fa-sm fa-fw mr-2"></i>Agregar paciente</a>
+        <a class="collapse-item" href="{% url 'buscarPaciente' %}"><i class="fas fa-search fa-sm fa-fw mr-2"></i>Buscar paciente</a>
+        <a class="collapse-item" href="{% url 'listarPaciente' %}"><i class="fas fa-list fa-sm fa-fw mr-2"></i>Listar pacientes</a>
+        <a class="collapse-item" href="{% url 'contactoPaciente' %}"><i class="fas fa-envelope fa-sm fa-fw mr-2"></i>Enviar receta</a>
       </div>
     </div>
   </li>
@@ -97,7 +97,7 @@
     <div id="collapsePagesAdress" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
       <div class="bg-white py-2 collapse-inner rounded">
         <h6 class="collapse-header">Acciones:</h6>
-        <a class="collapse-item" href="{% url 'listarDireccion' %}"><i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>Listar direcciones</a>
+        <a class="collapse-item" href="{% url 'listarDireccion' %}"><i class="fas fa-list fa-sm fa-fw mr-2"></i>Listar direcciones</a>
       </div>
     </div>
   </li>
@@ -113,9 +113,9 @@
         <div class="bg-white py-2 collapse-inner rounded">
           <h6 class="collapse-header">Acciones:</h6>
           <a class="collapse-item" href="{% url 'altaArchivo' %}"><i
-              class="fas fa-file fa-sm fa-fw mr-2 text-gray-400"></i>Agregar archivo</a>
+              class="fas fa-plus fa-sm fa-fw mr-2"></i>Agregar archivo</a>
           <a class="collapse-item" href="{% url 'listarArchivo' %}"><i
-              class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>Listar archivos</a>
+              class="fas fa-list fa-sm fa-fw mr-2"></i>Listar archivos</a>
         </div>
       </div>
     </li>

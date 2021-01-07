@@ -1,7 +1,9 @@
 {% extends "extends.html" %}
 
-{% block title %} Enviar receta por correo a paciente {%endblock%}
-{% block titlepage %} Enviar receta por correo a paciente {%endblock%}
+{% block title %} Receta por correo a paciente {%endblock%}
+{% block titlepage %} Generar receta por correo <div style="text-align: center;">
+  <hr style="margin: 5 auto;"><b><i class="fas fa-envelope"></i></b>
+</div>{%endblock%}
 
 {% block body %} 
 
@@ -13,12 +15,25 @@
         {% endfor %}          
     {% endif %}
 
-    <form class="user" action="{% url 'contactoPaciente' %}" method="POST">{% csrf_token %}
+<nav>
+  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+    <a class="nav-item nav-link active text-{{request.session.bt_color}}" id="nav-receta-tab" data-toggle="tab" href="#receta" role="tab"
+      aria-controls="nav-receta" aria-selected="true"> <i class="fas fa-envelope fa-1x"></i> Enviar receta</a>
+    <a class="nav-item nav-link text-{{request.session.bt_color}}" id="nav-help-receta-tab" data-toggle="tab" href="#ayuda" role="tab"
+      aria-controls="nav-help-receta" aria-selected="false"> <i class="fas fa-info-circle fa-1x"></i> Ayuda</a>
+  </div>
+</nav>
+<div class="tab-content" id="nav-tabContent">
+  <div class="tab-pane fade show active" id="receta" role="tabpanel" aria-labelledby="nav-receta-tab">
+    <div style="margin-top: 20px; width: 95%; margin-left: 30px;margin-right: 20px;">
+
+
+      <form class="user" action="{% url 'contactoPaciente' %}" method="POST">{% csrf_token %}
         <div class="form-group row">
           <div class="col-sm-4">
             {{form.nombre}}
           </div>
-          <div class="col-sm-4">           
+          <div class="col-sm-4">
             {{form.asunto}}
           </div>
           <div class="col-sm-4">
@@ -26,18 +41,37 @@
           </div>
         </div>
         <div class="form-group">
-           {{form.mensaje}}
+          {{form.mensaje}}
         </div>
 
         <div class="form-group row">
-         	<div class="col-sm-8"></div>
+          <div class="col-sm-8"></div>
           <div class="col-sm-2">
-            <button type="reset" class="btn btn-{{request.session.bt_color}} btn-user btn-block"><i class="fa fa-eraser"></i>  Limpiar</button>
+            <button type="reset" class="btn btn-{{request.session.bt_color}} btn-user btn-block"><i
+                class="fa fa-eraser"></i> Limpiar</button>
           </div>
-         	<div class="col-sm-2">
-         		<button type="submit" class="btn btn-{{request.session.bt_color}} btn-user btn-block"><i class="fa fa-check"></i> Enviar</button>
-         	</div>
-    	 </div>
+          <div class="col-sm-2">
+            <button type="submit" class="btn btn-{{request.session.bt_color}} btn-user btn-block"><i
+                class="fa fa-check"></i> Enviar</button>
+          </div>
+        </div>
       </form>
+
+
+
+    </div>
+  </div>
+
+  <div class="tab-pane fade" id="ayuda" role="tabpanel" aria-labelledby="nav-help-receta-tab">
+    <div style="margin-top: 20px; width: 95%; margin-left: 30px;margin-right: 20px;">
+
+      <p style="text-align: justify;">
+        <i class="fas fa-info-circle fa-1x"></i> Desde este apartado podr&aacute;s enviar recetas al correo del paciente.
+      </p>
+
+    </div>
+  </div>
+
+</div>
 
 {% endblock %}

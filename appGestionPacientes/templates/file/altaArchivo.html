@@ -1,7 +1,9 @@
 {% extends "extends.html" %}
 
 {% block title %} A&ntilde;adir de archivos {%endblock%}
-{% block titlepage %} A&ntilde;adir archivo {%endblock%}
+{% block titlepage %} A&ntilde;adir archivo <div style="text-align: center;">
+    <hr style="margin: 5 auto;"><b><i class="fas fa-plus"></i></b>
+</div>{%endblock%}
 
 {% block body %}
 
@@ -14,27 +16,54 @@
 {% endif %}
 
 
-<form class="user" action="{% url 'altaArchivo' %}" method="POST" enctype="multipart/form-data">{% csrf_token %}
-    <div class="form-group row">
-        <div class="col-sm-4">
-            {{form.nombre}}
-        </div>
-        <div class="col-sm-8">
-            <i class="fas fa-file fa-1x text-gray-300"></i> {{form.path}}
-        </div>
+<nav>
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <a class="nav-item nav-link active text-{{request.session.bt_color}}" id="nav-upload-tab" data-toggle="tab" href="#subir-archivo" role="tab"
+            aria-controls="nav-home" aria-selected="true"><i class="fas fa-upload fa-1x"></i> Subir ficheros</a>
+        <a class="nav-item nav-link text-{{request.session.bt_color}}" id="nav-help-tab" data-toggle="tab" href="#ayuda" role="tab"
+            aria-controls="nav-profile" aria-selected="false"><i class="fas fa-info-circle fa-1x"></i> Ayuda</a>
     </div>
-    <div class="form-group row">
-  
-        <div class="col-sm-2">
-            <button type="reset" class="btn btn-{{request.session.bt_color}} btn-user btn-block"><i
-                    class="fa fa-eraser"></i> Limpiar</button>
-        </div>
-        <div class="col-sm-2">
-            <button type="submit" class="btn btn-{{request.session.bt_color}} btn-user btn-block"><i
-                    class="fa fa-check"></i> Guardar</button>
+</nav>
+<div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="subir-archivo" role="tabpanel" aria-labelledby="nav-upload-tab">
+        <div style="margin-top: 20px; width: 95%; margin-left: 30px;margin-right: 20px;">
+
+            <form class="user" action="{% url 'altaArchivo' %}" method="POST" enctype="multipart/form-data">{% csrf_token %}
+                <div class="form-group row">
+                    <div class="col-sm-4">
+                        {{form.nombre}}
+                    </div>
+                    <div class="col-sm-8">
+                        <i class="fas fa-file fa-1x text-gray-300"></i> {{form.path}}
+                    </div>
+                </div>
+                <div class="form-group row">
+
+                    <div class="col-sm-2">
+                        <button type="reset" class="btn btn-{{request.session.bt_color}} btn-user btn-block"><i
+                                class="fa fa-eraser"></i> Limpiar</button>
+                    </div>
+                    <div class="col-sm-2">
+                        <button type="submit" class="btn btn-{{request.session.bt_color}} btn-user btn-block"><i
+                                class="fa fa-check"></i> Guardar</button>
+                    </div>
+                </div>
+
+            </form>
+
         </div>
     </div>
 
-</form>
+    <div class="tab-pane fade" id="ayuda" role="tabpanel" aria-labelledby="nav-help-tab">
+        <div style="margin-top: 20px; width: 95%; margin-left: 30px;margin-right: 20px;">
+
+            <p style="text-align: justify;">
+                <i class="fas fa-info-circle fa-1x"></i> Desde este apartado podr&aacute;s subir archivos al sistema.
+            </p>
+
+        </div>
+    </div>
+
+</div>
 
 {% endblock %}

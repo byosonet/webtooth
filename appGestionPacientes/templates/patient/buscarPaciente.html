@@ -1,18 +1,20 @@
 {% extends "extends.html" %}
 
 {% block title %} B&uacute;squeda de pacientes {%endblock%}
-{% block titlepage %} B&uacute;squeda de pacientes {%endblock%}
+{% block titlepage %} B&uacute;squeda de pacientes <div style="text-align: center;">
+    <hr style="margin: 5 auto;"><b><i class="fas fa-search"></i></b>
+</div> {%endblock%}
 
 {% block body %} 
 
 <nav>
     <div class="nav nav-tabs" id="nav-tab" role="tablist">
-        <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Buscar</a>
-        <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Ayuda</a>
+        <a class="nav-item nav-link active text-{{request.session.bt_color}}" id="nav-home-tab" data-toggle="tab" href="#buscar" role="tab" aria-controls="nav-home" aria-selected="true"> <i class="fas fa-search fa-1x"></i> Buscar</a>
+        <a class="nav-item nav-link text-{{request.session.bt_color}}" id="nav-profile-tab" data-toggle="tab" href="#ayuda" role="tab" aria-controls="nav-profile" aria-selected="false"> <i class="fas fa-info-circle fa-1x"></i> Ayuda</a>
     </div>
 </nav>
 <div class="tab-content" id="nav-tabContent">
-    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+    <div class="tab-pane fade show active" id="buscar" role="tabpanel" aria-labelledby="nav-home-tab">
         
         <div style="margin-top: 20px; width: 95%; margin-left: 30px;margin-right: 20px;">
         
@@ -51,10 +53,10 @@
 
     </div>
 
-    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+    <div class="tab-pane fade" id="ayuda" role="tabpanel" aria-labelledby="nav-profile-tab">
         <div style="margin-top: 20px; width: 95%; margin-left: 30px;margin-right: 20px;">
             <p style="text-align: justify;">
-                Desde este apartado podr&aacute;s realizar b&uacute;squedas por nombre, apellidos o n&uacute;mero de expediente. Solo da clic en el bot&oacute;n de buscar.
+                <i class="fas fa-info-circle fa-1x"></i> Desde este apartado podr&aacute;s realizar b&uacute;squedas por nombre, apellidos o n&uacute;mero de expediente. Solo da clic en el bot&oacute;n de buscar.
             </p>
 
         </div>

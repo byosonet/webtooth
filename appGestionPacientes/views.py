@@ -96,7 +96,6 @@ def altaPaciente(request):
             log.info("Data recibida del formulario patient: "+str(dataPatient))
             name = dataPatient['nombre']+" "+dataPatient['apellidoPaterno']
        	    patient.save()
-
             adress = formAdress.save(commit=False)
             adress.patient = patient
             adress.calle = adress.calle.title()
@@ -110,7 +109,7 @@ def altaPaciente(request):
             adress.save()
 
             log.info("Se ha agregado a la BD el nuevo registro")
-            return render(request, "patient/altaEnviada.html", {"nombre": name})
+            return buscarId(request,patient.id)
         else:
             log.error("Formulario recibido no pasa la validacion...")
             messages.error(request, "[ERROR]: Algunos campos necesitan llenarse de forma correcta.")
@@ -376,6 +375,7 @@ def guardarPatientXLS(row):
 
             patient.rfc = row[6].upper()
         except Exception as error:
+            patient.apellidoMaterno = ''
             patient.email = ''
             patient.telefono = ''
             patient.rfc = ''

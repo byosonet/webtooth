@@ -40,7 +40,7 @@
           <!-- Page Heading -->
           {% include 'message/message.html' %}
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 style="margin: 0 auto;" class="h5 mb-0 text-gray-800">{% block titlepage %} {% endblock %}</h1>
+            <h1 style="margin: 0 auto;" class="h5 mb-0 text-{{request.session.bt_color}}">{% block titlepage %} {% endblock %}</h1>
             {% block report %} {%endblock%}
           </div>
 

@@ -1,7 +1,7 @@
 {% extends "extends.html" %}
 
 {% block title %} Datos del paciente {%endblock%}
-{% block titlepage %} Expediente: {{ expediente }} {%endblock%}
+{% block titlepage %} N&uacute;mero de expediente <div style="text-align: center;"><hr style="margin: 5 auto;"><b>{{ expediente }}</b></div> {%endblock%}
 
 {% block body %}
 
@@ -23,144 +23,179 @@
 {% endfor %}
 {% endif %}
 
-<form class="user" action="{% url 'actualizarPaciente' id %}" method="POST" enctype="multipart/form-data">{% csrf_token %}
-    <div class="form-group row">
-        <div class="col-sm-4">
-            {{form.nombre}}
-        </div>
-        <div class="col-sm-4">
-            {{form.apellidoPaterno}}
-        </div>
-        <div class="col-sm-4">
-            {{form.apellidoMaterno}}
-        </div>
+<nav>
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <a class="nav-item nav-link active text-{{request.session.bt_color}}" id="nav-register-tab" data-toggle="tab" href="#datos-registro" role="tab"
+            aria-controls="nav-home" aria-selected="true"><i class="fas fa-user fa-1x"></i> Datos personales</a>
+        <a class="nav-item nav-link text-{{request.session.bt_color}}" id="nav-help-tab" data-toggle="tab" href="#ayuda" role="tab"
+            aria-controls="nav-profile" aria-selected="false"><i class="fas fa-notes-medical fa-1x"></i> Datos cl&iacute;nicos</a>
     </div>
+</nav>
+<div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="datos-registro" role="tabpanel" aria-labelledby="nav-register-tab">
+        <div style="margin-top: 20px; width: 95%; margin-left: 30px;margin-right: 20px;">
 
-    <div class="form-group row">
-        <div class="col-sm-4">
-            {{form.rfc}}
-        </div>
-        <div class="col-sm-4">
-            {{form.email}}
-        </div>
-        <div class="col-sm-4">
-            {{form.telefono}}
-        </div>
-    </div>
+            <form class="user" action="{% url 'actualizarPaciente' id %}" method="POST" enctype="multipart/form-data">{% csrf_token %}
+                <div class="form-group row">
+                    <div class="col-sm-4">
+                        {{form.nombre}}
+                    </div>
+                    <div class="col-sm-4">
+                        {{form.apellidoPaterno}}
+                    </div>
+                    <div class="col-sm-4">
+                        {{form.apellidoMaterno}}
+                    </div>
+                </div>
 
-    <div class="form-group row">
-        <div class="col-sm-4">
-            {{formAdress.calle}}
-        </div>
-        <div class="col-sm-4">
-            {{formAdress.numeroExt}}
-        </div>
-        <div class="col-sm-4">
-            {{formAdress.numeroInt}}
-        </div>
-    </div>
+                <div class="form-group row">
+                    <div class="col-sm-4">
+                        {{form.rfc}}
+                    </div>
+                    <div class="col-sm-4">
+                        {{form.email}}
+                    </div>
+                    <div class="col-sm-4">
+                        {{form.telefono}}
+                    </div>
+                </div>
 
-    <div class="form-group row">
-        <div class="col-sm-4">
-            {{formAdress.cp}}
-        </div>
-        <div class="col-sm-4">
-            {{formAdress.ciudad}}
-        </div>
-        <div class="col-sm-4">
-            {{formAdress.estado}}
-        </div>
-    </div>
+                <div class="form-group row">
+                    <div class="col-sm-4">
+                        {{formAdress.calle}}
+                    </div>
+                    <div class="col-sm-4">
+                        {{formAdress.numeroExt}}
+                    </div>
+                    <div class="col-sm-4">
+                        {{formAdress.numeroInt}}
+                    </div>
+                </div>
 
-    <div class="form-group row">
-        <div class="col-sm-10">
-            {% if form.foto.value  %}
-                <a target="_blank" href="{{ form.foto.value.url }}">Foto del paciente: </a>
-            {% else %}
-                Foto del paciente:
-            {% endif %}
+                <div class="form-group row">
+                    <div class="col-sm-4">
+                        {{formAdress.cp}}
+                    </div>
+                    <div class="col-sm-4">
+                        {{formAdress.ciudad}}
+                    </div>
+                    <div class="col-sm-4">
+                        {{formAdress.estado}}
+                    </div>
+                </div>
 
-            {% if form.foto.value %}
-                <img style="height: 50px;border-radius: 55px;" src="{{form.foto.value.url}}" />
-                </br></br>
-            {% else %}
-                <i class="fas fa-user fa-2x text-gray-300"></i> 
-            {% endif %}
-            {{form.foto}}
-        </div>
-        <div class="col-sm-2">
-            <div style="float: right;">
-                {{form.activo}}
-                {% if form.activo.value %}
-                    <span class="btn btn-success" style="font-size: 12px;"> Activo </span>
-                {% else %}
-                    <span class="btn btn-warning" style="font-size: 12px;"> Inactivo </span>
-                {% endif %}
+                <div class="form-group row">
+                    <div class="col-sm-10">
+                        {% if form.foto.value %}
+                        <a target="_blank" href="{{ form.foto.value.url }}">Foto del paciente: </a>
+                        {% else %}
+                        Foto del paciente:
+                        {% endif %}
+
+                        {% if form.foto.value %}
+                        <img style="height: 50px;border-radius: 55px;" src="{{form.foto.value.url}}" />
+                        </br></br>
+                        {% else %}
+                        <i class="fas fa-user fa-2x text-gray-300"></i>
+                        {% endif %}
+                        {{form.foto}}
+                    </div>
+                    <div class="col-sm-2">
+                        <div style="float: right;">
+                            {{form.activo}}
+                            {% if form.activo.value %}
+                            <span class="btn btn-success" style="font-size: 12px;"> Activo </span>
+                            {% else %}
+                            <span class="btn btn-warning" style="font-size: 12px;"> Inactivo </span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+
+                    <div class="col-sm-6">
+                        {{form.numexp}}
+                    </div>
+                    <div class="col-sm-2">
+                        <a class="btn btn-danger btn-user btn-block" href="#" data-toggle="modal"
+                            data-target="#modifyModal" role="button"><i class="fa fa-pen"></i> Modificar</a>
+                    </div>
+                    <div class="col-sm-2">
+                        <a class="btn btn-danger btn-user btn-block" href="#" data-toggle="modal"
+                            data-target="#deleteModal" role="button"><i class="fa fa-trash"></i> Eliminar</a>
+                    </div>
+                    <div class="col-sm-2">
+                        <button id="update" disabled type="submit"
+                            class="btn btn-{{request.session.bt_color}} btn-user btn-block"><i class="fa fa-check"></i>
+                            Actualizar</button>
+                    </div>
+                </div>
+            </form>
+
+            <!-- Logout Modal-->
+            <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Aviso de sistema</h5>
+                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">¿Est&aacute; seguro de eliminar el registro actual que contiene los
+                            siguientes datos? </br></br>Nombre: {{form.nombre.value}} {{form.apellidoPaterno.value}}
+                            {{form.apellidoMaterno.value}}</br>Correo: {{form.email.value}}</div>
+                        <div class="modal-footer">
+                            <button class="btn btn-{{request.session.bt_color}}" type="button"
+                                data-dismiss="modal">Cancelar</button>
+                            <a class="btn btn-{{request.session.bt_color}}"
+                                href="{% url 'eliminarPaciente' id %}">Continuar</a>
+                        </div>
+                    </div>
+                </div>
             </div>
+
+            <!-- Logout Modal-->
+            <div class="modal fade" id="modifyModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Aviso de sistema</h5>
+                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">¿Est&aacute; seguro de modificar el registro actual que contiene los
+                            siguientes
+                            datos? </br></br>Nombre: {{form.nombre.value}} {{form.apellidoPaterno.value}}
+                            {{form.apellidoMaterno.value}}</br>Correo: {{form.email.value}}</div>
+                        <div class="modal-footer">
+                            <button class="btn btn-{{request.session.bt_color}}" type="button"
+                                data-dismiss="modal">Cancelar</button>
+                            <button id="modidy" class="btn btn-{{request.session.bt_color}}" type="button"
+                                data-dismiss="modal">Aceptar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
         </div>
     </div>
 
-    <div class="form-group row">
+    <div class="tab-pane fade" id="ayuda" role="tabpanel" aria-labelledby="nav-help-tab">
+        <div style="margin-top: 20px; width: 95%; margin-left: 30px;margin-right: 20px;">
 
-        <div class="col-sm-6">
-            {{form.numexp}}
-        </div>
-        <div class="col-sm-2">
-            <a class="btn btn-danger btn-user btn-block" href="#" data-toggle="modal" data-target="#modifyModal"
-                role="button"><i class="fa fa-pen"></i> Modificar</a>
-        </div>
-        <div class="col-sm-2">
-            <a class="btn btn-danger btn-user btn-block" href="#" data-toggle="modal" data-target="#deleteModal" role="button"><i class="fa fa-trash"></i> Eliminar</a>
-        </div>
-        <div class="col-sm-2">
-            <button id="update" disabled type="submit" class="btn btn-{{request.session.bt_color}} btn-user btn-block"><i class="fa fa-check"></i> Actualizar</button>
+            <p style="text-align: justify;">
+                Desde este apartado podr&aacute;s visualizar los datos cl&iacute;nicos del paciente.
+            </p>
+
         </div>
     </div>
-</form>
 
-<!-- Logout Modal-->
-<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Aviso de sistema</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">¿Est&aacute; seguro de eliminar el registro actual que contiene los siguientes datos? </br></br>Nombre: {{form.nombre.value}} {{form.apellidoPaterno.value}} {{form.apellidoMaterno.value}}</br>Correo: {{form.email.value}}</div>
-            <div class="modal-footer">
-                <button class="btn btn-{{request.session.bt_color}}" type="button"
-                    data-dismiss="modal">Cancelar</button>
-                <a class="btn btn-{{request.session.bt_color}}" href="{% url 'eliminarPaciente' id %}">Continuar</a>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Logout Modal-->
-<div class="modal fade" id="modifyModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Aviso de sistema</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">¿Est&aacute; seguro de modificar el registro actual que contiene los siguientes
-                datos? </br></br>Nombre: {{form.nombre.value}} {{form.apellidoPaterno.value}}
-                {{form.apellidoMaterno.value}}</br>Correo: {{form.email.value}}</div>
-            <div class="modal-footer">
-                <button class="btn btn-{{request.session.bt_color}}" type="button"
-                    data-dismiss="modal">Cancelar</button>
-                <button id="modidy" class="btn btn-{{request.session.bt_color}}" type="button" 
-                data-dismiss="modal">Aceptar</button>
-            </div>
-        </div>
-    </div>
 </div>
 
 {% load static %}

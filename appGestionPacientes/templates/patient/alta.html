@@ -1,7 +1,7 @@
 {% extends "extends.html" %}
 
 {% block title %} Registro de paciente {%endblock%}
-{% block titlepage %} Registro de paciente {%endblock%}
+{% block titlepage %} Registro de paciente <div style="text-align: center;"><hr style="margin: 5 auto;"><b><i class="fas fa-plus"></i></b></div> {%endblock%}
 
 {% block body %}
 
@@ -21,72 +21,101 @@
 {% endfor %}
 {% endif %}
 
-<form class="user" action="{% url 'altaPaciente' %}" method="POST" enctype="multipart/form-data">{% csrf_token %}
-    <div class="form-group row">
-        <div class="col-sm-4">
-            {{form.nombre}}
-        </div>
-        <div class="col-sm-4">
-            {{form.apellidoPaterno}}
-        </div>
-        <div class="col-sm-4">
-            {{form.apellidoMaterno}}
+<nav>
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <a class="nav-item nav-link active text-{{request.session.bt_color}}" id="nav-register-tab" data-toggle="tab" href="#registro" role="tab"
+            aria-controls="nav-home" aria-selected="true"><i class="fas fa-user fa-1x"></i> Alta de paciente</a>
+        <a class="nav-item nav-link text-{{request.session.bt_color}}" id="nav-help-tab" data-toggle="tab" href="#ayuda" role="tab"
+            aria-controls="nav-profile" aria-selected="false"><i class="fas fa-info-circle fa-1x"></i> Ayuda</a>
+    </div>
+</nav>
+<div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="registro" role="tabpanel" aria-labelledby="nav-register-tab">
+        <div style="margin-top: 20px; width: 95%; margin-left: 30px;margin-right: 20px;">
+
+            <form class="user" action="{% url 'altaPaciente' %}" method="POST" enctype="multipart/form-data">{% csrf_token %}
+                <div class="form-group row">
+                    <div class="col-sm-4">
+                        {{form.nombre}}
+                    </div>
+                    <div class="col-sm-4">
+                        {{form.apellidoPaterno}}
+                    </div>
+                    <div class="col-sm-4">
+                        {{form.apellidoMaterno}}
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-sm-4">
+                        {{form.rfc}}
+                    </div>
+                    <div class="col-sm-4">
+                        {{form.email}}
+                    </div>
+                    <div class="col-sm-4">
+                        {{form.telefono}}
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-sm-4">
+                        {{formAdress.calle}}
+                    </div>
+                    <div class="col-sm-4">
+                        {{formAdress.numeroExt}}
+                    </div>
+                    <div class="col-sm-4">
+                        {{formAdress.numeroInt}}
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-sm-4">
+                        {{formAdress.cp}}
+                    </div>
+                    <div class="col-sm-4">
+                        {{formAdress.ciudad}}
+                    </div>
+                    <div class="col-sm-4">
+                        {{formAdress.estado}}
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        <i class="fas fa-user fa-1x text-gray-300"></i> Foto del paciente: {{form.foto}}
+                    </div>
+
+                    <div class="col-sm-2">
+                    </div>
+
+                    <div class="col-sm-2">
+                        <button type="reset" class="btn btn-{{request.session.bt_color}} btn-user btn-block"><i
+                                class="fa fa-eraser"></i> Limpiar</button>
+                    </div>
+                    <div class="col-sm-2">
+                        <button type="submit" class="btn btn-{{request.session.bt_color}} btn-user btn-block"><i
+                                class="fa fa-check"></i> Guardar</button>
+                    </div>
+                </div>
+
+            </form>
+
         </div>
     </div>
 
-    <div class="form-group row">
-        <div class="col-sm-4">
-            {{form.rfc}}
-        </div>
-        <div class="col-sm-4">
-            {{form.email}}
-        </div>
-        <div class="col-sm-4">
-            {{form.telefono}}
+    <div class="tab-pane fade" id="ayuda" role="tabpanel" aria-labelledby="nav-help-tab">
+        <div style="margin-top: 20px; width: 95%; margin-left: 30px;margin-right: 20px;">
+
+            <p style="text-align: justify;">
+                <i class="fas fa-info-circle fa-1x"></i> Desde este apartado podr&aacute;s registrar nuevos pacientes al sistema.
+            </p>
+
         </div>
     </div>
 
-    <div class="form-group row">
-        <div class="col-sm-4">
-            {{formAdress.calle}}
-        </div>
-        <div class="col-sm-4">
-            {{formAdress.numeroExt}}
-        </div>
-        <div class="col-sm-4">
-            {{formAdress.numeroInt}}
-        </div>
-    </div>
-
-    <div class="form-group row">
-        <div class="col-sm-4">
-            {{formAdress.cp}}
-        </div>
-        <div class="col-sm-4">
-            {{formAdress.ciudad}}
-        </div>
-        <div class="col-sm-4">
-                {{formAdress.estado}}
-        </div>
-    </div>
-
-    <div class="form-group row">
-        <div class="col-sm-6">
-            <i class="fas fa-user fa-1x text-gray-300"></i> Foto del paciente: {{form.foto}}
-        </div>
-        
-        <div class="col-sm-2">
-        </div>
-        
-        <div class="col-sm-2">
-            <button type="reset" class="btn btn-{{request.session.bt_color}} btn-user btn-block"><i class="fa fa-eraser"></i> Limpiar</button>
-        </div>
-        <div class="col-sm-2">
-            <button type="submit" class="btn btn-{{request.session.bt_color}} btn-user btn-block"><i class="fa fa-check"></i> Guardar</button>
-        </div>
-    </div>
-
-</form>
+</div>
 
 {% load static %}
 <script src="{% static 'js/jquery.min.js' %}"></script>

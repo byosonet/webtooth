@@ -24,7 +24,7 @@
 
 	<div class="card shadow mb-4">
 	<div class="card-header py-3">
-	  <h6 class="m-0 font-weight-bold text-primary">    
+	  <h6 class="m-0 font-weight-bold text-{{request.session.bt_color}}">    
 	  	<div class="col-sm-12"><center>Lista de Pacientes</center></div>
        </h6>
 	</div>
@@ -58,7 +58,7 @@
 	      <tbody>
 	      	{% for paciente in listaPaciente %}
 	        <tr>
-	          <td><b><a href="{% url 'buscarId' paciente.id %}">{{paciente.numexp|upper}}</a></b></td>
+	          <td><b><a href="{% url 'buscarId' paciente.id %}" class="text-{{request.session.bt_color}}">{{paciente.numexp|upper}}</a></b></td>
 	          <td>{{paciente.nombre}}</td>
 	          <td>{{paciente.apellidoPaterno}} {{paciente.apellidoMaterno}}</td>
 	          <td>{{paciente.email}}</td>
