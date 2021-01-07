@@ -4,6 +4,7 @@ import logging
 from django.utils import timezone
 from django.shortcuts import render
 from webtooth.settings import MAX_TIME_MINUTES_SESSION
+from appGestionPacientes.signals import getUser
 
 log = logging.getLogger('appGestionPacientes.decorators')
 def validRequest(viewReceived):
@@ -13,7 +14,8 @@ def validRequest(viewReceived):
        	    data = {"timeModal": 500}
             return render(request, 'other/session.html', data)
         try:
-            loadPropertie(request)
+            user = getUser()
+            loadPropertie(user.id,request)
         except Exception as ex:
             log.error("Error load propertie: "+str(ex))
             createFirstOnly(request)

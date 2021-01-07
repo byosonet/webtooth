@@ -1,13 +1,17 @@
 from django import forms
 from appGestionPacientes.config import *
-from appGestionPacientes.models import Patient, Adress, File, Import, Task
+from appGestionPacientes.models import Patient, Adress, File, Import, Task, Recipe
 
-class ContactForm(forms.Form):
-	asunto=forms.CharField(max_length=50, widget=forms.TextInput(attrs=inputCSS('Asunto')))
-	email=forms.EmailField(widget=forms.EmailInput(attrs=inputCSS('Email')))
-	nombre = forms.CharField(required=False,
-		max_length=50, widget=forms.TextInput(attrs=inputCSS('Nombre')))
-	mensaje=forms.CharField(widget=forms.Textarea(attrs=textAreaCSS('Receta')))
+
+class ContactForm(forms.ModelForm):
+	subjectRecipe = forms.CharField(max_length=50, widget=forms.TextInput(attrs=inputCSS('Asunto')))
+	emailRecipe = forms.EmailField(widget=forms.EmailInput(attrs=inputCSS('Email')))
+	nameRecipe = forms.CharField(required=False, max_length=50, widget=forms.TextInput(attrs=inputCSS('Nombre')))
+	descRecipe = forms.CharField(widget=forms.Textarea(attrs=textAreaCSS('Receta')))
+
+	class Meta:
+		model = Recipe
+		fields = ['subjectRecipe', 'emailRecipe', 'nameRecipe', 'descRecipe']
 
 
 class PatientForm(forms.ModelForm):

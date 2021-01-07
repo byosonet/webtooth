@@ -40,3 +40,12 @@ def addTask():
 	return APP_NAME_MANAGEMENT_PATIENT+'addTask'
 def deleteTask():
 	return APP_NAME_MANAGEMENT_PATIENT+'deleteTask'
+
+
+#Gestion de permisos para Recetas
+def listRecipe():
+	return APP_NAME_MANAGEMENT_PATIENT+'listRecipe'
+def addRecipe():
+	return APP_NAME_MANAGEMENT_PATIENT+'addRecipe'
+def deleteRecipe():
+	return APP_NAME_MANAGEMENT_PATIENT+'deleteRecipe'

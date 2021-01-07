@@ -11,6 +11,8 @@ from django.db.models import Q
 from webtooth.decorators import validRequest
 from django.utils import timezone
 
+from appGestionPacientes.signals import getUser
+
 
 log = logger('webtooth',True)
 
@@ -18,13 +20,14 @@ log = logger('webtooth',True)
 @validRequest
 def homeView(request):	
 	lastRow = 0
+	user = getUser()
 	try:
 		lastRow = Patient.objects.all().order_by('-fechaUpdate')[0].id
-		updatePropertie('last_row', str(lastRow))
+		updatePropertie(user.id,'last_row', str(lastRow))
 	except Exception:
 		pass
-	log.info("LastRow: {}".format(lastRow))
-	createPropertie('last_row', str(lastRow))
+	log.info("LastRow: {}".format(lastRow))	
+	createPropertie(user.id, 'last_row', str(lastRow))
 	request.session['last_session'] = timezone.now().timestamp()
 	rowsRegister=Patient.objects.all().count()
 	rowsFile = File.objects.all().count()
@@ -43,16 +46,16 @@ def homeView(request):
 		porcentajeInactivos = 0
 
 	try:
-		loadPropertie(request)
+		loadPropertie(user.id, request)
 		log.info("El sistema ya tiene color activado")
 	except Exception as ex:
 		log.error("Error: "+str(ex))
-		log.info("El sistema no tiene color de tema, cargando por default.")
-		createPropertie('bg_color','gradient-primary')
-		createPropertie('fg_color', 'white')
-		createPropertie('bt_color', 'primary')
-		createPropertie('ad_color', '#4e73df')
-		loadPropertie(request)
+		log.info("El sistema no tiene color de tema, cargando por default.")		
+		createPropertie(user.id,'bg_color','gradient-primary')
+		createPropertie(user.id,'fg_color', 'white')
+		createPropertie(user.id,'bt_color', 'primary')
+		createPropertie(user.id,'ad_color', '#4e73df')
+		loadPropertie(user.id, request)
 		log.info("Se ha cargado color de tema por default")
 
 	log.info("Total de pacientes Activos: {}".format(patientActive))

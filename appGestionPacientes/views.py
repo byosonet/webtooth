@@ -57,13 +57,28 @@ def contactoPaciente(request):
         formContact = ContactForm(request.POST)
         if formContact.is_valid():
             log.info("Formulario valido, preparando envío...")
+
+            recipe = formContact.save(commit=False)
+            recipe.nameRecipe = recipe.nameRecipe.title()
+            recipe.subjectRecipe = recipe.subjectRecipe.title()
+            user = getUser()
+            recipe.userId = user.id
+            recipe.userCode = user.get_username()
+            recipe.userName = user.get_full_name()
+            
             dataContact = formContact.cleaned_data
+            log.info("Data recibida del formulario Recipe: "+str(dataContact))
+            log.info("Se ha agregado a la BD el nuevo registro")
+            
             email=sendEmailContact(dataContact)
             if email == None:
+                recipe.stateRecipe = 'No enviado'
                 messages.error(
                     request, f"Servidor de correo no disponible, intentelo más tarde.")
             else:
+                recipe.stateRecipe = 'Enviado'
                 messages.success(request, f"El correo se ha enviado correctamente ha: {email}")
+            recipe.save()
             formContact = ContactForm()
             return render(request,"contact/contacto.html", {"form":formContact})
         else:

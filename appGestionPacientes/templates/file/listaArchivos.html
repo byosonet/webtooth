@@ -98,10 +98,10 @@
 
 {% else %}
 <div class="card-header py-3">
-    <h6 class="m-0 font-weight-bold text-primary">No hay ningún registro en la base de datos actual</h6>
+    <h6 style="text-align: center;" class="m-0 font-weight-bold text-{{request.session.bt_color}}"> <i class="fas fa-info-circle"></i> No hay ningún registro en la base de datos actual</h6>
 </div>
 </br>
-<div class="col-sm-2">
+<div class="col-sm-2" style="margin: 0 auto;">
     <a class="btn btn-{{request.session.bt_color}} btn-user btn-block" href="{% url 'home' %}" role="button"><i
             class="fa fa-arrow-left"></i> Regresar</a>
 </div>
