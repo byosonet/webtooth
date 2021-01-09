@@ -209,19 +209,19 @@
 
 
 <!-- Logout Modal-->
-<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Aviso de sistema</h5>
+        <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-info-circle fa-1x"></i> Aviso de sistema</h5>
         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">×</span>
         </button>
       </div>
-      <div class="modal-body">¿Est&aacute; seguro de terminar la sesi&oacute;n actual?</div>
+      <div class="modal-body" style="text-align: center;">¿Est&aacute; seguro de terminar la sesi&oacute;n actual?</div>
       <div class="modal-footer">
-        <button class="btn btn-{{request.session.bt_color}}" type="button" data-dismiss="modal">Cancelar</button>
-        <a class="btn btn-{{request.session.bt_color}}" href="/admin/logout/">Aceptar</a>
+        <button class="btn btn-{{request.session.bt_color}}" type="button" data-dismiss="modal" style="border-radius: 10rem;"><i class="fas fa-times"></i> Cancelar</button>
+        <a class="btn btn-{{request.session.bt_color}}" href="/admin/logout/" style="border-radius: 10rem;"><i class="fas fa-check"></i> Aceptar</a>
       </div>
     </div>
   </div>

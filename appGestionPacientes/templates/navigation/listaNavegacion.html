@@ -8,11 +8,11 @@
 {% block report %}
 	{% if listaNavegacion %}
 	<div>
-		<a href="#" id="ReportePrintNavigation" class="d-none d-sm-inline-block btn btn-sm btn-{{request.session.bt_color}} shadow-sm"><i class="fas fa-print"></i> Imprimir reporte</a>
+		<a style="border-radius: 10rem;" href="#" id="ReportePrintNavigation" class="d-none d-sm-inline-block btn btn-sm btn-{{request.session.bt_color}} shadow-sm"><i class="fas fa-print"></i> Imprimir reporte</a>
 
-		<a href="#" id="ReporteExcelNavigation" class="d-none d-sm-inline-block btn btn-sm btn-{{request.session.bt_color}} shadow-sm"><i class="fas fa-file-excel"></i> Exportar a Excel</a>
+		<a style="border-radius: 10rem;" href="#" id="ReporteExcelNavigation" class="d-none d-sm-inline-block btn btn-sm btn-{{request.session.bt_color}} shadow-sm"><i class="fas fa-file-excel"></i> Exportar a Excel</a>
 
-		<a href="#" id="ReportePdfNavigation" class="d-none d-sm-inline-block btn btn-sm btn-{{request.session.bt_color}} shadow-sm"><i class="fas fa-file-pdf"></i> Exportar a PDF</a>
+		<a style="border-radius: 10rem;" href="#" id="ReportePdfNavigation" class="d-none d-sm-inline-block btn btn-sm btn-{{request.session.bt_color}} shadow-sm"><i class="fas fa-file-pdf"></i> Exportar a PDF</a>
 	</div>
 	{% endif %}
 {% endblock %}

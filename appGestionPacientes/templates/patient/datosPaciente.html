@@ -135,23 +135,23 @@
 
             <!-- Logout Modal-->
             <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
+                aria-hidden="true" data-backdrop="static">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Aviso de sistema</h5>
+                            <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-info-circle fa-1x"></i> Aviso de sistema</h5>
                             <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">×</span>
                             </button>
                         </div>
                         <div class="modal-body">¿Est&aacute; seguro de eliminar el registro actual que contiene los
-                            siguientes datos? </br></br>Nombre: {{form.nombre.value}} {{form.apellidoPaterno.value}}
-                            {{form.apellidoMaterno.value}}</br>Correo: {{form.email.value}}</div>
+                            siguientes datos? </br></br>Nombre: <b>{{form.nombre.value}} {{form.apellidoPaterno.value}}</b>
+                            {{form.apellidoMaterno.value}}</br>Correo: <b>{{form.email.value}}</b></div>
                         <div class="modal-footer">
                             <button class="btn btn-{{request.session.bt_color}}" type="button"
-                                data-dismiss="modal">Cancelar</button>
+                                data-dismiss="modal" style="border-radius: 10rem;"><i class="fas fa-times"></i> Cancelar</button>
                             <a class="btn btn-{{request.session.bt_color}}"
-                                href="{% url 'eliminarPaciente' id %}">Continuar</a>
+                                href="{% url 'eliminarPaciente' id %}" style="border-radius: 10rem;"><i class="fas fa-check"></i> Aceptar</a>
                         </div>
                     </div>
                 </div>
@@ -159,24 +159,24 @@
 
             <!-- Logout Modal-->
             <div class="modal fade" id="modifyModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
+                aria-hidden="true" data-backdrop="static">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Aviso de sistema</h5>
+                            <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-info-circle fa-1x"></i> Aviso de sistema</h5>
                             <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">×</span>
                             </button>
                         </div>
                         <div class="modal-body">¿Est&aacute; seguro de modificar el registro actual que contiene los
                             siguientes
-                            datos? </br></br>Nombre: {{form.nombre.value}} {{form.apellidoPaterno.value}}
-                            {{form.apellidoMaterno.value}}</br>Correo: {{form.email.value}}</div>
+                            datos? </br></br>Nombre: <b>{{form.nombre.value}} {{form.apellidoPaterno.value}}</b>
+                            {{form.apellidoMaterno.value}}</br>Correo: <b>{{form.email.value}}</b></div>
                         <div class="modal-footer">
                             <button class="btn btn-{{request.session.bt_color}}" type="button"
-                                data-dismiss="modal">Cancelar</button>
+                                data-dismiss="modal" style="border-radius: 10rem;"><i class="fas fa-times"></i> Cancelar</button>
                             <button id="modidy" class="btn btn-{{request.session.bt_color}}" type="button"
-                                data-dismiss="modal">Aceptar</button>
+                                data-dismiss="modal" style="border-radius: 10rem;"><i class="fas fa-check"></i> Aceptar</button>
                         </div>
                     </div>
                 </div>
@@ -251,8 +251,8 @@
         <h6 style="text-align: center;" class="m-0 font-weight-bold text-{{request.session.bt_color}}"> <i class="fas fa-info-circle"></i> No existe ning&uacute;n registro con los datos recibidos</h6>
     </div>
     </br>
-    <div class="col-sm-2" style="margin: 0 auto;">
-        <a class="btn btn-{{request.session.bt_color}} btn-user btn-block" href="{% url 'listarPaciente' %}" role="button">Regresar</a>
+    <div class="col-sm-2" style="margin: 0 auto;text-align: center;">
+        <a style="border-radius: 10rem;" class="btn btn-{{request.session.bt_color}}" href="{% url 'listarPaciente' %}" role="button"><i class="fa fa-arrow-left"></i> Regresar</a>
     </div>
 {% endif %}
 {% endblock %}

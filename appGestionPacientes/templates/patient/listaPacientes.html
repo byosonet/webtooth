@@ -8,11 +8,11 @@
 {% block report %}
 	{% if listaPaciente %}
 	<div>
-		<a href="#" id="ReportePrint" class="d-none d-sm-inline-block btn btn-sm btn-{{request.session.bt_color}} shadow-sm"><i class="fas fa-print"></i> Imprimir reporte</a>
+		<a style="border-radius: 10rem;" href="#" id="ReportePrint" class="d-none d-sm-inline-block btn btn-sm btn-{{request.session.bt_color}} shadow-sm"><i class="fas fa-print"></i> Imprimir reporte</a>
 
-		<a href="#" id="ReporteExcel" class="d-none d-sm-inline-block btn btn-sm btn-{{request.session.bt_color}} shadow-sm"><i class="fas fa-file-excel"></i> Exportar a Excel</a>
+		<a style="border-radius: 10rem;" href="#" id="ReporteExcel" class="d-none d-sm-inline-block btn btn-sm btn-{{request.session.bt_color}} shadow-sm"><i class="fas fa-file-excel"></i> Exportar a Excel</a>
 
-		<a href="#" id="ReportePdf" class="d-none d-sm-inline-block btn btn-sm btn-{{request.session.bt_color}} shadow-sm"><i class="fas fa-file-pdf"></i> Exportar a PDF</a>
+		<a style="border-radius: 10rem;" href="#" id="ReportePdf" class="d-none d-sm-inline-block btn btn-sm btn-{{request.session.bt_color}} shadow-sm"><i class="fas fa-file-pdf"></i> Exportar a PDF</a>
 	</div>
 	{% endif %}
 {% endblock %}
@@ -92,8 +92,8 @@
   		<h6 style="text-align: center;" class="m-0 font-weight-bold text-{{request.session.bt_color}}"> <i class="fas fa-info-circle"></i> Ningún registro encontrado con los datos buscados</h6>
 	</div>
 	</br>
-    <div class="col-sm-2" style="margin: 0 auto;">
-    	<a class="btn btn-{{request.session.bt_color}} btn-user btn-block" href="{% url 'buscarPaciente' %}" role="button"><i class="fa fa-arrow-left"></i> Regresar</a>
+    <div class="col-sm-2" style="margin: 0 auto;text-align: center;">
+    	<a style="border-radius: 10rem;" class="btn btn-{{request.session.bt_color}}" href="{% url 'buscarPaciente' %}" role="button"><i class="fa fa-arrow-left"></i> Regresar</a>
     </div>
 {% endif %}
 
