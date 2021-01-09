@@ -1,13 +1,20 @@
 {% extends "admin/base_site.html" %}
 {% load i18n %}
 
-{% block breadcrumbs %}<div class="breadcrumbs"><a href="/">{% trans 'Home' %}</a></div>{% endblock %}
+{% block breadcrumbs %}{% endblock %}
 
 {% block content %}
+<style>
+	h1 {
+		text-align: center;
+	}
+</style>
 	<div class="submit-row">
-		<form action="{% url 'home' %}">
-			<p>Gracias por el tiempo que ha dedicado hoy al sitio Webtooth. </p>
-			<label></label><input type="submit" value="Volver a iniciar">
+		<form action="{% url 'home' %}" style="text-align: center;">
+			<div>
+				<h1 style="margin: 5 auto;" class="h5 mb-0">¡Gracias por el tiempo que ha dedicado hoy al sitio Webtooth!<hr style="margin: 5 auto;"></h1>
+			</div>
+			<label></label><input style="border-radius: 10rem;" type="submit" value="Volver a iniciar">
 		</form>
 	</div>
 {% endblock %}
