@@ -9,7 +9,7 @@ from django.conf import settings
 from appGestionPacientes.models import Patient, Adress, File, Navigation
 from appGestionPacientes.forms import ContactForm, PatientForm, AdressForm, FileForm, ImportForm, TaskForm
 from appGestionPacientes.config import validErrors
-from appGestionPacientes.query import filterSearch, filterByIdPatient, generateKlave, filterByIdPatientAdress
+from appGestionPacientes.query import filterSearch, filterByIdPatient, generateKlave, filterByIdPatientAdress, filterPatientDelete
 
 from webtooth.config import logger, sendEmailContact, getLogin
 from appGestionPacientes.permissions import *
@@ -147,13 +147,19 @@ def buscarId(request, idPatient):
         result = filterByIdPatient(idPatient,formPatient)
         adress = filterByIdPatientAdress(idPatient,formAdress)
 
+        patient = filterPatientDelete(idPatient)
+        if patient:
+            delPatient = patient.eliminado
+        else:
+            delPatient = False
+
         if adress == None:
             adress = formAdress
 
         expediente = result.fields['numexp'].initial
         log.info("Expdiente: "+str(expediente))
 
-        return render(request, "patient/datosPaciente.html", {"form": result, "id": idPatient, "formAdress": adress, "expediente": expediente})
+        return render(request, "patient/datosPaciente.html", {"form": result, "id": idPatient, "formAdress": adress, "expediente": expediente, "delPatient": delPatient})
     except Exception as ex:
         log.error("Error al buscar por id: "+str(ex))
         return render(request,"patient/datosPaciente.html",{"form": None,"formAdress":None})
@@ -224,7 +230,9 @@ def eliminarPaciente(request,idPatient):
         patient = Patient.objects.get(pk=idPatient)
         imageOld = patient.foto
         numexp = patient.numexp
-        patient.delete()
+        ###patient.delete()
+        patient.eliminado = True
+        patient.save()
         log.info("Se ha eliminado el registro de BD con NumExp: {}".format(numexp))
         try:
             if imageOld:

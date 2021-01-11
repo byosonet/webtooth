@@ -71,10 +71,14 @@
 				  {% endif %}
 			 </td>
 			 <td style="text-align: center;">
-				{% if paciente.activo %}
-					<span class="btn btn-success" style="font-size: 10px;"> Activo </span>
+				{% if paciente.eliminado %}
+					<span class="btn btn-danger" style="font-size: 10px;"> Eliminado </span>
 				{% else %}
-					<span class="btn btn-warning" style="font-size: 10px;"> Inactivo </span>
+					{% if paciente.activo %}
+						<span class="btn btn-success" style="font-size: 10px;"> Activo </span>
+					{% else %}
+						<span class="btn btn-warning" style="font-size: 10px;"> Inactivo </span>
+					{% endif %}
 				{% endif %}
 			 </td>
 			 <td>{{paciente.rfc}}</td>

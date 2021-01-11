@@ -12,6 +12,7 @@ class Patient(AuditModel, models.Model):
 	numexp=models.CharField(max_length=15,verbose_name="Número de expediente")
 	fechaAlta = models.DateTimeField(auto_now_add=True, blank=True, null=True,verbose_name="Fecha alta")
 	activo=models.BooleanField(blank=True,null=True,verbose_name="Activo")
+	eliminado=models.BooleanField(blank=True,null=True,verbose_name="Eliminado")
 
 	fechaUpdate = models.DateTimeField(auto_now_add=True, blank=True, null=True, verbose_name="Fecha actualización")
 	foto = models.ImageField(blank=True, null=True, verbose_name="Foto", upload_to="img")

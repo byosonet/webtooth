@@ -123,3 +123,11 @@ def generateKlave():
 	klave = 'P'+date.today().strftime('%d%m%y')+'-'+uuid.uuid4().hex[:5].upper()
 	log.info("La clave generada para el paciente es: "+str(klave))
 	return klave
+
+def filterPatientDelete(idPatient):
+	log.info("Id recibido for patient: "+str(idPatient))
+	patient = Patient.objects.get(pk=idPatient)
+	if patient:
+		return patient
+	else:
+		return None

@@ -1,7 +1,7 @@
 {% extends "extends.html" %}
 
 {% block title %} Datos del paciente {%endblock%}
-{% block titlepage %} N&uacute;mero de expediente <div style="text-align: center;"><hr style="margin: 5 auto;"><b>{{ expediente }}</b></div> {%endblock%}
+{% block titlepage %} N&uacute;mero de expediente {% if delPatient %}<i class="fas fa-trash"></i>{% else %}<i class="fas fa-check-circle"></i>{% endif %}<div style="text-align: center;"><hr style="margin: 5 auto;"><b>{{ expediente }}</b></div> {%endblock%}
 
 {% block body %}
 
@@ -101,6 +101,7 @@
                         {{form.foto}}
                     </div>
                     <div class="col-sm-2">
+                        {% if not delPatient %}
                         <div style="float: right;">
                             {{form.activo}}
                             {% if form.activo.value %}
@@ -109,9 +110,11 @@
                             <span class="btn btn-warning" style="font-size: 12px;"> Inactivo </span>
                             {% endif %}
                         </div>
+                        {% endif %}
                     </div>
                 </div>
 
+                {% if not delPatient %}
                 <div class="form-group row">
 
                     <div class="col-sm-6">
@@ -131,12 +134,13 @@
                             Actualizar</button>
                     </div>
                 </div>
+                {% endif %}
             </form>
 
             <!-- Logout Modal-->
             <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true" data-backdrop="static">
-                <div class="modal-dialog" role="document">
+                <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-info-circle fa-1x"></i> Aviso de sistema</h5>
@@ -144,9 +148,9 @@
                                 <span aria-hidden="true">×</span>
                             </button>
                         </div>
-                        <div class="modal-body">¿Est&aacute; seguro de eliminar el registro actual que contiene los
+                        <div class="modal-body" style="text-align: justify;">¿Est&aacute; seguro de eliminar el registro actual que contiene los
                             siguientes datos? </br></br>Nombre: <b>{{form.nombre.value}} {{form.apellidoPaterno.value}}</b>
-                            {{form.apellidoMaterno.value}}</br>Correo: <b>{{form.email.value}}</b></div>
+                            {{form.apellidoMaterno.value}}</br>Correo: <b>{{form.email.value}}</b></br></br><b>Nota: Los datos ser&aacute;n bloqueados en sistema una vez eliminado el registro.</b></div>
                         <div class="modal-footer">
                             <button class="btn btn-{{request.session.bt_color}}" type="button"
                                 data-dismiss="modal" style="border-radius: 10rem;"><i class="fas fa-times"></i> Cancelar</button>

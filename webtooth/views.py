@@ -32,8 +32,9 @@ def homeView(request):
 	rowsRegister=Patient.objects.all().count()
 	rowsFile = File.objects.all().count()
 	loggedUsers = getAllLoggedUsers()
-	patientActive = Patient.objects.filter(activo=True).count()
-	patientInactive = Patient.objects.filter(Q(activo=False) | Q(activo=None)).count()
+	patientActive = Patient.objects.filter(Q(eliminado=None) | Q(eliminado=False), activo=True).count()
+	patientInactive = Patient.objects.filter(Q(eliminado=None) | Q(eliminado=False),Q(activo=False) | Q(activo=None)).count()
+	patientDelete = Patient.objects.filter(eliminado=True).count()
 
 	if rowsRegister > 0 :
 		porcentajeActivos = (patientActive * 100)/rowsRegister
@@ -41,9 +42,13 @@ def homeView(request):
 
 		porcentajeInactivos = (patientInactive * 100)/rowsRegister
 		porcentajeInactivos = format(porcentajeInactivos, '.2f')
+
+		porcentajeEliminados = (patientDelete * 100)/rowsRegister
+		porcentajeEliminados = format(porcentajeEliminados, '.2f')
 	else:
 		porcentajeActivos = 0
 		porcentajeInactivos = 0
+		porcentajeEliminados = 0
 
 	try:
 		loadPropertie(user.id, request)
@@ -60,11 +65,14 @@ def homeView(request):
 
 	log.info("Total de pacientes Activos: {}".format(patientActive))
 	log.info("Total de pacientes Inactivos: {}".format(patientInactive))
+	log.info("Total de pacientes Eliminados: {}".format(patientDelete))
+	log.info("Total de pacientes en Sistema: {}".format(rowsRegister))
 	log.info("Porcentaje de activos: {}%".format(porcentajeActivos))
 	log.info("Porcentaje de Inactivos: {}%".format(porcentajeInactivos))
+	log.info("Porcentaje de Eliminados: {}%".format(porcentajeEliminados))
 	data = {"rowsFile": rowsFile, "rowsRegister": rowsRegister, "loggedUsers": loggedUsers,
          "percentActive": porcentajeActivos, "percentInactive": porcentajeInactivos, 
-         "patientActive": patientActive, "inactivePatients": patientInactive, "lastRow": lastRow}
+         "patientActive": patientActive, "inactivePatients": patientInactive, "lastRow": lastRow, "patientDelete": patientDelete, "porcentajeEliminados":porcentajeEliminados}
 	return render(request,"home/home.html",data)
 
 
