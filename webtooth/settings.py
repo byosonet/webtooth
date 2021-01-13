@@ -155,8 +155,8 @@ LOGGING = {
             'class': 'logging.handlers.RotatingFileHandler',
             'filename': PATH_LOGS+'/webtooth.log',
             'formatter': 'standard',
-            'maxBytes' : 1024*1024*20,
-            'backupCount' : 5,
+            'maxBytes' : 1024*1024*1,
+            'backupCount' : 3,
         },
         'console':{
             'level':'INFO',
