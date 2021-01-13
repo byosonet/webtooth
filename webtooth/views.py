@@ -13,6 +13,8 @@ from django.utils import timezone
 
 from appGestionPacientes.signals import getUser
 
+import os, shutil
+from django.conf import settings
 
 log = logger('webtooth',True)
 
@@ -70,6 +72,8 @@ def homeView(request):
 	log.info("Porcentaje de activos: {}%".format(porcentajeActivos))
 	log.info("Porcentaje de Inactivos: {}%".format(porcentajeInactivos))
 	log.info("Porcentaje de Eliminados: {}%".format(porcentajeEliminados))
+	infoDisk(request)
+	infoDiskUpload(request)
 	data = {"rowsFile": rowsFile, "rowsRegister": rowsRegister, "loggedUsers": loggedUsers,
          "percentActive": porcentajeActivos, "percentInactive": porcentajeInactivos, 
          "patientActive": patientActive, "inactivePatients": patientInactive, "lastRow": lastRow, "patientDelete": patientDelete, "porcentajeEliminados":porcentajeEliminados}
@@ -93,3 +97,48 @@ def color(request,idColor):
 	request = setColorSystem(request, idColor)
 	return redirect('/')
 
+def infoDisk(request):
+	total, used, free = shutil.disk_usage("/")
+
+	totalDisk = (total // (2**30))
+	log.info("Total disk space: %d Gb" % totalDisk)
+	
+	usedDisk = (used // (2**30))
+	log.info("Total used disk space: %d Gb" % usedDisk)
+
+	freeDisk = (free // (2**30))
+	log.info("Total free disk space: %d Gb" % freeDisk)
+
+	porcentajeUsado = (usedDisk * 100)/totalDisk
+	porcentajeUsado = format(porcentajeUsado, '.2f')
+
+	porcentajeLibre = (freeDisk * 100)/totalDisk
+	porcentajeLibre = format(porcentajeLibre, '.2f')
+
+	request.session['total_disk_gb'] = totalDisk
+	request.session['used_disk_gb'] = usedDisk
+	request.session['free_disk_gb'] = freeDisk
+
+	request.session['used_disk'] = porcentajeUsado
+	request.session['free_disk'] = porcentajeLibre
+
+	log.info("Porcentaje de disco usado: {}%".format(porcentajeUsado))
+	log.info("Porcentaje de disco libre: {}%".format(porcentajeLibre))
+
+
+def infoDiskUpload(request):
+	total = folderSizeMB(settings.MEDIA_PATH+str('upload'))
+	totalDisk = (total // (1024)) / 1024
+	totalDisk = format(totalDisk, '.2f')
+	log.info("Total disk upload: {} Mb".format(totalDisk))
+	request.session['used_disk_up'] = totalDisk
+
+
+def folderSizeMB(path):
+    total = 0
+    for entry in os.scandir(path):
+        if entry.is_file():
+            total += entry.stat().st_size
+        elif entry.is_dir():
+            total += folderSizeMB(entry.path)
+    return total
