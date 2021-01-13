@@ -9,9 +9,11 @@ from django.utils import timezone
 from appGestionPacientes.models import Propertie
 from appGestionPacientes.signals import getUser
 
+from webtooth.logger import LOGGING
 
 #Service logger
 def logger(app,view):
+	logging.config.dictConfig(LOGGING)
 	if view:
 		log = logging.getLogger(str(app)+'.views')
 	else:
