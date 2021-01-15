@@ -243,4 +243,9 @@ miForm.cleaned_data -> Para obtener los datos de los campos del formulario
 1.- ALLOWED_HOSTS = ['*']
 2.- python manage.py runserver 0.0.0.0:8000
 
-3.- Instalar Pandas: pip install pandas y pip install xlrd==1.2.0
+Componentes:
+1.- pip install Django==2.2.3
+2.- pip install psycopg2
+3.- pip install pandas
+4.- pip install xlrd==1.2.0
+5.- pip install apscheduler
