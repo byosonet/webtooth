@@ -4,7 +4,7 @@
   <!-- Sidebar - Brand -->
   <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{% url 'home' %}">
     <div class="sidebar-brand-icon rotate-n-15 text-{{request.session.fg_color}}">
-      <i class="fas fa-heartbeat"></i>
+      <i class="fas fa-tooth"></i>
     </div>
     <div class="sidebar-brand-text mx-3 text-{{request.session.fg_color}}">Webtooth<sup> 1.0</sup></div>
   </a>
@@ -50,13 +50,13 @@
         {% endif %}
         <a class="collapse-item" href="{% url 'altaTarea' %}"><i class="fas fa-plus fa-sm fa-fw mr-2"></i>Agregar tarea</a>
         <h6 class="collapse-header">Color de tema:</h6>
-        <a class="collapse-item" href="{% url 'color' 1 %}"><span class="btn btn-dark btn-circle" style="height: 1.1em;width:0.5em;"></span> Negro</a>
+        <a class="collapse-item" href="{% url 'color' 1 %}"><span class="btn btn-dark btn-circle btn-sm" style="height: 1.5em;width:1em;margin-top: -3px;"></span> Negro grafito</a>
         <!--a class="collapse-item" href="{% url 'color' 2 %}"><span class="btn btn-success btn-circle" style="height: 1.5em;width:0.5em;"></span> Verde</a-->
-        <a class="collapse-item" href="{% url 'color' 3 %}"><span class="btn btn-light btn-circle" style="height: 1.1em;width:0.5em;"></span> Blanco</a>
+        <!--a class="collapse-item" href="{% url 'color' 3 %}"><span class="btn btn-light btn-circle" style="height: 1.1em;width:0.5em;"></span> Blanco</a-->
         <!--a class="collapse-item" href="{% url 'color' 4 %}"><span class="btn btn-secondary btn-circle" style="height: 1.5em;width:0.5em;"></span> Gris</a-->
-        <a class="collapse-item" href="{% url 'color' 5 %}"><span class="btn btn-danger btn-circle" style="height: 1.1em;width:0.5em;"></span> Rojo</a>        
+        <a class="collapse-item" href="{% url 'color' 5 %}"><span class="btn btn-danger btn-circle btn-sm" style="height: 1.5em;width:1em;margin-top: -3px;"></span> Rojo mate</a>        
         <!--a class="collapse-item" href="{% url 'color' 6 %}"><span class="btn btn-warning btn-circle" style="height: 1.5em;width:0.5em;"></span> Naranja</a-->
-        <a class="collapse-item" href="{% url 'color' 7 %}"><span class="btn btn-primary btn-circle"style="height: 1.1em;width:0.5em;"></span> Azul</a>
+        <a class="collapse-item" href="{% url 'color' 7 %}"><span class="btn btn-primary btn-circle btn-sm"style="height: 1.5em;width:1em;margin-top: -3px;"></span> Azul (por defecto)</a>
       </div>
     </div>
   </li>

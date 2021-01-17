@@ -6,21 +6,7 @@
 
 
 {% block report %}
-{% if listaDireccion %}
-<div>
-    <a style="border-radius: 10rem;" href="#" id="ReportePrintAdress"
-        class="d-none d-sm-inline-block btn btn-sm btn-{{request.session.bt_color}} shadow-sm"><i
-            class="fas fa-print"></i> Imprimir reporte</a>
 
-    <a style="border-radius: 10rem;" href="#" id="ReporteExcelAdress"
-        class="d-none d-sm-inline-block btn btn-sm btn-{{request.session.bt_color}} shadow-sm"><i
-            class="fas fa-file-excel"></i> Exportar a Excel</a>
-
-    <a style="border-radius: 10rem;" href="#" id="ReportePdfAdress"
-        class="d-none d-sm-inline-block btn btn-sm btn-{{request.session.bt_color}} shadow-sm"><i
-            class="fas fa-file-pdf"></i> Exportar a PDF</a>
-</div>
-{% endif %}
 {% endblock %}
 
 
@@ -32,9 +18,24 @@
     <div class="card-header py-3 bg-gray-200">
         <h6 class="m-0 font-weight-bold text-{{request.session.bt_color}}">
             <div class="col-sm-12"><center>Registros de direcciones</center></div>
+            {% if listaDireccion %}
+            <div style="float: right;">
+                <a style="border-radius: 10rem;" href="#" id="ReportePrintAdress"
+                    class="d-none d-sm-inline-block btn btn-sm btn-{{request.session.bt_color}} shadow-sm"><i
+                        class="fas fa-print"></i> </a>
+            
+                <a style="border-radius: 10rem;" href="#" id="ReporteExcelAdress"
+                    class="d-none d-sm-inline-block btn btn-sm btn-{{request.session.bt_color}} shadow-sm"><i
+                        class="fas fa-file-excel"></i> </a>
+            
+                <a style="border-radius: 10rem;" href="#" id="ReportePdfAdress"
+                    class="d-none d-sm-inline-block btn btn-sm btn-{{request.session.bt_color}} shadow-sm"><i
+                        class="fas fa-file-pdf"></i> </a>
+            </div>
+            {% endif %}
         </h6>
     </div>
-    <div class="card-body border-bottom-{{request.session.bt_color}} bg-gray-200">
+    <div class="card-body bg-gray-200">
         <div class="table-responsive">
             <table class="table table-striped table-hover webtooth" id="dataTableAdress" width="100%" cellspacing="0">
                 <thead class="bg-gradient-light">
