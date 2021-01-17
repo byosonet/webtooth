@@ -6,7 +6,7 @@ from django.utils import timezone
 import os
 from django.conf import settings
 
-from appGestionPacientes.models import Patient, Adress, File, Navigation
+from appGestionPacientes.models import Patient, Adress, File, Navigation, Import
 from appGestionPacientes.forms import ContactForm, PatientForm, AdressForm, FileForm, ImportForm, TaskForm
 from appGestionPacientes.config import validErrors
 from appGestionPacientes.query import filterSearch, filterByIdPatient, generateKlave, filterByIdPatientAdress, filterPatientDelete
@@ -45,7 +45,7 @@ def buscarNombre(request):
 @validRequest
 def listarPaciente(request):
     log.info("Obteniendo lista de pacientes")
-    listadoPacientes = Patient.objects.all().order_by('-fechaUpdate')
+    listadoPacientes = Patient.objects.all().order_by('-fechaUpdate')[:200]
     #for p in listadoPacientes:
         #log.info("Nombre: {} Expediente: {} Correo: {} Fecha update: {}".format(p.nombre,p.numexp,p.email,p.fechaUpdate))    
     return render(request, "patient/listaPacientes.html", {"listaPaciente":listadoPacientes})
@@ -336,6 +336,10 @@ def listarNavegacion(request):
 @permission_required(importFile(), login_url=notPermission())
 @validRequest
 def importPatients(request):
+    log.info("Obteniendo lista de importación")
+    listadoImportacion = Import.objects.filter(
+        tipoSubida='Fichero de pacientes').order_by('-fechaSubida')[:200]
+
     if request.method == 'POST':
         importFile = ImportForm(request.POST, request.FILES)
         if importFile.is_valid():
@@ -367,28 +371,33 @@ def importPatients(request):
                 for row in xlsValues:
                     containsError = guardarPatientXLS(row)
                     if containsError:
+                        file.importado = False
+                        file.save()
                         importFile = ImportForm()
                         log.info("Existen errores de validacion, revisar archivo")
                         messages.error(request, f"[ERROR]: El archivo {fileName} contiene errores o le faltan campos por cumplimentar.")
-                        return render(request, "import/importarPaciente.html", {"form": importFile})
+                        return render(request, "import/importarPaciente.html", {"form": importFile, "listadoImportacion":listadoImportacion})
+                    file.importado = True
+                    file.save()
             else:
+                file.importado = False
+                file.save()
                 importFile = ImportForm()
                 log.info("Existen errores de validacion, revisar archivo")
                 messages.error(request, f"[ERROR]: El archivo {fileName} debe contener al menos un registro")
-                return render(request, "import/importarPaciente.html", {"form": importFile})
-
+                return render(request, "import/importarPaciente.html", {"form": importFile,"listadoImportacion":listadoImportacion})
 
             log.info("Se ha agregado a la BD el nuevo archivo importado")
             messages.success(
                 request, f"El archivo {fileName} ha sido importado correctamente")
             importFile = ImportForm()
-            return render(request, "import/importarPaciente.html", {"form": importFile})
+            return render(request, "import/importarPaciente.html", {"form": importFile,"listadoImportacion":listadoImportacion})
         else:
             log.error("Formulario recibido no pasa la validacion...")
             validErrors(importFile)
     else:
         importFile = ImportForm()
-    return render(request, "import/importarPaciente.html", {"form": importFile})
+    return render(request, "import/importarPaciente.html", {"form": importFile, "listadoImportacion": listadoImportacion})
 
 
 def guardarPatientXLS(row):

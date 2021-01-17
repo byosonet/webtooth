@@ -19,7 +19,7 @@
         <h6 class="m-0 font-weight-bold text-{{request.session.bt_color}}">
             <div class="col-sm-12"><center>Registros de ficheros</center></div>
             {% if listaArchivo %}
-            <div style="float: right;">
+            <div style="float: right;margin-top: -10px;">
                 <a style="border-radius: 10rem;" href="#" id="ReportePrintFile"
                     class="d-none d-sm-inline-block btn btn-sm btn-{{request.session.bt_color}} shadow-sm"><i
                         class="fas fa-print"></i> </a>
@@ -66,7 +66,7 @@
                         <td style="text-align: center;">
                             <a href="{{ archivo.path.url }}" class="text-{{request.session.bt_color}}" target="_blank"><i class="fas fa-{{archivo.typeFile}} fa-2x"></i></a>
                         </td>
-                        <td style="text-align: center;"><a href="#" href="#" data-toggle="modal" data-target="#deleteFile{{archivo.id}}" role="button"><span class="btn btn-danger" style="font-size: 10px;"> Eliminar </span></a></td>
+                        <td style="text-align: center;"><a href="#" href="#" data-toggle="modal" data-target="#deleteFile{{archivo.id}}" role="button"><span class="btn btn-danger btn-sm" style="font-size: 10px;"> Eliminar </span></a></td>
                     </tr>
 
                     <!-- Delete File Modal-->

@@ -19,7 +19,7 @@
 	  <h6 class="m-0 font-weight-bold text-{{request.session.bt_color}}">    
 		  <div class="col-sm-12"><center>Registros de pacientes</center></div>
 			{% if listaPaciente %}
-			<div style="float: right;">
+			<div style="float: right;margin-top: -10px;">
 				<a style="border-radius: 10rem;" href="#" id="ReportePrint"
 					class="d-none d-sm-inline-block btn btn-sm btn-{{request.session.bt_color}} shadow-sm"><i
 						class="fas fa-print"></i> </a>
@@ -79,12 +79,12 @@
 			 </td>
 			 <td style="text-align: center;">
 				{% if paciente.eliminado %}
-					<span class="btn btn-danger" style="font-size: 10px;"> Eliminado </span>
+					<span class="btn btn-danger btn-sm" style="font-size: 10px;"> Eliminado </span>
 				{% else %}
 					{% if paciente.activo %}
-						<span class="btn btn-success" style="font-size: 10px;"> Activo </span>
+						<span class="btn btn-success btn-sm" style="font-size: 10px;"> Activo </span>
 					{% else %}
-						<span class="btn btn-warning" style="font-size: 10px;"> Inactivo </span>
+						<span class="btn btn-warning btn-sm" style="font-size: 10px;"> Inactivo </span>
 					{% endif %}
 				{% endif %}
 			 </td>

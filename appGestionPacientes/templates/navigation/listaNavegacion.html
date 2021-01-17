@@ -19,7 +19,7 @@
 	  <h6 class="m-0 font-weight-bold text-{{request.session.bt_color}}">    
 		  <div class="col-sm-12"><center>Historial de navegación</center></div>
 			{% if listaNavegacion %}
-			<div style="float: right;">
+			<div style="float: right;margin-top: -10px;">
 				<a style="border-radius: 10rem;" href="#" id="ReportePrintNavigation"
 					class="d-none d-sm-inline-block btn btn-sm btn-{{request.session.bt_color}} shadow-sm"><i
 						class="fas fa-print"></i> </a>
@@ -59,11 +59,11 @@
 	          <td style="width: 150px;text-align: center;">{{nav.method}}</td>
 			  <td style="width: 150px;text-align: center;">
 				{% if nav.status == 200 %}
-				<span class="btn btn-success" style="font-size: 10px;"> {{nav.status}} </span>
+				<span class="btn btn-success btn-sm" style="font-size: 10px;"> {{nav.status}} </span>
 				{% elif nav.status == 500 %}
-				<span class="btn btn-danger" style="font-size: 10px;"> {{nav.status}} </span>
+				<span class="btn btn-danger btn-sm" style="font-size: 10px;"> {{nav.status}} </span>
 				{% else %}
-				<span class="btn btn-warning" style="font-size: 10px;"> {{nav.status}} </span>
+				<span class="btn btn-warning btn-sm" style="font-size: 10px;"> {{nav.status}} </span>
 				{% endif %}
 			  </td>
 			  <td style="width: 200px;text-align: center;">{{nav.eventTime}}</td>

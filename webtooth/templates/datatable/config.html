@@ -173,7 +173,7 @@
 				pageSize: 'LETTER',
 				download: 'open',
 				customize: function (doc) {
-					doc.content[1].margin = [50, 0, 10, 0] //left, top, right, bottom
+					doc.content[1].margin = [100, 0, 10, 0] //left, top, right, bottom
 				},
 				exportOptions: {
 					columns: [0, 1, 2, 3, 4, 5]
@@ -194,6 +194,51 @@
 		});
 		$("#ReportePrintNavigation").on("click", function () {
 			tableNavigation.button('.buttons-print').trigger();
+		});
+
+
+		/*Para import*/
+		tableImport = $('#dataTableImport').DataTable({
+			"language": {
+				"url": "{% static 'json/spanish.json' %}"
+			},
+			"lengthMenu": [7, 14, 20, 25],
+			"aaSorting": [],
+			buttons: [{
+				extend: 'excelHtml5',
+				title: 'Listado de importación al día {% now "DATE_FORMAT" %}',
+				exportOptions: {
+					columns: [0, 1, 2]
+				}
+			},
+			{
+				extend: 'pdfHtml5',
+				title: 'Listado de importación al día {% now "DATE_FORMAT" %}',
+				orientation: 'landscape',
+				pageSize: 'LETTER',
+				download: 'open',
+				customize: function (doc) {
+					doc.content[1].margin = [100, 0, 10, 0] //left, top, right, bottom
+				},
+				exportOptions: {
+					columns: [0, 1, 2]
+				}
+			}, {
+				extend: 'print',
+				title: 'Listado de importación al día {% now "DATE_FORMAT" %}',
+				exportOptions: {
+					columns: [0, 1, 2]
+				}
+			}]
+		});
+		$("#ReporteExcelImport").on("click", function () {
+			tableImport.button('.buttons-excel').trigger();
+		});
+		$("#ReportePdfImport").on("click", function () {
+			tableImport.button('.buttons-pdf').trigger();
+		});
+		$("#ReportePrintImport").on("click", function () {
+			tableImport.button('.buttons-print').trigger();
 		});
 	});
 </script>
