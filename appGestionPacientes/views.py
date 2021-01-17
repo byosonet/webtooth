@@ -351,8 +351,19 @@ def importPatients(request):
             xls = pd.read_excel(settings.MEDIA_PATH+str(file.path), skiprows=1)
             xlsValues = xls.values
 
+            headers = list(xls.columns.values)
+            log.info("Columns contains in excel: "+str(headers))
+            validXSL = False
+            if "Nombre" in headers[0]:
+                if "Apellido" in headers[1]:
+                    if "RFC" in headers[6]:
+                        validXSL = True
+                        log.info("Excel validado")
+            if not validXSL:
+                log.info("Excel no validado!!")
+
             lista = len(xlsValues)
-            if lista > 0:
+            if lista > 0 and validXSL:
                 for row in xlsValues:
                     containsError = guardarPatientXLS(row)
                     if containsError:
