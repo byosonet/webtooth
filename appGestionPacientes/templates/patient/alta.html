@@ -36,46 +36,123 @@
             <form class="user" action="{% url 'altaPaciente' %}" method="POST" enctype="multipart/form-data">{% csrf_token %}
                 <div class="form-group row">
                     <div class="col-sm-4">
-                        {{form.nombre}}
+
+                        <div class="input-group">
+                            {{form.nombre}}
+                            <div class="input-group-append">
+                                <div class="input-group-text"><i class="fas fa-keyboard"></i></div>
+                            </div>
+                        </div>
+
                     </div>
                     <div class="col-sm-4">
-                        {{form.apellidoPaterno}}
+
+                        <div class="input-group">
+                            {{form.apellidoPaterno}}
+                            <div class="input-group-append">
+                                <div class="input-group-text"><i class="fas fa-keyboard"></i></div>
+                            </div>
+                        </div>
+
                     </div>
                     <div class="col-sm-4">
-                        {{form.apellidoMaterno}}
+
+                        <div class="input-group">
+                            {{form.apellidoMaterno}}
+                            <div class="input-group-append">
+                                <div class="input-group-text"><i class="fas fa-keyboard"></i></div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <div class="col-sm-4">
-                        {{form.rfc}}
+
+                        <div class="input-group">
+                            {{form.rfc}}
+                            <div class="input-group-append">
+                                <div class="input-group-text"><i class="fas fa-keyboard"></i></div>
+                            </div>
+                        </div>
+
                     </div>
                     <div class="col-sm-4">
-                        {{form.email}}
+
+                        <div class="input-group">
+                            {{form.email}}
+                            <div class="input-group-append">
+                                <div class="input-group-text"><i class="fas fa-envelope-square"></i></div>
+                            </div>
+                        </div>
+
                     </div>
                     <div class="col-sm-4">
-                        {{form.telefono}}
+
+                        <div class="input-group">
+                            {{form.telefono}}
+                            <div class="input-group-append">
+                                <div class="input-group-text"><i class="fas fa-phone"></i></div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <div class="col-sm-4">
-                        {{formAdress.calle}}
+
+                        <div class="input-group">
+                            {{formAdress.calle}}
+                            <div class="input-group-append">
+                                <div class="input-group-text"><i class="fas fa-map-marked-alt"></i></div>
+                            </div>
+                        </div>
+
                     </div>
                     <div class="col-sm-4">
-                        {{formAdress.numeroExt}}
+
+                        <div class="input-group">
+                            {{formAdress.numeroExt}}
+                            <div class="input-group-append">
+                                <div class="input-group-text"><i class="fas fa-map-marked-alt"></i></div>
+                            </div>
+                        </div>
+
                     </div>
                     <div class="col-sm-4">
-                        {{formAdress.numeroInt}}
+
+                        <div class="input-group">
+                            {{formAdress.numeroInt}}
+                            <div class="input-group-append">
+                                <div class="input-group-text"><i class="fas fa-map-marked-alt"></i></div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <div class="col-sm-4">
-                        {{formAdress.cp}}
+
+                        <div class="input-group">
+                            {{formAdress.cp}}
+                            <div class="input-group-append">
+                                <div class="input-group-text"><i class="fab fa-usps"></i></div>
+                            </div>
+                        </div>
+
                     </div>
                     <div class="col-sm-4">
-                        {{formAdress.ciudad}}
+
+                        <div class="input-group">
+                            {{formAdress.ciudad}}
+                            <div class="input-group-append">
+                                <div class="input-group-text"><i class="fas fa-city"></i></div>
+                            </div>
+                        </div>
+
                     </div>
                     <div class="col-sm-4">
                         {{formAdress.estado}}

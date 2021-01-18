@@ -38,46 +38,101 @@
             <form class="user" action="{% url 'actualizarPaciente' id %}" method="POST" enctype="multipart/form-data">{% csrf_token %}
                 <div class="form-group row">
                     <div class="col-sm-4">
-                        {{form.nombre}}
+                        <div class="input-group">
+                            {{form.nombre}}
+                            <div class="input-group-append">
+                                <div class="input-group-text"><i class="fas fa-keyboard"></i></div>
+                            </div>
+                        </div>
                     </div>
                     <div class="col-sm-4">
-                        {{form.apellidoPaterno}}
+                        <div class="input-group">
+                            {{form.apellidoPaterno}}
+                            <div class="input-group-append">
+                                <div class="input-group-text"><i class="fas fa-keyboard"></i></div>
+                            </div>
+                        </div>
                     </div>
                     <div class="col-sm-4">
-                        {{form.apellidoMaterno}}
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <div class="col-sm-4">
-                        {{form.rfc}}
-                    </div>
-                    <div class="col-sm-4">
-                        {{form.email}}
-                    </div>
-                    <div class="col-sm-4">
-                        {{form.telefono}}
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <div class="col-sm-4">
-                        {{formAdress.calle}}
-                    </div>
-                    <div class="col-sm-4">
-                        {{formAdress.numeroExt}}
-                    </div>
-                    <div class="col-sm-4">
-                        {{formAdress.numeroInt}}
+                        <div class="input-group">
+                            {{form.apellidoMaterno}}
+                            <div class="input-group-append">
+                                <div class="input-group-text"><i class="fas fa-keyboard"></i></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <div class="col-sm-4">
-                        {{formAdress.cp}}
+                        <div class="input-group">
+                            {{form.rfc}}
+                            <div class="input-group-append">
+                                <div class="input-group-text"><i class="fas fa-keyboard"></i></div>
+                            </div>
+                        </div>
                     </div>
                     <div class="col-sm-4">
-                        {{formAdress.ciudad}}
+                        <div class="input-group">
+                            {{form.email}}
+                            <div class="input-group-append">
+                                <div class="input-group-text"><i class="fas fa-envelope-square"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            {{form.telefono}}
+                            <div class="input-group-append">
+                                <div class="input-group-text"><i class="fas fa-phone"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            {{formAdress.calle}}
+                            <div class="input-group-append">
+                                <div class="input-group-text"><i class="fas fa-map-marked-alt"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            {{formAdress.numeroExt}}
+                            <div class="input-group-append">
+                                <div class="input-group-text"><i class="fas fa-map-marked-alt"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            {{formAdress.numeroInt}}
+                            <div class="input-group-append">
+                                <div class="input-group-text"><i class="fas fa-map-marked-alt"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            {{formAdress.cp}}
+                            <div class="input-group-append">
+                                <div class="input-group-text"><i class="fab fa-usps"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            {{formAdress.ciudad}}
+                            <div class="input-group-append">
+                                <div class="input-group-text"><i class="fas fa-city"></i></div>
+                            </div>
+                        </div>
                     </div>
                     <div class="col-sm-4">
                         {{formAdress.estado}}
@@ -149,8 +204,8 @@
                             </button>
                         </div>
                         <div class="modal-body" style="text-align: justify;">¿Est&aacute; seguro de eliminar el registro actual que contiene los
-                            siguientes datos? </br></br>Nombre: <b>{{form.nombre.value}} {{form.apellidoPaterno.value}}</b>
-                            {{form.apellidoMaterno.value}}</br>Correo: <b>{{form.email.value}}</b></br></br><b>Nota: Los datos ser&aacute;n bloqueados en sistema una vez eliminado el registro.</b></div>
+                            siguientes datos? </br></br>Nombre: <b>{{form.nombre.value}} {{form.apellidoPaterno.value}}
+                            {{form.apellidoMaterno.value}}</b></br>Correo: <b>{{form.email.value}}</b></br></br><b>Nota: Los datos ser&aacute;n bloqueados en sistema una vez eliminado el registro.</b></div>
                         <div class="modal-footer">
                             <button class="btn btn-{{request.session.bt_color}}" type="button"
                                 data-dismiss="modal" style="border-radius: 10rem;"><i class="fas fa-times"></i> Cancelar</button>
@@ -174,8 +229,8 @@
                         </div>
                         <div class="modal-body">¿Est&aacute; seguro de modificar el registro actual que contiene los
                             siguientes
-                            datos? </br></br>Nombre: <b>{{form.nombre.value}} {{form.apellidoPaterno.value}}</b>
-                            {{form.apellidoMaterno.value}}</br>Correo: <b>{{form.email.value}}</b></div>
+                            datos? </br></br>Nombre: <b>{{form.nombre.value}} {{form.apellidoPaterno.value}}
+                            {{form.apellidoMaterno.value}}</b></br>Correo: <b>{{form.email.value}}</b></div>
                         <div class="modal-footer">
                             <button class="btn btn-{{request.session.bt_color}}" type="button"
                                 data-dismiss="modal" style="border-radius: 10rem;"><i class="fas fa-times"></i> Cancelar</button>

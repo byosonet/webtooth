@@ -4,9 +4,9 @@ from appGestionPacientes.models import Patient, Adress, File, Import, Task, Reci
 
 
 class ContactForm(forms.ModelForm):
-	subjectRecipe = forms.CharField(max_length=50, widget=forms.TextInput(attrs=inputCSS('Asunto')))
-	emailRecipe = forms.EmailField(widget=forms.EmailInput(attrs=inputCSS('Email')))
-	nameRecipe = forms.CharField(required=False, max_length=50, widget=forms.TextInput(attrs=inputCSS('Nombre')))
+	subjectRecipe = forms.CharField(max_length=50, widget=forms.TextInput(attrs=inputCSS('Asunto (*)')))
+	emailRecipe = forms.EmailField(widget=forms.EmailInput(attrs=inputCSS('Email (*)')))
+	nameRecipe = forms.CharField(required=True, max_length=50, widget=forms.TextInput(attrs=inputCSS('Nombre (*)')))
 	descRecipe = forms.CharField(widget=forms.Textarea(attrs=textAreaCSS('Receta')))
 
 	class Meta:
@@ -45,7 +45,7 @@ class AdressForm(forms.ModelForm):
 
 
 class FileForm(forms.ModelForm):
-	nombre = forms.CharField(max_length=50, widget=forms.TextInput(attrs=inputCSS('Nombre del archivo')))
+	nombre = forms.CharField(max_length=50, widget=forms.TextInput(attrs=inputCSS('Nombre del archivo (*)')))
 	path = forms.FileField(widget=forms.FileInput(attrs=fileCSS()))
 
 	class Meta:

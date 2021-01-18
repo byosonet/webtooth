@@ -31,13 +31,20 @@
       <form class="user" action="{% url 'altaTarea' %}" method="POST">{% csrf_token %}
         <div class="form-group row">
           <div class="col-sm-4">
-            {{form.nameTask}}
+
+            <div class="input-group">
+              {{form.nameTask}}
+              <div class="input-group-append">
+                <div class="input-group-text"><i class="fas fa-keyboard"></i></div>
+              </div>
+            </div>
+
           </div>
           <div class="col-sm-2">
            
-            <div class="input-group date" id="" data-target-input="nearest">
+            <div class="input-group">
               {{form.dateCreate}}
-              <div class="input-group-append" data-target="" data-toggle="datetimepicker">
+              <div class="input-group-append">
                 <div class="input-group-text"><i class="fas fa-calendar-alt"></i></div>
               </div>
             </div>
