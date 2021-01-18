@@ -147,7 +147,7 @@ class Task(AuditModel, models.Model):
 	nameTask = models.CharField(blank=True, null=True, max_length=100, verbose_name="Nombre de la tarea")
 	descTask = models.CharField(blank=True, null=True, max_length=3999, verbose_name="Descripción de la tarea")
 
-	dateCreate = models.DateTimeField(auto_now_add=True, blank=True, null=True, verbose_name="Fecha de creación")
+	dateCreate = models.DateTimeField(blank=True, null=True, verbose_name="Fecha de creación")
 	dateExecute = models.DateTimeField(auto_now_add=True, blank=True, null=True, verbose_name="Fecha de ejecución")
 
 	status = models.BooleanField(blank=True, null=True, verbose_name="Estado de la tarea")

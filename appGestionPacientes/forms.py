@@ -65,7 +65,8 @@ class TaskForm(forms.ModelForm):
 	nameTask = forms.CharField(required=True,max_length=50, widget=forms.TextInput(attrs=inputCSS('Nombre de la tarea (*)')))
 	descTask = forms.CharField(required=True, widget=forms.Textarea(attrs=textAreaCSS('Descripción de la tarea (*)')))
 	status = forms.BooleanField(required=False)
+	dateCreate = forms.DateTimeField(required=True, widget=forms.TextInput(attrs=inputCSS('Fecha programada')))
 
 	class Meta:
 		model = Task
-		fields = ['nameTask', 'descTask', 'status']
+		fields = ['nameTask', 'descTask', 'status', 'dateCreate']
