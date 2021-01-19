@@ -12,7 +12,7 @@ def validRequest(viewReceived):
         if not process_request(request):
             log.info("Ha vencido la sesión")
        	    data = {"timeModal": 500}
-            return render(request, 'other/session.html', data)
+            return render(request, 'home/home.html', data)
         try:
             user = getUser()
             loadPropertie(user.id,request)
