@@ -89,7 +89,7 @@
                                 class="fa fa-pen"></i> Modificar</button>
                     </div>
                     <div class="col-sm-2">
-                        <button type="submit" class="btn btn-{{request.session.bt_color}} btn-user btn-block"><i
+                        <button id="updateButton" type="submit" class="btn btn-{{request.session.bt_color}} btn-user btn-block"><i
                                 class="fa fa-save"></i> Actualizar</button>
                     </div>
                 </div>
@@ -110,7 +110,11 @@
         <div style="margin-top: 20px; width: 95%; margin-left: 30px;margin-right: 20px;">
 
             <p style="text-align: justify;">
-                <i class="fas fa-info-circle fa-1x"></i> Desde este apartado podr&aacute;s ver los detalles de la tarea. Para indicar que una tarea ha sido ejecutada, favor de marcar el check al guardar.
+                <i class="fas fa-info-circle fa-1x"></i> Desde este apartado podr&aacute;s ver los detalles de la tarea. 
+                <ul>
+                <li>Para indicar que una tarea ha sido ejecutada, favor de marcar el check al guardar. </li>
+                <li>Una vez ejecutada la tarea, ya no se podr&aacute; realizar modificaciones a la misma.</li>
+                </ul>
             </p>
 
         </div>
@@ -128,6 +132,7 @@
         $("#id_status").prop("disabled", true);
         $("#id_dateCreate").prop("disabled", true);
         $("#id_dateExecute").prop("disabled", true);
+        $("#updateButton").prop("disabled", true);
 
 
         valDateCreate = $("#id_dateCreate").val().split('.')[0];
@@ -137,6 +142,8 @@
         $("#id_dateExecute").val(valDateExecute);
 
         $("#modidyButton").click(function () {
+            $("#modidyButton").prop("disabled", true);
+            $("#updateButton").prop("disabled", false);
             $("#id_nameTask").prop("disabled", false);
             $("#id_descTask").prop("disabled", false);
             $("#id_status").prop("disabled", false);

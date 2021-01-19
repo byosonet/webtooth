@@ -176,12 +176,12 @@
                         {{form.numexp}}
                     </div>
                     <div class="col-sm-2">
-                        <a class="btn btn-danger btn-user btn-block" href="#" data-toggle="modal"
-                            data-target="#modifyModal" role="button"><i class="fa fa-pen"></i> Modificar</a>
+                        <button id="modbutton" type="button" class="btn btn-danger btn-user btn-block" href="#" data-toggle="modal"
+                            data-target="#modifyModal" role="button"><i class="fa fa-pen"></i> Modificar</button>
                     </div>
                     <div class="col-sm-2">
-                        <a class="btn btn-danger btn-user btn-block" href="#" data-toggle="modal"
-                            data-target="#deleteModal" role="button"><i class="fa fa-trash"></i> Eliminar</a>
+                        <button id="delbutton" type="button" class="btn btn-danger btn-user btn-block" href="#" data-toggle="modal"
+                            data-target="#deleteModal" role="button"><i class="fa fa-trash"></i> Eliminar</button>
                     </div>
                     <div class="col-sm-2">
                         <button id="update" disabled type="submit"
@@ -283,6 +283,8 @@
         
         
         $("#modidy").click(function () {
+            $("#modbutton").prop("disabled", true);
+            $("#delbutton").prop("disabled", true);
             $("#id_nombre").prop("disabled", false);
             $("#id_apellidoPaterno").prop("disabled", false);
             $("#id_apellidoMaterno").prop("disabled", false);
