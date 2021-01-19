@@ -215,7 +215,8 @@ def actualizarPaciente(request,idPatient):
             log.error("Formulario recibido no pasa la validacion...")
             validErrors(formPatient)
             validErrors(formAdress)
-            return render(request,"patient/datosPaciente.html",{"form": formPatient,"id":idPatient,"formAdress":formAdress})
+            ###return render(request,"patient/datosPaciente.html",{"form": formPatient,"id":idPatient,"formAdress":formAdress})
+            return buscarId(request, idPatient)
     except Exception as ex:
         log.error("Error: "+str(ex))
         return render(request,"patient/datosPaciente.html",{"form": formPatient,"id":idPatient,"formAdress":formAdress})
@@ -465,8 +466,7 @@ def altaTarea(request):
             log.info("Se ha agregado a la BD el nuevo registro")
 
             messages.success(request, f"La tarea {task.nameTask} ha sido agregada correctamente")
-            taskForm = TaskForm()
-            return render(request, "task/altaTarea.html", {"form": taskForm, "listadoTareas": listadoTareas})
+            return buscarTaskId(request, task.id)
         else:
             log.error("Formulario recibido no pasa la validacion...")
             messages.error(request, "[ERROR]: Algunos campos necesitan llenarse de forma correcta.")
@@ -482,8 +482,38 @@ def buscarTaskId(request, idTask):
     taskForm = TaskForm()
     try:
         result = filterByIdTask(idTask, taskForm)        
-        return render(request, "task/detailTask.html", {"form": result})
+        return render(request, "task/detailTask.html", {"form": result, "idTask": idTask})
 
     except Exception as ex:
         log.error("Error al buscar por id: "+str(ex))
         return render(request, "task/detailTask.html", {"form": None})
+
+
+@login_required(login_url=getLogin())
+@validRequest
+def actualizarTask(request, idTask):
+    log.info("idTask: "+str(idTask))
+    formTask = None    
+    try:
+        obj = Task.objects.get(pk=idTask)
+        formTask = TaskForm(request.POST, instance=obj)
+        if all([formTask.is_valid()]):
+            log.info("Formulario valido, actualizando datos de Tarea...")     
+
+            if obj.status:
+                obj.dateExecute = timezone.now()
+
+            dataTask = formTask.cleaned_data
+            log.info("Data task recibida: "+str(dataTask))
+            formTask.save()            
+
+            log.info("Se ha actualizado el registro en BD para la tarea {}".format(dataTask['nameTask']))
+            messages.success(request, "Los datos han sido actualizados correctamente")
+            return buscarTaskId(request, idTask)
+        else:
+            log.error("Formulario recibido no pasa la validacion...")
+            validErrors(formTask)
+            return buscarTaskId(request, idTask)
+    except Exception as ex:
+        log.error("Error: "+str(ex))
+        return render(request, "task/detailTask.html", {"form": formTask, "idTask": idTask})
