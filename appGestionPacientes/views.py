@@ -6,7 +6,7 @@ from django.utils import timezone
 import os
 from django.conf import settings
 
-from appGestionPacientes.models import Patient, Adress, File, Navigation, Import
+from appGestionPacientes.models import Patient, Adress, File, Navigation, Import, Task
 from appGestionPacientes.forms import ContactForm, PatientForm, AdressForm, FileForm, ImportForm, TaskForm
 from appGestionPacientes.config import validErrors
 from appGestionPacientes.query import filterSearch, filterByIdPatient, generateKlave, filterByIdPatientAdress, filterPatientDelete
@@ -444,6 +444,9 @@ def validCellValue(val):
 @permission_required(addTask(), login_url=notPermission())
 @validRequest
 def altaTarea(request):
+    user = getUser()
+    log.info("Obteniendo lista de tareas")
+    listadoTareas = Task.objects.filter(userCode=user.get_username()).order_by('-id')
     if request.method == 'POST':
         taskForm = TaskForm(request.POST)
         if all([taskForm.is_valid()]):
@@ -451,7 +454,6 @@ def altaTarea(request):
             task.nameTask = task.nameTask.title()
             task.descTask = task.descTask.title()
 
-            user = getUser()
             task.userId = user.id
             task.userCode = user.get_username()
             task.userName = user.get_full_name()
@@ -464,11 +466,11 @@ def altaTarea(request):
 
             messages.success(request, f"La tarea {task.nameTask} ha sido agregada correctamente")
             taskForm = TaskForm()
-            return render(request, "task/altaTarea.html", {"form": taskForm})
+            return render(request, "task/altaTarea.html", {"form": taskForm, "listadoTareas": listadoTareas})
         else:
             log.error("Formulario recibido no pasa la validacion...")
             messages.error(request, "[ERROR]: Algunos campos necesitan llenarse de forma correcta.")
             validErrors(taskForm)
     else:
         taskForm = TaskForm()
-    return render(request, "task/altaTarea.html", {"form": taskForm})
+    return render(request, "task/altaTarea.html", {"form": taskForm, "listadoTareas": listadoTareas})

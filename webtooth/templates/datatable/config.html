@@ -240,5 +240,51 @@
 		$("#ReportePrintImport").on("click", function () {
 			tableImport.button('.buttons-print').trigger();
 		});
+
+
+		/*Para Task*/
+		tableTask = $('#dataTableTask').DataTable({
+			"language": {
+				"url": "{% static 'json/spanish.json' %}"
+			},
+			"lengthMenu": [7, 14, 20, 25],
+			"aaSorting": [],
+			buttons: [{
+				extend: 'excelHtml5',
+				title: 'Listado de tareas al día {% now "DATE_FORMAT" %}',
+				exportOptions: {
+					columns: [0, 1, 2, 3, 4, 5]
+				}
+			},
+			{
+				extend: 'pdfHtml5',
+				title: 'Listado de tareas al día {% now "DATE_FORMAT" %}',
+				orientation: 'landscape',
+				pageSize: 'LETTER',
+				download: 'open',
+				customize: function (doc) {
+					doc.content[1].margin = [10, 0, 10, 0] //left, top, right, bottom
+				},
+				exportOptions: {
+					columns: [0, 1, 2, 3, 4, 5]
+				}
+			}, {
+				extend: 'print',
+				title: 'Listado de tareas al día {% now "DATE_FORMAT" %}',
+				exportOptions: {
+					columns: [0, 1, 2, 3, 4, 5]
+				}
+			}]
+		});
+		$("#ReporteExcelTask").on("click", function () {
+			tableTask.button('.buttons-excel').trigger();
+		});
+		$("#ReportePdfTask").on("click", function () {
+			tableTask.button('.buttons-pdf').trigger();
+		});
+		$("#ReportePrintTask").on("click", function () {
+			tableTask.button('.buttons-print').trigger();
+		});
+
 	});
 </script>
