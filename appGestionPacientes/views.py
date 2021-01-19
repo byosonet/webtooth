@@ -267,7 +267,7 @@ def altaArchivo(request):
         if formFile.is_valid():
             file = formFile.save(commit=False)
             file.fechaSubida = timezone.now()
-            fileName = file.nombre+"."+file.path.name.split(".")[1]
+            fileName = file.nombre+"."+file.path.name[::-1].split(".")[0][::-1]
             file.path.name = fileName
             file.nombre = file.nombre.capitalize()
             log.info("Formulario valido, preparando alta de archivo...")
