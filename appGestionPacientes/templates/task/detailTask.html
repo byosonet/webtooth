@@ -1,0 +1,141 @@
+{% extends "extends.html" %}
+
+{% block title %} Tareas {%endblock%}
+{% block titlepage %} Detalle de tarea <div style="text-align: center;">
+    <hr style="margin: 5 auto;"><b><i class="fas fa-tasks"></i></b>
+</div>{%endblock%}
+
+{% block body %}
+
+{% if form.errors %}
+{% for field in form %}
+{% if field.errors %}
+<strong style="color:red;">{{ field.errors }}</strong>
+{% endif %}
+{% endfor %}
+{% endif %}
+
+<nav>
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <a class="nav-item nav-link active text-{{request.session.bt_color}}" id="nav-receta-tab" data-toggle="tab"
+            href="#tarea" role="tab" aria-controls="nav-receta" aria-selected="true"> <i class="fas fa-calendar-day"></i>
+            Tarea</a>
+        <a class="nav-item nav-link text-{{request.session.bt_color}}" id="nav-help-receta-tab" data-toggle="tab"
+            href="#ayuda" role="tab" aria-controls="nav-help-receta" aria-selected="false"> <i
+                class="fas fa-info-circle fa-1x"></i> Ayuda</a>
+    </div>
+</nav>
+<div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="tarea" role="tabpanel" aria-labelledby="nav-receta-tab">
+        <div style="margin-top: 20px; width: 95%; margin-left: 30px;margin-right: 20px;">
+
+            {% if form %}
+            <form class="user" action="{% url 'altaTarea' %}" method="POST">{% csrf_token %}
+                <div class="form-group row">
+                    <div class="col-sm-4">
+
+                        <div class="input-group">
+                            {{form.nameTask}}
+                            <div class="input-group-append">
+                                <div class="input-group-text"><i class="fas fa-keyboard"></i></div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-sm-3">
+
+                        <div class="input-group">
+                            {{form.dateCreate}}
+                            <div class="input-group-append">
+                                <div class="input-group-text"><i class="fas fa-calendar-alt"></i></div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-sm-3">
+
+                        <div class="input-group">
+                            {{form.dateExecute}}
+                            <div class="input-group-append">
+                                <div class="input-group-text"><i class="fas fa-calendar-alt"></i></div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="col-sm-2">
+                    
+                        <div style="float: right;">
+                            {{form.status}}
+                            {% if form.status.value %}
+                            <span class="btn btn-success btn-sm" style="font-size: 12px;"> Ejecutado </span>
+                            {% else %}
+                            <span class="btn btn-warning btn-sm" style="font-size: 12px;"> Pendiente </span>
+                            {% endif %}
+                        </div>
+                    
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    {{form.descTask}}
+                </div>
+
+                {% if not form.status.value %}
+                <div class="form-group row">
+                    <div class="col-sm-8"></div>
+                    <div class="col-sm-2">
+                        <button id="modidyButton" type="button" class="btn btn-{{request.session.bt_color}} btn-user btn-block"><i
+                                class="fa fa-pen"></i> Modificar</button>
+                    </div>
+                    <div class="col-sm-2">
+                        <button type="submit" class="btn btn-{{request.session.bt_color}} btn-user btn-block"><i
+                                class="fa fa-save"></i> Actualizar</button>
+                    </div>
+                </div>
+                {% endif %}
+            </form>
+            {% else %}
+            <div>
+                <h6 style="text-align: center;" class="m-0 font-weight-bold"> <i class="fas fa-info-circle"></i> No existe ningún registro en la base de datos actual</h6>
+            </div>
+            {% endif %}
+
+
+
+        </div>
+    </div>
+
+    <div class="tab-pane fade" id="ayuda" role="tabpanel" aria-labelledby="nav-help-receta-tab">
+        <div style="margin-top: 20px; width: 95%; margin-left: 30px;margin-right: 20px;">
+
+            <p style="text-align: justify;">
+                <i class="fas fa-info-circle fa-1x"></i> Desde este apartado podr&aacute;s ver los detalles de la tarea. Para indicar que una tarea ha sido ejecutada, favor de marcar el check al guardar.
+            </p>
+
+        </div>
+    </div>
+
+</div>
+
+
+{% load static %}
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script>
+    $(function () {
+        $("#id_nameTask").prop("disabled", true);
+        $("#id_descTask").prop("disabled", true);
+        $("#id_status").prop("disabled", true);
+        $("#id_dateCreate").prop("disabled", true);
+        $("#id_dateExecute").prop("disabled", true);
+
+        $("#modidyButton").click(function () {
+            $("#id_nameTask").prop("disabled", false);
+            $("#id_descTask").prop("disabled", false);
+            $("#id_status").prop("disabled", false);
+            $("#id_dateCreate").prop("disabled", false);
+        });
+
+    });
+</script>
+{% endblock %}

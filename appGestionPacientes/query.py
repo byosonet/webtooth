@@ -1,4 +1,4 @@
-from appGestionPacientes.models import Patient, Adress
+from appGestionPacientes.models import Patient, Adress, Task
 from django.db.models import Q
 
 import uuid
@@ -118,6 +118,20 @@ def filterByIdPatientAdress(idPatient, formAdress):
 		log.error("Error: "+str(ex))
 		return None
 
+
+def filterByIdTask(idTask, formTask):
+	log.info("Id recibido for task: "+str(idTask))
+	task = Task.objects.get(pk=idTask)
+	if task:
+		log.info("Task encontrado: {}".format(task.nameTask))
+		formTask.fields['nameTask'].initial = task.nameTask
+		formTask.fields['descTask'].initial = task.descTask
+		formTask.fields['status'].initial = task.status
+		formTask.fields['dateCreate'].initial = task.dateCreate
+		formTask.fields['dateExecute'].initial = task.dateExecute
+		return formTask
+	else:
+		return None
 
 def generateKlave():
 	klave = 'P'+date.today().strftime('%d%m%y')+'-'+uuid.uuid4().hex[:5].upper()

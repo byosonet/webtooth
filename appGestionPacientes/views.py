@@ -9,7 +9,7 @@ from django.conf import settings
 from appGestionPacientes.models import Patient, Adress, File, Navigation, Import, Task
 from appGestionPacientes.forms import ContactForm, PatientForm, AdressForm, FileForm, ImportForm, TaskForm
 from appGestionPacientes.config import validErrors
-from appGestionPacientes.query import filterSearch, filterByIdPatient, generateKlave, filterByIdPatientAdress, filterPatientDelete
+from appGestionPacientes.query import filterSearch, filterByIdPatient, generateKlave, filterByIdPatientAdress, filterPatientDelete, filterByIdTask
 
 from webtooth.config import logger, sendEmailContact, getLogin
 from appGestionPacientes.permissions import *
@@ -474,3 +474,16 @@ def altaTarea(request):
     else:
         taskForm = TaskForm()
     return render(request, "task/altaTarea.html", {"form": taskForm, "listadoTareas": listadoTareas})
+
+
+@login_required(login_url=getLogin())
+@validRequest
+def buscarTaskId(request, idTask):
+    taskForm = TaskForm()
+    try:
+        result = filterByIdTask(idTask, taskForm)        
+        return render(request, "task/detailTask.html", {"form": result})
+
+    except Exception as ex:
+        log.error("Error al buscar por id: "+str(ex))
+        return render(request, "task/detailTask.html", {"form": None})

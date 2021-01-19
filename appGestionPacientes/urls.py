@@ -20,4 +20,5 @@ urlpatterns=[
 
     path('import/patient/', views.importPatients, name="importPatients"),
     path('add/task/', views.altaTarea, name="altaTarea"),
+    path('detail/task/<int:idTask>/', views.buscarTaskId, name="buscarTaskId"),
 ]

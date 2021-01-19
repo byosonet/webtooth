@@ -123,7 +123,7 @@
               <tbody>
                 {% for item in listadoTareas %}
                 <tr>
-                  <td style="text-align: center;">{{item.id}}</td>
+                  <td style="text-align: center;"><b><a href="{% url 'buscarTaskId' item.id %}" class="text-{{request.session.bt_color}}">{{item.id}}</a></b></td>
                   <td style="width: 150px;">{{item.nameTask}}</td>
                   <td style="width: 350px;">{{item.descTask}}</td>
                   <td style="text-align: center;">{{item.dateCreate}}</td>
