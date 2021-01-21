@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 
 from django.contrib.auth.decorators import login_required
-from webtooth.config import getLogin, getListTask
+from webtooth.config import getLogin, getListTask, getListTaskHome
 from webtooth.config import logger,getAllLoggedUsers
 from webtooth.config import setColorSystem, createPropertie, loadPropertie, updatePropertie
 
@@ -29,6 +29,7 @@ def homeView(request):
 	except Exception:
 		pass
 	getListTask(request, user.get_username())
+	listadoTareasHome = getListTaskHome(user.get_username())
 	log.info("LastRow: {}".format(lastRow))	
 	createPropertie(user.id, 'last_row', str(lastRow))
 	request.session['last_session'] = timezone.now().timestamp()
@@ -77,7 +78,8 @@ def homeView(request):
 	infoDiskUpload(request)
 	data = {"rowsFile": rowsFile, "rowsRegister": rowsRegister, "loggedUsers": loggedUsers,
          "percentActive": porcentajeActivos, "percentInactive": porcentajeInactivos, 
-         "patientActive": patientActive, "inactivePatients": patientInactive, "lastRow": lastRow, "patientDelete": patientDelete, "porcentajeEliminados":porcentajeEliminados}
+         "patientActive": patientActive, "inactivePatients": patientInactive, "lastRow": lastRow, "patientDelete": patientDelete, "porcentajeEliminados": porcentajeEliminados, 
+		 "listadoTareasHome": listadoTareasHome}
 	return render(request,"home/home.html",data)
 
 

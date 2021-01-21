@@ -168,3 +168,20 @@ def getListTask(request, user):
 	else:
 		request.session['dataTask'] = None
 		request.session['countTask'] = 0
+
+
+def getListTaskHome(user):
+	today = str(timezone.now().date()).split('-')
+	listTaskHome = Task.objects.filter(
+		userCode=user,
+		status=True,
+		dateExecute__year=today[0],
+		dateExecute__month=today[1],
+		dateExecute__day=today[2]).order_by('-dateExecute')
+
+	if listTaskHome and len(listTaskHome) > 0:
+		for item in listTaskHome:
+			log.info("Load task home "+str(item))
+		return listTaskHome
+	else:
+		return None

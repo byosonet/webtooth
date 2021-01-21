@@ -286,5 +286,14 @@
 			tableTask.button('.buttons-print').trigger();
 		});
 
+		/*Para Task Home*/
+		tableTaskHome = $('#dataTableTaskHome').DataTable({
+			"language": {
+				"url": "{% static 'json/spanishTask.json' %}"
+			},
+			"lengthMenu": [5, 10, 20, 25],
+			"aaSorting": []
+		});
+
 	});
 </script>
