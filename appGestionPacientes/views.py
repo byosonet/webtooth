@@ -11,7 +11,7 @@ from appGestionPacientes.forms import ContactForm, PatientForm, AdressForm, File
 from appGestionPacientes.config import validErrors
 from appGestionPacientes.query import filterSearch, filterByIdPatient, generateKlave, filterByIdPatientAdress, filterPatientDelete, filterByIdTask
 
-from webtooth.config import logger, sendEmailContact, getLogin
+from webtooth.config import logger, sendEmailContact, getLogin, getListTask
 from appGestionPacientes.permissions import *
 from webtooth.decorators import validRequest
 from django.contrib import messages
@@ -481,6 +481,8 @@ def altaTarea(request):
 def buscarTaskId(request, idTask):
     taskForm = TaskForm()
     try:
+        user = getUser()
+        getListTask(request, user.get_username())
         result = filterByIdTask(idTask, taskForm)        
         return render(request, "task/detailTask.html", {"form": result, "idTask": idTask})
 

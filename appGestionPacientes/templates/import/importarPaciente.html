@@ -128,7 +128,12 @@
             <p style="text-align: justify;">
                 <i class="fas fa-info-circle fa-1x"></i> Desde este apartado podr&aacute;s realizar importaciones de ficheros excel que contengan listado de
                 pacientes. 
-                <div><i class="fas fa-file-excel fa-1x"></i><a class="text-{{request.session.bt_color}}" href="{% static 'import/plantilla-pacientes.xlsx' %}"><b> Descargar plantilla para importar</b></a></div>
+                <ul>
+                    <li>
+                        <div><i class="fas fa-file-excel fa-1x"></i><a class="text-{{request.session.bt_color}}" href="{% static 'import/plantilla-pacientes.xlsx' %}">
+                            <b> Descargar plantilla para importar</b></a></div>
+                    </li>
+                </ul>
             </p>
 
         </div>

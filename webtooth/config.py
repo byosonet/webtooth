@@ -6,7 +6,7 @@ from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.sessions.models import Session
 from django.utils import timezone
-from appGestionPacientes.models import Propertie
+from appGestionPacientes.models import Propertie, Task
 from appGestionPacientes.signals import getUser
 
 from webtooth.logger import LOGGING
@@ -145,3 +145,26 @@ def setColorSystem(request,idColor):
 		log.info("Cambiando color de tema a Default")
 	request.session['color_default'] = True
 	return request
+
+
+def getListTask(request, user):
+
+	today = str(timezone.now().date()).split('-')
+	listTask = Task.objects.filter(
+		userCode=user,
+		status=False,
+		dateExecute=None,
+		dateCreate__year=today[0],
+		dateCreate__month=today[1],
+		dateCreate__day=today[2]).order_by('-dateCreate')
+
+	if listTask and len(listTask) > 0:
+		data = {}
+		for item in listTask:
+			log.info("Load item "+str(item))
+			data[item.id] = item.nameTask
+		request.session['dataTask'] = data
+		request.session['countTask'] = len(listTask)
+	else:
+		request.session['dataTask'] = None
+		request.session['countTask'] = 0

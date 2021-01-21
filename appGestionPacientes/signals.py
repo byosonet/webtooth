@@ -139,7 +139,7 @@ def insertModelNavigation(user,req,res):
     data=str(json.dumps(req.POST))
   else:
     data="{}"
-  log.info("Data send: "+data)
+  log.debug("Data send: "+data)
   
   host = str(req.get_host())
   log.info("Host: "+host)

@@ -17,16 +17,16 @@
 
 <nav>
   <div class="nav nav-tabs" id="nav-tab" role="tablist">
-    <a class="nav-item nav-link active text-{{request.session.bt_color}}" id="nav-receta-tab" data-toggle="tab" href="#tarea" role="tab"
+    <a class="nav-item nav-link text-{{request.session.bt_color}}" id="nav-receta-tab" data-toggle="tab" href="#tarea" role="tab"
       aria-controls="nav-receta" aria-selected="true"> <i class="fas fa-plus fa-1x"></i> Nueva tarea</a>
-    <a class="nav-item nav-link text-{{request.session.bt_color}}" id="nav-listTask-xls-patient-tab" data-toggle="tab" href="#listTask" role="tab" 
+    <a class="nav-item nav-link active text-{{request.session.bt_color}}" id="nav-listTask-xls-patient-tab" data-toggle="tab" href="#listTask" role="tab" 
       aria-controls="nav-task-xls-patient" aria-selected="true"> <i class="fas fa-list-ol fa-1x"></i> Tareas</a>
     <a class="nav-item nav-link text-{{request.session.bt_color}}" id="nav-help-receta-tab" data-toggle="tab" href="#ayuda" role="tab"
       aria-controls="nav-help-receta" aria-selected="false"> <i class="fas fa-info-circle fa-1x"></i> Ayuda</a>
   </div>
 </nav>
 <div class="tab-content" id="nav-tabContent">
-  <div class="tab-pane fade show active" id="tarea" role="tabpanel" aria-labelledby="nav-receta-tab">
+  <div class="tab-pane fade" id="tarea" role="tabpanel" aria-labelledby="nav-receta-tab">
     <div style="margin-top: 20px; width: 95%; margin-left: 30px;margin-right: 20px;">
 
 
@@ -78,7 +78,7 @@
     </div>
   </div>
 
-  <div class="tab-pane fade" id="listTask" role="tabpanel" aria-labelledby="nav-listTask-xls-patient-tab">
+  <div class="tab-pane fade show active" id="listTask" role="tabpanel" aria-labelledby="nav-listTask-xls-patient-tab">
     <div style="margin-top: 20px; width: 95%; margin-left: 30px;margin-right: 20px;">
   
       {% if listadoTareas %}

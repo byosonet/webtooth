@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 
 from django.contrib.auth.decorators import login_required
-from webtooth.config import getLogin
+from webtooth.config import getLogin, getListTask
 from webtooth.config import logger,getAllLoggedUsers
 from webtooth.config import setColorSystem, createPropertie, loadPropertie, updatePropertie
 
@@ -28,6 +28,7 @@ def homeView(request):
 		updatePropertie(user.id,'last_row', str(lastRow))
 	except Exception:
 		pass
+	getListTask(request, user.get_username())
 	log.info("LastRow: {}".format(lastRow))	
 	createPropertie(user.id, 'last_row', str(lastRow))
 	request.session['last_session'] = timezone.now().timestamp()
