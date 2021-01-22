@@ -124,6 +124,9 @@
                     <th>Correo</th>
                     <th>Fecha de env&iacute;o</th>
                     <th>Estado de env&iacute;o</th>
+                    <th style="display: none;"></th>
+                    <th style="display: none;"></th>
+                    <th>Receta</th>
                   </tr>
                 </thead>
                 <tfoot>
@@ -134,7 +137,7 @@
                     <td>{{item.userName}}</td>
                     <td style="width: 150px;">{{item.nameRecipe}}</td>
                     <td style="width: 350px;">{{item.subjectRecipe}}</td>
-                    <td style="text-align: center;">{{item.emailRecipe}}</td>                    
+                    <td>{{item.emailRecipe}}</td>                    
                     <td style="text-align: center;">{{item.dateSend}}</td>
                     <td style="text-align: center;">
                       {% if item.stateRecipe == 'Enviado' %}
@@ -143,7 +146,29 @@
                       <span class="btn btn-danger btn-sm" style="font-size: 10px;"> Cancelado </span>
                       {% endif %}
                     </td>
+                    <td style="display: none;">{{item.id}}</td>
+                    <td style="display: none;">{{item.descRecipe}}</td>
+                    <td style="text-align: center;"></td>
                   </tr>
+
+                  <!-- Logout Modal-->
+                  <div class="modal fade" id="verReceta{{item.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true" data-backdrop="static" data-keyboard="false">
+                    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-info-circle fa-1x"></i> Informaci&oacute;n de receta enviada</h5>
+                        </div>
+                        <div class="modal-body" style="text-align: justify;">{{item.descRecipe}}</div>
+                        <div class="modal-footer">
+                          <button class="btn btn-{{request.session.bt_color}}" type="button" data-dismiss="modal"
+                            style="border-radius: 10rem;"><i class="fas fa-check"></i> Aceptar</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
                   {% endfor %}
                 </tbody>
               </table>

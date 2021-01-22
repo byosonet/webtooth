@@ -70,14 +70,11 @@
                     </tr>
 
                     <!-- Delete File Modal-->
-                    <div class="modal fade" id="deleteFile{{archivo.id}}" tabindex="-1" role="dialog" aria-labelledby="modalLabelFile" aria-hidden="true" data-backdrop="static">
-                        <div class="modal-dialog" role="document">
+                    <div class="modal fade" id="deleteFile{{archivo.id}}" tabindex="-1" role="dialog" aria-labelledby="modalLabelFile" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="modalLabelFile"><i class="fas fa-info-circle fa-1x"></i> Aviso de sistema</h5>
-                                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">×</span>
-                                    </button>
+                                    <h5 class="modal-title" id="modalLabelFile"><i class="fas fa-info-circle fa-1x"></i> Aviso de sistema</h5>                                   
                                 </div>
                                 <div class="modal-body">¿Est&aacute; seguro de eliminar el fichero actual?
                                     </br></br>Archivo: <b>{{archivo.fileName}}</b>

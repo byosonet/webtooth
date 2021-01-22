@@ -303,6 +303,11 @@
 			},
 			"lengthMenu": [7, 14, 20, 25],
 			"aaSorting": [],
+			"columnDefs": [{
+				"targets": -1,
+				"data": null,
+				"defaultContent": "<button id='modalRecipe' class='btn btn-info btn-sm' style='font-size:10px;'> Ver detalle </button>"
+			}],
 			buttons: [{
 				extend: 'excelHtml5',
 				title: 'Listado de correos al día {% now "DATE_FORMAT" %}',
@@ -338,6 +343,11 @@
 		});
 		$("#ReportePrintSend").on("click", function () {
 			tableSend.button('.buttons-print').trigger();
+		});
+
+		$('#dataTableSend tbody').on('click', 'button', function () {
+			var data = tableSend.row($(this).parents('tr')).data();
+			$('#verReceta'+ data[6]).modal('show')
 		});
 
 	});
