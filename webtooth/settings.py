@@ -139,6 +139,7 @@ MEDIA_PATH = projectPath+'media/'
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [projectPath+'static']
 PATH_LOGS = projectPath+'logs'
+PATH_ZIPMAIL = projectPath+'zipmail/'
 
 #DATOS PARA ENVIO DE EMAIL DESDE CTA DE GMAIL
 EMAIL_BACKEND="django.core.mail.backends.smtp.EmailBackend"
@@ -148,6 +149,7 @@ EMAIL_PORT=587
 EMAIL_HOST_USER="dev.java.mx@gmail.com"
 EMAIL_HOST_PASSWORD="elfindelmundo*"
 
+EMAIL_HOST_SUPPORT="gtrejo.armenta@gmail.com"
 #VARIABLES GLOBALES
 EMAIL_TO = []
 
@@ -165,5 +167,5 @@ MESSAGE_TAGS = {
  }
 
 #JOBS LIST FOR WEBTOOTH
-JOBLOGMAILTIMER = False
+JOBLOGMAILTIMER = True
 JOBMONITORTIMER = False

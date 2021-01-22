@@ -1,6 +1,7 @@
 import logging
+import shutil
 
-from django.core.mail import send_mail
+from django.core.mail import send_mail, EmailMessage
 from django.conf import settings
 
 from django.contrib.auth.models import User
@@ -10,6 +11,7 @@ from appGestionPacientes.models import Propertie, Task
 from appGestionPacientes.signals import getUser
 
 from webtooth.logger import LOGGING
+from webtooth.settings import PATH_LOGS, PATH_ZIPMAIL, EMAIL_HOST_SUPPORT
 
 #Service logger
 def logger(app,view):
@@ -185,3 +187,30 @@ def getListTaskHome(user):
 		return listTaskHome
 	else:
 		return None
+
+def compressLogsZip():
+	today = str('webtooth-logs-')+str(timezone.now().date())
+	shutil.make_archive(PATH_ZIPMAIL+today, 'zip',PATH_LOGS)
+	ficheroGenerado = str(today+'.zip')
+	log.info("Logs comprimidos con exito, fichero generado: " + ficheroGenerado)
+	return ficheroGenerado
+
+def sendEmailLogs():	
+	fileZip = compressLogsZip()
+	today = str(timezone.now().date())
+	subject = 'Logs comprimidos del sistema Webtooth - '+today
+	email = EMAIL_HOST_SUPPORT
+	message = "Se envía los ficheros logs de la plataforma Webtooth lanzado por el cron del sistema."
+	email_from = settings.EMAIL_HOST_USER
+	email_to = settings.EMAIL_TO
+	email_to.append(email)
+	try:
+		log.info("Enviando correo a soporte: "+str(email_to))
+
+		emailSupport = EmailMessage(subject, message, email_from, email_to)
+		emailSupport.attach_file(PATH_ZIPMAIL+str(fileZip))
+		emailSupport.send()
+
+		log.info("Correo enviado correctamente a: "+str(email_to))
+	except Exception as ex:
+		log.error("Error al enviar correo a soporte: "+str(ex))
