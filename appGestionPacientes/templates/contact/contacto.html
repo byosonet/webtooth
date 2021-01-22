@@ -19,6 +19,8 @@
   <div class="nav nav-tabs" id="nav-tab" role="tablist">
     <a class="nav-item nav-link active text-{{request.session.bt_color}}" id="nav-receta-tab" data-toggle="tab" href="#receta" role="tab"
       aria-controls="nav-receta" aria-selected="true"> <i class="fas fa-envelope fa-1x"></i> Enviar receta</a>
+    <a class="nav-item nav-link text-{{request.session.bt_color}}" id="nav-help-send-tab" data-toggle="tab" href="#enviados"
+      role="tab" aria-controls="nav-help-send" aria-selected="false"> <i class="fas fa-list-ol fa-1x"></i> Enviados</a>
     <a class="nav-item nav-link text-{{request.session.bt_color}}" id="nav-help-receta-tab" data-toggle="tab" href="#ayuda" role="tab"
       aria-controls="nav-help-receta" aria-selected="false"> <i class="fas fa-info-circle fa-1x"></i> Ayuda</a>
   </div>
@@ -82,6 +84,81 @@
 
     </div>
   </div>
+
+
+    <div class="tab-pane fade" id="enviados" role="tabpanel" aria-labelledby="nav-help-send-tab">
+      <div style="margin-top: 20px; width: 95%; margin-left: 30px;margin-right: 20px;">
+    
+        {% if listadoEnviados %}
+        <div class="card shadow mb-4">
+          <div class="card-header py-3 bg-gray-200">
+            <h6 class="m-0 font-weight-bold text-{{request.session.bt_color}}">
+              <div class="col-sm-12">
+                <center></center>
+              </div>
+              {% if listadoEnviados %}
+              <div style="float: right;margin-top: -10px;">
+                <a style="border-radius: 10rem;" href="#" id="ReportePrintSend"
+                  class="d-none d-sm-inline-block btn btn-sm btn-{{request.session.bt_color}} shadow-sm"><i
+                    class="fas fa-print"></i> </a>
+    
+                <a style="border-radius: 10rem;" href="#" id="ReporteExcelSend"
+                  class="d-none d-sm-inline-block btn btn-sm btn-{{request.session.bt_color}} shadow-sm"><i
+                    class="fas fa-file-excel"></i> </a>
+    
+                <a style="border-radius: 10rem;" href="#" id="ReportePdfSend"
+                  class="d-none d-sm-inline-block btn btn-sm btn-{{request.session.bt_color}} shadow-sm"><i
+                    class="fas fa-file-pdf"></i> </a>
+              </div>
+              {% endif %}
+            </h6>
+          </div>
+          <div class="card-body bg-gray-200">
+            <div class="table-responsive">
+              <table class="table table-striped table-hover webtooth" id="dataTableSend" width="100%" cellspacing="0">
+                <thead class="bg-gradient-light">
+                  <tr style="text-align: center;">
+                    <th>Usuario</th>
+                    <th>Paciente</th>
+                    <th>Asunto</th>
+                    <th>Correo</th>
+                    <th>Fecha de env&iacute;o</th>
+                    <th>Estado de env&iacute;o</th>
+                  </tr>
+                </thead>
+                <tfoot>
+                </tfoot>
+                <tbody>
+                  {% for item in listadoEnviados %}
+                  <tr>
+                    <td>{{item.userName}}</td>
+                    <td style="width: 150px;">{{item.nameRecipe}}</td>
+                    <td style="width: 350px;">{{item.subjectRecipe}}</td>
+                    <td style="text-align: center;">{{item.emailRecipe}}</td>                    
+                    <td style="text-align: center;">{{item.dateSend}}</td>
+                    <td style="text-align: center;">
+                      {% if item.stateRecipe == 'Enviado' %}
+                      <span class="btn btn-success btn-sm" style="font-size: 10px;"> Enviado </span>
+                      {% else %}
+                      <span class="btn btn-danger btn-sm" style="font-size: 10px;"> Cancelado </span>
+                      {% endif %}
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        {% else %}
+        <div>
+          <h6 style="text-align: center;" class="m-0 font-weight-bold"> <i class="fas fa-info-circle"></i> No hay ningún
+            registro en la base de datos actual</h6>
+        </div>
+        {% endif %}
+    
+      </div>
+    </div>
 
   <div class="tab-pane fade" id="ayuda" role="tabpanel" aria-labelledby="nav-help-receta-tab">
     <div style="margin-top: 20px; width: 95%; margin-left: 30px;margin-right: 20px;">

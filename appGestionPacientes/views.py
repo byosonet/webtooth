@@ -6,7 +6,7 @@ from django.utils import timezone
 import os
 from django.conf import settings
 
-from appGestionPacientes.models import Patient, Adress, File, Navigation, Import, Task
+from appGestionPacientes.models import Patient, Adress, File, Navigation, Import, Task, Recipe
 from appGestionPacientes.forms import ContactForm, PatientForm, AdressForm, FileForm, ImportForm, TaskForm
 from appGestionPacientes.config import validErrors
 from appGestionPacientes.query import filterSearch, filterByIdPatient, generateKlave, filterByIdPatientAdress, filterPatientDelete, filterByIdTask
@@ -53,6 +53,7 @@ def listarPaciente(request):
 @login_required(login_url=getLogin())
 @validRequest
 def contactoPaciente(request):
+    listadoEnviados = Recipe.objects.all().order_by('-dateSend')[:settings.MAX_ROWS_QUERY_MODEL]
     if request.method=='POST':
         formContact = ContactForm(request.POST)
         if formContact.is_valid():
@@ -80,7 +81,7 @@ def contactoPaciente(request):
                 messages.success(request, f"El correo se ha enviado correctamente ha: {email}")
             recipe.save()
             formContact = ContactForm()
-            return render(request,"contact/contacto.html", {"form":formContact})
+            return render(request,"contact/contacto.html", {"form":formContact, "listadoEnviados":listadoEnviados})
         else:
             log.error("Formulario recibido no pasa la validacion...")
             messages.error(request, "[ERROR]: Algunos campos necesitan llenarse de forma correcta.")
@@ -88,7 +89,7 @@ def contactoPaciente(request):
 
     else:
         formContact = ContactForm()
-    return render(request,"contact/contacto.html", {"form":formContact})
+    return render(request,"contact/contacto.html", {"form":formContact, "listadoEnviados":listadoEnviados})
 
 
 @login_required(login_url=getLogin())
