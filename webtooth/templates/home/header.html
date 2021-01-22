@@ -119,18 +119,33 @@
       </div>
     </li>
 
-  <!-- Nav Item - Charts -->
+  <!-- Divider -->
+  <hr class="sidebar-divider">
+  <!-- Heading -->
+  <div class="sidebar-heading text-{{request.session.fg_color}}">
+    Otros
+  </div>
+ 
   <li class="nav-item">
-    <a class="nav-link" href="charts.html">
-      <i class="fas fa-fw fa-chart-area text-{{request.session.fg_color}}"></i>
-      <span class="text-{{request.session.fg_color}}">Charts</span></a>
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePagesOtros" aria-expanded="true"
+      aria-controls="collapsePagesOtros">
+      <i class="fas fa-fw fa-folder text-{{request.session.fg_color}}"></i>
+      <span class="text-{{request.session.fg_color}}">Pendiente</span>
+    </a>
+    <div id="collapsePagesOtros" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+      <div class="bg-white py-2 collapse-inner rounded">
+        <h6 class="collapse-header">Acciones:</h6>
+        <a class="collapse-item" href="#"><i class="fas fa-plus fa-sm fa-fw mr-2"></i>Agregar</a>
+        <a class="collapse-item" href="#"><i class="fas fa-list fa-sm fa-fw mr-2"></i>Listar</a>
+      </div>
+    </div>
   </li>
 
   <!-- Nav Item - Tables -->
   <li class="nav-item">
-    <a class="nav-link" href="tables.html">
+    <a class="nav-link" href="#">
       <i class="fas fa-fw fa-table text-{{request.session.fg_color}}"></i>
-      <span class="text-{{request.session.fg_color}}">Tables</span></a>
+      <span class="text-{{request.session.fg_color}}">Sin acci&oacute;n</span></a>
   </li>
 
   <!-- Divider -->

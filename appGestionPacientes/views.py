@@ -45,7 +45,7 @@ def buscarNombre(request):
 @validRequest
 def listarPaciente(request):
     log.info("Obteniendo lista de pacientes")
-    listadoPacientes = Patient.objects.all().order_by('-fechaUpdate')[:200]
+    listadoPacientes = Patient.objects.all().order_by('-fechaUpdate')[:settings.MAX_ROWS_QUERY_MODEL]
     #for p in listadoPacientes:
         #log.info("Nombre: {} Expediente: {} Correo: {} Fecha update: {}".format(p.nombre,p.numexp,p.email,p.fechaUpdate))    
     return render(request, "patient/listaPacientes.html", {"listaPaciente":listadoPacientes})
@@ -252,7 +252,7 @@ def eliminarPaciente(request,idPatient):
 @validRequest
 def listarDireccion(request):
     log.info("Obteniendo lista de direcciones")
-    listadoDirecciones = Adress.objects.all().order_by('-patient__pk')
+    listadoDirecciones = Adress.objects.all().order_by('-patient__pk')[:settings.MAX_ROWS_QUERY_MODEL]
     for d in listadoDirecciones:
        log.info("Calle: {} Ciudad: {} Estado: {} Numexp: {}".format(d.calle,d.ciudad,d.estado,d.patient.numexp))
     return render(request, "adress/listaDirecciones.html", {"listaDireccion": listadoDirecciones})
@@ -329,7 +329,7 @@ def eliminarArchivo(request, idFile):
 @validRequest
 def listarNavegacion(request):
     log.info("Obteniendo lista de navegacion")
-    listadoNavegacion = Navigation.objects.all().order_by('-eventTime')[:200]
+    listadoNavegacion = Navigation.objects.all().order_by('-eventTime')[:settings.MAX_ROWS_QUERY_MODEL]
     return render(request, "navigation/listaNavegacion.html", {"listaNavegacion": listadoNavegacion})
 
 
@@ -339,7 +339,7 @@ def listarNavegacion(request):
 def importPatients(request):
     log.info("Obteniendo lista de importación")
     listadoImportacion = Import.objects.filter(
-        tipoSubida='Fichero de pacientes').order_by('-fechaSubida')[:200]
+        tipoSubida='Fichero de pacientes').order_by('-fechaSubida')[:settings.MAX_ROWS_QUERY_MODEL]
 
     if request.method == 'POST':
         importFile = ImportForm(request.POST, request.FILES)
