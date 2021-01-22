@@ -163,3 +163,7 @@ MESSAGE_TAGS = {
     messages.WARNING: 'bg-',
     messages.ERROR: 'bg-',
  }
+
+#JOBS LIST FOR WEBTOOTH
+JOBLOGMAILTIMER = False
+JOBMONITORTIMER = False
