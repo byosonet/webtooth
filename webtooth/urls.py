@@ -30,8 +30,8 @@ urlpatterns = [
     path('color/<int:idColor>/', color, name="color"),
     path('admin/', admin.site.urls, name="admin"),
 
-    #Urls appGestionPacientes
-    path('service/',include('appGestionPacientes.urls')),
+    #Urls apppatients
+    path('service/', include('apppatients.urls')),
 
     #UrlsNotHasPermissions
     path('permission/required/', notHasPermission, name="notpermission"),

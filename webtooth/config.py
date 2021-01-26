@@ -7,8 +7,8 @@ from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.sessions.models import Session
 from django.utils import timezone
-from appGestionPacientes.models import Propertie, Task
-from appGestionPacientes.signals import getUser
+from apppatients.models import Propertie, Task
+from apppatients.signals import getUser
 
 from webtooth.logger import LOGGING
 from webtooth.settings import PATH_LOGS, PATH_ZIPMAIL, EMAIL_HOST_SUPPORT
@@ -47,7 +47,7 @@ def sendEmailContact(dataContact):
 		return None
 
 def getAllLoggedUsers():
-    sessions = Session.objects.filter(expire_date__gte=timezone.now())
+    sessions = Session.objects.filter(expire_date__gte=currentLocalTime())
     uid_list = []
     for session in sessions:
         data = session.get_decoded()
@@ -151,7 +151,7 @@ def setColorSystem(request,idColor):
 
 def getListTask(request, user):
 
-	today = str(timezone.now().date()).split('-')
+	today = str(currentLocalDate()).split('-')
 	listTask = Task.objects.filter(
 		userCode=user,
 		status=False,
@@ -173,7 +173,7 @@ def getListTask(request, user):
 
 
 def getListTaskHome(user):
-	today = str(timezone.now().date()).split('-')
+	today = str(currentLocalDate()).split('-')
 	listTaskHome = Task.objects.filter(
 		userCode=user,
 		status=True,
@@ -189,7 +189,7 @@ def getListTaskHome(user):
 		return None
 
 def compressLogsZip():
-	today = str('webtooth-logs-')+str(timezone.now().date())
+	today = str('webtooth-logs-')+str(currentLocalDate())
 	shutil.make_archive(PATH_ZIPMAIL+today, 'zip',PATH_LOGS)
 	ficheroGenerado = str(today+'.zip')
 	log.info("Logs comprimidos con exito, fichero generado: " + ficheroGenerado)
@@ -197,7 +197,7 @@ def compressLogsZip():
 
 def sendEmailLogs():	
 	fileZip = compressLogsZip()
-	today = str(timezone.now().date())
+	today = str(currentLocalDate())
 	subject = 'Logs comprimidos del sistema Webtooth - '+today
 	email = EMAIL_HOST_SUPPORT
 	message = "Se envía los ficheros logs de la plataforma Webtooth lanzado por el cron del sistema."
@@ -214,3 +214,20 @@ def sendEmailLogs():
 		log.info("Correo enviado correctamente a: "+str(email_to))
 	except Exception as ex:
 		log.error("Error al enviar correo a soporte: "+str(ex))
+
+def currentLocalDate():
+	date = timezone.localtime(timezone.now()).date()
+	log.info("Return value date now: "+str(date))
+	return date
+
+
+def currentLocalTime():
+	time = timezone.localtime(timezone.now())
+	log.info("Return value time now: "+str(time))
+	return time
+
+
+def currentLocalTimestamp():
+	timestamp = timezone.localtime(timezone.now()).timestamp()
+	log.info("Return value timestamp now: "+str(timestamp))
+	return timestamp

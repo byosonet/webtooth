@@ -5,13 +5,13 @@ from webtooth.config import getLogin, getListTask, getListTaskHome
 from webtooth.config import logger,getAllLoggedUsers
 from webtooth.config import setColorSystem, createPropertie, loadPropertie, updatePropertie
 
-from appGestionPacientes.models import Patient, File
+from apppatients.models import Patient, File
 
 from django.db.models import Q
 from webtooth.decorators import validRequest
-from django.utils import timezone
+from webtooth.config import currentLocalTimestamp
 
-from appGestionPacientes.signals import getUser
+from apppatients.signals import getUser
 
 import os, shutil
 from django.conf import settings
@@ -32,7 +32,7 @@ def homeView(request):
 	listadoTareasHome = getListTaskHome(user.get_username())
 	log.info("LastRow: {}".format(lastRow))	
 	createPropertie(user.id, 'last_row', str(lastRow))
-	request.session['last_session'] = timezone.now().timestamp()
+	request.session['last_session'] = currentLocalTimestamp()
 	rowsRegister=Patient.objects.all().count()
 	rowsFile = File.objects.all().count()
 	loggedUsers = getAllLoggedUsers()

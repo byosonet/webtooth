@@ -6,7 +6,7 @@ LOGGING = {
     'formatters': {
         'standard': {
             'format': '[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] => %(message)s',
-            'datefmt': "%d/%m/%Y %H:%M:%S"
+            'datefmt': "%d-%m-%Y %H:%M:%S"
         },
     },
     'handlers': {
@@ -37,13 +37,13 @@ LOGGING = {
             'propagate': True,
             'formatter': 'standard',
         },
-        'appGestionPacientes.views': {
+        'apppatients.views': {
             'handlers': ['file', 'console'],
             'level': 'INFO',
             'propagate': True,
             'formatter': 'standard',
         },
-        'appGestionInventarios.views': {
+        'appinventories.views': {
             'handlers': ['file', 'console'],
             'level': 'INFO',
             'propagate': True,
@@ -55,19 +55,19 @@ LOGGING = {
             'propagate': True,
             'formatter': 'standard',
         },
-        'appGestionPacientes.config': {
+        'apppatients.config': {
             'handlers': ['file', 'console'],
             'level': 'INFO',
             'propagate': True,
             'formatter': 'standard',
         },
-        'appGestionPacientes.signals': {
+        'apppatients.signals': {
             'handlers': ['file', 'console'],
             'level': 'INFO',
             'propagate': True,
             'formatter': 'standard',
         },
-        'appGestionPacientes.decorators': {
+        'apppatients.decorators': {
             'handlers': ['file', 'console'],
             'level': 'INFO',
             'propagate': True,

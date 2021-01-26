@@ -1,7 +1,7 @@
 from datetime import datetime
 from webtooth.config import logger, sendEmailLogs
 
-log = logger('appGestionPacientes.config', False)
+log = logger('apppatients.config', False)
 
 def logMailTask():
     log.info("Task execute logMailTask now: "+str(datetime.now()))

@@ -173,8 +173,8 @@ body.login{
 <div class="topnav">
 <nav class="nav justify-content-end">
 	<a class="nav-link" href="{% url 'home' %}">Webtooth</a><i class="fas fa-tooth"></i> /
-	<a class="nav-link" href="{% url 'admin:password_change' %}">Cambiar contraseña</a> /
-	<a class="nav-link" href="{% url 'admin:logout' %}">Terminar sesión</a>
+	<a class="nav-link" href="{% url 'admin:password_change' %}">Cambiar contraseña</a><i class="fas fa-key fa-sm fa-fw mr-2"></i> /
+	<a class="nav-link" href="/admin/logout/?next=/">Terminar sesión</a><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2"></i>
 </nav>
 </div>
 {% endblock %}

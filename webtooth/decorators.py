@@ -1,12 +1,12 @@
 from webtooth.config import loadPropertie, createFirstOnly
 import logging
 
-from django.utils import timezone
+from webtooth.config import currentLocalTimestamp
 from django.shortcuts import render
 from webtooth.settings import MAX_TIME_MINUTES_SESSION
-from appGestionPacientes.signals import getUser
+from apppatients.signals import getUser
 
-log = logging.getLogger('appGestionPacientes.decorators')
+log = logging.getLogger('apppatients.decorators')
 def validRequest(viewReceived):
     def validRequestInternal(request, *args, **kwargs):
         if not process_request(request):
@@ -33,10 +33,10 @@ def process_request(request):
                 found = True
                 break
         if not found:
-            request.session['last_session'] = timezone.now().timestamp()
+            request.session['last_session'] = currentLocalTimestamp()
 
         last_session = request.session['last_session']
-        now = timezone.now().timestamp()
+        now = currentLocalTimestamp()
         log.info("Last_session: {} Now: {}".format(last_session,now))
         dt = now - last_session
 

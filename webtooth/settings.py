@@ -38,8 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'appGestionPacientes',
-    'appGestionInventarios',
+    'apppatients',
+    'appinventories',
 ]
 
 MIDDLEWARE = [
@@ -50,7 +50,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'appGestionPacientes.middleware.RequestMiddleware'
+    'apppatients.middleware.RequestMiddleware'
 ]
 
 ROOT_URLCONF = 'webtooth.urls'
@@ -168,7 +168,7 @@ MESSAGE_TAGS = {
 
 #JOBS LIST FOR WEBTOOTH
 JOBLOGMAILTIMER = True
-JOBMONITORTIMER = False
+JOBMONITORTIMER = True
 
 #MAX RESULT QUERY
 MAX_ROWS_QUERY_MODEL = 250
