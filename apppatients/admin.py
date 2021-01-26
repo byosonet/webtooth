@@ -6,6 +6,11 @@ from django.contrib.admin.models import LogEntry
 from apppatients.models import Patient
 from apppatients.models import Adress
 from apppatients.models import Navigation
+from apppatients.models import File
+from apppatients.models import Propertie
+from apppatients.models import Import
+from apppatients.models import Task
+from apppatients.models import Recipe
 
 class PatientAdmin(admin.ModelAdmin):
 	readonly_fields = ("fechaAlta", "fechaUpdate","numexp","foto")
@@ -99,8 +104,119 @@ class NavigationAdmin(admin.ModelAdmin):
 	def has_delete_permission(self, request, obj=None):
 		return False
 
+
+class FileAdmin(admin.ModelAdmin):
+	list_display = ('nombre', 'fechaSubida', 'path')
+	list_filter = ['fechaSubida']
+	date_hierarchy = ('fechaSubida')
+	ordering = ('-fechaSubida',)
+
+	class Media:
+		css = {
+			'all': ('css/customAdmin.css',)
+		}
+
+	def has_add_permission(self, request):
+		return False
+
+	def has_change_permission(self, request, obj=None):
+		return False
+
+	def has_delete_permission(self, request, obj=None):
+		return False
+
+
+class PropertieAdmin(admin.ModelAdmin):
+	list_display = ('userId', 'key', 'value')
+	list_filter = ['userId']
+	ordering = ('-userId',)
+
+	class Media:
+		css = {
+			'all': ('css/customAdmin.css',)
+		}
+
+	def has_add_permission(self, request):
+		return False
+
+	def has_change_permission(self, request, obj=None):
+		return False
+
+	def has_delete_permission(self, request, obj=None):
+		return False
+
+
+class ImportAdmin(admin.ModelAdmin):
+	list_display = ('tipoSubida', 'fechaSubida', 'path', 'importado')
+	list_filter = ['fechaSubida', 'importado']
+	date_hierarchy = ('fechaSubida')
+	ordering = ('-fechaSubida',)
+
+	class Media:
+		css = {
+			'all': ('css/customAdmin.css',)
+		}
+
+	def has_add_permission(self, request):
+		return False
+
+	def has_change_permission(self, request, obj=None):
+		return False
+
+	def has_delete_permission(self, request, obj=None):
+		return False
+
+
+class TaskAdmin(admin.ModelAdmin):
+	list_display = ('userCode', 'userName', 'nameTask', 'descTask',
+	                'dateCreate', 'dateExecute', 'status')
+	list_filter = ['dateCreate', 'dateExecute', 'userCode', 'status']
+	date_hierarchy = ('dateCreate')
+	ordering = ('-dateCreate',)
+
+	class Media:
+		css = {
+			'all': ('css/customAdmin.css',)
+		}
+
+	def has_add_permission(self, request):
+		return False
+
+	def has_change_permission(self, request, obj=None):
+		return False
+
+	def has_delete_permission(self, request, obj=None):
+		return False
+
+
+class RecipeAdmin(admin.ModelAdmin):
+	list_display = ('userCode', 'userName', 'nameRecipe', 'subjectRecipe',
+	                'emailRecipe', 'descRecipe', 'dateSend', 'stateRecipe')
+	list_filter = ['dateSend', 'userCode', 'stateRecipe']
+	date_hierarchy = ('dateSend')
+	ordering = ('-dateSend',)
+
+	class Media:
+		css = {
+			'all': ('css/customAdmin.css',)
+		}
+
+	def has_add_permission(self, request):
+		return False
+
+	def has_change_permission(self, request, obj=None):
+		return False
+
+	def has_delete_permission(self, request, obj=None):
+		return False
+
 admin.site.register(Patient,PatientAdmin)
 admin.site.register(Adress,AdressAdmin)
 admin.site.register(Permission)
 admin.site.register(LogEntry,LogAdmin)
 admin.site.register(Navigation,NavigationAdmin)
+admin.site.register(File,FileAdmin)
+admin.site.register(Propertie,PropertieAdmin)
+admin.site.register(Import,ImportAdmin)
+admin.site.register(Task,TaskAdmin)
+admin.site.register(Recipe,RecipeAdmin)
