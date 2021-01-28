@@ -43,6 +43,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -172,3 +173,6 @@ JOBMONITORTIMER = True
 
 #MAX RESULT QUERY
 MAX_ROWS_QUERY_MODEL = 250
+
+##CONFIG CROSS ORIGIN
+CORS_ORIGIN_ALLOW_ALL = True
