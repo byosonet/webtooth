@@ -525,8 +525,11 @@ def actualizarTask(request, idTask):
 
 def jsonPatient(request):
     log.info("Load json for get list patient")
-    listPatient = Patient.objects.all().order_by('-fechaAlta')[:200]
+    listPatient = Patient.objects.all().order_by('-fechaAlta')[:1000]
+    for pa in listPatient:
+        log.info(pa)
     listJson = json.dumps([{
+        'id': p.id,
         'nombre': p.nombre, 
         'apellidoPaterno':p.apellidoPaterno, 
         'apellidoMaterno': p.apellidoMaterno,
