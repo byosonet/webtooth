@@ -2,6 +2,8 @@ from apppatients import urls
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required, permission_required
 from webtooth.config import currentLocalTime
+from django.http import HttpResponse
+import json
 
 import os
 from django.conf import settings
@@ -520,3 +522,9 @@ def actualizarTask(request, idTask):
     except Exception as ex:
         log.error("Error: "+str(ex))
         return render(request, "task/detailTask.html", {"form": formTask, "idTask": idTask})
+
+def jsonPatient(request):
+    log.info("Load json for get list patient")
+    listPatient = Patient.objects.all().order_by('-fechaAlta')[:200]
+    listJson = json.dumps([{'nombre': p.nombre, 'apellidoPaterno':p.apellidoPaterno, 'numexp':p.numexp} for p in listPatient])
+    return HttpResponse(listJson, content_type='application/json')
