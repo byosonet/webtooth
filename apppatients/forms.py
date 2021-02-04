@@ -28,11 +28,12 @@ class PatientForm(forms.ModelForm):
 	fechaAlta = forms.DateTimeField(required=False, disabled=True, widget=forms.TextInput(attrs=inputCSS('Fecha de alta')))
 	sexo = forms.CharField(required=False, max_length=50, widget=forms.Select(attrs=selectCSS('Sexo'), choices=OPTIONS_SEXO))
 	ocupacion = forms.CharField(required=False, max_length=50, widget=forms.TextInput(attrs=inputCSS('Ocupación')))
+	fechaNacimiento = forms.DateTimeField(required=False, widget=forms.TextInput(attrs=inputCSS('Fecha de nacimiento')))
 
 	class Meta:
 		model = Patient
 		fields = ['nombre', 'apellidoPaterno', 'apellidoMaterno',
-                    'email', 'telefono', 'numexp', 'foto', 'activo', 'rfc', 'fechaAlta', 'sexo', 'ocupacion']
+                    'email', 'telefono', 'numexp', 'foto', 'activo', 'rfc', 'fechaAlta', 'sexo', 'ocupacion', 'fechaNacimiento']
 
 class AdressForm(forms.ModelForm):
 	calle=forms.CharField(required=False, max_length=50, widget=forms.TextInput(attrs=inputCSS('Dirección')))

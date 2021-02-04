@@ -19,5 +19,12 @@
             minDate: '-1970/01/01',
             maxDate: '+1970/12/31'
         });
+
+        $("#id_fechaNacimiento").datetimepicker({
+            timepicker: false,
+            format: 'Y-m-d',
+            validateOnBlur: true,
+            maxDate: '-1970/01/02'
+        });
     });
 </script>

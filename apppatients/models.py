@@ -15,6 +15,7 @@ class Patient(AuditModel, models.Model):
 	eliminado=models.BooleanField(blank=True,null=True,verbose_name="Eliminado")
 	sexo = models.CharField(blank=True, null=True,max_length=50, verbose_name="Sexo")
 	ocupacion = models.CharField(blank=True, null=True, max_length=75, verbose_name="Ocupación")
+	fechaNacimiento = models.DateField(blank=True, null=True, verbose_name="Fecha nacimiento")
 
 	fechaUpdate = models.DateTimeField(auto_now_add=True, blank=True, null=True, verbose_name="Fecha actualización")
 	foto = models.ImageField(blank=True, null=True, verbose_name="Foto", upload_to="img")

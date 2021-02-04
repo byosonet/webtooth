@@ -177,8 +177,10 @@ def actualizarPaciente(request,idPatient):
     log.info("id: "+str(idPatient))
     formPatient = None
     formAdress = None
+    expediente = None
     try:
         obj = Patient.objects.get(pk=idPatient)
+        expediente = obj.numexp
         try:
             objAdress = Adress.objects.get(patient__pk=idPatient)
         except Exception as ex:
@@ -210,18 +212,17 @@ def actualizarPaciente(request,idPatient):
             log.info("Data adress recibida: "+str(dataAdress))
             formPatient.save()
             formAdress.save()
-            
-            expediente = dataPatient['numexp']
 
             log.info("Se ha actualizado el registro en BD para el Expediente {}".format(dataPatient['numexp']))
             messages.success(request, "Los datos han sido actualizados correctamente para el expediente: {}".format(dataPatient['numexp']))
             return render(request, "patient/datosPaciente.html", {"form": formPatient, "id": idPatient, "formAdress": formAdress, "expediente": expediente})
         else:
-            log.error("Formulario recibido no pasa la validacion...")
+            log.error("Formulario formPatient recibido no pasa la validacion..." +str(formPatient.errors))
+            log.error("Formulario formAdress recibido no pasa la validacion..." + str(formAdress.errors))
             validErrors(formPatient)
             validErrors(formAdress)
-            ###return render(request,"patient/datosPaciente.html",{"form": formPatient,"id":idPatient,"formAdress":formAdress})
-            return buscarId(request, idPatient)
+            return render(request, "patient/datosPaciente.html", {"form": formPatient, "id": idPatient, "formAdress": formAdress, "expediente": expediente})
+            ###return buscarId(request, idPatient)
     except Exception as ex:
         log.error("Error: "+str(ex))
         return render(request,"patient/datosPaciente.html",{"form": formPatient,"id":idPatient,"formAdress":formAdress})

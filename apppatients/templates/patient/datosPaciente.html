@@ -159,14 +159,20 @@
 
                 <div class="form-group row">
                     <div class="col-sm-4">
-                
                         <div class="input-group">
                             {{form.ocupacion}}
                             <div class="input-group-append">
                                 <div class="input-group-text"><i class="fas fa-chalkboard-teacher"></i></div>
                             </div>
                         </div>
-                
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="input-group">
+                            {{form.fechaNacimiento}}
+                            <div class="input-group-append">
+                                <div class="input-group-text"><i class="fas fa-calendar-alt"></i></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <br>
@@ -307,6 +313,7 @@
         $("#id_activo").prop("disabled", true);
         $("#update").prop("disabled", true);
         $("#id_ocupacion").prop("disabled", true);
+        $("#id_fechaNacimiento").prop("disabled", true);
 
         valDateAdd = $("#id_fechaAlta").val().split('.')[0];
         $("#id_fechaAlta").val(valDateAdd);
@@ -333,6 +340,7 @@
             $("#id_activo").prop("disabled", false);
             $("#update").prop("disabled", false);
             $("#id_ocupacion").prop("disabled", false);
+            $("#id_fechaNacimiento").prop("disabled", false);
             $("#id_estado").select2({});
             $("#id_sexo").select2({});
             
