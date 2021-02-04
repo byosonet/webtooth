@@ -105,14 +105,14 @@ def insertModelNavigation(user,req,res):
   else:
     userName = str(user)
     log.info("Username: "+userName)
-  log.info("Userid: "+str(userId))
+  ###log.info("Userid: "+str(userId))
 
   userCode=""
   if user.get_username():
     userCode = str(user.get_username())
   else:
     userCode = userName
-  log.info("Usercode: "+userCode)
+  ###log.info("Usercode: "+userCode)
 
   permissions = ""
   if user.get_all_permissions():
@@ -126,13 +126,13 @@ def insertModelNavigation(user,req,res):
   log.info("Permissions granted: "+permissions)
 
   method=str(req.method)
-  log.info("Request method: "+method)
+  ###log.info("Request method: "+method)
   
   fullpath=str(req.get_full_path())
-  log.info("Request path: "+fullpath)
+  log.info("Request: "+method+":"+fullpath)
   
   status = res.status_code
-  log.info("Status: "+str(status))
+  ###log.info("Status: "+str(status))
   
   data=""
   if req.POST:
@@ -148,13 +148,13 @@ def insertModelNavigation(user,req,res):
   for filename, blob in req.FILES.items():
     nameF = str(req.FILES[filename].name)
     
-  log.info("File received: "+nameF)
+  ###log.info("File received: "+nameF)
 
   varSession = str(json.dumps({'vars':list(req.session.keys())}))
   log.info("Session var: "+varSession)
 
   updateDate = timezone.localtime(timezone.now())
-  log.info("Event time: "+str(updateDate))
+  ###log.info("Event time: "+str(updateDate))
 
   Navigation.objects.create(
     userName=userName,

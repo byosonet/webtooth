@@ -109,6 +109,7 @@ def altaPaciente(request):
             patient.apellidoPaterno = patient.apellidoPaterno.title()
             patient.apellidoMaterno = patient.apellidoMaterno.title()
             patient.email = patient.email.lower()
+            patient.fechaAlta = currentLocalTime()
             patient.rfc = patient.rfc.upper()
             log.info("Formulario valido, preparando alta de paciente...")
             dataPatient = formPatient.cleaned_data
@@ -128,6 +129,7 @@ def altaPaciente(request):
             adress.save()
 
             log.info("Se ha agregado a la BD el nuevo registro")
+            messages.success(request, "Los datos han sido agregados correctamente con el expediente: {}".format(patient.numexp))
             return buscarId(request,patient.id)
         else:
             log.error("Formulario recibido no pasa la validacion...")

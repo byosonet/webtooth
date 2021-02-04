@@ -122,3 +122,9 @@ OPTIONS_ESTADO = (
     ("Yucatán","Yucatán"),
     ("Zacatecas","Zacatecas")
 	)
+
+OPTIONS_SEXO = (
+    ("", "Selecciona sexo"),
+   	("Masculino", "Masculino"),
+    ("Femenino", "Femenino")
+)

@@ -25,11 +25,14 @@ class PatientForm(forms.ModelForm):
 		attrs=customInputReadOnly('Número expediente')))
 	foto = forms.ImageField(required=False,widget=forms.FileInput(attrs=imageCSS()))
 	activo = forms.BooleanField(required=False)
+	fechaAlta = forms.DateTimeField(required=False, disabled=True, widget=forms.TextInput(attrs=inputCSS('Fecha de alta')))
+	sexo = forms.CharField(required=False, max_length=50, widget=forms.Select(attrs=selectCSS('Sexo'), choices=OPTIONS_SEXO))
+	ocupacion = forms.CharField(required=False, max_length=50, widget=forms.TextInput(attrs=inputCSS('Ocupación')))
 
 	class Meta:
 		model = Patient
 		fields = ['nombre', 'apellidoPaterno', 'apellidoMaterno',
-                    'email', 'telefono', 'numexp', 'foto', 'activo','rfc']
+                    'email', 'telefono', 'numexp', 'foto', 'activo', 'rfc', 'fechaAlta', 'sexo', 'ocupacion']
 
 class AdressForm(forms.ModelForm):
 	calle=forms.CharField(required=False, max_length=50, widget=forms.TextInput(attrs=inputCSS('Dirección')))

@@ -94,6 +94,9 @@ def filterByIdPatient(idPatient, formPatient):
 		formPatient.fields['foto'].initial = patient.foto
 		formPatient.fields['activo'].initial = patient.activo
 		formPatient.fields['rfc'].initial = patient.rfc
+		formPatient.fields['fechaAlta'].initial = patient.fechaAlta
+		formPatient.fields['sexo'].initial = patient.sexo
+		formPatient.fields['ocupacion'].initial = patient.ocupacion
 		return formPatient
 	else:
 		return None

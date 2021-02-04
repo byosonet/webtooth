@@ -10,9 +10,11 @@ class Patient(AuditModel, models.Model):
 	email=models.EmailField(blank=True,null=True,verbose_name="Correo electrónico")
 	telefono = models.CharField(blank=True, null=True, max_length=10, verbose_name="Teléfono")
 	numexp=models.CharField(max_length=15,verbose_name="Número de expediente")
-	fechaAlta = models.DateTimeField(auto_now_add=True, blank=True, null=True,verbose_name="Fecha alta")
+	fechaAlta = models.DateTimeField(blank=True, null=True, verbose_name="Fecha alta")
 	activo=models.BooleanField(blank=True,null=True,verbose_name="Activo")
 	eliminado=models.BooleanField(blank=True,null=True,verbose_name="Eliminado")
+	sexo = models.CharField(blank=True, null=True,max_length=50, verbose_name="Sexo")
+	ocupacion = models.CharField(blank=True, null=True, max_length=75, verbose_name="Ocupación")
 
 	fechaUpdate = models.DateTimeField(auto_now_add=True, blank=True, null=True, verbose_name="Fecha actualización")
 	foto = models.ImageField(blank=True, null=True, verbose_name="Foto", upload_to="img")
