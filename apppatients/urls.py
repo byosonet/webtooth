@@ -1,6 +1,8 @@
 from django.urls import path
 from apppatients import views
 
+from django.views.decorators.csrf import csrf_exempt
+
 URL_LISTAR_ARCHIVO = "listarArchivo"
 
 urlpatterns=[
@@ -22,5 +24,8 @@ urlpatterns=[
     path('add/task/', views.altaTarea, name="altaTarea"),
     path('detail/task/<int:idTask>/', views.buscarTaskId, name="buscarTaskId"),
     path('update/task/<int:idTask>/', views.actualizarTask, name="actualizarTask"),
+    
+    ###Services example for angular
     path('patient/json/', views.jsonPatient, name="jsonPatient"),
+    path('contact/add/json/', csrf_exempt(views.addContact), name="addContact"),
 ]

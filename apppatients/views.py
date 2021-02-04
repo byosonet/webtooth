@@ -539,3 +539,12 @@ def jsonPatient(request):
         'estado':p.activo,
         'telefono': p.telefono,} for p in listPatient])
     return HttpResponse(listJson, content_type='application/json')
+
+
+def addContact(request):
+    if request.method == 'POST':
+        log.info("Method POST with params: "+str(request.POST))
+        for p in request.POST:
+            log.info("field: {}, value: {}".format(p, request.POST.get(p)))
+        data = json.dumps({'result': '¡Add contact OK!'})
+        return HttpResponse(data, content_type='application/json')
