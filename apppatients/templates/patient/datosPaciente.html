@@ -38,7 +38,7 @@
             <form class="user" action="{% url 'actualizarPaciente' id %}" method="POST" enctype="multipart/form-data">{% csrf_token %}
 
                 <div class="form-group row">
-                    <div class="col-sm-8"></div>
+                    <div class="col-sm-6"></div>
                     <div class="col-sm-2">
                         <div class="input-group">
                             {{form.fechaNacimiento}}
@@ -50,6 +50,14 @@
                     <div class="col-sm-2">
                         <div class="input-group">
                             {{form.fechaAlta}}
+                            <div class="input-group-append">
+                                <div class="input-group-text"><i class="fas fa-calendar-alt"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="input-group">
+                            {{form.fechaUpdate}}
                             <div class="input-group-append">
                                 <div class="input-group-text"><i class="fas fa-calendar-alt"></i></div>
                             </div>
@@ -199,9 +207,9 @@
                         <div style="float: right;">
                             {{form.activo}}
                             {% if form.activo.value %}
-                            <span class="btn btn-success btn-sm" style="font-size: 12px;"> Activo </span>
+                            <span class="btn btn-success btn-sm" style="font-size: 14px;"> Desactivar (Baja temporal) </span>
                             {% else %}
-                            <span class="btn btn-warning btn-sm" style="font-size: 12px;"> Inactivo </span>
+                            <span class="btn btn-warning btn-sm" style="font-size: 14px;"> Activar (Servicio paciente)</span>
                             {% endif %}
                         </div>
                         {% endif %}

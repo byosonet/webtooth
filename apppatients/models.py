@@ -17,7 +17,7 @@ class Patient(AuditModel, models.Model):
 	ocupacion = models.CharField(blank=True, null=True, max_length=75, verbose_name="Ocupación")
 	fechaNacimiento = models.DateField(blank=True, null=True, verbose_name="Fecha nacimiento")
 
-	fechaUpdate = models.DateTimeField(auto_now_add=True, blank=True, null=True, verbose_name="Fecha actualización")
+	fechaUpdate = models.DateTimeField(blank=True, null=True, verbose_name="Fecha actualización")
 	foto = models.ImageField(blank=True, null=True, verbose_name="Foto", upload_to="img")
 
 	def __str__(self):

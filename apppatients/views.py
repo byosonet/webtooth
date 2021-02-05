@@ -110,6 +110,7 @@ def altaPaciente(request):
             patient.apellidoMaterno = patient.apellidoMaterno.title()
             patient.email = patient.email.lower()
             patient.fechaAlta = currentLocalTime()
+            patient.fechaUpdate = currentLocalTime()
             patient.rfc = patient.rfc.upper()
             log.info("Formulario valido, preparando alta de paciente...")
             dataPatient = formPatient.cleaned_data
