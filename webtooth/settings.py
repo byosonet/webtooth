@@ -126,8 +126,14 @@ USE_L10N = False
 USE_TZ = True
 
 DECIMAL_SEPARATOR = '.'
-DATE_FORMAT = 'd-M-y'
-DATETIME_FORMAT='d-M-y H:i a'
+DATE_FORMAT = 'l d/F/Y'
+DATETIME_FORMAT='l d/b/y H:i a'
+
+DATE_INPUT_FORMAT = ('%d/%m/%Y', '%Y-%m-%d')
+DATE_INPUT_SHOW = '%d/%m/%Y'
+
+DATETIME_INPUT_FORMAT = ('%d/%m/%Y %H:%M', '%Y-%m-%d %H:%M')
+DATETIME_INPUT_SHOW = '%d/%m/%Y %H:%M'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/

@@ -134,13 +134,6 @@
         $("#id_dateExecute").prop("disabled", true);
         $("#updateButton").prop("disabled", true);
 
-
-        valDateCreate = $("#id_dateCreate").val().split('.')[0];
-        $("#id_dateCreate").val(valDateCreate);
-
-        valDateExecute = $("#id_dateExecute").val().split('.')[0];
-        $("#id_dateExecute").val(valDateExecute);
-
         $("#modidyButton").click(function () {
             $("#modidyButton").prop("disabled", true);
             $("#updateButton").prop("disabled", false);

@@ -7,14 +7,14 @@
     $(document).ready(function () {
         $.datetimepicker.setLocale('es');
         $("#id_dateCreate").datetimepicker({
-            format: 'Y-m-d H:i',
+            format: 'd/m/Y H:i',
             validateOnBlur: true,
             minDate: '-1970/01/01',
             maxDate: '+1970/12/31'
         });
 
         $("#id_dateExecute").datetimepicker({
-            format: 'Y-m-d H:i',
+            format: 'd/m/Y H:i',
             validateOnBlur: true,
             minDate: '-1970/01/01',
             maxDate: '+1970/12/31'
@@ -22,7 +22,7 @@
 
         $("#id_fechaNacimiento").datetimepicker({
             timepicker: false,
-            format: 'Y-m-d',
+            format: 'd/m/Y',
             validateOnBlur: true,
             maxDate: '-1970/01/02'
         });

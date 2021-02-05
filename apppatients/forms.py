@@ -1,6 +1,7 @@
 from django import forms
 from apppatients.config import *
 from apppatients.models import Patient, Adress, File, Import, Task, Recipe
+from webtooth.settings import DATE_INPUT_FORMAT, DATE_INPUT_SHOW, DATETIME_INPUT_FORMAT, DATETIME_INPUT_SHOW
 
 
 class ContactForm(forms.ModelForm):
@@ -25,10 +26,12 @@ class PatientForm(forms.ModelForm):
 		attrs=customInputReadOnly('Número expediente')))
 	foto = forms.ImageField(required=False,widget=forms.FileInput(attrs=imageCSS()))
 	activo = forms.BooleanField(required=False)
-	fechaAlta = forms.DateTimeField(required=False, disabled=True, widget=forms.TextInput(attrs=inputCSS('Fecha de alta')))
+	fechaAlta = forms.DateTimeField(input_formats=DATETIME_INPUT_FORMAT, required=False, disabled=True,
+	                                widget=forms.DateInput(format=DATETIME_INPUT_SHOW, attrs=inputCSS('Fecha de alta')))
 	sexo = forms.CharField(required=False, max_length=50, widget=forms.Select(attrs=selectCSS('Sexo'), choices=OPTIONS_SEXO))
 	ocupacion = forms.CharField(required=False, max_length=50, widget=forms.TextInput(attrs=inputCSS('Ocupación')))
-	fechaNacimiento = forms.DateTimeField(required=False, widget=forms.TextInput(attrs=inputCSS('Fecha de nacimiento')))
+	fechaNacimiento = forms.DateTimeField(input_formats=DATE_INPUT_FORMAT, required=False, widget=forms.DateInput(
+		format=DATE_INPUT_SHOW, attrs=inputCSS('Fecha de nacimiento')))
 
 	class Meta:
 		model = Patient
@@ -69,8 +72,10 @@ class TaskForm(forms.ModelForm):
 	nameTask = forms.CharField(required=True,max_length=50, widget=forms.TextInput(attrs=inputCSS('Nombre de la tarea (*)')))
 	descTask = forms.CharField(required=True, widget=forms.Textarea(attrs=textAreaCSS('Descripción de la tarea (*)')))
 	status = forms.BooleanField(required=False)
-	dateCreate = forms.DateTimeField(required=True, widget=forms.TextInput(attrs=inputCSS('Fecha programada')))
-	dateExecute = forms.DateTimeField(required=False, widget=forms.TextInput(attrs=inputCSS('Fecha ejecución')))
+	dateCreate = forms.DateTimeField(input_formats=DATETIME_INPUT_FORMAT, required=True, widget=forms.DateInput(
+		format=DATETIME_INPUT_SHOW, attrs=inputCSS('Fecha programada (*)')))
+	dateExecute = forms.DateTimeField(input_formats=DATETIME_INPUT_FORMAT, required=False, widget=forms.DateInput(
+		format=DATETIME_INPUT_SHOW, attrs=inputCSS('Fecha ejecución')))
 
 	class Meta:
 		model = Task
