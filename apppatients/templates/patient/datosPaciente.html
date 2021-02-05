@@ -38,8 +38,15 @@
             <form class="user" action="{% url 'actualizarPaciente' id %}" method="POST" enctype="multipart/form-data">{% csrf_token %}
 
                 <div class="form-group row">
-                    <div class="col-sm-5"></div>
-                    <div class="col-sm-5"></div>
+                    <div class="col-sm-8"></div>
+                    <div class="col-sm-2">
+                        <div class="input-group">
+                            {{form.fechaNacimiento}}
+                            <div class="input-group-append">
+                                <div class="input-group-text"><i class="fas fa-calendar-alt"></i></div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="col-sm-2">
                         <div class="input-group">
                             {{form.fechaAlta}}
@@ -167,12 +174,7 @@
                         </div>
                     </div>
                     <div class="col-sm-2">
-                        <div class="input-group">
-                            {{form.fechaNacimiento}}
-                            <div class="input-group-append">
-                                <div class="input-group-text"><i class="fas fa-calendar-alt"></i></div>
-                            </div>
-                        </div>
+                        
                     </div>
                 </div>
                 <br>
