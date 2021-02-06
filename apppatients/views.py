@@ -500,6 +500,12 @@ def buscarTaskId(request, idTask):
 
 @login_required(login_url=getLogin())
 @validRequest
+def emailPatient(request, idPatient):
+    log.info("idPatient for email: "+str(idPatient))
+    return contactoPaciente(request)
+
+@login_required(login_url=getLogin())
+@validRequest
 def actualizarTask(request, idTask):
     log.info("idTask: "+str(idTask))
     formTask = None    

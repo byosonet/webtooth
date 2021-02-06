@@ -219,8 +219,14 @@
                 {% if not delPatient %}
                 <div class="form-group row">
 
-                    <div class="col-sm-6">
+                    <div class="col-sm-4">
                         {{form.numexp}}
+                    </div>
+                    <div class="col-sm-2">
+                        
+                        <button {% if not form.email.value %}disabled{% endif %} id="enviarRecetaButton" type="button" class="btn btn-danger btn-user btn-block" href="#" data-toggle="modal"
+                            data-target="#enviarRecetaModal" role="button"><i class="fa fa-pen"></i> Enviar receta</button>
+                        
                     </div>
                     <div class="col-sm-2">
                         <button id="modbutton" type="button" class="btn btn-danger btn-user btn-block" href="#" data-toggle="modal"
@@ -239,7 +245,7 @@
                 {% endif %}
             </form>
 
-            <!-- Logout Modal-->
+            <!-- Logout eliminar-->
             <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true" data-backdrop="static" data-keyboard="false">
                 <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -260,7 +266,7 @@
                 </div>
             </div>
 
-            <!-- Logout Modal-->
+            <!-- Logout modificar-->
             <div class="modal fade" id="modifyModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true" data-backdrop="static" data-keyboard="false">
                 <div class="modal-dialog modal-dialog-centered" role="document">
@@ -281,6 +287,30 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Logout correo-->
+            <div class="modal fade" id="enviarRecetaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true" data-backdrop="static" data-keyboard="false">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-info-circle fa-1x"></i> Aviso de sistema
+                            </h5>
+                        </div>
+                        <div class="modal-body" style="text-align: justify;">Estos son los datos del paciente a utilizar para el env&iacute;o de 
+                            la receta, 
+                            ¿Son correcto los datos? </br></br>Nombre: <b>{{form.nombre.value}} {{form.apellidoPaterno.value}}
+                                {{form.apellidoMaterno.value}}</b></br>Correo: <b>{{form.email.value}}</b></br></br></div>
+                        <div class="modal-footer">
+                            <button class="btn btn-{{request.session.bt_color}}" type="button" data-dismiss="modal"
+                                style="border-radius: 10rem;"><i class="fas fa-times"></i> Cancelar</button>
+                            <a class="btn btn-{{request.session.bt_color}}" href="{% url 'emailPatient' id %}"
+                                style="border-radius: 10rem;"><i class="fas fa-check"></i> Aceptar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
 
 
         </div>
@@ -306,6 +336,10 @@
             $(this).val($(this).val().replace(/[^0-9]/g, ''));
         });
 
+        $("input[name='cp']").on('input', function (e) {
+            $(this).val($(this).val().replace(/[^0-9]/g, ''));
+        });
+
         $("#id_nombre").prop("disabled", true);
         $("#id_apellidoPaterno").prop("disabled", true);
         $("#id_apellidoMaterno").prop("disabled", true);
@@ -328,6 +362,7 @@
         $("#modidy").click(function () {
             $("#modbutton").prop("disabled", true);
             $("#delbutton").prop("disabled", true);
+            $("#enviarRecetaButton").prop("disabled", true);
             $("#id_nombre").prop("disabled", false);
             $("#id_apellidoPaterno").prop("disabled", false);
             $("#id_apellidoMaterno").prop("disabled", false);
