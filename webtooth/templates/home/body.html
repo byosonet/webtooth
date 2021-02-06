@@ -16,6 +16,15 @@
   <link href="{% static 'css/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
 
   <link href="{% static 'css/select2.min.css' %}" rel="stylesheet" />
+  {% if request.session.ad_color == '#4e73df' %}
+    <link href="{% static 'css/blue-tooltip.css' %}" rel="stylesheet" />
+  {% elif request.session.ad_color == '#5a5c69'%}
+    <link href="{% static 'css/dark-tooltip.css' %}" rel="stylesheet" />
+  {% elif request.session.ad_color == '#e74a3b' %}
+    <link href="{% static 'css/red-tooltip.css' %}" rel="stylesheet" />
+  {% else %}
+    <link href="{% static 'css/global-tooltip.css' %}" rel="stylesheet" />
+  {% endif %}
 </head>
 
 <body id="page-top">

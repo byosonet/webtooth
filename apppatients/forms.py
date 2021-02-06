@@ -27,13 +27,13 @@ class PatientForm(forms.ModelForm):
 	foto = forms.ImageField(required=False,widget=forms.FileInput(attrs=imageCSS()))
 	activo = forms.BooleanField(required=False)
 	fechaAlta = forms.DateTimeField(input_formats=DATETIME_INPUT_FORMAT, required=False, disabled=True,
-	                                widget=forms.DateInput(format=DATETIME_INPUT_SHOW, attrs=inputCSS('Fecha de alta')))
+	                                widget=forms.DateInput(format=DATETIME_INPUT_SHOW, attrs=inputReadOnly('Fecha de alta')))
 	sexo = forms.CharField(required=False, max_length=50, widget=forms.Select(attrs=selectCSS('Sexo'), choices=OPTIONS_SEXO))
 	ocupacion = forms.CharField(required=False, max_length=50, widget=forms.TextInput(attrs=inputCSS('Ocupación')))
 	fechaNacimiento = forms.DateTimeField(input_formats=DATE_INPUT_FORMAT, required=False, widget=forms.DateInput(
 		format=DATE_INPUT_SHOW, attrs=inputCSS('Fecha de nacimiento')))
 	fechaUpdate = forms.DateTimeField(input_formats=DATETIME_INPUT_FORMAT, required=False, disabled=True,
-	                                widget=forms.DateInput(format=DATETIME_INPUT_SHOW, attrs=inputCSS('Fecha de actualizacón')))
+                                   widget=forms.DateInput(format=DATETIME_INPUT_SHOW, attrs=inputReadOnly('Fecha de actualizacón')))
 
 	class Meta:
 		model = Patient

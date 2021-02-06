@@ -26,6 +26,7 @@ def inputCSS(name):
 	attrs={}
 	attrs=addClass(attrs,'form-control form-control-user')
 	attrs=addPlaceHolder(attrs,name)
+	attrs = tooltip(attrs, name)
 	log.info("input: "+str(attrs))
 	return attrs
 
@@ -52,6 +53,7 @@ def textAreaCSS(placeHolder):
 	attrs=addTextArea(attrs,14,20)
 	attrs=addStyle(attrs,'overflow:auto;resize:none')
 	attrs=addMaxLength(attrs,3500)
+	attrs = tooltip(attrs, placeHolder)
 	log.info("textArea: "+str(attrs))
 	return attrs
 
@@ -85,6 +87,25 @@ def xlsCSS():
 	attrs = {'accept': 'application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'}
 	attrs = addClass(attrs, 'btn btn-secondary btn-user')
 	log.info("xlsCSS: " + str(attrs))
+	return attrs
+
+def tooltip(attrs, title):
+	attrs.update({'data-placement': 'top'})
+	attrs.update({'data-trigger': 'hover'})
+	attrs.update({'rel': 'popover'})
+	attrs.update({'data-original-title': title})
+	attrs.update({'data-content': title})
+	
+	log.info("tooltip: "+str(attrs))
+	return attrs
+
+def inputReadOnly(name):
+	attrs = {}
+	attrs = addClass(attrs, 'form-control form-control-user')
+	attrs = addPlaceHolder(attrs, name)
+	attrs = tooltip(attrs, name)
+	attrs = addReadOnly(attrs)
+	log.info("inputReadOnly: "+str(attrs))
 	return attrs
 
 OPTIONS_ESTADO = (

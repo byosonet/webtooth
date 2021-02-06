@@ -127,20 +127,20 @@
 <script src="{% static 'js/jquery.min.js' %}"></script>
 <script>
     $(function () {
-        $("#id_nameTask").prop("disabled", true);
-        $("#id_descTask").prop("disabled", true);
+        $("#id_nameTask").prop("readonly", true);
+        $("#id_descTask").prop("readonly", true);
         $("#id_status").prop("disabled", true);
-        $("#id_dateCreate").prop("disabled", true);
-        $("#id_dateExecute").prop("disabled", true);
+        $("#id_dateCreate").prop("readonly", true);
+        $("#id_dateExecute").prop("readonly", true);
         $("#updateButton").prop("disabled", true);
 
         $("#modidyButton").click(function () {
             $("#modidyButton").prop("disabled", true);
             $("#updateButton").prop("disabled", false);
-            $("#id_nameTask").prop("disabled", false);
-            $("#id_descTask").prop("disabled", false);
+            $("#id_nameTask").prop("readonly", false);
+            $("#id_descTask").prop("readonly", false);
             $("#id_status").prop("disabled", false);
-            $("#id_dateCreate").prop("disabled", false);
+            $("#id_dateCreate").prop("readonly", false);
         });
 
     });
