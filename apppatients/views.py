@@ -90,7 +90,19 @@ def contactoPaciente(request):
             validErrors(formContact)
 
     else:
-        formContact = ContactForm()
+        try:
+            emailRecipe = request.GET['emailRecipe'] 
+            nameRecipe = request.GET['nameRecipe'] 
+            subjectRecipe = request.GET['subjectRecipe']
+            descRecipe = request.GET['descRecipe']
+            log.info("emailRecipe: "+emailRecipe)
+            log.info("nameRecipe: "+nameRecipe)
+            log.info("subjectRecipe: "+subjectRecipe)
+            log.info("descRecipe: "+descRecipe)
+            formContact = ContactForm(request.GET)
+        except Exception as ex:
+            log.error("Error: "+str(ex))
+            formContact = ContactForm()
     return render(request,"contact/contacto.html", {"form":formContact, "listadoEnviados":listadoEnviados})
 
 
@@ -502,6 +514,15 @@ def buscarTaskId(request, idTask):
 @validRequest
 def emailPatient(request, idPatient):
     log.info("idPatient for email: "+str(idPatient))
+    patient = Patient.objects.get(pk=idPatient)
+
+    if not request.GET._mutable:
+        request.GET._mutable = True
+        request.GET['emailRecipe'] = patient.email
+        request.GET['nameRecipe'] = patient.nombre +' '+ patient.apellidoPaterno
+        request.GET['subjectRecipe'] = 'Receta para paciente con expediente '+str(patient.numexp)
+        request.GET['descRecipe'] = 'A continuación describe la receta a enviar...\n\n'
+
     return contactoPaciente(request)
 
 @login_required(login_url=getLogin())
