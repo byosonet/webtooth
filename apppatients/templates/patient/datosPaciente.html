@@ -188,14 +188,9 @@
                 <br>
                 <div class="form-group row">
                     <div class="col-sm-9">
-                        {% if form.foto.value %}
-                        <a target="_blank" href="{{ form.foto.value.url }}">Foto del paciente: </a>
-                        {% else %}
                         Foto del paciente:
-                        {% endif %}
-
                         {% if form.foto.value %}
-                        <img style="height: 50px;border-radius: 55px;" src="{{form.foto.value.url}}" />
+                        <a target="_blank" href="{{ form.foto.value.url }}"><img style="height: 50px;border-radius: 55px;" src="{{form.foto.value.url}}" /></a>
                         </br></br>
                         {% else %}
                         <i class="fas fa-user fa-2x text-gray-300"></i>
@@ -358,6 +353,7 @@
         $("#update").prop("disabled", true);
         $("#id_ocupacion").prop("readonly", true);
         $("#id_fechaNacimiento").prop("readonly", true);
+        $("#id_foto").prop("disabled", true);
 
         $("#id_fechaAlta").prop("disabled", '');
         $("#id_fechaUpdate").prop("disabled", '');
@@ -384,6 +380,7 @@
             $("#update").prop("disabled", false);
             $("#id_ocupacion").prop("readonly", false);
             $("#id_fechaNacimiento").prop("readonly", false);
+            $("#id_foto").prop("disabled", false);
             $("#id_estado").select2({});
             $("#id_sexo").select2({});
             

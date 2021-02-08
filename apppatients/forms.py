@@ -24,7 +24,7 @@ class PatientForm(forms.ModelForm):
 	telefono = forms.CharField(required=False, max_length=10, widget=forms.TextInput(attrs=inputCSS('Teléfono')))
 	numexp = forms.CharField(required=False, max_length=15, widget=forms.TextInput(
 		attrs=customInputReadOnly('Número expediente')))
-	foto = forms.ImageField(required=False,widget=forms.FileInput(attrs=imageCSS()))
+	foto = forms.ImageField(required=False,widget=forms.FileInput(attrs=imageCSS('Seleccionar foto')))
 	activo = forms.BooleanField(required=False)
 	fechaAlta = forms.DateTimeField(input_formats=DATETIME_INPUT_FORMAT, required=False, disabled=True,
 	                                widget=forms.DateInput(format=DATETIME_INPUT_SHOW, attrs=inputReadOnly('Fecha de alta')))
@@ -55,7 +55,7 @@ class AdressForm(forms.ModelForm):
 
 class FileForm(forms.ModelForm):
 	nombre = forms.CharField(max_length=50, widget=forms.TextInput(attrs=inputCSS('Nombre del archivo (*)')))
-	path = forms.FileField(widget=forms.FileInput(attrs=fileCSS()))
+	path = forms.FileField(widget=forms.FileInput(attrs=fileCSS('Seleccionar archivo')))
 
 	class Meta:
 		model = File
@@ -63,7 +63,7 @@ class FileForm(forms.ModelForm):
 
 
 class ImportForm(forms.ModelForm):
-	path = forms.FileField(widget=forms.FileInput(attrs=xlsCSS()))
+	path = forms.FileField(widget=forms.FileInput(attrs=xlsCSS('Seleccionar excel')))
 
 	class Meta:
 		model = Import

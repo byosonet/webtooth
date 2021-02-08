@@ -70,22 +70,25 @@ def customInputReadOnly(name):
 	log.info("input: "+str(attrs))
 	return attrs
 
-def imageCSS():
+def imageCSS(name):
 	attrs = {'accept': 'image/jpeg'}
 	attrs = addClass(attrs, 'btn btn-secondary btn-user')
+	attrs = tooltip(attrs, name)
 	log.info("imageCSS: " +str(attrs))
 	return attrs
 
-def fileCSS():
+def fileCSS(name):
 	attrs = {'accept': '*'}
 	attrs = addClass(attrs, 'btn btn-secondary btn-user')
+	attrs = tooltip(attrs, name)
 	log.info("fileCSS: " + str(attrs))
 	return attrs
 
 
-def xlsCSS():
+def xlsCSS(name):
 	attrs = {'accept': 'application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'}
 	attrs = addClass(attrs, 'btn btn-secondary btn-user')
+	attrs = tooltip(attrs, name)
 	log.info("xlsCSS: " + str(attrs))
 	return attrs
 
