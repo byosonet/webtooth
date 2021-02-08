@@ -3,8 +3,14 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
+       $('#loading').hide();
        $('input[rel=popover]').tooltip();
        $('textarea[rel=popover]').tooltip();
        $('select[rel=popover]').tooltip();
+       $('img[rel=popover]').tooltip();
+
+       $('form').submit(function () {
+         $('#loading').show();
+       });
     });
 </script>
