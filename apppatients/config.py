@@ -32,8 +32,9 @@ def inputCSS(name):
 
 def selectCSS(name):
 	attrs={}
-	attrs=addClass(attrs,'form-control')
+	attrs = addClass(attrs, 'form-control custom-select custom-select-sm')
 	attrs=addPlaceHolder(attrs,name)
+	attrs = tooltip(attrs, name)
 	log.info("select: "+str(attrs))
 	return attrs
 

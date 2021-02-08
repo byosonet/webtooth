@@ -39,6 +39,11 @@ class PatientForm(forms.ModelForm):
 		model = Patient
 		fields = ['nombre', 'apellidoPaterno', 'apellidoMaterno',
                     'email', 'telefono', 'numexp', 'foto', 'activo', 'rfc', 'fechaAlta', 'sexo', 'ocupacion', 'fechaNacimiento', 'fechaUpdate']
+	
+	def clean_email(self):
+		log.info("cleaned_data field email to lower!!")
+		email = self.cleaned_data['email'].lower()
+		return email
 
 class AdressForm(forms.ModelForm):
 	calle=forms.CharField(required=False, max_length=50, widget=forms.TextInput(attrs=inputCSS('Dirección')))
