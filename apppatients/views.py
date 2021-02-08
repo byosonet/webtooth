@@ -224,6 +224,8 @@ def actualizarPaciente(request,idPatient):
             dataAdress = formAdress.cleaned_data
             log.info("Data adress recibida: "+str(dataAdress))
             formPatient.save()
+            dataLoad = Patient.objects.get(pk=idPatient)
+            formPatient = PatientForm(instance=dataLoad)
             formAdress.save()
 
             log.info("Se ha actualizado el registro en BD para el Expediente {}".format(dataPatient['numexp']))
