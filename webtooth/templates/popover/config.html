@@ -13,4 +13,31 @@
          $('#loading').show();
        });
     });
+
+    function age(birthday) {
+        if (birthday == ''){
+          return '';
+        } else {
+          var parts = birthday.split("/");
+          var birthday = new Date(Number(parts[2]), Number(parts[1]) - 1, Number(parts[0]));
+          var ageDifMs = Date.now() - birthday.getTime();
+          var ageDate = new Date(ageDifMs);
+          year = Math.abs(ageDate.getUTCFullYear() - 1970);
+          if (parseInt(year) > 0){
+            console.log('tienas mas de 0 años')
+            return year + ' año(s) aprox'
+          }else {
+            var dateTo = new Date()
+            var dateFrom = birthday
+            totalMonth = dateTo.getMonth() - dateFrom.getMonth() + (12 * (dateTo.getFullYear() - dateFrom.getFullYear()))
+            if (parseInt(totalMonth) > 0){
+                return totalMonth + ' mes(es) aprox'
+            }else{
+              var totalDay = parseInt((dateTo - dateFrom) / (1000 * 60 * 60 * 24), 10); 
+              console.log('day '+totalDay)
+              return totalDay + ' día(s) aprox'
+            }
+          }
+        }
+    }
 </script>
