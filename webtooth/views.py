@@ -5,7 +5,7 @@ from webtooth.config import getLogin, getListTask, getListTaskHome
 from webtooth.config import logger,getAllLoggedUsers
 from webtooth.config import setColorSystem, createPropertie, loadPropertie, updatePropertie
 
-from apppatients.models import Patient, File
+from apppatients.models import Patient, File, Task, Recipe
 
 from django.db.models import Q
 from webtooth.decorators import validRequest
@@ -35,6 +35,8 @@ def homeView(request):
 	request.session['last_session'] = currentLocalTimestamp()
 	rowsRegister=Patient.objects.all().count()
 	rowsFile = File.objects.all().count()
+	taskEje = Task.objects.filter(status=True, userId=user.id).count()
+	recipeSend = Recipe.objects.filter(userId=user.id, stateRecipe='Enviado').count()
 	loggedUsers = getAllLoggedUsers()
 	patientActive = Patient.objects.filter(Q(eliminado=None) | Q(eliminado=False), activo=True).count()
 	patientInactive = Patient.objects.filter(Q(eliminado=None) | Q(eliminado=False),Q(activo=False) | Q(activo=None)).count()
@@ -79,7 +81,7 @@ def homeView(request):
 	data = {"rowsFile": rowsFile, "rowsRegister": rowsRegister, "loggedUsers": loggedUsers,
          "percentActive": porcentajeActivos, "percentInactive": porcentajeInactivos, 
          "patientActive": patientActive, "inactivePatients": patientInactive, "lastRow": lastRow, "patientDelete": patientDelete, "porcentajeEliminados": porcentajeEliminados, 
-		 "listadoTareasHome": listadoTareasHome}
+         "listadoTareasHome": listadoTareasHome, "taskEje": taskEje, "recipeSend": recipeSend}
 	return render(request,"home/home.html",data)
 
 

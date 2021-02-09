@@ -55,7 +55,8 @@ def listarPaciente(request):
 @login_required(login_url=getLogin())
 @validRequest
 def contactoPaciente(request):
-    listadoEnviados = Recipe.objects.all().order_by('-dateSend')[:settings.MAX_ROWS_QUERY_MODEL]
+    user = getUser()
+    listadoEnviados = Recipe.objects.filter(userId=user.id).order_by('-dateSend')[:settings.MAX_ROWS_QUERY_MODEL]
     if request.method=='POST':
         formContact = ContactForm(request.POST)
         if formContact.is_valid():
