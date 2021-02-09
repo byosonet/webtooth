@@ -18,6 +18,7 @@ from apppatients.permissions import *
 from webtooth.decorators import validRequest
 from django.contrib import messages
 from apppatients.signals import getUser
+from webtooth.config import show_sql
 
 import pandas as pd
 
@@ -48,6 +49,7 @@ def buscarNombre(request):
 def listarPaciente(request):
     log.info("Obteniendo lista de pacientes")
     listadoPacientes = Patient.objects.all().order_by('-fechaUpdate')[:settings.MAX_ROWS_QUERY_MODEL]
+    show_sql(listadoPacientes.query)
     #for p in listadoPacientes:
         #log.info("Nombre: {} Expediente: {} Correo: {} Fecha update: {}".format(p.nombre,p.numexp,p.email,p.fechaUpdate))    
     return render(request, "patient/listaPacientes.html", {"listaPaciente":listadoPacientes})
@@ -57,6 +59,7 @@ def listarPaciente(request):
 def contactoPaciente(request):
     user = getUser()
     listadoEnviados = Recipe.objects.filter(userId=user.id).order_by('-dateSend')[:settings.MAX_ROWS_QUERY_MODEL]
+    show_sql(listadoEnviados.query.sql_with_params())
     if request.method=='POST':
         formContact = ContactForm(request.POST)
         if formContact.is_valid():

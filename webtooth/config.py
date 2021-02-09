@@ -12,6 +12,7 @@ from apppatients.signals import getUser
 
 from webtooth.logger import LOGGING
 from webtooth.settings import PATH_LOGS, PATH_ZIPMAIL, EMAIL_HOST_SUPPORT
+from django.db import connection
 
 #Service logger
 def logger(app,view):
@@ -231,3 +232,6 @@ def currentLocalTimestamp():
 	timestamp = timezone.localtime(timezone.now()).timestamp()
 	log.info("Return value timestamp now: "+str(timestamp))
 	return timestamp
+
+def show_sql(query):
+	log.debug('Query SQL: '+str(query))
