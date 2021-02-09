@@ -3,15 +3,19 @@
 {% load static %}
 
 {% block title %} WebTooth | No tienes permisos {%endblock%}
-{% block titlepage %} No tienes los permisos suficientes {%endblock%}
+{% block titlepage %} No tienes los permisos suficientes <div style="text-align: center;">
+	<hr style="margin: 5 auto;"><b><i class="fas fa-user-lock"></i></b>
+</div> {%endblock%}
 
 {% block body %} 
 
-	<div class="card-header py-3">
-  		<h6 class="m-0 font-weight-bold text-{{request.session.bt_color}}" style="text-align: center;">Contacta con un administrador del sistema para que te habiliten &eacute;sta funcionalidad</h6>
-	</div>
+
 
 	<div style="text-align: center;margin-top: 50px;">
+		<br>
+		<br>
+		<h6 class="m-0 font-weight-bold text-{{request.session.bt_color}}" style="text-align: center;">¡Contacta con un
+			administrador del sistema para que te habiliten &eacute;sta funcionalidad!</h6>
 		<img src="{% static 'img/stop.png' %}" style="height: 350px;">
 	</div>
 	
