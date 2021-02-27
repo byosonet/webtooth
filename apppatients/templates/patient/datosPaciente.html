@@ -200,7 +200,7 @@
                 <div class="form-group row">
                     <div class="col-sm-9">
                         Foto del paciente:
-                        {% if form.foto.value %}
+                        {% if form.foto.value and not delPatient %}
                         <a target="_blank" href="{{ form.foto.value.url }}"><img style="height: 50px;border-radius: 55px;" src="{{form.foto.value.url}}" /></a>
                         </br></br>
                         {% else %}

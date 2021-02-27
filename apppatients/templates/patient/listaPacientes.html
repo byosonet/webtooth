@@ -71,7 +71,7 @@
 	          <td>{{paciente.email}}</td>
 	          <td>{{paciente.telefono}}</td>
 			  <td style="text-align: center;">{{paciente.fechaUpdate}}</td>
-			  <td style="text-align: center;">{% if paciente.foto %}
+			  <td style="text-align: center;">{% if paciente.foto and paciente.eliminado != True %}
 				  <img style="height: 25px;border-radius: 13px;" src="{{paciente.foto.url}}"/>
 				  {% else %} 
 					<i class="fas fa-user fa-2x text-gray-300"></i>

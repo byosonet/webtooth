@@ -11,7 +11,7 @@ from apppatients.models import Propertie, Task
 from apppatients.signals import getUser
 
 from webtooth.logger import LOGGING
-from webtooth.settings import PATH_LOGS, PATH_ZIPMAIL, EMAIL_HOST_SUPPORT
+from webtooth.settings import PATH_LOGS, PATH_ZIPMAIL, EMAIL_HOST_SUPPORT, SHOW_SQL_PRINT
 from django.db import connection
 
 #Service logger
@@ -234,4 +234,5 @@ def currentLocalTimestamp():
 	return timestamp
 
 def show_sql(query):
-	log.debug('Query SQL: '+str(query))
+	if SHOW_SQL_PRINT:
+		log.debug('Query SQL: '+str(query))

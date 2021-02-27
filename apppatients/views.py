@@ -258,6 +258,7 @@ def eliminarPaciente(request,idPatient):
         numexp = patient.numexp
         ###patient.delete()
         patient.eliminado = True
+        patient.foto = ''
         patient.save()
         log.info("Se ha eliminado el registro de BD con NumExp: {}".format(numexp))
         try:
@@ -278,6 +279,7 @@ def eliminarPaciente(request,idPatient):
 def listarDireccion(request):
     log.info("Obteniendo lista de direcciones")
     listadoDirecciones = Adress.objects.all().order_by('-patient__pk')[:settings.MAX_ROWS_QUERY_MODEL]
+    show_sql(listadoDirecciones.query)
     for d in listadoDirecciones:
        log.info("Calle: {} Ciudad: {} Estado: {} Numexp: {}".format(d.calle,d.ciudad,d.estado,d.patient.numexp))
     return render(request, "adress/listaDirecciones.html", {"listaDireccion": listadoDirecciones})
@@ -317,6 +319,7 @@ def altaArchivo(request):
 def listarArchivo(request):
     log.info("Obteniendo lista de archivos")
     listadoArchivos = File.objects.all().order_by('-fechaSubida')
+    show_sql(listadoArchivos.query)
     for file in listadoArchivos:
        log.info("Nombre: {} Path: {}".format(file.nombre, file.path))
     return render(request, "file/listaArchivos.html", {"listaArchivo": listadoArchivos})
@@ -327,6 +330,7 @@ def listarArchivo(request):
 @validRequest
 def eliminarArchivo(request, idFile):
     listadoArchivos = File.objects.all().order_by('-fechaSubida')
+    show_sql(listadoArchivos.query)
     try:
         log.info("ID File recibido: "+str(idFile))
         file = File.objects.get(pk=idFile)
@@ -355,6 +359,7 @@ def eliminarArchivo(request, idFile):
 def listarNavegacion(request):
     log.info("Obteniendo lista de navegacion")
     listadoNavegacion = Navigation.objects.all().order_by('-eventTime')[:settings.MAX_ROWS_QUERY_MODEL]
+    show_sql(listadoNavegacion.query)
     return render(request, "navigation/listaNavegacion.html", {"listaNavegacion": listadoNavegacion})
 
 
@@ -365,6 +370,7 @@ def importPatients(request):
     log.info("Obteniendo lista de importación")
     listadoImportacion = Import.objects.filter(
         tipoSubida='Fichero de pacientes').order_by('-fechaSubida')[:settings.MAX_ROWS_QUERY_MODEL]
+    show_sql(listadoImportacion.query.sql_with_params())
 
     if request.method == 'POST':
         importFile = ImportForm(request.POST, request.FILES)
@@ -473,6 +479,7 @@ def altaTarea(request):
     user = getUser()
     log.info("Obteniendo lista de tareas")
     listadoTareas = Task.objects.filter(userCode=user.get_username()).order_by('-id')
+    show_sql(listadoTareas.query.sql_with_params())
     if request.method == 'POST':
         taskForm = TaskForm(request.POST)
         if all([taskForm.is_valid()]):
@@ -521,6 +528,7 @@ def buscarTaskId(request, idTask):
 def emailPatient(request, idPatient):
     log.info("idPatient for email: "+str(idPatient))
     patient = Patient.objects.get(pk=idPatient)
+    show_sql(patient.query.sql_with_params())
 
     if not request.GET._mutable:
         request.GET._mutable = True
@@ -538,6 +546,7 @@ def actualizarTask(request, idTask):
     formTask = None    
     try:
         obj = Task.objects.get(pk=idTask)
+        show_sql(obj.query.sql_with_params())
         formTask = TaskForm(request.POST, instance=obj)
         if all([formTask.is_valid()]):
             log.info("Formulario valido, actualizando datos de Tarea...")     
@@ -563,6 +572,7 @@ def actualizarTask(request, idTask):
 def jsonPatient(request):
     log.info("Load json for get list patient")
     listPatient = Patient.objects.all().order_by('-fechaAlta')[:1000]
+    show_sql(listPatient.query)
     for pa in listPatient:
         log.info(pa)
     listJson = json.dumps([{
