@@ -18,7 +18,6 @@ from apppatients.permissions import *
 from webtooth.decorators import validRequest
 from django.contrib import messages
 from apppatients.signals import getUser
-from webtooth.config import show_sql
 
 import pandas as pd
 
@@ -49,9 +48,6 @@ def buscarNombre(request):
 def listarPaciente(request):
     log.info("Obteniendo lista de pacientes")
     listadoPacientes = Patient.objects.all().order_by('-fechaUpdate')[:settings.MAX_ROWS_QUERY_MODEL]
-    show_sql(listadoPacientes.query)
-    #for p in listadoPacientes:
-        #log.info("Nombre: {} Expediente: {} Correo: {} Fecha update: {}".format(p.nombre,p.numexp,p.email,p.fechaUpdate))    
     return render(request, "patient/listaPacientes.html", {"listaPaciente":listadoPacientes})
 
 @login_required(login_url=getLogin())
@@ -59,7 +55,6 @@ def listarPaciente(request):
 def contactoPaciente(request):
     user = getUser()
     listadoEnviados = Recipe.objects.filter(userId=user.id).order_by('-dateSend')[:settings.MAX_ROWS_QUERY_MODEL]
-    show_sql(listadoEnviados.query.sql_with_params())
     if request.method=='POST':
         formContact = ContactForm(request.POST)
         if formContact.is_valid():
@@ -279,9 +274,6 @@ def eliminarPaciente(request,idPatient):
 def listarDireccion(request):
     log.info("Obteniendo lista de direcciones")
     listadoDirecciones = Adress.objects.all().order_by('-patient__pk')[:settings.MAX_ROWS_QUERY_MODEL]
-    show_sql(listadoDirecciones.query)
-    for d in listadoDirecciones:
-       log.info("Calle: {} Ciudad: {} Estado: {} Numexp: {}".format(d.calle,d.ciudad,d.estado,d.patient.numexp))
     return render(request, "adress/listaDirecciones.html", {"listaDireccion": listadoDirecciones})
 
 
@@ -318,10 +310,7 @@ def altaArchivo(request):
 @validRequest
 def listarArchivo(request):
     log.info("Obteniendo lista de archivos")
-    listadoArchivos = File.objects.all().order_by('-fechaSubida')
-    show_sql(listadoArchivos.query)
-    for file in listadoArchivos:
-       log.info("Nombre: {} Path: {}".format(file.nombre, file.path))
+    listadoArchivos = File.objects.all().order_by('-fechaSubida')    
     return render(request, "file/listaArchivos.html", {"listaArchivo": listadoArchivos})
 
 
@@ -330,7 +319,6 @@ def listarArchivo(request):
 @validRequest
 def eliminarArchivo(request, idFile):
     listadoArchivos = File.objects.all().order_by('-fechaSubida')
-    show_sql(listadoArchivos.query)
     try:
         log.info("ID File recibido: "+str(idFile))
         file = File.objects.get(pk=idFile)
@@ -359,7 +347,6 @@ def eliminarArchivo(request, idFile):
 def listarNavegacion(request):
     log.info("Obteniendo lista de navegacion")
     listadoNavegacion = Navigation.objects.all().order_by('-eventTime')[:settings.MAX_ROWS_QUERY_MODEL]
-    show_sql(listadoNavegacion.query)
     return render(request, "navigation/listaNavegacion.html", {"listaNavegacion": listadoNavegacion})
 
 
@@ -370,7 +357,6 @@ def importPatients(request):
     log.info("Obteniendo lista de importación")
     listadoImportacion = Import.objects.filter(
         tipoSubida='Fichero de pacientes').order_by('-fechaSubida')[:settings.MAX_ROWS_QUERY_MODEL]
-    show_sql(listadoImportacion.query.sql_with_params())
 
     if request.method == 'POST':
         importFile = ImportForm(request.POST, request.FILES)
@@ -479,7 +465,6 @@ def altaTarea(request):
     user = getUser()
     log.info("Obteniendo lista de tareas")
     listadoTareas = Task.objects.filter(userCode=user.get_username()).order_by('-id')
-    show_sql(listadoTareas.query.sql_with_params())
     if request.method == 'POST':
         taskForm = TaskForm(request.POST)
         if all([taskForm.is_valid()]):
@@ -528,7 +513,6 @@ def buscarTaskId(request, idTask):
 def emailPatient(request, idPatient):
     log.info("idPatient for email: "+str(idPatient))
     patient = Patient.objects.get(pk=idPatient)
-    show_sql(patient.query.sql_with_params())
 
     if not request.GET._mutable:
         request.GET._mutable = True
@@ -546,7 +530,6 @@ def actualizarTask(request, idTask):
     formTask = None    
     try:
         obj = Task.objects.get(pk=idTask)
-        show_sql(obj.query.sql_with_params())
         formTask = TaskForm(request.POST, instance=obj)
         if all([formTask.is_valid()]):
             log.info("Formulario valido, actualizando datos de Tarea...")     
@@ -572,7 +555,6 @@ def actualizarTask(request, idTask):
 def jsonPatient(request):
     log.info("Load json for get list patient")
     listPatient = Patient.objects.all().order_by('-fechaAlta')[:1000]
-    show_sql(listPatient.query)
     for pa in listPatient:
         log.info(pa)
     listJson = json.dumps([{
