@@ -2,11 +2,16 @@ from datetime import datetime
 from webtooth.config import logger, sendEmailLogs
 
 log = logger('apppatients.config', False)
+FORMAT_TIME = "%d/%m/%Y %H:%M:%S %p"
 
 def logMailTask():
-    log.info("Task execute logMailTask now: "+str(datetime.now()))
+    now_today = datetime.now()
+    now_format = now_today.strftime(FORMAT_TIME)
+    log.info("Task execute logMailTask now: "+str(now_format))
     sendEmailLogs()
 
 
 def monitorTask():
-    log.info("Task execute monitorTask now: "+str(datetime.now()))
+    now_today = datetime.now()
+    now_format = now_today.strftime(FORMAT_TIME)
+    log.info("Task execute monitorTask now: "+str(now_format))

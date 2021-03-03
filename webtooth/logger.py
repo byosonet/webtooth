@@ -6,7 +6,7 @@ LOGGING = {
     'formatters': {
         'backend': {
             'format': '[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] => %(message)s',
-            'datefmt': "%d-%m-%Y %H:%M:%S"
+            'datefmt': "%d/%b/%Y %H:%M:%S"
         },
     },
     'filters': {

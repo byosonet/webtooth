@@ -24,8 +24,10 @@ import pandas as pd
 log = logger('apppatients', True)
 
 @login_required(login_url=getLogin())
+@permission_required(viewPatient(),login_url=notPermission())
 @validRequest
 def buscarPaciente(request):
+    log.info("[Load view method: buscarPaciente]")
     log.info("Buscando paciente")
     return render(request,"patient/buscarPaciente.html")
 
@@ -33,6 +35,7 @@ def buscarPaciente(request):
 @permission_required(viewPatient(),login_url=notPermission())
 @validRequest
 def buscarNombre(request):
+    log.info("[Load view method: buscarNombre]")
     try:
         listadoPacientes = filterSearch(request)
         return render(request, "patient/listaPacientes.html", {"listaPaciente":listadoPacientes,"txtbuscado":"No se encontraron datos"})
@@ -46,13 +49,16 @@ def buscarNombre(request):
 @permission_required(viewPatient(),login_url=notPermission())
 @validRequest
 def listarPaciente(request):
+    log.info("[Load view method: listarPaciente]")
     log.info("Obteniendo lista de pacientes")
     listadoPacientes = Patient.objects.all().order_by('-fechaUpdate')[:settings.MAX_ROWS_QUERY_MODEL]
     return render(request, "patient/listaPacientes.html", {"listaPaciente":listadoPacientes})
 
 @login_required(login_url=getLogin())
+@permission_required(viewPatient(),login_url=notPermission())
 @validRequest
 def contactoPaciente(request):
+    log.info("[Load view method: contactoPaciente]")
     user = getUser()
     listadoEnviados = Recipe.objects.filter(userId=user.id).order_by('-dateSend')[:settings.MAX_ROWS_QUERY_MODEL]
     if request.method=='POST':
@@ -69,7 +75,7 @@ def contactoPaciente(request):
             recipe.userName = user.get_full_name()
             
             dataContact = formContact.cleaned_data
-            log.info("Data recibida del formulario Recipe: "+str(dataContact))
+            printLogPatients("Data recibida del formulario Recipe: "+str(dataContact))
             log.info("Se ha agregado a la BD el nuevo registro")
             
             email=sendEmailContact(dataContact)
@@ -94,13 +100,12 @@ def contactoPaciente(request):
             nameRecipe = request.GET['nameRecipe'] 
             subjectRecipe = request.GET['subjectRecipe']
             descRecipe = request.GET['descRecipe']
-            log.info("emailRecipe: "+emailRecipe)
-            log.info("nameRecipe: "+nameRecipe)
-            log.info("subjectRecipe: "+subjectRecipe)
-            log.info("descRecipe: "+descRecipe)
+            printLogPatients("emailRecipe: "+emailRecipe)
+            printLogPatients("nameRecipe: "+nameRecipe)
+            printLogPatients("subjectRecipe: "+subjectRecipe)
+            printLogPatients("descRecipe: "+descRecipe)
             formContact = ContactForm(request.GET)
         except Exception as ex:
-            log.error("Error: "+str(ex))
             formContact = ContactForm()
     return render(request,"contact/contacto.html", {"form":formContact, "listadoEnviados":listadoEnviados})
 
@@ -109,6 +114,7 @@ def contactoPaciente(request):
 @permission_required(addPatient(),login_url=notPermission())
 @validRequest
 def altaPaciente(request):
+    log.info("[Load view method: altaPaciente]")
     if request.method == 'POST':
         formPatient = PatientForm(request.POST, request.FILES)
         formAdress = AdressForm(request.POST)
@@ -125,7 +131,7 @@ def altaPaciente(request):
             patient.rfc = patient.rfc.upper()
             log.info("Formulario valido, preparando alta de paciente...")
             dataPatient = formPatient.cleaned_data
-            log.info("Data recibida del formulario patient: "+str(dataPatient))
+            printLogPatients("Data recibida del formulario patient: "+str(dataPatient))
             name = dataPatient['nombre']+" "+dataPatient['apellidoPaterno']
        	    patient.save()
             adress = formAdress.save(commit=False)
@@ -137,7 +143,7 @@ def altaPaciente(request):
             adress.estado=adress.estado
             
             dataAdress = formAdress.cleaned_data
-            log.info("Data recibida del formulario adress: "+str(dataAdress))
+            printLogPatients("Data recibida del formulario adress: "+str(dataAdress))
             adress.save()
 
             log.info("Se ha agregado a la BD el nuevo registro")
@@ -156,8 +162,11 @@ def altaPaciente(request):
 
 
 @login_required(login_url=getLogin())
+@permission_required(viewPatient(),login_url=notPermission())
 @validRequest
 def buscarId(request, idPatient):
+    log.info("[Load view method: buscarId(idPatient)]")
+    log.info("idPatient: "+str(idPatient))
     formPatient = PatientForm()
     formAdress = AdressForm()
     try:
@@ -186,7 +195,8 @@ def buscarId(request, idPatient):
 @permission_required(updatePatient(),login_url=notPermission())
 @validRequest
 def actualizarPaciente(request,idPatient):
-    log.info("id: "+str(idPatient))
+    log.info("[Load view method: actualizarPaciente(idPatient)]")
+    log.info("idPatient: "+str(idPatient))
     formPatient = None
     formAdress = None
     expediente = None
@@ -206,22 +216,22 @@ def actualizarPaciente(request,idPatient):
         if all([formPatient.is_valid(),formAdress.is_valid()]):
             imageNew = formPatient.cleaned_data.get("foto")
             if imageOld == imageNew:
-                log.info("La imagenes son iguales: "+str(imageNew))
+                printLogPatients("La imagenes son iguales: "+str(imageNew))
             else:
-                log.info("Se ha eliminado la imagen vieja: "+str(imageOld))
-                log.info("Se añade nueva imagen: "+str(imageNew))
+                printLogPatients("Se ha eliminado la imagen vieja: "+str(imageOld))
+                printLogPatients("Se añade nueva imagen: "+str(imageNew))
                 try:
                     if imageOld:
                         os.remove(settings.MEDIA_PATH+str(imageOld))
-                        log.info("Se ha eliminado la imagen: "+str(imageOld))
+                        printLogPatients("Se ha eliminado la imagen: "+str(imageOld))
                 except Exception as ex:
                     log.error("No se pudo eliminar la imagen {} por el siguiente error:  {}".format(imageOld,ex))
             log.info("Formulario valido, actualizando datos de paciente...")
             dataPatient = formPatient.cleaned_data
-            log.info("Data patient recibida: "+str(dataPatient))
+            printLogPatients("Data patient recibida: "+str(dataPatient))
 
             dataAdress = formAdress.cleaned_data
-            log.info("Data adress recibida: "+str(dataAdress))
+            printLogPatients("Data adress recibida: "+str(dataAdress))
             formPatient.save()
             dataLoad = Patient.objects.get(pk=idPatient)
             formPatient = PatientForm(instance=dataLoad)
@@ -246,12 +256,12 @@ def actualizarPaciente(request,idPatient):
 @permission_required(deletePatient(),login_url=notPermission())
 @validRequest
 def eliminarPaciente(request,idPatient):
-    log.info("ID recibido: "+str(idPatient))
+    log.info("[Load view method: eliminarPaciente(idPatient)]")
+    log.info("idPatient: "+str(idPatient))
     try:
         patient = Patient.objects.get(pk=idPatient)
         imageOld = patient.foto
         numexp = patient.numexp
-        ###patient.delete()
         patient.eliminado = True
         patient.foto = ''
         patient.save()
@@ -259,7 +269,7 @@ def eliminarPaciente(request,idPatient):
         try:
             if imageOld:
                 os.remove(settings.MEDIA_PATH+str(imageOld))
-                log.info("Se ha eliminado la imagen: "+str(imageOld))
+                printLogPatients("Se ha eliminado la imagen: "+str(imageOld))
         except Exception as ex:
             log.error("No se pudo eliminar la imagen {} por el siguiente error:  {}".format(imageOld,ex))
         return render(request, "patient/eliminarPaciente.html", {"exp": numexp})
@@ -272,6 +282,7 @@ def eliminarPaciente(request,idPatient):
 @permission_required(viewAdress(), login_url=notPermission())
 @validRequest
 def listarDireccion(request):
+    log.info("[Load view method: listarDireccion]")
     log.info("Obteniendo lista de direcciones")
     listadoDirecciones = Adress.objects.all().order_by('-patient__pk')[:settings.MAX_ROWS_QUERY_MODEL]
     return render(request, "adress/listaDirecciones.html", {"listaDireccion": listadoDirecciones})
@@ -281,6 +292,7 @@ def listarDireccion(request):
 @permission_required(addFile(), login_url=notPermission())
 @validRequest
 def altaArchivo(request):
+    log.info("[Load view method: altaArchivo]")
     if request.method == 'POST':
         formFile = FileForm(request.POST, request.FILES)
         if formFile.is_valid():
@@ -291,7 +303,7 @@ def altaArchivo(request):
             file.nombre = file.nombre.capitalize()
             log.info("Formulario valido, preparando alta de archivo...")
             dataFile = formFile.cleaned_data
-            log.info("Data recibida del formulario archivo: "+str(dataFile))
+            printLogPatients("Data recibida del formulario archivo: "+str(dataFile))
             file.save()            
             log.info("Se ha agregado a la BD el nuevo registro de archivo")
             messages.success(request, f"El archivo {fileName} ha sido agregado correctamente")
@@ -309,6 +321,7 @@ def altaArchivo(request):
 @permission_required(listFile(), login_url=notPermission())
 @validRequest
 def listarArchivo(request):
+    log.info("[Load view method: listarArchivo]")
     log.info("Obteniendo lista de archivos")
     listadoArchivos = File.objects.all().order_by('-fechaSubida')    
     return render(request, "file/listaArchivos.html", {"listaArchivo": listadoArchivos})
@@ -318,6 +331,8 @@ def listarArchivo(request):
 @permission_required(deleteFile(), login_url=notPermission())
 @validRequest
 def eliminarArchivo(request, idFile):
+    log.info("[Load view method: eliminarArchivo(idFile)]")
+    log.info("idFile: "+str(idFile))
     listadoArchivos = File.objects.all().order_by('-fechaSubida')
     try:
         log.info("ID File recibido: "+str(idFile))
@@ -345,6 +360,7 @@ def eliminarArchivo(request, idFile):
 @permission_required(listNavigation(), login_url=notPermission())
 @validRequest
 def listarNavegacion(request):
+    log.info("[Load view method: listarNavegacion]")
     log.info("Obteniendo lista de navegacion")
     listadoNavegacion = Navigation.objects.all().order_by('-eventTime')[:settings.MAX_ROWS_QUERY_MODEL]
     return render(request, "navigation/listaNavegacion.html", {"listaNavegacion": listadoNavegacion})
@@ -354,6 +370,7 @@ def listarNavegacion(request):
 @permission_required(importFile(), login_url=notPermission())
 @validRequest
 def importPatients(request):
+    log.info("[Load view method: importPatients]")
     log.info("Obteniendo lista de importación")
     listadoImportacion = Import.objects.filter(
         tipoSubida='Fichero de pacientes').order_by('-fechaSubida')[:settings.MAX_ROWS_QUERY_MODEL]
@@ -367,14 +384,14 @@ def importPatients(request):
             file.tipoSubida = 'Fichero de pacientes'
             log.info("Formulario valido, preparando sudiba de archivo...")
             dataFile = importFile.cleaned_data
-            log.info("Data recibida del formulario archivo: "+str(dataFile))
+            printLogPatients("Data recibida del formulario archivo: "+str(dataFile))
             file.save()
 
             xls = pd.read_excel(settings.MEDIA_PATH+str(file.path), skiprows=1)
             xlsValues = xls.values
 
             headers = list(xls.columns.values)
-            log.info("Columns contains in excel: "+str(headers))
+            printLogPatients("Columns contains in excel: "+str(headers))
             validXSL = False
             if "Nombre" in headers[0]:
                 if "Apellido" in headers[1]:
@@ -419,6 +436,7 @@ def importPatients(request):
 
 
 def guardarPatientXLS(row):
+    log.info("[Load view method: guardarPatientXLS]")
     try:
         patient = Patient()
         patient.numexp = generateKlave()
@@ -444,7 +462,7 @@ def guardarPatientXLS(row):
             log.error("Error: algunos campos no tienen valores en el xls, pero no son obligatorios")
 
         patient.fechaUpdate = currentLocalTime()
-        log.info("Data recibida del xls patient: "+str(patient))
+        printLogPatients("Data recibida del xls patient: "+str(patient))
         patient.save()
         return False
     except Exception as ex:
@@ -452,6 +470,7 @@ def guardarPatientXLS(row):
         return True
 
 def validCellValue(val):
+    log.info("[Load view method: validCellValue]")
     if pd.isnull(val) == True:
         return True
     else:
@@ -462,6 +481,7 @@ def validCellValue(val):
 @permission_required(addTask(), login_url=notPermission())
 @validRequest
 def altaTarea(request):
+    log.info("[Load view method: altaTarea]")
     user = getUser()
     log.info("Obteniendo lista de tareas")
     listadoTareas = Task.objects.filter(userCode=user.get_username()).order_by('-id')
@@ -477,7 +497,7 @@ def altaTarea(request):
             task.userName = user.get_full_name()
 
             dataTask = taskForm.cleaned_data
-            log.info("Data recibida del formulario Task: "+str(dataTask))
+            printLogPatients("Data recibida del formulario Task: "+str(dataTask))
             task.save()
 
             log.info("Se ha agregado a la BD el nuevo registro")
@@ -496,6 +516,8 @@ def altaTarea(request):
 @login_required(login_url=getLogin())
 @validRequest
 def buscarTaskId(request, idTask):
+    log.info("[Load view method: buscarTaskId(idTask)]")
+    log.info("idTask: "+str(idTask))
     taskForm = TaskForm()
     try:
         user = getUser()
@@ -511,6 +533,7 @@ def buscarTaskId(request, idTask):
 @login_required(login_url=getLogin())
 @validRequest
 def emailPatient(request, idPatient):
+    log.info("[Load view method: emailPatient(idPatient)]")
     log.info("idPatient for email: "+str(idPatient))
     patient = Patient.objects.get(pk=idPatient)
 
@@ -526,6 +549,7 @@ def emailPatient(request, idPatient):
 @login_required(login_url=getLogin())
 @validRequest
 def actualizarTask(request, idTask):
+    log.info("[Load view method: actualizarTask(idTask)]")
     log.info("idTask: "+str(idTask))
     formTask = None    
     try:
@@ -538,7 +562,7 @@ def actualizarTask(request, idTask):
                 obj.dateExecute = currentLocalTime()
 
             dataTask = formTask.cleaned_data
-            log.info("Data task recibida: "+str(dataTask))
+            printLogPatients("Data task recibida: "+str(dataTask))
             formTask.save()            
 
             log.info("Se ha actualizado el registro en BD para la tarea {}".format(dataTask['nameTask']))
@@ -577,3 +601,6 @@ def addContact(request):
             log.info("field: {}, value: {}".format(p, request.POST.get(p)))
         data = json.dumps({'result': '¡Add contact OK!'})
         return HttpResponse(data, content_type='application/json')
+
+def printLogPatients(register):
+    log.debug(register)

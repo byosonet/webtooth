@@ -30,7 +30,7 @@ def homeView(request):
 		pass
 	getListTask(request, user.get_username())
 	listadoTareasHome = getListTaskHome(user.get_username())
-	log.info("LastRow: {}".format(lastRow))	
+	printLogHome("LastRow: {}".format(lastRow))	
 	createPropertie(user.id, 'last_row', str(lastRow))
 	request.session['last_session'] = currentLocalTimestamp()
 	rowsRegister=Patient.objects.all().count()
@@ -69,13 +69,13 @@ def homeView(request):
 		loadPropertie(user.id, request)
 		log.info("Se ha cargado color de tema por default")
 
-	log.info("Total de pacientes Activos: {}".format(patientActive))
-	log.info("Total de pacientes Inactivos: {}".format(patientInactive))
-	log.info("Total de pacientes Eliminados: {}".format(patientDelete))
-	log.info("Total de pacientes en Sistema: {}".format(rowsRegister))
-	log.info("Porcentaje de activos: {}%".format(porcentajeActivos))
-	log.info("Porcentaje de Inactivos: {}%".format(porcentajeInactivos))
-	log.info("Porcentaje de Eliminados: {}%".format(porcentajeEliminados))
+	printLogHome("Total de pacientes Activos: {}".format(patientActive))
+	printLogHome("Total de pacientes Inactivos: {}".format(patientInactive))
+	printLogHome("Total de pacientes Eliminados: {}".format(patientDelete))
+	printLogHome("Total de pacientes en Sistema: {}".format(rowsRegister))
+	printLogHome("Porcentaje de activos: {}%".format(porcentajeActivos))
+	printLogHome("Porcentaje de Inactivos: {}%".format(porcentajeInactivos))
+	printLogHome("Porcentaje de Eliminados: {}%".format(porcentajeEliminados))
 	infoDisk(request)
 	infoDiskUpload(request)
 	data = {"rowsFile": rowsFile, "rowsRegister": rowsRegister, "loggedUsers": loggedUsers,
@@ -106,13 +106,13 @@ def infoDisk(request):
 	total, used, free = shutil.disk_usage("/")
 
 	totalDisk = (total // (2**30))
-	log.info("Total disk space: %d Gb" % totalDisk)
+	printLogHome("Total disk space: %d Gb" % totalDisk)
 	
 	usedDisk = (used // (2**30))
-	log.info("Total used disk space: %d Gb" % usedDisk)
+	printLogHome("Total used disk space: %d Gb" % usedDisk)
 
 	freeDisk = (free // (2**30))
-	log.info("Total free disk space: %d Gb" % freeDisk)
+	printLogHome("Total free disk space: %d Gb" % freeDisk)
 
 	porcentajeUsado = (usedDisk * 100)/totalDisk
 	porcentajeUsado = format(porcentajeUsado, '.2f')
@@ -127,15 +127,15 @@ def infoDisk(request):
 	request.session['used_disk'] = porcentajeUsado
 	request.session['free_disk'] = porcentajeLibre
 
-	log.info("Porcentaje de disco usado: {}%".format(porcentajeUsado))
-	log.info("Porcentaje de disco libre: {}%".format(porcentajeLibre))
+	printLogHome("Porcentaje de disco usado: {}%".format(porcentajeUsado))
+	printLogHome("Porcentaje de disco libre: {}%".format(porcentajeLibre))
 
 
 def infoDiskUpload(request):
 	total = folderSizeMB(settings.MEDIA_PATH+str('upload'))
 	totalDisk = (total // (1024)) / 1024
 	totalDisk = format(totalDisk, '.2f')
-	log.info("Total disk upload: {} Mb".format(totalDisk))
+	printLogHome("Total disk upload: {} Mb".format(totalDisk))
 	request.session['used_disk_up'] = totalDisk
 
 
@@ -147,3 +147,6 @@ def folderSizeMB(path):
         elif entry.is_dir():
             total += folderSizeMB(entry.path)
     return total
+
+def printLogHome(register):
+	log.debug(register)

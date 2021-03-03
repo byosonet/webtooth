@@ -123,7 +123,7 @@ def insertModelNavigation(user,req,res):
       permissions = "{Superuser}"
   else:
     permissions = "{}"
-  log.info("Permissions granted: "+permissions)
+  log.info("Permissions: "+permissions)
 
   method=str(req.method)
   ###log.info("Request method: "+method)
@@ -151,7 +151,7 @@ def insertModelNavigation(user,req,res):
   ###log.info("File received: "+nameF)
 
   varSession = str(json.dumps({'vars':list(req.session.keys())}))
-  log.info("Session var: "+varSession)
+  log.debug("Session var: "+varSession)
 
   updateDate = timezone.localtime(timezone.now())
   ###log.info("Event time: "+str(updateDate))

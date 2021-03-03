@@ -2,6 +2,7 @@ from webtooth.config import loadPropertie, createFirstOnly
 import logging
 
 from webtooth.config import currentLocalTimestamp
+from datetime import datetime
 from django.shortcuts import render
 from webtooth.settings import MAX_TIME_MINUTES_SESSION
 from apppatients.signals import getUser
@@ -19,7 +20,7 @@ def validRequest(viewReceived):
         except Exception as ex:
             log.error("Error load propertie: "+str(ex))
             createFirstOnly(request)
-        log.info("Load decorators for var sessions in request")
+        printLogDecorators("Load decorators for var sessions in request")
         return viewReceived(request, *args, **kwargs)
     return validRequestInternal
 
@@ -37,7 +38,11 @@ def process_request(request):
 
         last_session = request.session['last_session']
         now = currentLocalTimestamp()
-        log.info("Last_session: {} Now: {}".format(last_session,now))
+        last = datetime.fromtimestamp(last_session)
+        last_format = last.strftime("%d/%m/%Y %H:%M %p")       
+        now_today = datetime.fromtimestamp(now)
+        now_format = now_today.strftime("%d/%m/%Y %H:%M %p")
+        log.info(">>> Last_session: {} >>> Now_session: {}".format(last_format,now_format))
         dt = now - last_session
 
         minutes = int(dt/60)
@@ -47,10 +52,12 @@ def process_request(request):
             log.info("Sesión terminada, se ha excedido el máximo tiempo de espera que es de {} minutos".format(MAX_TIME_MINUTES_SESSION))
             session = False
         else:
-            log.info("Sesión vigente, se actualiza el timestamp")
+            log.info("Sesión vigente")
             request.session['last_session'] = now
     except Exception as ex:
         session = False
         log.error("Faltan variables de sesión: {}, se redirige al login".format(ex))
     return session
 
+def printLogDecorators(register):
+    log.debug(register)

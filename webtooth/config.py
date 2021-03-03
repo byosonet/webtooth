@@ -82,7 +82,7 @@ def loadPropertie(userId, request):
 	request.session[fg.key] = fg.value
 	request.session[ad.key] = ad.value
 	request.session[lr.key] = lr.value
-	log.info("{}, {}, {}".format(bg,bt,fg))
+	printLogConfig("{}, {}, {}".format(bg,bt,fg))
 
 def createFirstOnly(request):
 	user = getUser()
@@ -189,7 +189,7 @@ def getListTaskHome(user):
 
 	if listTaskHome and len(listTaskHome) > 0:
 		for item in listTaskHome:
-			log.info("Load task home "+str(item))
+			printLogConfig("Load task home "+str(item))
 		return listTaskHome
 	else:
 		return None
@@ -222,17 +222,20 @@ def sendEmailLogs():
 
 def currentLocalDate():
 	date = timezone.localtime(timezone.now()).date()
-	log.info("Return value date now: "+str(date))
+	printLogConfig("Return value date now: "+str(date))
 	return date
 
 
 def currentLocalTime():
 	time = timezone.localtime(timezone.now())
-	log.info("Return value time now: "+str(time))
+	printLogConfig("Return value time now: "+str(time))
 	return time
 
 
 def currentLocalTimestamp():
 	timestamp = timezone.localtime(timezone.now()).timestamp()
-	log.info("Return value timestamp now: "+str(timestamp))
+	printLogConfig("Return value timestamp now: "+str(timestamp))
 	return timestamp
+
+def printLogConfig(register):
+	log.debug(register)

@@ -27,7 +27,7 @@ def inputCSS(name):
 	attrs=addClass(attrs,'form-control form-control-user')
 	attrs=addPlaceHolder(attrs,name)
 	attrs = tooltip(attrs, name)
-	log.info("input: "+str(attrs))
+	printElement("input: "+str(attrs))
 	return attrs
 
 def selectCSS(name):
@@ -35,7 +35,7 @@ def selectCSS(name):
 	attrs = addClass(attrs, 'form-control custom-select custom-select-sm')
 	attrs=addPlaceHolder(attrs,name)
 	attrs = tooltip(attrs, name)
-	log.info("select: "+str(attrs))
+	printElement("select: "+str(attrs))
 	return attrs
 
 def addMaxLength(attrs,max):
@@ -55,7 +55,7 @@ def textAreaCSS(placeHolder):
 	attrs=addStyle(attrs,'overflow:auto;resize:none')
 	attrs=addMaxLength(attrs,3500)
 	attrs = tooltip(attrs, placeHolder)
-	log.info("textArea: "+str(attrs))
+	printElement("textArea: "+str(attrs))
 	return attrs
 
 def addReadOnly(attrs):
@@ -68,21 +68,21 @@ def customInputReadOnly(name):
 	attrs=addPlaceHolder(attrs,name)
 	attrs=addReadOnly(attrs)
 	attrs = addHidden(attrs)
-	log.info("input: "+str(attrs))
+	printElement("input: "+str(attrs))
 	return attrs
 
 def imageCSS(name):
 	attrs = {'accept': 'image/jpeg'}
 	attrs = addClass(attrs, 'btn btn-secondary btn-user')
 	attrs = tooltip(attrs, name)
-	log.info("imageCSS: " +str(attrs))
+	printElement("imageCSS: " +str(attrs))
 	return attrs
 
 def fileCSS(name):
 	attrs = {'accept': '*'}
 	attrs = addClass(attrs, 'btn btn-secondary btn-user')
 	attrs = tooltip(attrs, name)
-	log.info("fileCSS: " + str(attrs))
+	printElement("fileCSS: " + str(attrs))
 	return attrs
 
 
@@ -90,7 +90,7 @@ def xlsCSS(name):
 	attrs = {'accept': 'application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'}
 	attrs = addClass(attrs, 'btn btn-secondary btn-user')
 	attrs = tooltip(attrs, name)
-	log.info("xlsCSS: " + str(attrs))
+	printElement("xlsCSS: " + str(attrs))
 	return attrs
 
 def tooltip(attrs, title):
@@ -100,7 +100,7 @@ def tooltip(attrs, title):
 	attrs.update({'data-original-title': title})
 	attrs.update({'data-content': title})
 	
-	log.info("tooltip: "+str(attrs))
+	printElement("tooltip: "+str(attrs))
 	return attrs
 
 def inputReadOnly(name):
@@ -109,8 +109,11 @@ def inputReadOnly(name):
 	attrs = addPlaceHolder(attrs, name)
 	attrs = tooltip(attrs, name)
 	attrs = addReadOnly(attrs)
-	log.info("inputReadOnly: "+str(attrs))
+	printElement("inputReadOnly: "+str(attrs))
 	return attrs
+
+def printElement(element):
+	log.debug(element)
 
 OPTIONS_ESTADO = (
 	("", "Selecciona un estado"),

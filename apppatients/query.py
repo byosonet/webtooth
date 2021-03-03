@@ -75,12 +75,12 @@ def filterSearch(request):
 
 	if listadoPacientes:
 		for i, p in enumerate(listadoPacientes):
-			log.info("{}.- {}, expediente: {}, correo: {}".format(i,p.nombre, p.numexp, p.email))
+			printLogQuery("{}.- {}, expediente: {}, correo: {}".format(i,p.nombre, p.numexp, p.email))
 	return listadoPacientes
 
 
 def filterByIdPatient(idPatient, formPatient):
-	log.info("Id recibido for patient: "+str(idPatient))
+	printLogQuery("Id recibido for patient: "+str(idPatient))
 	patient = Patient.objects.get(pk=idPatient)
 	if patient:
 		log.info("Paciente encontrado: {} {}".format(
@@ -105,11 +105,11 @@ def filterByIdPatient(idPatient, formPatient):
 
 
 def filterByIdPatientAdress(idPatient, formAdress):
-	log.info("Id recibido for address: "+str(idPatient))
+	printLogQuery("Id recibido for address: "+str(idPatient))
 	try:
 		adress = Adress.objects.get(patient__pk=idPatient)
 		if adress:
-			log.info("Address encontrado: {}".format(adress.calle))
+			printLogQuery("Address encontrado: {}".format(adress.calle))
 			formAdress.fields['calle'].initial = adress.calle
 			formAdress.fields['numeroInt'].initial = adress.numeroInt
 			formAdress.fields['numeroExt'].initial = adress.numeroExt
@@ -125,7 +125,7 @@ def filterByIdPatientAdress(idPatient, formAdress):
 
 
 def filterByIdTask(idTask, formTask):
-	log.info("Id recibido for task: "+str(idTask))
+	printLogQuery("Id recibido for task: "+str(idTask))
 	task = Task.objects.get(pk=idTask)
 	if task:
 		log.info("Task encontrado: {}".format(task.nameTask))
@@ -144,9 +144,13 @@ def generateKlave():
 	return klave
 
 def filterPatientDelete(idPatient):
-	log.info("Id recibido for patient: "+str(idPatient))
+	printLogQuery("Id recibido for patient: "+str(idPatient))
 	patient = Patient.objects.get(pk=idPatient)
 	if patient:
 		return patient
 	else:
 		return None
+
+
+def printLogQuery(register):
+	log.debug(register)
