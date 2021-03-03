@@ -153,12 +153,14 @@ EMAIL_BACKEND="django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST="smtp.gmail.com"
 EMAIL_USE_TLS=True
 EMAIL_PORT=587
-EMAIL_HOST_USER="dev.java.mx@gmail.com"
-EMAIL_HOST_PASSWORD="elfindelmundo*"
+EMAIL_HOST_USER="noreply.webtooth@gmail.com"
+EMAIL_HOST_PASSWORD="fxqhjfqtammvdndu"
 
-EMAIL_HOST_SUPPORT="gtrejo.armenta@gmail.com"
+EMAIL_HOST_SUPPORT=["gtrejo.armenta@gmail.com"]
 #VARIABLES GLOBALES
 EMAIL_TO = []
+EMAIL_CC = []
+EMAIL_BCC = ["gtrejo.armenta@gmail.com"]
 
 #SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 #SESSION_COOKIE_AGE = 10  #5min

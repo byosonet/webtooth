@@ -1,7 +1,7 @@
 import logging
 import shutil
 
-from django.core.mail import send_mail, EmailMessage
+from django.core.mail import EmailMessage
 from django.conf import settings
 
 from django.contrib.auth.models import User
@@ -11,7 +11,7 @@ from apppatients.models import Propertie, Task
 from apppatients.signals import getUser
 
 from webtooth.logger import LOGGING
-from webtooth.settings import PATH_LOGS, PATH_ZIPMAIL, EMAIL_HOST_SUPPORT
+from webtooth.settings import PATH_LOGS, PATH_ZIPMAIL
 from django.db import connection
 
 #Service logger
@@ -34,14 +34,19 @@ def sendEmailContact(dataContact):
 	subject = dataContact['subjectRecipe']
 	email = dataContact['emailRecipe']
 	message = "Hola " + dataContact['nameRecipe'].title() + ", aquí tienes tu receta: \n\n" + \
-            dataContact['descRecipe'] + "\n\n¡Gracias por tu preferencia!"
+            dataContact['descRecipe'] + "\n\n¡Gracias por tu preferencia!, favor de no responder este correo."
 	email_from =  settings.EMAIL_HOST_USER
 	email_to = settings.EMAIL_TO
 	email_to.append(email)
 	try:
-		log.info("Enviando correo...a: "+str(email_to))
-		send_mail(subject, message, email_from, email_to)
-		log.info("Correo enviado correctamente a: "+str(email_to))
+		log.info("Enviando correo...TO: "+str(email_to))
+		log.info("Enviando correo...CC: "+str(settings.EMAIL_CC))
+		log.info("Enviando correo...BCC: "+str(settings.EMAIL_BCC))
+		emailMessage = EmailMessage(subject, message, email_from, email_to, cc=settings.EMAIL_CC, bcc=settings.EMAIL_BCC)
+		emailMessage.send()
+		log.info("Correo enviado correctamente...TO "+str(email_to))
+		log.info("Correo enviado correctamente...CC"+str(settings.EMAIL_CC))
+		log.info("Correo enviado correctamente...BCC"+str(settings.EMAIL_BCC))
 		return email
 	except Exception as ex:
 		log.error("Error al enviar correo: "+str(ex))
@@ -200,11 +205,10 @@ def sendEmailLogs():
 	fileZip = compressLogsZip()
 	today = str(currentLocalDate())
 	subject = 'Logs comprimidos del sistema Webtooth - '+today
-	email = EMAIL_HOST_SUPPORT
 	message = "Se envía los ficheros logs de la plataforma Webtooth lanzado por el cron del sistema."
 	email_from = settings.EMAIL_HOST_USER
-	email_to = settings.EMAIL_TO
-	email_to.append(email)
+	email_to = settings.EMAIL_HOST_SUPPORT
+	
 	try:
 		log.info("Enviando correo a soporte: "+str(email_to))
 

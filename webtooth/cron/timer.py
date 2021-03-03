@@ -7,7 +7,7 @@ from webtooth.settings import JOBLOGMAILTIMER,JOBMONITORTIMER
 def logMailTimer():
     if JOBLOGMAILTIMER:
         cron = BackgroundScheduler()
-        cron.add_job(tasks.logMailTask, 'cron', hour=17, minute=15, id="jobLogMailTimer")
+        cron.add_job(tasks.logMailTask, 'cron', hour=18, minute=21, id="jobLogMailTimer")
         cron.start()
 
 
