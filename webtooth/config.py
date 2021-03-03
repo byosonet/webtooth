@@ -84,71 +84,69 @@ def loadPropertie(userId, request):
 	request.session[lr.key] = lr.value
 	printLogConfig("{}, {}, {}".format(bg,bt,fg))
 
-def createFirstOnly(request):
-	user = getUser()
-	createPropertie(user.id, 'bg_color','gradient-primary')
-	createPropertie(user.id, 'fg_color', 'white')
-	createPropertie(user.id,'bt_color', 'primary')
-	createPropertie(user.id,'ad_color', '#4e73df')
-	createPropertie(user.id, 'last_row', str(0))
+def createFirstOnly(request):	
+	createPropertie(userRequest(), 'bg_color','gradient-primary')
+	createPropertie(userRequest(), 'fg_color', 'white')
+	createPropertie(userRequest(),'bt_color', 'primary')
+	createPropertie(userRequest(),'ad_color', '#4e73df')
+	createPropertie(userRequest(), 'last_row', str(0))
 
 def setColorSystem(request,idColor):
-	log.info("Cambiando el color al sistema, idColor recibido: {}".format(idColor))
-	user = getUser()
+	log.info("Cambiando el color al sistema, idColor recibido: {}".format(idColor))	
 	if idColor == 1:
-		updatePropertie(user.id,'bg_color', 'gradient-dark')
-		updatePropertie(user.id,'bt_color', 'dark')
-		updatePropertie(user.id,'fg_color', 'white')
-		updatePropertie(user.id,'ad_color', '#5a5c69')
-		loadPropertie(user.id, request)
+		updatePropertie(userRequest(),'bg_color', 'gradient-dark')
+		updatePropertie(userRequest(),'bt_color', 'dark')
+		updatePropertie(userRequest(),'fg_color', 'white')
+		updatePropertie(userRequest(),'ad_color', '#5a5c69')
+		loadPropertie(userRequest(), request)
 
 		log.info("Cambiando color de tema a negro")
 	elif idColor == 2:
-		updatePropertie(user.id, 'bg_color', 'gradient-success')
-		updatePropertie(user.id, 'bt_color', 'success')
-		updatePropertie(user.id, 'fg_color', 'white')
-		updatePropertie(user.id, 'ad_color', '#1cc88a')
-		loadPropertie(user.id, request)
+		updatePropertie(userRequest(), 'bg_color', 'gradient-success')
+		updatePropertie(userRequest(), 'bt_color', 'success')
+		updatePropertie(userRequest(), 'fg_color', 'white')
+		updatePropertie(userRequest(), 'ad_color', '#1cc88a')
+		loadPropertie(userRequest(), request)
 
 		log.info("Cambiando color de tema a verde")
 	elif idColor == 3:
-		updatePropertie(user.id,'bg_color', 'gradient-light')
-		updatePropertie(user.id,'bt_color', 'secondary')
-		updatePropertie(user.id,'fg_color', 'dark')
-		updatePropertie(user.id, 'ad_color', '#858796')
-		loadPropertie(user.id, request)
+		updatePropertie(userRequest(),'bg_color', 'gradient-light')
+		updatePropertie(userRequest(),'bt_color', 'secondary')
+		updatePropertie(userRequest(),'fg_color', 'dark')
+		updatePropertie(userRequest(), 'ad_color', '#858796')
+		loadPropertie(userRequest(), request)
 
 		log.info("Cambiando color de tema a Blanco")
 	elif idColor == 4:
-		updatePropertie(user.id,'bg_color', 'gradient-secondary')
-		updatePropertie(user.id,'bt_color', 'secondary')
-		updatePropertie(user.id,'fg_color', 'white')
-		updatePropertie(user.id,'ad_color', '#858796')
-		loadPropertie(user.id, request)
+		updatePropertie(userRequest(),'bg_color', 'gradient-secondary')
+		updatePropertie(userRequest(),'bt_color', 'secondary')
+		updatePropertie(userRequest(),'fg_color', 'white')
+		updatePropertie(userRequest(),'ad_color', '#858796')
+		loadPropertie(userRequest(), request)
 
 		log.info("Cambiando color de tema a gris")
 	elif idColor == 5:
-		updatePropertie(user.id,'bg_color', 'gradient-danger')
-		updatePropertie(user.id, 'bt_color', 'danger')
-		updatePropertie(user.id,'fg_color', 'white')
-		updatePropertie(user.id, 'ad_color', '#e74a3b')
-		loadPropertie(user.id, request)
+		updatePropertie(userRequest(),'bg_color', 'gradient-danger')
+		updatePropertie(userRequest(), 'bt_color', 'danger')
+		updatePropertie(userRequest(),'fg_color', 'white')
+		updatePropertie(userRequest(), 'ad_color', '#e74a3b')
+		loadPropertie(userRequest(), request)
 
 		log.info("Cambiando color de tema a rojo")
 	elif idColor == 6:
-		updatePropertie(user.id,'bg_color', 'gradient-warning')
-		updatePropertie(user.id,'bt_color', 'warning')
-		updatePropertie(user.id,'fg_color', 'dark')
-		updatePropertie(user.id, 'ad_color', '#f6c23e')
-		loadPropertie(user.id, request)
+		updatePropertie(userRequest(),'bg_color', 'gradient-warning')
+		updatePropertie(userRequest(),'bt_color', 'warning')
+		updatePropertie(userRequest(),'fg_color', 'dark')
+		updatePropertie(userRequest(), 'ad_color', '#f6c23e')
+		loadPropertie(userRequest(), request)
 
 		log.info("Cambiando color de tema a naranja")
 	elif idColor == 7:
-		updatePropertie(user.id,'bg_color', 'gradient-primary')
-		updatePropertie(user.id,'bt_color', 'primary')
-		updatePropertie(user.id,'fg_color', 'white')
-		updatePropertie(user.id, 'ad_color', '#4e73df')
-		loadPropertie(user.id, request)
+		updatePropertie(userRequest(),'bg_color', 'gradient-primary')
+		updatePropertie(userRequest(),'bt_color', 'primary')
+		updatePropertie(userRequest(),'fg_color', 'white')
+		updatePropertie(userRequest(), 'ad_color', '#4e73df')
+		loadPropertie(userRequest(), request)
 
 		log.info("Cambiando color de tema a Default")
 	request.session['color_default'] = True
@@ -239,3 +237,7 @@ def currentLocalTimestamp():
 
 def printLogConfig(register):
 	log.debug(register)
+
+def userRequest():
+    user = getUser()
+    return user.id

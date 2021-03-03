@@ -50,18 +50,16 @@ def buscarNombre(request):
 @validRequest
 def listarPaciente(request):
     log.info("[Load view method: listarPaciente]")
-    log.info("Obteniendo lista de pacientes")
-    user = getUser()
-    listadoPacientes = Patient.objects.filter(userId=user.id).order_by('-fechaUpdate')[:settings.MAX_ROWS_QUERY_MODEL]
+    log.info("Obteniendo lista de pacientes")    
+    listadoPacientes = Patient.objects.filter(userId=userRequest()).order_by('-fechaUpdate')[:settings.MAX_ROWS_QUERY_MODEL]
     return render(request, "patient/listaPacientes.html", {"listaPaciente":listadoPacientes})
 
 @login_required(login_url=getLogin())
 @permission_required(viewPatient(),login_url=notPermission())
 @validRequest
 def contactoPaciente(request):
-    log.info("[Load view method: contactoPaciente]")
-    user = getUser()
-    listadoEnviados = Recipe.objects.filter(userId=user.id).order_by('-dateSend')[:settings.MAX_ROWS_QUERY_MODEL]
+    log.info("[Load view method: contactoPaciente]")    
+    listadoEnviados = Recipe.objects.filter(userId=userRequest()).order_by('-dateSend')[:settings.MAX_ROWS_QUERY_MODEL]
     if request.method=='POST':
         formContact = ContactForm(request.POST)
         if formContact.is_valid():
@@ -115,8 +113,7 @@ def contactoPaciente(request):
 @permission_required(addPatient(),login_url=notPermission())
 @validRequest
 def altaPaciente(request):
-    log.info("[Load view method: altaPaciente]")
-    user = getUser()
+    log.info("[Load view method: altaPaciente]")    
     if request.method == 'POST':
         formPatient = PatientForm(request.POST, request.FILES)
         formAdress = AdressForm(request.POST)
@@ -131,7 +128,7 @@ def altaPaciente(request):
             patient.fechaAlta = currentLocalTime()
             patient.fechaUpdate = currentLocalTime()
             patient.rfc = patient.rfc.upper()
-            patient.userId = user.id
+            patient.userId = userRequest()
             log.info("Formulario valido, preparando alta de paciente...")
             dataPatient = formPatient.cleaned_data
             printLogPatients("Data recibida del formulario patient: "+str(dataPatient))
@@ -144,7 +141,7 @@ def altaPaciente(request):
             adress.numeroExt=adress.numeroExt.title()
             adress.ciudad=adress.ciudad.title()
             adress.estado=adress.estado
-            adress.userId = user.id
+            adress.userId = userRequest()
             
             dataAdress = formAdress.cleaned_data
             printLogPatients("Data recibida del formulario adress: "+str(dataAdress))
@@ -287,9 +284,8 @@ def eliminarPaciente(request,idPatient):
 @validRequest
 def listarDireccion(request):
     log.info("[Load view method: listarDireccion]")
-    log.info("Obteniendo lista de direcciones")
-    user = getUser()
-    listadoDirecciones = Adress.objects.filter(userId=user.id).order_by('-patient__pk')[:settings.MAX_ROWS_QUERY_MODEL]
+    log.info("Obteniendo lista de direcciones")    
+    listadoDirecciones = Adress.objects.filter(userId=userRequest()).order_by('-patient__pk')[:settings.MAX_ROWS_QUERY_MODEL]
     return render(request, "adress/listaDirecciones.html", {"listaDireccion": listadoDirecciones})
 
 
@@ -297,8 +293,7 @@ def listarDireccion(request):
 @permission_required(addFile(), login_url=notPermission())
 @validRequest
 def altaArchivo(request):
-    log.info("[Load view method: altaArchivo]")
-    user = getUser()
+    log.info("[Load view method: altaArchivo]")    
     if request.method == 'POST':
         formFile = FileForm(request.POST, request.FILES)
         if formFile.is_valid():
@@ -307,7 +302,7 @@ def altaArchivo(request):
             fileName = file.nombre+"."+file.path.name[::-1].split(".")[0][::-1]
             file.path.name = fileName
             file.nombre = file.nombre.capitalize()
-            file.userId = user.id
+            file.userId = userRequest()
             log.info("Formulario valido, preparando alta de archivo...")
             dataFile = formFile.cleaned_data
             printLogPatients("Data recibida del formulario archivo: "+str(dataFile))
@@ -329,9 +324,8 @@ def altaArchivo(request):
 @validRequest
 def listarArchivo(request):
     log.info("[Load view method: listarArchivo]")
-    log.info("Obteniendo lista de archivos")
-    user = getUser()
-    listadoArchivos = File.objects.filter(userId=user.id).order_by('-fechaSubida')    
+    log.info("Obteniendo lista de archivos")    
+    listadoArchivos = File.objects.filter(userId=userRequest()).order_by('-fechaSubida')    
     return render(request, "file/listaArchivos.html", {"listaArchivo": listadoArchivos})
 
 
@@ -340,9 +334,8 @@ def listarArchivo(request):
 @validRequest
 def eliminarArchivo(request, idFile):
     log.info("[Load view method: eliminarArchivo(idFile)]")
-    log.info("idFile: "+str(idFile))
-    user = getUser()
-    listadoArchivos = File.objects.filter(userId=user.id).order_by('-fechaSubida')
+    log.info("idFile: "+str(idFile))    
+    listadoArchivos = File.objects.filter(userId=userRequest()).order_by('-fechaSubida')
     try:
         log.info("ID File recibido: "+str(idFile))
         file = File.objects.get(pk=idFile)
@@ -370,9 +363,8 @@ def eliminarArchivo(request, idFile):
 @validRequest
 def listarNavegacion(request):
     log.info("[Load view method: listarNavegacion]")
-    log.info("Obteniendo lista de navegacion")
-    user = getUser()
-    listadoNavegacion = Navigation.objects.filter(userId=user.id).order_by('-eventTime')[:settings.MAX_ROWS_QUERY_MODEL]
+    log.info("Obteniendo lista de navegacion")    
+    listadoNavegacion = Navigation.objects.filter(userId=userRequest()).order_by('-eventTime')[:settings.MAX_ROWS_QUERY_MODEL]
     return render(request, "navigation/listaNavegacion.html", {"listaNavegacion": listadoNavegacion})
 
 
@@ -381,9 +373,8 @@ def listarNavegacion(request):
 @validRequest
 def importPatients(request):
     log.info("[Load view method: importPatients]")
-    log.info("Obteniendo lista de importación")
-    user = getUser()
-    listadoImportacion = Import.objects.filter(userId=user.id,
+    log.info("Obteniendo lista de importación")    
+    listadoImportacion = Import.objects.filter(userId=userRequest(),
         tipoSubida='Fichero de pacientes').order_by('-fechaSubida')[:settings.MAX_ROWS_QUERY_MODEL]
 
     if request.method == 'POST':
@@ -616,3 +607,7 @@ def addContact(request):
 
 def printLogPatients(register):
     log.debug(register)
+
+def userRequest():
+    user = getUser()
+    return user.id

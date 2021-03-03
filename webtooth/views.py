@@ -24,7 +24,7 @@ def homeView(request):
 	lastRow = 0
 	user = getUser()
 	try:
-		lastRow = Patient.objects.all().order_by('-fechaUpdate')[0].id
+		lastRow = Patient.objects.filter(userId=user.id).order_by('-fechaUpdate')[0].id
 		updatePropertie(user.id,'last_row', str(lastRow))
 	except Exception:
 		pass
@@ -33,14 +33,14 @@ def homeView(request):
 	printLogHome("LastRow: {}".format(lastRow))	
 	createPropertie(user.id, 'last_row', str(lastRow))
 	request.session['last_session'] = currentLocalTimestamp()
-	rowsRegister=Patient.objects.all().count()
-	rowsFile = File.objects.all().count()
+	rowsRegister=Patient.objects.filter(userId=user.id).count()
+	rowsFile = File.objects.filter(userId=user.id).count()
 	taskEje = Task.objects.filter(status=True, userId=user.id).count()
 	recipeSend = Recipe.objects.filter(userId=user.id, stateRecipe='Enviado').count()
 	loggedUsers = getAllLoggedUsers()
-	patientActive = Patient.objects.filter(Q(eliminado=None) | Q(eliminado=False), activo=True).count()
-	patientInactive = Patient.objects.filter(Q(eliminado=None) | Q(eliminado=False),Q(activo=False) | Q(activo=None)).count()
-	patientDelete = Patient.objects.filter(eliminado=True).count()
+	patientActive = Patient.objects.filter(Q(eliminado=None) | Q(eliminado=False), activo=True).filter(userId=user.id).count()
+	patientInactive = Patient.objects.filter(Q(eliminado=None) | Q(eliminado=False),Q(activo=False) | Q(activo=None)).filter(userId=user.id).count()
+	patientDelete = Patient.objects.filter(eliminado=True).filter(userId=user.id).count()
 
 	if rowsRegister > 0 :
 		porcentajeActivos = (patientActive * 100)/rowsRegister
