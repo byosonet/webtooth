@@ -3,6 +3,7 @@ from apppatients.mixins import AuditModel
 
 # Create your models here.
 class Patient(AuditModel, models.Model):
+	userId = models.IntegerField(blank=True, null=True)
 	nombre=models.CharField(max_length=50, verbose_name="Nombre")
 	apellidoPaterno=models.CharField(max_length=50, verbose_name="Apellido paterno")
 	apellidoMaterno = models.CharField(blank=True, null=True, max_length=50, verbose_name="Apellido materno")
@@ -30,6 +31,7 @@ class Patient(AuditModel, models.Model):
 		permissions = [("addPatient","Agregar paciente"),("viewPatient","Ver paciente"),("deletePatient","Eliminar paciente"),("updatePatient","Actualizar paciente")]
 
 class Adress(AuditModel, models.Model):
+	userId = models.IntegerField(blank=True, null=True)
 	calle=models.CharField(max_length=50, verbose_name="Calle")
 	numeroExt=models.CharField(max_length=50, verbose_name="Número exterior")
 	numeroInt=models.CharField(max_length=50, verbose_name="Número interior")
@@ -49,6 +51,7 @@ class Adress(AuditModel, models.Model):
 
 
 class File(AuditModel, models.Model):
+	userId = models.IntegerField(blank=True, null=True)
 	nombre = models.CharField(max_length=50, verbose_name="Nombre del archivo")
 	fechaSubida = models.DateTimeField(auto_now_add=True, blank=True, null=True, verbose_name="Fecha de subida")
 	path = models.FileField(blank=True, null=True,verbose_name="Archivo", upload_to="upload")
@@ -125,6 +128,7 @@ class Propertie(models.Model):
 
 
 class Import(AuditModel, models.Model):
+	userId = models.IntegerField(blank=True, null=True)
 	tipoSubida = models.CharField(max_length=50, verbose_name="Tipo de fichero")
 	fechaSubida = models.DateTimeField(auto_now_add=True, blank=True, null=True, verbose_name="Fecha de subida")
 	path = models.FileField(blank=True, null=True,verbose_name="Archivo", upload_to="upload-xls")
