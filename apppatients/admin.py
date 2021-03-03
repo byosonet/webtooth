@@ -31,6 +31,8 @@ class PatientAdmin(admin.ModelAdmin):
 		return False
 	def has_delete_permission(self, request, obj=None):
 		return False
+	def has_module_permission(self, request):
+		return validUser(request)
 
 class AdressAdmin(admin.ModelAdmin):
 	list_display = ("ciudad", "estado","numeroExt", "numeroInt", "calle", "cp","patient")
@@ -48,7 +50,9 @@ class AdressAdmin(admin.ModelAdmin):
 		return False
 	def has_delete_permission(self, request, obj=None):
 		return False
-
+	def has_module_permission(self, request):
+		return validUser(request)
+	
 class LogAdmin(admin.ModelAdmin):
 	list_display = ('action_time','_user','_content_type','_change_message','_object_repr')
 	list_filter = ['action_time','user']
@@ -66,6 +70,8 @@ class LogAdmin(admin.ModelAdmin):
 		return False
 	def has_delete_permission(self, request, obj=None):
 		return False
+	def has_module_permission(self, request):
+		return validUser(request)
 
 	def _user(self, obj):
 		return obj.user.first_name + obj.user.last_name
@@ -103,6 +109,8 @@ class NavigationAdmin(admin.ModelAdmin):
 		return False
 	def has_delete_permission(self, request, obj=None):
 		return False
+	def has_module_permission(self, request):
+		return validUser(request)
 
 
 class FileAdmin(admin.ModelAdmin):
@@ -118,13 +126,12 @@ class FileAdmin(admin.ModelAdmin):
 
 	def has_add_permission(self, request):
 		return False
-
 	def has_change_permission(self, request, obj=None):
 		return False
-
 	def has_delete_permission(self, request, obj=None):
 		return False
-
+	def has_module_permission(self, request):
+		return validUser(request)
 
 class PropertieAdmin(admin.ModelAdmin):
 	list_display = ('userId', 'key', 'value')
@@ -138,12 +145,12 @@ class PropertieAdmin(admin.ModelAdmin):
 
 	def has_add_permission(self, request):
 		return False
-
 	def has_change_permission(self, request, obj=None):
 		return False
-
 	def has_delete_permission(self, request, obj=None):
 		return False
+	def has_module_permission(self, request):
+		return validUser(request)
 
 
 class ImportAdmin(admin.ModelAdmin):
@@ -159,12 +166,12 @@ class ImportAdmin(admin.ModelAdmin):
 
 	def has_add_permission(self, request):
 		return False
-
 	def has_change_permission(self, request, obj=None):
 		return False
-
 	def has_delete_permission(self, request, obj=None):
 		return False
+	def has_module_permission(self, request):
+		return validUser(request)
 
 
 class TaskAdmin(admin.ModelAdmin):
@@ -181,12 +188,12 @@ class TaskAdmin(admin.ModelAdmin):
 
 	def has_add_permission(self, request):
 		return False
-
 	def has_change_permission(self, request, obj=None):
 		return False
-
 	def has_delete_permission(self, request, obj=None):
 		return False
+	def has_module_permission(self, request):
+		return validUser(request)
 
 
 class RecipeAdmin(admin.ModelAdmin):
@@ -203,11 +210,18 @@ class RecipeAdmin(admin.ModelAdmin):
 
 	def has_add_permission(self, request):
 		return False
-
 	def has_change_permission(self, request, obj=None):
 		return False
-
 	def has_delete_permission(self, request, obj=None):
+		return False
+	def has_module_permission(self, request):
+		return validUser(request)
+
+def validUser(request):
+	usercode = request.user.get_username()	
+	if usercode == 'admin':
+		return True
+	else:
 		return False
 
 admin.site.register(Patient,PatientAdmin)
