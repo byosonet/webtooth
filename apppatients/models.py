@@ -50,11 +50,13 @@ class Adress(AuditModel, models.Model):
 		permissions = [("viewAdress", "Ver dirección")]
 
 
+def user_directory_path(instance, filename):	
+	return 'upload/{0}/{1}'.format(instance.userId, filename)
 class File(AuditModel, models.Model):
 	userId = models.IntegerField(blank=True, null=True)
 	nombre = models.CharField(max_length=50, verbose_name="Nombre del archivo")
 	fechaSubida = models.DateTimeField(auto_now_add=True, blank=True, null=True, verbose_name="Fecha de subida")
-	path = models.FileField(blank=True, null=True,verbose_name="Archivo", upload_to="upload")
+	path = models.FileField(blank=True, null=True,verbose_name="Archivo", upload_to=user_directory_path)
 
 	def __str__(self):
 		return "achivo: {}".format(self.path.name.split("/")[1])

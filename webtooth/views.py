@@ -132,7 +132,12 @@ def infoDisk(request):
 
 
 def infoDiskUpload(request):
-	total = folderSizeMB(settings.MEDIA_PATH+str('upload'))
+	user = getUser()
+	try:
+		total = folderSizeMB(settings.MEDIA_PATH+'upload/'+str(user.id))
+	except:
+		total = 0
+		log.info("El directorio no puede ser leido ya que aún no existe")
 	totalDisk = (total // (1024)) / 1024
 	totalDisk = format(totalDisk, '.2f')
 	printLogHome("Total disk upload: {} Mb".format(totalDisk))
