@@ -202,10 +202,10 @@ def actualizarPaciente(request,idPatient):
     formAdress = None
     expediente = None
     try:
-        obj = Patient.objects.get(pk=idPatient)
+        obj = Patient.objects.get(pk=idPatient, userId=userRequest())
         expediente = obj.numexp
         try:
-            objAdress = Adress.objects.get(patient__pk=idPatient)
+            objAdress = Adress.objects.get(patient__pk=idPatient, userId=userRequest())
         except Exception as ex:
             log.error("Error: "+str(ex))
             objAdress = Adress()
@@ -406,18 +406,21 @@ def importPatients(request):
             lista = len(xlsValues)
             if lista > 0 and validXSL:
                 for row in xlsValues:
-                    containsError = guardarPatientXLS(row,user.id)
+                    containsError = guardarPatientXLS(row,userRequest())
                     if containsError:
                         file.importado = False
+                        file.userId = userRequest()
                         file.save()
                         importFile = ImportForm()
                         log.info("Existen errores de validacion, revisar archivo")
                         messages.error(request, f"[ERROR]: El archivo {fileName} contiene errores o le faltan campos por cumplimentar.")
                         return render(request, "import/importarPaciente.html", {"form": importFile, "listadoImportacion":listadoImportacion})
                     file.importado = True
+                    file.userId = userRequest()
                     file.save()
             else:
                 file.importado = False
+                file.userId = userRequest()
                 file.save()
                 importFile = ImportForm()
                 log.info("Existen errores de validacion, revisar archivo")
@@ -467,6 +470,12 @@ def guardarPatientXLS(row,userId):
         patient.fechaUpdate = currentLocalTime()
         printLogPatients("Data recibida del xls patient: "+str(patient))
         patient.save()
+        
+        address = Adress()
+        address.patient = patient        
+        address.userId = userId
+        address.save()
+
         return False
     except Exception as ex:
         log.error("Error: "+str(ex))
