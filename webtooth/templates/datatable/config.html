@@ -35,7 +35,7 @@
 					pageSize: 'LETTER',
 					download: 'open',
 					customize: function (doc) {
-						doc.content[1].margin = [20, 0, 10, 0] //left, top, right, bottom
+						doc.content[1].margin = [5, 0, 5, 0] //left, top, right, bottom
 					},
 					exportOptions: {
 						columns: [0, 1, 2, 3, 4, 5, 7, 8]
@@ -85,7 +85,7 @@
 				pageSize: 'LETTER',
 				download: 'open',
 				customize: function (doc) {
-					doc.content[1].margin = [30, 0, 10, 0] //left, top, right, bottom
+					doc.content[1].margin = [25, 0, 5, 0] //left, top, right, bottom
 				},
 				exportOptions: {
 					columns: [0, 1, 2, 3, 4, 5, 6, 7]
@@ -119,7 +119,7 @@
 				extend: 'excelHtml5',
 				title: 'Listado de archivos al día {% now "DATE_FORMAT" %}',
 				exportOptions: {
-					columns: [0, 1, 2]
+					columns: [0, 1, 2, 4]
 				}
 			},
 			{
@@ -129,16 +129,16 @@
 				pageSize: 'LETTER',
 				download: 'open',
 				customize: function (doc) {
-					doc.content[1].margin = [100, 0, 10, 0] //left, top, right, bottom
+					doc.content[1].margin = [60, 0, 5, 0] //left, top, right, bottom
 				},
 				exportOptions: {
-					columns: [0, 1, 2]
+					columns: [0, 1, 2, 4]
 				}
 			}, {
 				extend: 'print',
 				title: 'Listado de archivos al día {% now "DATE_FORMAT" %}',
 				exportOptions: {
-					columns: [0, 1, 2]
+					columns: [0, 1, 2, 4]
 				}
 			}]
 		});
@@ -173,7 +173,7 @@
 				pageSize: 'LETTER',
 				download: 'open',
 				customize: function (doc) {
-					doc.content[1].margin = [100, 0, 10, 0] //left, top, right, bottom
+					doc.content[1].margin = [5, 0, 5, 0] //left, top, right, bottom
 				},
 				exportOptions: {
 					columns: [0, 1, 2, 3, 4, 5]
@@ -208,7 +208,7 @@
 				extend: 'excelHtml5',
 				title: 'Listado de importación al día {% now "DATE_FORMAT" %}',
 				exportOptions: {
-					columns: [0, 1, 2]
+					columns: [0, 1, 2, 3]
 				}
 			},
 			{
@@ -218,16 +218,16 @@
 				pageSize: 'LETTER',
 				download: 'open',
 				customize: function (doc) {
-					doc.content[1].margin = [100, 0, 10, 0] //left, top, right, bottom
+					doc.content[1].margin = [75, 0, 5, 0] //left, top, right, bottom
 				},
 				exportOptions: {
-					columns: [0, 1, 2]
+					columns: [0, 1, 2, 3]
 				}
 			}, {
 				extend: 'print',
 				title: 'Listado de importación al día {% now "DATE_FORMAT" %}',
 				exportOptions: {
-					columns: [0, 1, 2]
+					columns: [0, 1, 2, 3]
 				}
 			}]
 		});
@@ -253,7 +253,7 @@
 				extend: 'excelHtml5',
 				title: 'Listado de tareas al día {% now "DATE_FORMAT" %}',
 				exportOptions: {
-					columns: [0, 1, 2, 3, 4, 5]
+					columns: [1, 2, 3, 4, 5, 6]
 				}
 			},
 			{
@@ -263,16 +263,16 @@
 				pageSize: 'LETTER',
 				download: 'open',
 				customize: function (doc) {
-					doc.content[1].margin = [10, 0, 10, 0] //left, top, right, bottom
+					doc.content[1].margin = [5, 0, 5, 0] //left, top, right, bottom
 				},
 				exportOptions: {
-					columns: [0, 1, 2, 3, 4, 5]
+					columns: [1, 2, 3, 4, 5, 6]
 				}
 			}, {
 				extend: 'print',
 				title: 'Listado de tareas al día {% now "DATE_FORMAT" %}',
 				exportOptions: {
-					columns: [0, 1, 2, 3, 4, 5]
+					columns: [1, 2, 3, 4, 5, 6]
 				}
 			}]
 		});
@@ -322,7 +322,7 @@
 				pageSize: 'LETTER',
 				download: 'open',
 				customize: function (doc) {
-					doc.content[1].margin = [10, 0, 10, 0] //left, top, right, bottom
+					doc.content[1].margin = [5, 0, 5, 0] //left, top, right, bottom
 				},
 				exportOptions: {
 					columns: [0, 1, 2, 3, 4, 5]

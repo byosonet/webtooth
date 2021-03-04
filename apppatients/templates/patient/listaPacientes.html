@@ -50,6 +50,9 @@
 			  <th>Estado</th>
 			  <th>RFC</th>
 			  <th style="display: none;">ExpHidden</th>
+			  {% if user.get_username == "admin" %}
+			  <th>Subido</th>
+			  {% endif %}
 	        </tr>
 	      </thead>
 	      <tfoot>
@@ -90,6 +93,9 @@
 			 </td>
 			 <td>{{paciente.rfc}}</td>
 			 <td style="display: none;">{{paciente.numexp|upper}}</td>
+			 {% if user.get_username == "admin" %}
+			 <td style="text-align: center;">{{paciente.userName}}</td>
+			 {% endif %}
 	        </tr>
 	        {% endfor %}
 	      </tbody>

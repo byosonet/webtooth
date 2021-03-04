@@ -115,7 +115,7 @@
                   <th>Descripci&oacute;n</th>
                   <th>Fecha programada</th>
                   <th>Fecha ejecuci&oacute;n</th>
-                  <th>Creado</th>
+                  <th>Subido</th>
                   <th>Estado</th>
                 </tr>
               </thead>
@@ -126,7 +126,7 @@
                 <tr>
                   <td style="text-align: center;"><b><a href="{% url 'buscarTaskId' item.id %}" class="text-{{request.session.bt_color}}">{{item.id}}</a></b></td>
                   <td style="width: 150px;">{{item.nameTask}}</td>
-                  <td style="width: 300px;">{{item.descTask}}</td>
+                  <td style="width: 200px;">{{item.descTask}}</td>
                   <td style="text-align: center;">{{item.dateCreate}}</td>
                   {% if item.dateExecute %}
                     <td style="text-align: center;">{{item.dateExecute}}</td>

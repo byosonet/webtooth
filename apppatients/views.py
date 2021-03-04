@@ -114,6 +114,7 @@ def contactoPaciente(request):
 @validRequest
 def altaPaciente(request):
     log.info("[Load view method: altaPaciente]")    
+    user = getUser()
     if request.method == 'POST':
         formPatient = PatientForm(request.POST, request.FILES)
         formAdress = AdressForm(request.POST)
@@ -129,6 +130,7 @@ def altaPaciente(request):
             patient.fechaUpdate = currentLocalTime()
             patient.rfc = patient.rfc.upper()
             patient.userId = userRequest()
+            patient.userName = user.get_full_name()
             log.info("Formulario valido, preparando alta de paciente...")
             dataPatient = formPatient.cleaned_data
             printLogPatients("Data recibida del formulario patient: "+str(dataPatient))
@@ -142,6 +144,7 @@ def altaPaciente(request):
             adress.ciudad=adress.ciudad.title()
             adress.estado=adress.estado
             adress.userId = userRequest()
+            adress.userName = user.get_full_name()
             
             dataAdress = formAdress.cleaned_data
             printLogPatients("Data recibida del formulario adress: "+str(dataAdress))
@@ -463,12 +466,14 @@ def importPatients(request):
 
 def guardarPatientXLS(row,userId):
     log.info("[Load view method: guardarPatientXLS]")
+    user = getUser()
     try:
         patient = Patient()
         patient.numexp = generateKlave()
         patient.nombre = row[0].title()
         patient.apellidoPaterno = row[1].title()
         patient.userId = userId
+        patient.userName = user.get_full_name()
 
         try:
             patient.apellidoMaterno = row[2].title()
@@ -495,6 +500,7 @@ def guardarPatientXLS(row,userId):
         address = Adress()
         address.patient = patient        
         address.userId = userId
+        address.userName = user.get_full_name()
         address.save()
 
         return False

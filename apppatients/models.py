@@ -4,6 +4,7 @@ from apppatients.mixins import AuditModel
 # Create your models here.
 class Patient(AuditModel, models.Model):
 	userId = models.IntegerField(blank=True, null=True)
+	userName = models.CharField(blank=True, null=True, max_length=100)
 	nombre=models.CharField(max_length=50, verbose_name="Nombre")
 	apellidoPaterno=models.CharField(max_length=50, verbose_name="Apellido paterno")
 	apellidoMaterno = models.CharField(blank=True, null=True, max_length=50, verbose_name="Apellido materno")
@@ -32,6 +33,7 @@ class Patient(AuditModel, models.Model):
 
 class Adress(AuditModel, models.Model):
 	userId = models.IntegerField(blank=True, null=True)
+	userName = models.CharField(blank=True, null=True, max_length=100)
 	calle=models.CharField(max_length=50, verbose_name="Calle")
 	numeroExt=models.CharField(max_length=50, verbose_name="Número exterior")
 	numeroInt=models.CharField(max_length=50, verbose_name="Número interior")

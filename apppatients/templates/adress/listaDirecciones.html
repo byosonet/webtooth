@@ -48,6 +48,9 @@
                         <th>N&uacute;mero exterior</th>
                         <th>N&uacute;mero interior</th>
                         <th>Fecha actualizaci&oacute;n</th>
+                        {% if user.get_username == "admin" %}
+                        <th>Subido</th>
+                        {% endif %}
                     </tr>
                 </thead>
                 <tfoot>
@@ -71,6 +74,9 @@
                         <td>{{direccion.numeroExt}}</td>
                         <td>{{direccion.numeroInt}}</td>
                         <td style="text-align: center;">{{direccion.patient.fechaUpdate}}</td>
+                        {% if user.get_username == "admin" %}
+                        <td>{{direccion.userName}}</td>
+                        {% endif %}
                     </tr>
                     {% endfor %}
                 </tbody>
