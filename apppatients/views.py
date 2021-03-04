@@ -426,8 +426,10 @@ def importPatients(request):
 
             lista = len(xlsValues)
             if lista > 0 and validXSL:
+                fila = 0
                 for row in xlsValues:
-                    containsError = guardarPatientXLS(row,userRequest())
+                    fila+=1
+                    containsError = guardarPatientXLS(row,userRequest(),fila)
                     if containsError:
                         file.importado = False
                         file.userId = userRequest()
@@ -464,7 +466,7 @@ def importPatients(request):
     return render(request, "import/importarPaciente.html", {"form": importFile, "listadoImportacion": listadoImportacion})
 
 
-def guardarPatientXLS(row,userId):
+def guardarPatientXLS(row,userId,fila):
     log.info("[Load view method: guardarPatientXLS]")
     user = getUser()
     try:
@@ -476,16 +478,29 @@ def guardarPatientXLS(row,userId):
         patient.userName = user.get_full_name()
 
         try:
-            patient.apellidoMaterno = row[2].title()
-            patient.email = row[3].lower()
-            patient.telefono = row[4]
-
-            if row[5] == 'Activo':
-                patient.activo = True
-            else:
-                patient.activo = False
-
-            patient.rfc = row[6].upper()
+            try:
+                patient.apellidoMaterno = row[2].title()
+            except:
+                log.error("No se encontro >>> Apellido Materno en la [fila,columna]: [{},{}]".format(fila,'3'))
+            try:
+                patient.email = row[3].lower()
+            except:
+                log.error("No se encontro >>> Email en la [fila,columna]: [{},{}]".format(fila,'4'))
+            try:
+                patient.telefono = int(row[4])
+            except:
+                log.error("No se encontro >>> Telefono en la [fila,columna]: [{},{}]".format(fila,'5'))
+            try:
+                if row[5].upper() == 'ACTIVO':
+                    patient.activo = True
+                else:
+                    patient.activo = False
+            except:
+                log.error("No se encontro >>> Estado en la [fila,columna]: [{},{}]".format(fila,'6'))
+            try:
+                patient.rfc = row[6].upper()
+            except:
+                log.error("No se encontro >>> RFC en la [fila,columna]: [{},{}]".format(fila,'7'))
         except Exception as error:
             patient.apellidoMaterno = ''
             patient.email = ''
