@@ -78,11 +78,13 @@ def loadPropertie(userId, request):
 	fg = Propertie.objects.get(key='fg_color', userId=userId)
 	ad = Propertie.objects.get(key='ad_color', userId=userId)
 	lr = Propertie.objects.get(key='last_row', userId=userId)
+	cm = Propertie.objects.get(key='class_menu', userId=userId)
 	request.session[bg.key] = bg.value
 	request.session[bt.key] = bt.value
 	request.session[fg.key] = fg.value
 	request.session[ad.key] = ad.value
 	request.session[lr.key] = lr.value
+	request.session[cm.key] = cm.value
 	printLogConfig("{}, {}, {}".format(bg,bt,fg))
 
 def createFirstOnly(request):	
@@ -91,6 +93,7 @@ def createFirstOnly(request):
 	createPropertie(userRequest(),'bt_color', 'primary')
 	createPropertie(userRequest(),'ad_color', '#4e73df')
 	createPropertie(userRequest(), 'last_row', str(0))
+	createPropertie(userRequest(),'class_menu', '')
 
 def setColorSystem(request,idColor):
 	log.info("Cambiando el color al sistema, idColor recibido: {}".format(idColor))	

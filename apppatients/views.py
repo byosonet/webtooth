@@ -1,14 +1,14 @@
 from apppatients import urls
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required, permission_required
-from webtooth.config import currentLocalTime,filterQuery
+from webtooth.config import currentLocalTime,filterQuery, updatePropertie, loadPropertie
 from django.http import HttpResponse
 import json
 
 import os
 from django.conf import settings
 
-from apppatients.models import Patient, Adress, File, Navigation, Import, Task, Recipe
+from apppatients.models import Patient, Adress, File, Navigation, Import, Task, Recipe, Propertie
 from apppatients.forms import ContactForm, PatientForm, AdressForm, FileForm, ImportForm, TaskForm
 from apppatients.config import validErrors
 from apppatients.query import filterSearch, filterByIdPatient, generateKlave, filterByIdPatientAdress, filterPatientDelete, filterByIdTask
@@ -652,6 +652,21 @@ def addContact(request):
         for p in request.POST:
             log.info("field: {}, value: {}".format(p, request.POST.get(p)))
         data = json.dumps({'result': '¡Add contact OK!'})
+        return HttpResponse(data, content_type='application/json')
+
+def updateClassMenu(request):
+    try:
+        if request.method == 'POST':
+            log.info("Method POST with params: "+str(request.POST))
+            for p in request.POST:
+                log.info("field: {}, value: {}".format(p, request.POST.get(p)))
+            if request.POST.get('classMenu') != None:
+                updatePropertie(userRequest(), 'class_menu', request.POST.get('classMenu'))
+                loadPropertie(userRequest(), request)
+            data = json.dumps({'result': 'OK'})
+            return HttpResponse(data, content_type='application/json')
+    except:
+        data = json.dumps({'result': 'KO'})
         return HttpResponse(data, content_type='application/json')
 
 def printLogPatients(register):

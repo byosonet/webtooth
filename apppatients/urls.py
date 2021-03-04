@@ -29,4 +29,6 @@ urlpatterns=[
     ###Services example for angular
     path('patient/json/', views.jsonPatient, name="jsonPatient"),
     path('contact/add/json/', csrf_exempt(views.addContact), name="addContact"),
+    ###ClassMenu
+    path('class/user/',csrf_exempt(views.updateClassMenu), name="updateClassMenu"),
 ]
