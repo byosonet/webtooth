@@ -4,7 +4,7 @@ import logging
 from webtooth.config import currentLocalTimestamp
 from datetime import datetime
 from django.shortcuts import render
-from webtooth.settings import MAX_TIME_MINUTES_SESSION
+from webtooth.settings import MAX_TIME_MINUTES_SESSION, SESSION_EXPIRY_SECONDS
 from apppatients.signals import getUser
 
 log = logging.getLogger('apppatients.decorators')
@@ -16,7 +16,8 @@ def validRequest(viewReceived):
             return render(request, 'home/home.html', data)
         try:
             user = getUser()
-            loadPropertie(user.id,request)
+            loadPropertie(user.id,request)            
+            request.session.set_expiry(SESSION_EXPIRY_SECONDS)
         except Exception as ex:
             log.error("Error load propertie: "+str(ex))
             createFirstOnly(request)
@@ -39,15 +40,15 @@ def process_request(request):
         last_session = request.session['last_session']
         now = currentLocalTimestamp()
         last = datetime.fromtimestamp(last_session)
-        last_format = last.strftime("%d/%m/%Y %H:%M %p")       
+        last_format = last.strftime("%d/%m/%Y %H:%M:%S %p")       
         now_today = datetime.fromtimestamp(now)
-        now_format = now_today.strftime("%d/%m/%Y %H:%M %p")
-        log.info(">>> Last_session: {} >>> Now_session: {}".format(last_format,now_format))
+        now_format = now_today.strftime("%d/%m/%Y %H:%M:%S %p")
+        log.info(">>> Last_request: {} >>> Now_request: {}".format(last_format,now_format))
         dt = now - last_session
 
         minutes = int(dt/60)
 
-        log.info("Minutos transcurridos {} desde la última petición".format(minutes))
+        log.info(">>> {} Minutos transcurridos desde la última petición".format(minutes))
         if minutes >= MAX_TIME_MINUTES_SESSION:
             log.info("Sesión terminada, se ha excedido el máximo tiempo de espera que es de {} minutos".format(MAX_TIME_MINUTES_SESSION))
             session = False
