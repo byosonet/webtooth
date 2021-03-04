@@ -24,7 +24,7 @@ def homeView(request):
 	lastRow = 0
 	user = getUser()
 	try:
-		lastRow = Patient.objects.filter(userId=user.id).order_by('-fechaUpdate')[0].id
+		lastRow = Patient.objects.filter(filterQuery()).order_by('-fechaUpdate')[0].id
 		updatePropertie(user.id,'last_row', str(lastRow))
 	except Exception:
 		pass
@@ -33,14 +33,14 @@ def homeView(request):
 	printLogHome("LastRow: {}".format(lastRow))	
 	createPropertie(user.id, 'last_row', str(lastRow))
 	request.session['last_session'] = currentLocalTimestamp()
-	rowsRegister=Patient.objects.filter(userId=user.id).count()
-	rowsFile = File.objects.filter(userId=user.id).count()
-	taskEje = Task.objects.filter(status=True, userId=user.id).count()
-	recipeSend = Recipe.objects.filter(userId=user.id, stateRecipe='Enviado').count()
+	rowsRegister=Patient.objects.filter(filterQuery()).count()
+	rowsFile = File.objects.filter(filterQuery()).count()
+	taskEje = Task.objects.filter(status=True).filter(filterQuery()).count()
+	recipeSend = Recipe.objects.filter(filterQuery(), stateRecipe='Enviado').count()
 	loggedUsers = getAllLoggedUsers()
-	patientActive = Patient.objects.filter(Q(eliminado=None) | Q(eliminado=False), activo=True).filter(userId=user.id).count()
-	patientInactive = Patient.objects.filter(Q(eliminado=None) | Q(eliminado=False),Q(activo=False) | Q(activo=None)).filter(userId=user.id).count()
-	patientDelete = Patient.objects.filter(eliminado=True).filter(userId=user.id).count()
+	patientActive = Patient.objects.filter(Q(eliminado=None) | Q(eliminado=False), activo=True).filter(filterQuery()).count()
+	patientInactive = Patient.objects.filter(Q(eliminado=None) | Q(eliminado=False),Q(activo=False) | Q(activo=None)).filter(filterQuery()).count()
+	patientDelete = Patient.objects.filter(eliminado=True).filter(filterQuery()).count()
 
 	if rowsRegister > 0 :
 		porcentajeActivos = (patientActive * 100)/rowsRegister
@@ -133,8 +133,12 @@ def infoDisk(request):
 
 def infoDiskUpload(request):
 	user = getUser()
+	total = 0
 	try:
-		total = folderSizeMB(settings.MEDIA_PATH+'upload/'+str(user.id))
+		if user.get_username() == 'admin':
+			total = folderSizeMB(settings.MEDIA_PATH+'upload')
+		else:
+			total = folderSizeMB(settings.MEDIA_PATH+'upload/'+str(user.id))
 	except:
 		total = 0
 		log.info("El directorio no puede ser leido ya que aún no existe")
@@ -155,3 +159,11 @@ def folderSizeMB(path):
 
 def printLogHome(register):
 	log.debug(register)
+
+def filterQuery():
+	user = getUser()
+	if user.get_username() == 'admin':
+		customQuery = Q()
+	else:
+		customQuery = Q(userId=user.id)
+	return customQuery
