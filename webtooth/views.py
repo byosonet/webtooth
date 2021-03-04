@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 
 from django.contrib.auth.decorators import login_required
 from webtooth.config import getLogin, getListTask, getListTaskHome
-from webtooth.config import logger,getAllLoggedUsers
+from webtooth.config import logger,getAllLoggedUsers,filterQuery
 from webtooth.config import setColorSystem, createPropertie, loadPropertie, updatePropertie
 
 from apppatients.models import Patient, File, Task, Recipe
@@ -159,11 +159,3 @@ def folderSizeMB(path):
 
 def printLogHome(register):
 	log.debug(register)
-
-def filterQuery():
-	user = getUser()
-	if user.get_username() == 'admin':
-		customQuery = Q()
-	else:
-		customQuery = Q(userId=user.id)
-	return customQuery

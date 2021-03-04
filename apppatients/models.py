@@ -62,7 +62,7 @@ class File(AuditModel, models.Model):
 		return "achivo: {}".format(self.path.name.split("/")[1])
 
 	def fileName(self):
-		return self.path.name.split("/")[1]
+		return self.path.name.split("/")[2]
 
 	def typeFile(self):
 		ext = self.path.name.split(".")[1]

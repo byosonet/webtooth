@@ -1,7 +1,7 @@
 from apppatients import urls
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required, permission_required
-from webtooth.config import currentLocalTime
+from webtooth.config import currentLocalTime,filterQuery
 from django.http import HttpResponse
 import json
 
@@ -51,7 +51,7 @@ def buscarNombre(request):
 def listarPaciente(request):
     log.info("[Load view method: listarPaciente]")
     log.info("Obteniendo lista de pacientes")    
-    listadoPacientes = Patient.objects.filter(userId=userRequest()).order_by('-fechaUpdate')[:settings.MAX_ROWS_QUERY_MODEL]
+    listadoPacientes = Patient.objects.filter(filterQuery()).order_by('-fechaUpdate')[:settings.MAX_ROWS_QUERY_MODEL]
     return render(request, "patient/listaPacientes.html", {"listaPaciente":listadoPacientes})
 
 @login_required(login_url=getLogin())
@@ -59,7 +59,7 @@ def listarPaciente(request):
 @validRequest
 def contactoPaciente(request):
     log.info("[Load view method: contactoPaciente]")    
-    listadoEnviados = Recipe.objects.filter(userId=userRequest()).order_by('-dateSend')[:settings.MAX_ROWS_QUERY_MODEL]
+    listadoEnviados = Recipe.objects.filter(filterQuery()).order_by('-dateSend')[:settings.MAX_ROWS_QUERY_MODEL]
     if request.method=='POST':
         formContact = ContactForm(request.POST)
         if formContact.is_valid():
@@ -202,10 +202,17 @@ def actualizarPaciente(request,idPatient):
     formAdress = None
     expediente = None
     try:
-        obj = Patient.objects.get(pk=idPatient, userId=userRequest())
+        user = getUser()
+        if user.get_username() == 'admin':
+            obj = Patient.objects.get(pk=idPatient)
+        else:
+            obj = Patient.objects.get(pk=idPatient, userId=userRequest())
         expediente = obj.numexp
         try:
-            objAdress = Adress.objects.get(patient__pk=idPatient, userId=userRequest())
+            if user.get_username() == 'admin':
+                objAdress = Adress.objects.get(patient__pk=idPatient)
+            else:
+                objAdress = Adress.objects.get(patient__pk=idPatient, userId=userRequest())
         except Exception as ex:
             log.error("Error: "+str(ex))
             objAdress = Adress()
@@ -260,7 +267,11 @@ def eliminarPaciente(request,idPatient):
     log.info("[Load view method: eliminarPaciente(idPatient)]")
     log.info("idPatient: "+str(idPatient))
     try:
-        patient = Patient.objects.get(pk=idPatient)
+        user = getUser()
+        if user.get_username() == 'admin':
+            patient = Patient.objects.get(pk=idPatient)
+        else:
+            patient = Patient.objects.get(pk=idPatient, userId=userRequest())
         imageOld = patient.foto
         numexp = patient.numexp
         patient.eliminado = True
@@ -285,7 +296,7 @@ def eliminarPaciente(request,idPatient):
 def listarDireccion(request):
     log.info("[Load view method: listarDireccion]")
     log.info("Obteniendo lista de direcciones")    
-    listadoDirecciones = Adress.objects.filter(userId=userRequest()).order_by('-patient__pk')[:settings.MAX_ROWS_QUERY_MODEL]
+    listadoDirecciones = Adress.objects.filter(filterQuery()).order_by('-patient__pk')[:settings.MAX_ROWS_QUERY_MODEL]
     return render(request, "adress/listaDirecciones.html", {"listaDireccion": listadoDirecciones})
 
 
@@ -299,7 +310,7 @@ def altaArchivo(request):
         if formFile.is_valid():
             file = formFile.save(commit=False)
             file.fechaSubida = currentLocalTime()
-            fileName = file.nombre+"."+file.path.name[::-1].split(".")[0][::-1]
+            fileName = file.nombre+"."+file.path.name[::-1].split(".")[0][::-1]            
             file.path.name = fileName
             file.nombre = file.nombre.capitalize()
             file.userId = userRequest()
@@ -325,7 +336,7 @@ def altaArchivo(request):
 def listarArchivo(request):
     log.info("[Load view method: listarArchivo]")
     log.info("Obteniendo lista de archivos")    
-    listadoArchivos = File.objects.filter(userId=userRequest()).order_by('-fechaSubida')    
+    listadoArchivos = File.objects.filter(filterQuery()).order_by('-fechaSubida')    
     return render(request, "file/listaArchivos.html", {"listaArchivo": listadoArchivos})
 
 
@@ -335,10 +346,14 @@ def listarArchivo(request):
 def eliminarArchivo(request, idFile):
     log.info("[Load view method: eliminarArchivo(idFile)]")
     log.info("idFile: "+str(idFile))    
-    listadoArchivos = File.objects.filter(userId=userRequest()).order_by('-fechaSubida')
+    listadoArchivos = File.objects.filter(filterQuery()).order_by('-fechaSubida')
     try:
         log.info("ID File recibido: "+str(idFile))
-        file = File.objects.get(pk=idFile)
+        user = getUser()
+        if user.get_username() == 'admin':
+            file = File.objects.get(pk=idFile)
+        else:
+            file = File.objects.get(pk=idFile, userId=userRequest())
         fileOld = file.path
         log.info("Se ha eliminado el archivo de BD: {}".format(file.fileName))
         fileN = file.path.name.split("/")[1]
@@ -364,7 +379,7 @@ def eliminarArchivo(request, idFile):
 def listarNavegacion(request):
     log.info("[Load view method: listarNavegacion]")
     log.info("Obteniendo lista de navegacion")    
-    listadoNavegacion = Navigation.objects.filter(userId=userRequest()).order_by('-eventTime')[:settings.MAX_ROWS_QUERY_MODEL]
+    listadoNavegacion = Navigation.objects.filter(filterQuery()).order_by('-eventTime')[:settings.MAX_ROWS_QUERY_MODEL]
     return render(request, "navigation/listaNavegacion.html", {"listaNavegacion": listadoNavegacion})
 
 
@@ -374,8 +389,8 @@ def listarNavegacion(request):
 def importPatients(request):
     log.info("[Load view method: importPatients]")
     log.info("Obteniendo lista de importación")    
-    listadoImportacion = Import.objects.filter(userId=userRequest(),
-        tipoSubida='Fichero de pacientes').order_by('-fechaSubida')[:settings.MAX_ROWS_QUERY_MODEL]
+    listadoImportacion = Import.objects.filter(
+        tipoSubida='Fichero de pacientes').filter(filterQuery()).order_by('-fechaSubida')[:settings.MAX_ROWS_QUERY_MODEL]
 
     if request.method == 'POST':
         importFile = ImportForm(request.POST, request.FILES)
@@ -496,7 +511,12 @@ def altaTarea(request):
     log.info("[Load view method: altaTarea]")
     user = getUser()
     log.info("Obteniendo lista de tareas")
-    listadoTareas = Task.objects.filter(userCode=user.get_username()).order_by('-id')
+
+    if user.get_username() == 'admin':
+        listadoTareas = Task.objects.filter().order_by('-id')
+    else:
+        listadoTareas = Task.objects.filter(userCode=user.get_username()).order_by('-id')
+
     if request.method == 'POST':
         taskForm = TaskForm(request.POST)
         if all([taskForm.is_valid()]):
@@ -547,7 +567,11 @@ def buscarTaskId(request, idTask):
 def emailPatient(request, idPatient):
     log.info("[Load view method: emailPatient(idPatient)]")
     log.info("idPatient for email: "+str(idPatient))
-    patient = Patient.objects.get(pk=idPatient)
+    user = getUser()
+    if user.get_username() == 'admin':
+        patient = Patient.objects.get(pk=idPatient)
+    else:
+        patient = Patient.objects.get(pk=idPatient, userId=userRequest())
 
     if not request.GET._mutable:
         request.GET._mutable = True
@@ -565,7 +589,11 @@ def actualizarTask(request, idTask):
     log.info("idTask: "+str(idTask))
     formTask = None    
     try:
-        obj = Task.objects.get(pk=idTask)
+        user = getUser()
+        if user.get_username() == 'admin':
+            obj = Task.objects.get(pk=idTask)
+        else:
+            obj = Task.objects.get(pk=idTask, userId=userRequest())
         formTask = TaskForm(request.POST, instance=obj)
         if all([formTask.is_valid()]):
             log.info("Formulario valido, actualizando datos de Tarea...")     

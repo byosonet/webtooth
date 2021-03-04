@@ -13,6 +13,7 @@ from apppatients.signals import getUser
 from webtooth.logger import LOGGING
 from webtooth.settings import PATH_LOGS, PATH_ZIPMAIL
 from django.db import connection
+from django.db.models import Q
 
 #Service logger
 def logger(app,view):
@@ -154,15 +155,22 @@ def setColorSystem(request,idColor):
 
 
 def getListTask(request, user):
-
 	today = str(currentLocalDate()).split('-')
-	listTask = Task.objects.filter(
-		userCode=user,
-		status=False,
-		dateExecute=None,
-		dateCreate__year=today[0],
-		dateCreate__month=today[1],
-		dateCreate__day=today[2]).order_by('-dateCreate')
+	if user == 'admin':
+		listTask = Task.objects.filter(			
+			status=False,
+			dateExecute=None,
+			dateCreate__year=today[0],
+			dateCreate__month=today[1],
+			dateCreate__day=today[2]).order_by('-dateCreate')
+	else:
+		listTask = Task.objects.filter(
+			userCode=user,
+			status=False,
+			dateExecute=None,
+			dateCreate__year=today[0],
+			dateCreate__month=today[1],
+			dateCreate__day=today[2]).order_by('-dateCreate')
 
 	if listTask and len(listTask) > 0:
 		data = {}
@@ -178,12 +186,20 @@ def getListTask(request, user):
 
 def getListTaskHome(user):
 	today = str(currentLocalDate()).split('-')
-	listTaskHome = Task.objects.filter(
-		userCode=user,
-		status=True,
-		dateExecute__year=today[0],
-		dateExecute__month=today[1],
-		dateExecute__day=today[2]).order_by('-dateExecute')
+
+	if user == 'admin':
+		listTaskHome = Task.objects.filter(
+			status=True,
+			dateExecute__year=today[0],
+			dateExecute__month=today[1],
+			dateExecute__day=today[2]).order_by('-dateExecute')
+	else:
+		listTaskHome = Task.objects.filter(
+			userCode=user,
+			status=True,
+			dateExecute__year=today[0],
+			dateExecute__month=today[1],
+			dateExecute__day=today[2]).order_by('-dateExecute')
 
 	if listTaskHome and len(listTaskHome) > 0:
 		for item in listTaskHome:
@@ -241,3 +257,11 @@ def printLogConfig(register):
 def userRequest():
     user = getUser()
     return user.id
+
+def filterQuery():
+	user = getUser()
+	if user.get_username() == 'admin':
+		customQuery = Q()
+	else:
+		customQuery = Q(userId=user.id)
+	return customQuery

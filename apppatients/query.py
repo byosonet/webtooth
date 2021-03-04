@@ -5,7 +5,7 @@ from apppatients.signals import getUser
 import uuid
 from datetime import date
 
-from webtooth.config import logger
+from webtooth.config import logger, filterQuery
 log = logger('apppatients.config', False)
 
 def filterSearch(request):
@@ -19,25 +19,25 @@ def filterSearch(request):
 			Q(apellidoMaterno__icontains=txtSearch) |
 			Q(email__icontains=txtSearch) |
 			Q(telefono__icontains=txtSearch) |
-			Q(numexp__icontains=txtSearch)).filter(userId=userRequest())
+			Q(numexp__icontains=txtSearch)).filter(filterQuery())
 	else:
 		log.info("Realizando búsqueda desde menu")
 		if request.POST.get('name') and not request.POST.get('apellidos') and not request.POST.get('numexp'):
 			name = request.POST['name']
 			log.info("Buscando solo por nombre: >>> "+str(name))
 			listadoPacientes = Patient.objects.filter(
-				Q(nombre__icontains=name)).filter(userId=userRequest())
+				Q(nombre__icontains=name)).filter(filterQuery())
 		elif not request.POST.get('name') and request.POST.get('apellidos') and not request.POST.get('numexp'):			
 			apellidos = request.POST['apellidos']
 			log.info("Buscando solo por apellidos: >>> "+str(apellidos))
 			listadoPacientes = Patient.objects.filter(
 				Q(apellidoPaterno__icontains=apellidos) |
-				Q(apellidoMaterno__icontains=apellidos)).filter(userId=userRequest())
+				Q(apellidoMaterno__icontains=apellidos)).filter(filterQuery())
 		elif not request.POST.get('name') and not request.POST.get('apellidos') and request.POST.get('numexp'):			
 			numexp = request.POST['numexp']
 			log.info("Buscando solo por expediente: >>> "+str(numexp))
 			listadoPacientes = Patient.objects.filter(
-				Q(numexp__icontains=numexp)).filter(userId=userRequest())
+				Q(numexp__icontains=numexp)).filter(filterQuery())
 		elif request.POST.get('name') and request.POST.get('apellidos') and not request.POST.get('numexp'):			
 			name = request.POST['name']			
 			apellidos = request.POST['apellidos']
@@ -45,14 +45,14 @@ def filterSearch(request):
 			listadoPacientes = Patient.objects.filter(
 				Q(nombre__icontains=name) |
 				Q(apellidoPaterno__icontains=apellidos) |
-				Q(apellidoMaterno__icontains=apellidos)).filter(userId=userRequest())
+				Q(apellidoMaterno__icontains=apellidos)).filter(filterQuery())
 		elif request.POST.get('name') and not request.POST.get('apellidos') and request.POST.get('numexp'):			
 			name = request.POST['name']
 			numexp = request.POST['numexp']
 			log.info("Buscando solo por nombre y expediente: >>> {} {}".format(name,numexp))
 			listadoPacientes = Patient.objects.filter(
 				Q(nombre__icontains=name) |
-				Q(numexp__icontains=numexp)).filter(userId=userRequest())
+				Q(numexp__icontains=numexp)).filter(filterQuery())
 		elif not request.POST.get('name') and request.POST.get('apellidos') and request.POST.get('numexp'):			
 			apellidos = request.POST['apellidos']
 			numexp = request.POST['numexp']
@@ -60,7 +60,7 @@ def filterSearch(request):
 			listadoPacientes = Patient.objects.filter(
 				Q(apellidoPaterno__icontains=apellidos) |
 				Q(apellidoMaterno__icontains=apellidos) |
-				Q(numexp__icontains=numexp)).filter(userId=userRequest())
+				Q(numexp__icontains=numexp)).filter(filterQuery())
 		elif request.POST.get('name') and request.POST.get('apellidos') and request.POST.get('numexp'):			
 			name = request.POST['name']
 			apellidos = request.POST['apellidos']
@@ -70,7 +70,7 @@ def filterSearch(request):
 				Q(nombre__icontains=name) |
 				Q(apellidoPaterno__icontains=apellidos) |
 				Q(apellidoMaterno__icontains=apellidos) |
-				Q(numexp__icontains=numexp)).filter(userId=userRequest())
+				Q(numexp__icontains=numexp)).filter(filterQuery())
 		else:
 			log.info("Ningún dato ha sido enviado para buscar")
 
@@ -82,7 +82,11 @@ def filterSearch(request):
 
 def filterByIdPatient(idPatient, formPatient):
 	printLogQuery("Id recibido for patient: "+str(idPatient))	
-	patient = Patient.objects.get(pk=idPatient, userId=userRequest())
+	user = getUser()
+	if user.get_username() == 'admin':
+		patient = Patient.objects.get(pk=idPatient)
+	else:
+		patient = Patient.objects.get(pk=idPatient, userId=userRequest())
 	if patient:
 		log.info("Paciente encontrado: {} {}".format(
 			patient.nombre, patient.apellidoPaterno))
@@ -108,7 +112,11 @@ def filterByIdPatient(idPatient, formPatient):
 def filterByIdPatientAdress(idPatient, formAdress):
 	printLogQuery("Id recibido for address: "+str(idPatient))	
 	try:
-		adress = Adress.objects.get(patient__pk=idPatient, userId=userRequest())
+		user = getUser()
+		if user.get_username() == 'admin':
+			adress = Adress.objects.get(patient__pk=idPatient)
+		else:
+			adress = Adress.objects.get(patient__pk=idPatient, userId=userRequest())
 		if adress:
 			printLogQuery("Address encontrado: {}".format(adress.calle))
 			formAdress.fields['calle'].initial = adress.calle
@@ -127,7 +135,12 @@ def filterByIdPatientAdress(idPatient, formAdress):
 
 def filterByIdTask(idTask, formTask):
 	printLogQuery("Id recibido for task: "+str(idTask))	
-	task = Task.objects.get(pk=idTask, userId=userRequest())
+	user = getUser()
+	if user.get_username() == 'admin':
+		task = Task.objects.get(pk=idTask)
+	else:
+		task = Task.objects.get(pk=idTask, userId=userRequest())
+
 	if task:
 		log.info("Task encontrado: {}".format(task.nameTask))
 		formTask.fields['nameTask'].initial = task.nameTask
@@ -146,7 +159,11 @@ def generateKlave():
 
 def filterPatientDelete(idPatient):
 	printLogQuery("Id recibido for patient: "+str(idPatient))
-	patient = Patient.objects.get(pk=idPatient, userId=userRequest())
+	user = getUser()
+	if user.get_username() == 'admin':
+		patient = Patient.objects.get(pk=idPatient)
+	else:
+		patient = Patient.objects.get(pk=idPatient, userId=userRequest())
 	if patient:
 		return patient
 	else:
