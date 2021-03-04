@@ -67,7 +67,7 @@ def contactoPaciente(request):
 
             recipe = formContact.save(commit=False)
             recipe.nameRecipe = recipe.nameRecipe.title()
-            recipe.subjectRecipe = recipe.subjectRecipe.title()
+            recipe.subjectRecipe = recipe.subjectRecipe
             user = getUser()
             recipe.userId = user.id
             recipe.userCode = user.get_username()
@@ -604,8 +604,8 @@ def emailPatient(request, idPatient):
         request.GET._mutable = True
         request.GET['emailRecipe'] = patient.email
         request.GET['nameRecipe'] = patient.nombre +' '+ patient.apellidoPaterno
-        request.GET['subjectRecipe'] = 'Receta para paciente con expediente '+str(patient.numexp)
-        request.GET['descRecipe'] = 'A continuación describe la receta a enviar...\n\n'
+        request.GET['subjectRecipe'] = 'Receta de paciente con expediente '+str(patient.numexp)
+        request.GET['descRecipe'] = 'A continuación se describe la receta:\n\n'
 
     return contactoPaciente(request)
 

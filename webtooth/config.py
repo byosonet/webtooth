@@ -32,10 +32,11 @@ def getLogin():
 
 #Service sendEmailContact
 def sendEmailContact(dataContact):
+	user = getUser()
 	subject = dataContact['subjectRecipe']
 	email = dataContact['emailRecipe']
 	message = "Hola " + dataContact['nameRecipe'].title() + ", aquí tienes tu receta: \n\n" + \
-            dataContact['descRecipe'] + "\n\n¡Gracias por tu preferencia!, favor de no responder este correo."
+            dataContact['descRecipe'] + "\n\n¡Gracias por tu preferencia!, favor de no responder este correo.\n\nAtte.\n"+user.get_full_name()
 	email_from =  settings.EMAIL_HOST_USER
 	email_to = settings.EMAIL_TO
 	email_to.append(email)
@@ -221,7 +222,7 @@ def compressLogsZip():
 def sendEmailLogs():	
 	fileZip = compressLogsZip()
 	today = str(currentLocalDate())
-	subject = 'Logs comprimidos del sistema Webtooth - '+today
+	subject = 'Logs del sistema Webtooth - '+today
 	message = "Se envía los ficheros logs de la plataforma Webtooth lanzado por el cron del sistema."
 	email_from = settings.EMAIL_HOST_USER
 	email_to = settings.EMAIL_HOST_SUPPORT
