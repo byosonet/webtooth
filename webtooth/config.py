@@ -179,7 +179,7 @@ def getListTask(request, user):
 	if listTask and len(listTask) > 0:
 		data = {}
 		for item in listTask:
-			log.info("Load item "+str(item))
+			log.debug("Load item "+str(item))
 			data[item.id] = item.nameTask
 		request.session['dataTask'] = data
 		request.session['countTask'] = len(listTask)

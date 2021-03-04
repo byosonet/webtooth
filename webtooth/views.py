@@ -58,7 +58,7 @@ def homeView(request):
 
 	try:
 		loadPropertie(user.id, request)
-		log.info("El sistema ya tiene color activado")
+		log.debug("El sistema ya tiene color activado")
 	except Exception as ex:
 		log.error("Error: "+str(ex))
 		log.info("El sistema no tiene color de tema, cargando por default.")		

@@ -672,9 +672,9 @@ def addContact(request):
 def updateClassMenu(request):
     try:
         if request.method == 'POST':
-            log.info("Method POST with params: "+str(request.POST))
+            log.debug("Method POST with params: "+str(request.POST))
             for p in request.POST:
-                log.info("field: {}, value: {}".format(p, request.POST.get(p)))
+                log.debug("field: {}, value: {}".format(p, request.POST.get(p)))
             if request.POST.get('classMenu') != None:
                 updatePropertie(userRequest(), 'class_menu', request.POST.get('classMenu'))
                 loadPropertie(userRequest(), request)
