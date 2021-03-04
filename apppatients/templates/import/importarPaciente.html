@@ -87,6 +87,7 @@
                                         <tr style="text-align: center;">
                                             <th>Fecha de subida</th>
                                             <th>Nombre del fichero</th>
+                                            <th>Subido</th>
                                             <th>Estado</th>
                                         </tr>
                                     </thead>
@@ -97,6 +98,7 @@
                                         <tr>
                                             <td style="width: 150px;">{{item.fechaSubida}}</td>
                                             <td style="width: 400px;"><a class="text-{{request.session.bt_color}}" href="{{item.path.url}}">{{item.path}}</a></td>
+                                            <td style="width: 100px;">{{item.userName}}</td>
                                             <td style="width: 100px;text-align: center;">
                                             {% if item.importado %}
                                             <span class="btn btn-success btn-sm" style="font-size: 10px;"> Importado <i class="fas fa-check"></i></span>

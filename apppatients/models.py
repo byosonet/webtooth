@@ -54,6 +54,7 @@ def user_directory_path(instance, filename):
 	return 'upload/{0}/{1}'.format(instance.userId, filename)
 class File(AuditModel, models.Model):
 	userId = models.IntegerField(blank=True, null=True)
+	userName = models.CharField(blank=True, null=True, max_length=100)
 	nombre = models.CharField(max_length=50, verbose_name="Nombre del archivo")
 	fechaSubida = models.DateTimeField(auto_now_add=True, blank=True, null=True, verbose_name="Fecha de subida")
 	path = models.FileField(blank=True, null=True,verbose_name="Archivo", upload_to=user_directory_path)
@@ -131,6 +132,7 @@ class Propertie(models.Model):
 
 class Import(AuditModel, models.Model):
 	userId = models.IntegerField(blank=True, null=True)
+	userName = models.CharField(blank=True, null=True, max_length=100)
 	tipoSubida = models.CharField(max_length=50, verbose_name="Tipo de fichero")
 	fechaSubida = models.DateTimeField(auto_now_add=True, blank=True, null=True, verbose_name="Fecha de subida")
 	path = models.FileField(blank=True, null=True,verbose_name="Archivo", upload_to="upload-xls")

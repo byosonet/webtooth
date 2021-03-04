@@ -305,6 +305,7 @@ def listarDireccion(request):
 @validRequest
 def altaArchivo(request):
     log.info("[Load view method: altaArchivo]")    
+    user = getUser()
     if request.method == 'POST':
         formFile = FileForm(request.POST, request.FILES)
         if formFile.is_valid():
@@ -314,6 +315,7 @@ def altaArchivo(request):
             file.path.name = fileName
             file.nombre = file.nombre.capitalize()
             file.userId = userRequest()
+            file.userName = user.get_full_name()
             log.info("Formulario valido, preparando alta de archivo...")
             dataFile = formFile.cleaned_data
             printLogPatients("Data recibida del formulario archivo: "+str(dataFile))
@@ -393,6 +395,7 @@ def importPatients(request):
         tipoSubida='Fichero de pacientes').filter(filterQuery()).order_by('-fechaSubida')[:settings.MAX_ROWS_QUERY_MODEL]
 
     if request.method == 'POST':
+        user = getUser()
         importFile = ImportForm(request.POST, request.FILES)
         if importFile.is_valid():
             file = importFile.save(commit=False)
@@ -425,6 +428,7 @@ def importPatients(request):
                     if containsError:
                         file.importado = False
                         file.userId = userRequest()
+                        file.userName = user.get_full_name()
                         file.save()
                         importFile = ImportForm()
                         log.info("Existen errores de validacion, revisar archivo")
@@ -432,10 +436,12 @@ def importPatients(request):
                         return render(request, "import/importarPaciente.html", {"form": importFile, "listadoImportacion":listadoImportacion})
                     file.importado = True
                     file.userId = userRequest()
+                    file.userName = user.get_full_name()
                     file.save()
             else:
                 file.importado = False
                 file.userId = userRequest()
+                file.userName = user.get_full_name()
                 file.save()
                 importFile = ImportForm()
                 log.info("Existen errores de validacion, revisar archivo")
