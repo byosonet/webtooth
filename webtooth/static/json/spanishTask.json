@@ -1,5 +1,3 @@
-
-
 {
 	"sProcessing":     "Procesando...",
 	"sLengthMenu":     "Mostrar _MENU_ tareas",
@@ -16,8 +14,8 @@
 	"oPaginate": {
 		"sFirst":    "Primero",
 		"sLast":     "Último",
-		"sNext":     "Siguiente",
-		"sPrevious": "Anterior"
+		"sNext":     "<span class='text-white'>.</span><i class='fas fa-arrow-right fa-lg'></i>",
+		"sPrevious": "<span class='text-white'>.</span><i class='fas fa-arrow-left fa-lg'></i>"
 	},
 	"oAria": {
 		"sSortAscending":  ": Activar para ordenar la columna de manera ascendente",

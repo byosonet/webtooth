@@ -31,7 +31,7 @@
 <div class="tab-content" id="nav-tabContent">
     <div class="tab-pane fade show active" id="importar" role="tabpanel"
         aria-labelledby="nav-import-xls-patient-tab">
-        <div style="margin-top: 20px; width: 95%; margin-left: 30px;margin-right: 20px;">
+        <div style="margin-top: 20px; width: 95%; margin-left: 10px;margin-right: 20px;">
 
             <form class="user" action="{% url 'importPatients' %}" method="POST" enctype="multipart/form-data">{% csrf_token %}
                 <div class="form-group row">
@@ -39,9 +39,11 @@
                         <i class="fas fa-file-excel fa-1x"></i> {{form.path}}
                         
                     </div>
+                    </br></br>
                     <div class="col-sm-2">
                         <button type="reset" class="btn btn-{{request.session.bt_color}} btn-user btn-block"><i class="fa fa-eraser"></i> Limpiar</button>
                     </div>
+                    </br></br>
                     <div class="col-sm-2">
                         <button type="submit" class="btn btn-{{request.session.bt_color}} btn-user btn-block"><i class="fa fa-upload"></i> Importar</button>
                     </div>
@@ -53,7 +55,7 @@
     </div>
 
     <div class="tab-pane fade" id="listImportar" role="tabpanel" aria-labelledby="nav-listImport-xls-patient-tab">
-            <div style="margin-top: 20px; width: 95%; margin-left: 30px;margin-right: 20px;">
+            <div style="margin-top: 20px; width: 98%; margin-left: 10px;margin-right: 10px;">
         
                     {% if listadoImportacion %}                    
                     <div class="card shadow mb-4">
@@ -125,7 +127,7 @@
 
     <div class="tab-pane fade" id="ayuda" role="tabpanel"
         aria-labelledby="nav-help-import-xls-patient-tab">
-        <div style="margin-top: 20px; width: 95%; margin-left: 30px;margin-right: 20px;">
+        <div style="margin-top: 20px; width: 98%; margin-left: 10px;margin-right: 20px;">
 
             <p style="text-align: justify;">
                 <i class="fas fa-info-circle fa-1x"></i> Desde este apartado podr&aacute;s realizar importaciones de ficheros excel que contengan listado de
