@@ -10151,11 +10151,11 @@ a:focus {
 }
 
 .topbar #sidebarToggleTop:hover {
-  background-color: #eaecf4;
+  background-color: transparent !important;
 }
 
 .topbar #sidebarToggleTop:active {
-  background-color: #dddfeb;
+  background-color: transparent !important;
 }
 
 .topbar .navbar-search {
