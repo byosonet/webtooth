@@ -27,7 +27,7 @@
 </nav>
 <div class="tab-content" id="nav-tabContent">
     <div class="tab-pane fade show active" id="tarea" role="tabpanel" aria-labelledby="nav-receta-tab">
-        <div style="margin-top: 20px; width: 98%; margin-left: 10px;margin-right: 20px;">
+        <div style="margin-top: 20px; width: 98%; margin-left: 5px;margin-right: 5px;">
 
             {% if form %}
             <form class="user" action="{% url 'actualizarTask' idTask %}" method="POST">{% csrf_token %}
@@ -42,6 +42,7 @@
                         </div>
 
                     </div>
+                </br></br>
                     <div class="col-sm-2">
 
                         <div class="input-group">
@@ -52,6 +53,7 @@
                         </div>
 
                     </div>
+                </br></br>
                     <div class="col-sm-2">
 
                         <div class="input-group">
@@ -88,6 +90,7 @@
                         <button id="modidyButton" type="button" class="btn btn-{{request.session.bt_color}} btn-user btn-block"><i
                                 class="fa fa-pen"></i> Modificar</button>
                     </div>
+                </br></br>
                     <div class="col-sm-2">
                         <button id="updateButton" type="submit" class="btn btn-{{request.session.bt_color}} btn-user btn-block"><i
                                 class="fa fa-save"></i> Actualizar</button>
@@ -107,7 +110,7 @@
     </div>
 
     <div class="tab-pane fade" id="ayuda" role="tabpanel" aria-labelledby="nav-help-receta-tab">
-        <div style="margin-top: 20px; width: 98%; margin-left: 10px;margin-right: 20px;">
+        <div style="margin-top: 20px; width: 98%; margin-left: 5px;margin-right: 5px;">
 
             <p style="text-align: justify;">
                 <i class="fas fa-info-circle fa-1x"></i> Desde este apartado podr&aacute;s ver los detalles de la tarea. 
