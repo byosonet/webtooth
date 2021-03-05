@@ -153,6 +153,12 @@ def insertModelNavigation(user,req,res):
   varSession = str(json.dumps({'vars':list(req.session.keys())}))
   log.debug("Session var: "+varSession)
 
+  try:
+    headers = str(req.headers.get('User-Agent'))
+    log.info("App/Origin: "+headers)
+  except:
+    pass
+
   updateDate = timezone.localtime(timezone.now())
   ###log.info("Event time: "+str(updateDate))
 
