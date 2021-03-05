@@ -33,7 +33,7 @@
 </nav>
 <div class="tab-content" id="nav-tabContent">
     <div class="tab-pane fade show active" id="datos-registro" role="tabpanel" aria-labelledby="nav-register-tab">
-        <div style="margin-top: 20px; width: 95%; margin-left: 30px;margin-right: 20px;">
+        <div style="margin-top: 20px; width: 98%; margin-left: 5px;margin-right: 20px;">
 
             <form class="user" action="{% url 'actualizarPaciente' id %}" method="POST" enctype="multipart/form-data">{% csrf_token %}
 
@@ -175,6 +175,7 @@
                             </div>
                         </div>
                     </div>
+                    </br></br>
                     <div class="col-sm-2">
                         {{formAdress.estado}}
                     </div>
@@ -207,7 +208,9 @@
                         <i class="fas fa-user fa-2x text-gray-300"></i>
                         {% endif %}
                         {{form.foto}}
+                    </br></br>
                     </div>
+                    
                     <div class="col-sm-3">
                         {% if not delPatient %}
                         <div style="float: right;">
@@ -234,14 +237,17 @@
                             data-target="#enviarRecetaModal" role="button"><i class="fa fa-pen"></i> Enviar receta</button>
                         
                     </div>
+                    </br></br>
                     <div class="col-sm-2">
                         <button id="modbutton" type="button" class="btn btn-danger btn-user btn-block" href="#" data-toggle="modal"
                             data-target="#modifyModal" role="button"><i class="fa fa-pen"></i> Modificar</button>
                     </div>
+                    </br></br>
                     <div class="col-sm-2">
                         <button id="delbutton" type="button" class="btn btn-danger btn-user btn-block" href="#" data-toggle="modal"
                             data-target="#deleteModal" role="button"><i class="fa fa-trash"></i> Eliminar</button>
                     </div>
+                    </br></br>
                     <div class="col-sm-2">
                         <button id="update" disabled type="submit"
                             class="btn btn-{{request.session.bt_color}} btn-user btn-block"><i class="fa fa-check"></i>
@@ -323,7 +329,7 @@
     </div>
 
     <div class="tab-pane fade" id="ayuda" role="tabpanel" aria-labelledby="nav-help-tab">
-        <div style="margin-top: 20px; width: 95%; margin-left: 30px;margin-right: 20px;">
+        <div style="margin-top: 20px; width: 98%; margin-left: 10px;margin-right: 20px;">
 
             <p style="text-align: justify;">
                 Desde este apartado podr&aacute;s visualizar los datos cl&iacute;nicos del paciente.
