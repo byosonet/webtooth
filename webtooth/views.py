@@ -67,6 +67,7 @@ def homeView(request):
 		createPropertie(user.id,'bt_color', 'primary')
 		createPropertie(user.id,'ad_color', '#4e73df')
 		createPropertie(user.id,'class_menu', '')
+		createPropertie(user.id,'font_italic', 'false')
 		loadPropertie(user.id, request)
 		log.info("Se ha cargado color de tema por default")
 

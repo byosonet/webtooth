@@ -31,4 +31,5 @@ urlpatterns=[
     path('contact/add/json/', csrf_exempt(views.addContact), name="addContact"),
     ###ClassMenu
     path('class/user/',csrf_exempt(views.updateClassMenu), name="updateClassMenu"),
+    path('font/user/<str:value>',views.updateFontMenu, name="updateFontMenu"),
 ]

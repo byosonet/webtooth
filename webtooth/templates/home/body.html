@@ -25,6 +25,11 @@
   {% else %}
     <link href="{% static 'css/global-tooltip.css' %}" rel="stylesheet" />
   {% endif %}
+  {% if request.session.font_italic == 'true' %}
+    <link href="{% static 'css/font-webtooth-italic.css' %}" rel="stylesheet" />
+  {% else %}
+    <link href="{% static 'css/font-webtooth-nunito.css' %}" rel="stylesheet" />
+  {% endif %}
 </head>
 
 <body id="page-top">

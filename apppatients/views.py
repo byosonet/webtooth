@@ -684,6 +684,11 @@ def updateClassMenu(request):
         data = json.dumps({'result': 'KO'})
         return HttpResponse(data, content_type='application/json')
 
+def updateFontMenu(request,value):
+    updatePropertie(userRequest(), 'font_italic', value)
+    loadPropertie(userRequest(), request)
+    return redirect('/')
+
 def printLogPatients(register):
     log.debug(register)
 

@@ -1,0 +1,11 @@
+@font-face {
+    font-family: 'webtooth';
+    src: url('../font/webtooth.ttf');
+}
+body {
+    font-family: webtooth !important;
+    font-size: 1.1em;
+}
+a, input{
+    font-family: webtooth !important;
+}

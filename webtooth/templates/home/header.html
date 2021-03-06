@@ -55,6 +55,12 @@
         <a class="collapse-item" href="{% url 'color' 5 %}"><span class="btn btn-danger btn-circle btn-sm" style="height: 1.5em;width:1em;margin-top: -3px;"></span> Rojo mate</a>        
         <!--a class="collapse-item" href="{% url 'color' 6 %}"><span class="btn btn-warning btn-circle" style="height: 1.5em;width:0.5em;"></span> Naranja</a-->
         <a class="collapse-item" href="{% url 'color' 7 %}"><span class="btn btn-primary btn-circle btn-sm"style="height: 1.5em;width:1em;margin-top: -3px;"></span> Azul (por defecto)</a>
+        <h6 class="collapse-header">Tipo de fuente:</h6>
+        {% if request.session.font_italic == 'true' %}
+          <a class="collapse-item" href="{% url 'updateFontMenu' 'false' %}"><i class="fas fa-italic"></i> Desactivar Italic</a>
+        {% else %}
+          <a class="collapse-item" href="{% url 'updateFontMenu' 'true' %}"><i class="fas fa-italic"></i> Activar Italic</a>
+        {% endif %}
       </div>
     </div>
   </li>

@@ -5,6 +5,11 @@
 {% block extrahead %}
     <link rel="shortcut icon" href="{% static 'favicon/favicon.ico' %}" />  
     <link href="{% static 'css/all.min.css' %}" rel="stylesheet" type="text/css">
+    {% if request.session.font_italic == 'true' %}
+        <link href="{% static 'css/font-webtooth-italic.css' %}" rel="stylesheet" />
+    {% else %}
+        <link href="{% static 'css/font-webtooth-nunito.css' %}" rel="stylesheet" />
+    {% endif %}
 {% endblock %}
 
 {% block extrastyle %}
