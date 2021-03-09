@@ -9,7 +9,6 @@ urlpatterns=[
     path('search/', views.buscarPaciente, name="buscarPaciente"),
     path('search/name/',views.buscarNombre, name="buscarNombre"),
     path('list/patient/',views.listarPaciente, name="listarPaciente"),
-    path('list/navigation/', views.listarNavegacion, name="listarNavegacion"),
     path('list/adress/',views.listarDireccion, name="listarDireccion"),
     path('contact/',views.contactoPaciente, name="contactoPaciente"),
     path('add/', views.altaPaciente, name="altaPaciente"),

@@ -8,7 +8,7 @@ import json
 import os
 from django.conf import settings
 
-from apppatients.models import Patient, Adress, Navigation, Import, Task, Recipe, Propertie
+from apppatients.models import Patient, Adress, Import, Task, Recipe, Propertie
 from apppatients.forms import ContactForm, PatientForm, AdressForm, ImportForm, TaskForm
 from apppatients.config import validErrors
 from apppatients.query import filterSearch, filterByIdPatient, generateKlave, filterByIdPatientAdress, filterPatientDelete, filterByIdTask
@@ -301,16 +301,6 @@ def listarDireccion(request):
     log.info("Obteniendo lista de direcciones")    
     listadoDirecciones = Adress.objects.filter(filterQuery()).order_by('-patient__pk')[:settings.MAX_ROWS_QUERY_MODEL]
     return render(request, "adress/listaDirecciones.html", {"listaDireccion": listadoDirecciones})
-
-
-@login_required(login_url=getLogin())
-@permission_required(listNavigation(), login_url=notPermission())
-@validRequest
-def listarNavegacion(request):
-    log.info("[Load view method: listarNavegacion]")
-    log.info("Obteniendo lista de navegacion")    
-    listadoNavegacion = Navigation.objects.filter(filterQuery()).order_by('-eventTime')[:settings.MAX_ROWS_QUERY_MODEL_NAVIGATION]
-    return render(request, "navigation/listaNavegacion.html", {"listaNavegacion": listadoNavegacion})
 
 
 @login_required(login_url=getLogin())

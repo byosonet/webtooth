@@ -5,7 +5,6 @@ from django.contrib.admin.models import LogEntry
 # Register your models here.
 from apppatients.models import Patient
 from apppatients.models import Adress
-from apppatients.models import Navigation
 from apppatients.models import Propertie
 from apppatients.models import Import
 from apppatients.models import Task
@@ -90,26 +89,6 @@ class LogAdmin(admin.ModelAdmin):
 	def _object_repr(self, obj):
 		return obj.object_repr
 	_object_repr.short_description = 'Bitácora de registro'
-
-class NavigationAdmin(admin.ModelAdmin):
-	list_display = ('eventTime', 'userName','permission', 'method', 'path', 'host', 'varSession')
-	list_filter = ['eventTime', 'userCode']
-	date_hierarchy = ('eventTime')
-	ordering = ('-eventTime',)
-
-	class Media:
-		css = {
-			'all':('css/customAdmin.css',)
-		}
-
-	def has_add_permission(self, request):
-		return False
-	def has_change_permission(self, request, obj=None):
-		return False
-	def has_delete_permission(self, request, obj=None):
-		return False
-	def has_module_permission(self, request):
-		return validUser(request)
 
 
 class PropertieAdmin(admin.ModelAdmin):
@@ -207,7 +186,6 @@ admin.site.register(Patient,PatientAdmin)
 admin.site.register(Adress,AdressAdmin)
 admin.site.register(Permission)
 admin.site.register(LogEntry,LogAdmin)
-admin.site.register(Navigation,NavigationAdmin)
 admin.site.register(Propertie,PropertieAdmin)
 admin.site.register(Import,ImportAdmin)
 admin.site.register(Task,TaskAdmin)

@@ -5,7 +5,7 @@ from django.core.signals import request_finished
 from django.contrib.admin.models import LogEntry
 from django.utils import timezone
 from django.contrib.auth.models import User
-from apppatients.models import Navigation
+from appnavigations.models import Navigation
 import logging
 import json
 
