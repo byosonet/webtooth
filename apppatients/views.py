@@ -384,7 +384,7 @@ def eliminarArchivo(request, idFile):
 def listarNavegacion(request):
     log.info("[Load view method: listarNavegacion]")
     log.info("Obteniendo lista de navegacion")    
-    listadoNavegacion = Navigation.objects.filter(filterQuery()).order_by('-eventTime')[:settings.MAX_ROWS_QUERY_MODEL]
+    listadoNavegacion = Navigation.objects.filter(filterQuery()).order_by('-eventTime')[:settings.MAX_ROWS_QUERY_MODEL_NAVIGATION]
     return render(request, "navigation/listaNavegacion.html", {"listaNavegacion": listadoNavegacion})
 
 

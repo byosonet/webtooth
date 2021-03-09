@@ -10,6 +10,14 @@
 <script src="{% static 'js/pdfmake.min.js' %}"></script>
 <script src="{% static 'js/vfs_fonts.js' %}"></script>
 
+{% if request.session.ad_color == '#4e73df' %}
+    <script src="{% static 'js/doc-blue.js' %}"></script>
+  {% elif request.session.ad_color == '#5a5c69'%}
+  	<script src="{% static 'js/doc-dark.js' %}"></script>
+  {% elif request.session.ad_color == '#e74a3b' %}
+  	<script src="{% static 'js/doc-red.js' %}"></script>
+{% endif %}
+
 <link href="{% static 'css/table.css' %}" rel="stylesheet">
 
 <script type="text/javascript">
@@ -35,7 +43,7 @@
 					pageSize: 'LETTER',
 					download: 'open',
 					customize: function (doc) {
-						doc.content[1].margin = [5, 0, 5, 0] //left, top, right, bottom
+						setDoc(5,doc);
 					},
 					exportOptions: {
 						columns: [0, 1, 2, 3, 4, 5, 7, 8]
@@ -85,7 +93,7 @@
 				pageSize: 'LETTER',
 				download: 'open',
 				customize: function (doc) {
-					doc.content[1].margin = [25, 0, 5, 0] //left, top, right, bottom
+					setDoc(75,doc);
 				},
 				exportOptions: {
 					columns: [0, 1, 2, 3, 4, 5, 6, 7]
@@ -129,7 +137,7 @@
 				pageSize: 'LETTER',
 				download: 'open',
 				customize: function (doc) {
-					doc.content[1].margin = [60, 0, 5, 0] //left, top, right, bottom
+					setDoc(60,doc);
 				},
 				exportOptions: {
 					columns: [0, 1, 2, 4]
@@ -173,7 +181,7 @@
 				pageSize: 'LETTER',
 				download: 'open',
 				customize: function (doc) {
-					doc.content[1].margin = [5, 0, 5, 0] //left, top, right, bottom
+					setDoc(5,doc);
 				},
 				exportOptions: {
 					columns: [0, 1, 2, 3, 4, 5]
@@ -218,7 +226,7 @@
 				pageSize: 'LETTER',
 				download: 'open',
 				customize: function (doc) {
-					doc.content[1].margin = [75, 0, 5, 0] //left, top, right, bottom
+					setDoc(75,doc);
 				},
 				exportOptions: {
 					columns: [0, 1, 2, 3]
@@ -263,7 +271,7 @@
 				pageSize: 'LETTER',
 				download: 'open',
 				customize: function (doc) {
-					doc.content[1].margin = [5, 0, 5, 0] //left, top, right, bottom
+					setDoc(5,doc);
 				},
 				exportOptions: {
 					columns: [1, 2, 3, 4, 5, 6]
@@ -322,7 +330,7 @@
 				pageSize: 'LETTER',
 				download: 'open',
 				customize: function (doc) {
-					doc.content[1].margin = [5, 0, 5, 0] //left, top, right, bottom
+					setDoc(5,doc);
 				},
 				exportOptions: {
 					columns: [0, 1, 2, 3, 4, 5]
