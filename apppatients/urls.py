@@ -16,7 +16,6 @@ urlpatterns=[
     path('update/<int:idPatient>/', views.actualizarPaciente, name="actualizarPaciente"),
     path('delete/<int:idPatient>/', views.eliminarPaciente, name="eliminarPaciente"),
 
-    path('import/patient/', views.importPatients, name="importPatients"),
     path('add/task/', views.altaTarea, name="altaTarea"),
     path('detail/task/<int:idTask>/', views.buscarTaskId, name="buscarTaskId"),
     path('update/task/<int:idTask>/', views.actualizarTask, name="actualizarTask"),

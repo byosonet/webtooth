@@ -1,6 +1,6 @@
 from django import forms
 from apppatients.config import *
-from apppatients.models import Patient, Adress, Import, Task, Recipe
+from apppatients.models import Patient, Adress, Task, Recipe
 from webtooth.settings import DATE_INPUT_FORMAT, DATE_INPUT_SHOW, DATETIME_INPUT_FORMAT, DATETIME_INPUT_SHOW
 
 
@@ -56,14 +56,6 @@ class AdressForm(forms.ModelForm):
 	class Meta:
 		model = Adress
 		fields = ['calle','numeroExt','numeroInt','ciudad','estado','cp']
-
-
-class ImportForm(forms.ModelForm):
-	path = forms.FileField(widget=forms.FileInput(attrs=xlsCSS('Seleccionar excel')))
-
-	class Meta:
-		model = Import
-		fields = ['path']
 
 
 class TaskForm(forms.ModelForm):

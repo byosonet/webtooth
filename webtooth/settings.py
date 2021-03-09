@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'appinventories',
     'appfiles',
     'appnavigations',
+    'appimports',
 ]
 
 MIDDLEWARE = [

@@ -39,6 +39,9 @@ urlpatterns = [
     #Urls appnavigations
     path('service/', include('appnavigations.urls')),
 
+    #Urls appimports
+    path('service/', include('appimports.urls')),
+
     #UrlsNotHasPermissions
     path('permission/required/', notHasPermission, name="notpermission"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -60,6 +60,12 @@ LOGGING = {
             'propagate': False,
             'formatter': 'backend',
         },
+        'appimports.views': {
+            'handlers': ['file', 'console'],
+            'level': settings.LEVEL_LOG,
+            'propagate': False,
+            'formatter': 'backend',
+        },
         'appinventories.views': {
             'handlers': ['file', 'console'],
             'level': settings.LEVEL_LOG,
@@ -79,6 +85,12 @@ LOGGING = {
             'formatter': 'backend',
         },
         'appfiles.config': {
+            'handlers': ['file', 'console'],
+            'level': settings.LEVEL_LOG,
+            'propagate': False,
+            'formatter': 'backend',
+        },
+        'appimports.config': {
             'handlers': ['file', 'console'],
             'level': settings.LEVEL_LOG,
             'propagate': False,

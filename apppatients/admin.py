@@ -6,7 +6,6 @@ from django.contrib.admin.models import LogEntry
 from apppatients.models import Patient
 from apppatients.models import Adress
 from apppatients.models import Propertie
-from apppatients.models import Import
 from apppatients.models import Task
 from apppatients.models import Recipe
 
@@ -111,27 +110,6 @@ class PropertieAdmin(admin.ModelAdmin):
 		return validUser(request)
 
 
-class ImportAdmin(admin.ModelAdmin):
-	list_display = ('tipoSubida', 'fechaSubida', 'path', 'importado')
-	list_filter = ['fechaSubida', 'importado']
-	date_hierarchy = ('fechaSubida')
-	ordering = ('-fechaSubida',)
-
-	class Media:
-		css = {
-			'all': ('css/customAdmin.css',)
-		}
-
-	def has_add_permission(self, request):
-		return False
-	def has_change_permission(self, request, obj=None):
-		return False
-	def has_delete_permission(self, request, obj=None):
-		return False
-	def has_module_permission(self, request):
-		return validUser(request)
-
-
 class TaskAdmin(admin.ModelAdmin):
 	list_display = ('userCode', 'userName', 'nameTask', 'descTask',
 	                'dateCreate', 'dateExecute', 'status')
@@ -187,6 +165,5 @@ admin.site.register(Adress,AdressAdmin)
 admin.site.register(Permission)
 admin.site.register(LogEntry,LogAdmin)
 admin.site.register(Propertie,PropertieAdmin)
-admin.site.register(Import,ImportAdmin)
 admin.site.register(Task,TaskAdmin)
 admin.site.register(Recipe,RecipeAdmin)
