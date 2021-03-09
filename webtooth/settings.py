@@ -127,7 +127,7 @@ USE_TZ = True
 
 DECIMAL_SEPARATOR = '.'
 DATE_FORMAT = 'l d/F/Y'
-DATETIME_FORMAT='l d/b/y H:i a'
+DATETIME_FORMAT='d/b/y H:i a'
 
 DATE_INPUT_FORMAT = ('%d/%m/%Y', '%Y-%m-%d')
 DATE_INPUT_SHOW = '%d/%m/%Y'
