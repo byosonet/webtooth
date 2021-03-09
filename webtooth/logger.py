@@ -84,7 +84,7 @@ LOGGING = {
             'propagate': False,
             'formatter': 'backend',
         },
-        'config': {
+        'webtooth.config': {
             'handlers': ['file', 'console'],
             'level': settings.LEVEL_LOG,
             'propagate': False,
@@ -126,7 +126,7 @@ LOGGING = {
             'propagate': False,
             'formatter': 'backend',
         },
-        'apppatients.decorators': {
+        'webtooth.decorators': {
             'handlers': ['file', 'console'],
             'level': settings.LEVEL_LOG,
             'propagate': False,

@@ -25,7 +25,7 @@ def logger(app,view):
 		log = logging.getLogger(str(app))
 	return log
 
-log = logger('config',False)
+log = logger('webtooth.config',False)
 
 #Redirect al login de la aplicacion
 def getLogin():

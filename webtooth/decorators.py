@@ -7,7 +7,7 @@ from django.shortcuts import render
 from webtooth.settings import MAX_TIME_MINUTES_SESSION, SESSION_EXPIRY_SECONDS
 from webtooth.signals import getUser
 
-log = logging.getLogger('apppatients.decorators')
+log = logging.getLogger('webtooth.decorators')
 def validRequest(viewReceived):
     def validRequestInternal(request, *args, **kwargs):
         if not process_request(request):

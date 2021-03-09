@@ -1,5 +1,5 @@
 from django.db import models
-from . mixins import AuditModel
+from webtooth.mixins import AuditModel
 
 # Create your models here.
 
