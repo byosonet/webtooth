@@ -7,7 +7,8 @@ from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.sessions.models import Session
 from django.utils import timezone
-from apppatients.models import Propertie, Task
+from apptasks.models import Task
+from apppatients.models import Propertie
 from webtooth.signals import getUser
 
 from webtooth.logger import LOGGING

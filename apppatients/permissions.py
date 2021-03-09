@@ -18,30 +18,6 @@ def deletePatient():
 def viewAdress():
 	return APP_NAME_MANAGEMENT_PATIENT+'viewAdress'
 
-#Gestion de permisos para Archivos
-def listFile():
-	return APP_NAME_MANAGEMENT_PATIENT+'listFile'
-def addFile():
-	return APP_NAME_MANAGEMENT_PATIENT+'addFile'
-def deleteFile():
-	return APP_NAME_MANAGEMENT_PATIENT+'deleteFile'
-
-def listNavigation():
-	return APP_NAME_MANAGEMENT_PATIENT+'viewListNavigation'
-
-#Gestion de permisos para Importar
-def importFile():
-	return APP_NAME_MANAGEMENT_PATIENT+'importFile'
-
-#Gestion de permisos para Tareas
-def listTask():
-	return APP_NAME_MANAGEMENT_PATIENT+'listTask'
-def addTask():
-	return APP_NAME_MANAGEMENT_PATIENT+'addTask'
-def deleteTask():
-	return APP_NAME_MANAGEMENT_PATIENT+'deleteTask'
-
-
 #Gestion de permisos para Recetas
 def listRecipe():
 	return APP_NAME_MANAGEMENT_PATIENT+'listRecipe'

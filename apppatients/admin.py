@@ -6,7 +6,6 @@ from django.contrib.admin.models import LogEntry
 from apppatients.models import Patient
 from apppatients.models import Adress
 from apppatients.models import Propertie
-from apppatients.models import Task
 from apppatients.models import Recipe
 
 class PatientAdmin(admin.ModelAdmin):
@@ -110,28 +109,6 @@ class PropertieAdmin(admin.ModelAdmin):
 		return validUser(request)
 
 
-class TaskAdmin(admin.ModelAdmin):
-	list_display = ('userCode', 'userName', 'nameTask', 'descTask',
-	                'dateCreate', 'dateExecute', 'status')
-	list_filter = ['dateCreate', 'dateExecute', 'userCode', 'status']
-	date_hierarchy = ('dateCreate')
-	ordering = ('-dateCreate',)
-
-	class Media:
-		css = {
-			'all': ('css/customAdmin.css',)
-		}
-
-	def has_add_permission(self, request):
-		return False
-	def has_change_permission(self, request, obj=None):
-		return False
-	def has_delete_permission(self, request, obj=None):
-		return False
-	def has_module_permission(self, request):
-		return validUser(request)
-
-
 class RecipeAdmin(admin.ModelAdmin):
 	list_display = ('userCode', 'userName', 'nameRecipe', 'subjectRecipe',
 	                'emailRecipe', 'descRecipe', 'dateSend', 'stateRecipe')
@@ -165,5 +142,4 @@ admin.site.register(Adress,AdressAdmin)
 admin.site.register(Permission)
 admin.site.register(LogEntry,LogAdmin)
 admin.site.register(Propertie,PropertieAdmin)
-admin.site.register(Task,TaskAdmin)
 admin.site.register(Recipe,RecipeAdmin)

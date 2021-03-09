@@ -14,7 +14,7 @@ log = logging.getLogger('webtooth.signals')
 @receiver(post_save)
 def auditAddUpdateLog(sender, instance, created, raw, update_fields, **kwargs):
   
-  list_of_models = ['Patient','Adress','File','Import']
+  list_of_models = ['Patient','Adress','File','Import','Task']
   
   if sender.__name__ not in list_of_models:
     return

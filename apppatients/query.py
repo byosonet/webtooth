@@ -1,4 +1,4 @@
-from apppatients.models import Patient, Adress, Task
+from apppatients.models import Patient, Adress
 from django.db.models import Q
 from webtooth.signals import getUser
 
@@ -130,26 +130,6 @@ def filterByIdPatientAdress(idPatient, formAdress):
 			return None
 	except Exception as ex:
 		log.error("Error: "+str(ex))
-		return None
-
-
-def filterByIdTask(idTask, formTask):
-	printLogQuery("Id recibido for task: "+str(idTask))	
-	user = getUser()
-	if user.get_username() == 'admin':
-		task = Task.objects.get(pk=idTask)
-	else:
-		task = Task.objects.get(pk=idTask, userId=userRequest())
-
-	if task:
-		log.info("Task encontrado: {}".format(task.nameTask))
-		formTask.fields['nameTask'].initial = task.nameTask
-		formTask.fields['descTask'].initial = task.descTask
-		formTask.fields['status'].initial = task.status
-		formTask.fields['dateCreate'].initial = task.dateCreate
-		formTask.fields['dateExecute'].initial = task.dateExecute
-		return formTask
-	else:
 		return None
 
 def generateKlave():
