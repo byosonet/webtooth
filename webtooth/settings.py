@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'apppatients',
     'appinventories',
+    'appfiles',
 ]
 
 MIDDLEWARE = [
@@ -51,7 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'apppatients.middleware.RequestMiddleware'
+    'webtooth.middleware.RequestMiddleware'
 ]
 
 ROOT_URLCONF = 'webtooth.urls'

@@ -6,7 +6,7 @@ class ApppatientsConfig(AppConfig):
     verbose_name = 'Gestión de Pacientes'
 
     def ready(self):
-        from apppatients import signals
+        from webtooth import signals
         from webtooth.cron import timer
         timer.logMailTimer()
         timer.monitorTimer()

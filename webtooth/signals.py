@@ -1,4 +1,4 @@
-from apppatients.middleware import RequestMiddleware
+from webtooth.middleware import RequestMiddleware
 from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 from django.core.signals import request_finished
@@ -9,12 +9,12 @@ from apppatients.models import Navigation
 import logging
 import json
 
-log = logging.getLogger('apppatients.signals')
+log = logging.getLogger('webtooth.signals')
 
 @receiver(post_save)
 def auditAddUpdateLog(sender, instance, created, raw, update_fields, **kwargs):
   
-  list_of_models = ['Patient','Adress','File',]
+  list_of_models = ['Patient','Adress','File']
   
   if sender.__name__ not in list_of_models:
     return

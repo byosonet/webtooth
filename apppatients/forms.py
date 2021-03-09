@@ -1,6 +1,6 @@
 from django import forms
 from apppatients.config import *
-from apppatients.models import Patient, Adress, File, Import, Task, Recipe
+from apppatients.models import Patient, Adress, Import, Task, Recipe
 from webtooth.settings import DATE_INPUT_FORMAT, DATE_INPUT_SHOW, DATETIME_INPUT_FORMAT, DATETIME_INPUT_SHOW
 
 
@@ -56,15 +56,6 @@ class AdressForm(forms.ModelForm):
 	class Meta:
 		model = Adress
 		fields = ['calle','numeroExt','numeroInt','ciudad','estado','cp']
-
-
-class FileForm(forms.ModelForm):
-	nombre = forms.CharField(max_length=50, widget=forms.TextInput(attrs=inputCSS('Nombre del archivo (*)')))
-	path = forms.FileField(widget=forms.FileInput(attrs=fileCSS('Seleccionar archivo')))
-
-	class Meta:
-		model = File
-		fields = ['nombre', 'path']
 
 
 class ImportForm(forms.ModelForm):

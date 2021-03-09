@@ -32,6 +32,9 @@ urlpatterns = [
 
     #Urls apppatients
     path('service/', include('apppatients.urls')),
+    
+    #Urls appfiles
+    path('service/', include('appfiles.urls')),
 
     #UrlsNotHasPermissions
     path('permission/required/', notHasPermission, name="notpermission"),

@@ -5,7 +5,7 @@ from webtooth.config import currentLocalTimestamp
 from datetime import datetime
 from django.shortcuts import render
 from webtooth.settings import MAX_TIME_MINUTES_SESSION, SESSION_EXPIRY_SECONDS
-from apppatients.signals import getUser
+from webtooth.signals import getUser
 
 log = logging.getLogger('apppatients.decorators')
 def validRequest(viewReceived):

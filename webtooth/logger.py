@@ -48,6 +48,12 @@ LOGGING = {
             'propagate': False,
             'formatter': 'backend',
         },
+        'appfiles.views': {
+            'handlers': ['file', 'console'],
+            'level': settings.LEVEL_LOG,
+            'propagate': False,
+            'formatter': 'backend',
+        },
         'appinventories.views': {
             'handlers': ['file', 'console'],
             'level': settings.LEVEL_LOG,
@@ -66,7 +72,13 @@ LOGGING = {
             'propagate': False,
             'formatter': 'backend',
         },
-        'apppatients.signals': {
+        'appfiles.config': {
+            'handlers': ['file', 'console'],
+            'level': settings.LEVEL_LOG,
+            'propagate': False,
+            'formatter': 'backend',
+        },
+        'webtooth.signals': {
             'handlers': ['file', 'console'],
             'level': settings.LEVEL_LOG,
             'propagate': False,

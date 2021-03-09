@@ -5,13 +5,14 @@ from webtooth.config import getLogin, getListTask, getListTaskHome
 from webtooth.config import logger,getAllLoggedUsers,filterQuery
 from webtooth.config import setColorSystem, createPropertie, loadPropertie, updatePropertie
 
-from apppatients.models import Patient, File, Task, Recipe
+from apppatients.models import Patient, Task, Recipe
+from appfiles.models import File
 
 from django.db.models import Q
 from webtooth.decorators import validRequest
 from webtooth.config import currentLocalTimestamp
 
-from apppatients.signals import getUser
+from webtooth.signals import getUser
 
 import os, shutil
 from django.conf import settings

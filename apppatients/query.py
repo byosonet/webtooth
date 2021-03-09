@@ -1,6 +1,6 @@
 from apppatients.models import Patient, Adress, Task
 from django.db.models import Q
-from apppatients.signals import getUser
+from webtooth.signals import getUser
 
 import uuid
 from datetime import date
