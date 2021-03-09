@@ -8,8 +8,8 @@ import json
 import os
 from django.conf import settings
 
-from apppatients.models import Patient, Adress, Recipe, Propertie
-from apppatients.forms import ContactForm, PatientForm, AdressForm
+from apppatients.models import Patient, Adress, Propertie
+from apppatients.forms import PatientForm, AdressForm
 from apppatients.config import validErrors
 from apppatients.query import filterSearch, filterByIdPatient, generateKlave, filterByIdPatientAdress, filterPatientDelete
 
@@ -53,61 +53,6 @@ def listarPaciente(request):
     log.info("Obteniendo lista de pacientes")    
     listadoPacientes = Patient.objects.filter(filterQuery()).order_by('-fechaUpdate')[:settings.MAX_ROWS_QUERY_MODEL]
     return render(request, "patient/listaPacientes.html", {"listaPaciente":listadoPacientes})
-
-@login_required(login_url=getLogin())
-@permission_required(viewPatient(),login_url=notPermission())
-@validRequest
-def contactoPaciente(request):
-    log.info("[Load view method: contactoPaciente]")    
-    listadoEnviados = Recipe.objects.filter(filterQuery()).order_by('-dateSend')[:settings.MAX_ROWS_QUERY_MODEL]
-    if request.method=='POST':
-        formContact = ContactForm(request.POST)
-        if formContact.is_valid():
-            log.info("Formulario valido, preparando envío...")
-
-            recipe = formContact.save(commit=False)
-            recipe.nameRecipe = recipe.nameRecipe.title()
-            recipe.subjectRecipe = recipe.subjectRecipe
-            user = getUser()
-            recipe.userId = user.id
-            recipe.userCode = user.get_username()
-            recipe.userName = user.get_full_name()
-            
-            dataContact = formContact.cleaned_data
-            printLogPatients("Data recibida del formulario Recipe: "+str(dataContact))
-            log.info("Se ha agregado a la BD el nuevo registro")
-            
-            email=sendEmailContact(dataContact)
-            if email == None:
-                recipe.stateRecipe = 'No enviado'
-                messages.error(
-                    request, f"Servidor de correo no disponible, intentelo más tarde.")
-            else:
-                recipe.stateRecipe = 'Enviado'
-                messages.success(request, f"El correo se ha enviado correctamente ha: {email}")
-            recipe.save()
-            formContact = ContactForm()
-            return render(request,"contact/contacto.html", {"form":formContact, "listadoEnviados":listadoEnviados})
-        else:
-            log.error("Formulario recibido no pasa la validacion...")
-            messages.error(request, "[ERROR]: Algunos campos necesitan llenarse de forma correcta.")
-            validErrors(formContact)
-
-    else:
-        try:
-            emailRecipe = request.GET['emailRecipe'] 
-            nameRecipe = request.GET['nameRecipe'] 
-            subjectRecipe = request.GET['subjectRecipe']
-            descRecipe = request.GET['descRecipe']
-            printLogPatients("emailRecipe: "+emailRecipe)
-            printLogPatients("nameRecipe: "+nameRecipe)
-            printLogPatients("subjectRecipe: "+subjectRecipe)
-            printLogPatients("descRecipe: "+descRecipe)
-            formContact = ContactForm(request.GET)
-        except Exception as ex:
-            formContact = ContactForm()
-    return render(request,"contact/contacto.html", {"form":formContact, "listadoEnviados":listadoEnviados})
-
 
 @login_required(login_url=getLogin())
 @permission_required(addPatient(),login_url=notPermission())
@@ -301,27 +246,6 @@ def listarDireccion(request):
     log.info("Obteniendo lista de direcciones")    
     listadoDirecciones = Adress.objects.filter(filterQuery()).order_by('-patient__pk')[:settings.MAX_ROWS_QUERY_MODEL]
     return render(request, "adress/listaDirecciones.html", {"listaDireccion": listadoDirecciones})
-
-
-@login_required(login_url=getLogin())
-@validRequest
-def emailPatient(request, idPatient):
-    log.info("[Load view method: emailPatient(idPatient)]")
-    log.info("idPatient for email: "+str(idPatient))
-    user = getUser()
-    if user.get_username() == 'admin':
-        patient = Patient.objects.get(pk=idPatient)
-    else:
-        patient = Patient.objects.get(pk=idPatient, userId=userRequest())
-
-    if not request.GET._mutable:
-        request.GET._mutable = True
-        request.GET['emailRecipe'] = patient.email
-        request.GET['nameRecipe'] = patient.nombre +' '+ patient.apellidoPaterno
-        request.GET['subjectRecipe'] = 'Receta de paciente con expediente '+str(patient.numexp)
-        request.GET['descRecipe'] = 'A continuación se describe la receta:\n\n'
-
-    return contactoPaciente(request)
 
 def jsonPatient(request):
     log.info("Load json for get list patient")

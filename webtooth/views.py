@@ -5,7 +5,8 @@ from webtooth.config import getLogin, getListTask, getListTaskHome
 from webtooth.config import logger,getAllLoggedUsers,filterQuery
 from webtooth.config import setColorSystem, createPropertie, loadPropertie, updatePropertie
 
-from apppatients.models import Patient, Recipe
+from apppatients.models import Patient 
+from apprecipes.models import Recipe
 from apptasks.models import Task
 from appfiles.models import File
 
