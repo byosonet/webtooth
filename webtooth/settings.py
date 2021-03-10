@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'ee@#=1ivnkbyqflvaj#l=fn02xcec@eu6(_=v6%lcpinchwqee'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 #Si debug esta en False hay que añadir valores a los HOSTS
 ALLOWED_HOSTS = ['*']
@@ -50,6 +50,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -151,6 +152,8 @@ MEDIA_ROOT = projectPath+'media'
 MEDIA_PATH = projectPath+'media/'
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 STATICFILES_DIRS = [projectPath+'static']
 PATH_LOGS = projectPath+'logs'
 PATH_ZIPMAIL = projectPath+'zipmail/'
