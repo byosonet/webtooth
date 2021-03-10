@@ -1,12 +1,20 @@
 {% extends "home/body.html" %}
 
-{% block title %} WebTooth | Status 404 {%endblock%}
-{% block titlepage %} Status 404 {%endblock%}
+{% load static %}
+
+{% block title %} WebTooth | P&aacute;gina no disponible {%endblock%}
+{% block titlepage %} P&aacute;gina o recurso no disponible <div style="text-align: center;">
+	<hr style="margin: 5 auto;"><b><i class="fas fa-user-lock"></i></b>
+</div> {%endblock%}
 
 {% block body %} 
 
-	<div class="card-header py-3">
-  		<h6 class="m-0 font-weight-bold text-primary">{{data}}</h6>
+	<div style="text-align: center;margin-top: 50px;">
+		<br>
+		<br>
+		<h6 class="m-0 font-weight-bold text-{{request.session.bt_color}}" style="text-align: center;">¡Contacta con un
+			administrador del sistema si el problema persiste!</h6>
+		<img src="{% static 'img/stop.png' %}" style="height: 350px;">
 	</div>
 	
 {% endblock %}
