@@ -4,7 +4,7 @@ import logging
 from webtooth.config import currentLocalTimestamp
 from datetime import datetime
 from django.shortcuts import render
-from webtooth.settings import MAX_TIME_MINUTES_SESSION, SESSION_EXPIRY_SECONDS
+from django.conf import settings
 from webtooth.signals import getUser
 
 log = logging.getLogger('webtooth.decorators')
@@ -17,7 +17,7 @@ def validRequest(viewReceived):
         try:
             user = getUser()
             loadPropertie(user.id,request)            
-            request.session.set_expiry(SESSION_EXPIRY_SECONDS)
+            request.session.set_expiry(settings.SESSION_EXPIRY_SECONDS)
         except Exception as ex:
             log.error("Error load propertie: "+str(ex))
             createFirstOnly(request)
@@ -49,8 +49,8 @@ def process_request(request):
         minutes = int(dt/60)
 
         log.info(">>> {} Minutos transcurridos desde la última petición".format(minutes))
-        if minutes >= MAX_TIME_MINUTES_SESSION:
-            log.info("Sesión terminada, se ha excedido el máximo tiempo de espera que es de {} minutos".format(MAX_TIME_MINUTES_SESSION))
+        if minutes >= settings.MAX_TIME_MINUTES_SESSION:
+            log.info("Sesión terminada, se ha excedido el máximo tiempo de espera que es de {} minutos".format(settings.MAX_TIME_MINUTES_SESSION))
             session = False
         else:
             log.info("Sesión vigente")

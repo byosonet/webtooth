@@ -12,7 +12,6 @@ from appproperties.models import Propertie
 from webtooth.signals import getUser
 
 from webtooth.logger import LOGGING
-from webtooth.settings import PATH_LOGS, PATH_ZIPMAIL
 from django.db import connection
 from django.db.models import Q
 
@@ -218,7 +217,7 @@ def getListTaskHome(user):
 
 def compressLogsZip():
 	today = str('webtooth-logs-')+str(currentLocalDate())
-	shutil.make_archive(PATH_ZIPMAIL+today, 'zip',PATH_LOGS)
+	shutil.make_archive(settings.PATH_ZIPMAIL+today, 'zip',settings.PATH_LOGS)
 	ficheroGenerado = str(today+'.zip')
 	log.info("Logs comprimidos con exito, fichero generado: " + ficheroGenerado)
 	return ficheroGenerado
@@ -235,7 +234,7 @@ def sendEmailLogs():
 		log.info("Enviando correo a soporte: "+str(email_to))
 
 		emailSupport = EmailMessage(subject, message, email_from, email_to)
-		emailSupport.attach_file(PATH_ZIPMAIL+str(fileZip))
+		emailSupport.attach_file(settings.PATH_ZIPMAIL+str(fileZip))
 		emailSupport.send()
 
 		log.info("Correo enviado correctamente a: "+str(email_to))
