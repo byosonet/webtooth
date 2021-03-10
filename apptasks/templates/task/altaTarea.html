@@ -137,8 +137,11 @@
                   {% endif %}
                   <td style="width: 100px;text-align: center;">{{item.userName}}</td>
                   <td style="text-align: center;">
+                    {% now "Y-m-d" as today_date %}
                     {% if item.status %}
                     <span class="btn btn-success btn-sm" style="font-size: 10px;"> Ejecutado </span>
+                    {% elif item.dateCreate|date:"Y-m-d" < today_date %}
+                    <span class="btn btn-secondary btn-sm" style="font-size: 10px;"> &nbsp;Vencido&nbsp; </span>
                     {% else %}
                     <span class="btn btn-warning btn-sm" style="font-size: 10px;"> Pendiente </span>
                     {% endif %}
