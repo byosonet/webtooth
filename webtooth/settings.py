@@ -156,7 +156,7 @@ PATH_ZIPMAIL = projectPath+'zipmail/'
 
 #DATOS PARA ENVIO DE EMAIL DESDE CTA DE GMAIL
 EMAIL_BACKEND="django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST="smtp.gmail.comx"
+EMAIL_HOST="smtp.gmail.com"
 EMAIL_USE_TLS=True
 EMAIL_PORT=587
 EMAIL_HOST_USER="noreply.webtooth@gmail.com"
@@ -194,4 +194,4 @@ MAX_ROWS_QUERY_MODEL_NAVIGATION = 1000
 CORS_ORIGIN_ALLOW_ALL = True
 
 ##SHOW QUERY STRINGS
-LEVEL_LOG = 'DEBUG'
+LEVEL_LOG = 'INFO'
