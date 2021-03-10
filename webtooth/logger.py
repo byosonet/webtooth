@@ -2,7 +2,7 @@ from django.conf import settings
 
 LOGGING = {
     'version': 1,
-    'disable_existing_loggers': True,
+    'disable_existing_loggers': False,
     'formatters': {
         'backend': {
             'format': '[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] => %(message)s',
