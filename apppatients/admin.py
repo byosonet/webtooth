@@ -1,11 +1,9 @@
 from django.contrib import admin
-from django.contrib.auth.models import Permission
 from django.contrib.admin.models import LogEntry
 
 # Register your models here.
 from apppatients.models import Patient
 from apppatients.models import Adress
-from apppatients.models import Propertie
 
 class PatientAdmin(admin.ModelAdmin):
 	readonly_fields = ("fechaAlta", "fechaUpdate","numexp","foto")
@@ -88,26 +86,6 @@ class LogAdmin(admin.ModelAdmin):
 	_object_repr.short_description = 'Bitácora de registro'
 
 
-class PropertieAdmin(admin.ModelAdmin):
-	list_display = ('userId', 'key', 'value')
-	list_filter = ['userId']
-	ordering = ('-userId',)
-
-	class Media:
-		css = {
-			'all': ('css/customAdmin.css',)
-		}
-
-	def has_add_permission(self, request):
-		return False
-	def has_change_permission(self, request, obj=None):
-		return False
-	def has_delete_permission(self, request, obj=None):
-		return False
-	def has_module_permission(self, request):
-		return validUser(request)
-
-
 def validUser(request):
 	usercode = request.user.get_username()	
 	if usercode == 'admin':
@@ -117,6 +95,4 @@ def validUser(request):
 
 admin.site.register(Patient,PatientAdmin)
 admin.site.register(Adress,AdressAdmin)
-admin.site.register(Permission)
 admin.site.register(LogEntry,LogAdmin)
-admin.site.register(Propertie,PropertieAdmin)

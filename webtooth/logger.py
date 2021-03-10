@@ -78,6 +78,12 @@ LOGGING = {
             'propagate': False,
             'formatter': 'backend',
         },
+        'appproperties.views': {
+            'handlers': ['file', 'console'],
+            'level': settings.LEVEL_LOG,
+            'propagate': False,
+            'formatter': 'backend',
+        },
         'appinventories.views': {
             'handlers': ['file', 'console'],
             'level': settings.LEVEL_LOG,

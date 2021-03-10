@@ -1,5 +1,5 @@
 from django.db import models
-from apppatients.mixins import AuditModel
+from webtooth.mixins import AuditModel
 
 # Create your models here.
 class Patient(AuditModel, models.Model):
@@ -25,7 +25,6 @@ class Patient(AuditModel, models.Model):
 	def __str__(self):
 		return "expediente: {}, de {} {}".format(self.numexp,self.nombre,self.apellidoPaterno)
 
-	#Nombre de la tabal en la BD
 	class Meta:
 		verbose_name = 'paciente'
 		verbose_name_plural = 'Pacientes'
@@ -50,16 +49,3 @@ class Adress(AuditModel, models.Model):
 		verbose_name = 'dirección'
 		verbose_name_plural = 'Direcciones'
 		permissions = [("viewAdress", "Ver dirección")]
-
-class Propertie(models.Model):
-	userId = models.IntegerField(blank=True, null=True)
-	key = models.CharField(max_length=100, verbose_name="key")
-	value = models.CharField(blank=True, null=True, max_length=100, verbose_name="value")
-
-	def __str__(self):
-		return "key: {}, value: {}".format(self.key, self.value)
-
-	class Meta:
-		verbose_name = 'propiedad'
-		verbose_name_plural = 'Propiedades'
-

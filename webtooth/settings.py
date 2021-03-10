@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'appimports',
     'apptasks',
     'apprecipes',
+    'appproperties',
 ]
 
 MIDDLEWARE = [

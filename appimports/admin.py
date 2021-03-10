@@ -1,6 +1,4 @@
 from django.contrib import admin
-from django.contrib.auth.models import Permission
-from django.contrib.admin.models import LogEntry
 
 # Register your models here.
 from appimports.models import Import

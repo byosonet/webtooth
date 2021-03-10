@@ -1,13 +1,12 @@
 from django.contrib import admin
 
 # Register your models here.
-from appfiles.models import File
+from appproperties.models import Propertie
 
-class FileAdmin(admin.ModelAdmin):
-	list_display = ('userName','nombre', 'fechaSubida', 'path')
-	list_filter = ['fechaSubida','userName']
-	date_hierarchy = ('fechaSubida')
-	ordering = ('-fechaSubida',)
+class PropertieAdmin(admin.ModelAdmin):
+	list_display = ('userId', 'key', 'value')
+	list_filter = ['userId']
+	ordering = ('-userId',)
 
 	class Media:
 		css = {
@@ -30,4 +29,4 @@ def validUser(request):
 	else:
 		return False
 
-admin.site.register(File,FileAdmin)
+admin.site.register(Propertie,PropertieAdmin)

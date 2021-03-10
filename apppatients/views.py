@@ -8,7 +8,7 @@ import json
 import os
 from django.conf import settings
 
-from apppatients.models import Patient, Adress, Propertie
+from apppatients.models import Patient, Adress
 from apppatients.forms import PatientForm, AdressForm
 from apppatients.config import validErrors
 from apppatients.query import filterSearch, filterByIdPatient, generateKlave, filterByIdPatientAdress, filterPatientDelete
@@ -272,26 +272,6 @@ def addContact(request):
             log.info("field: {}, value: {}".format(p, request.POST.get(p)))
         data = json.dumps({'result': '¡Add contact OK!'})
         return HttpResponse(data, content_type='application/json')
-
-def updateClassMenu(request):
-    try:
-        if request.method == 'POST':
-            log.debug("Method POST with params: "+str(request.POST))
-            for p in request.POST:
-                log.debug("field: {}, value: {}".format(p, request.POST.get(p)))
-            if request.POST.get('classMenu') != None:
-                updatePropertie(userRequest(), 'class_menu', request.POST.get('classMenu'))
-                loadPropertie(userRequest(), request)
-            data = json.dumps({'result': 'OK'})
-            return HttpResponse(data, content_type='application/json')
-    except:
-        data = json.dumps({'result': 'KO'})
-        return HttpResponse(data, content_type='application/json')
-
-def updateFontMenu(request,value):
-    updatePropertie(userRequest(), 'font_italic', value)
-    loadPropertie(userRequest(), request)
-    return redirect('/')
 
 def printLogPatients(register):
     log.debug(register)

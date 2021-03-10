@@ -48,6 +48,9 @@ urlpatterns = [
     #Urls apprecipes
     path('service/', include('apprecipes.urls')),
 
+    #Urls appproperties
+    path('service/', include('appproperties.urls')),
+
     #UrlsNotHasPermissions
     path('permission/required/', notHasPermission, name="notpermission"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

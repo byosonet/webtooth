@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 from django.contrib.sessions.models import Session
 from django.utils import timezone
 from apptasks.models import Task
-from apppatients.models import Propertie
+from appproperties.models import Propertie
 from webtooth.signals import getUser
 
 from webtooth.logger import LOGGING
