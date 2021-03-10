@@ -92,7 +92,7 @@ def homeView(request):
 
 @validRequest
 def error404(request, exception):
-	log.error("Página no encontrada: ")
+	log.error("Página o recurso no encontrado ==> ["+str(request.get_full_path())+"]")
 	message="Lo sentimos, página no encontrada"
 	data = {"data":message}
 	return render(request,'other/404.html', data)
