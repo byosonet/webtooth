@@ -84,6 +84,12 @@ LOGGING = {
             'propagate': False,
             'formatter': 'backend',
         },
+        'appadmin.views': {
+            'handlers': ['file', 'console'],
+            'level': settings.LEVEL_LOG,
+            'propagate': False,
+            'formatter': 'backend',
+        },
         'appinventories.views': {
             'handlers': ['file', 'console'],
             'level': settings.LEVEL_LOG,
@@ -121,6 +127,18 @@ LOGGING = {
             'formatter': 'backend',
         },
         'apprecipes.config': {
+            'handlers': ['file', 'console'],
+            'level': settings.LEVEL_LOG,
+            'propagate': False,
+            'formatter': 'backend',
+        },
+        'appadmin.config': {
+            'handlers': ['file', 'console'],
+            'level': settings.LEVEL_LOG,
+            'propagate': False,
+            'formatter': 'backend',
+        },
+        'tasks.config': {
             'handlers': ['file', 'console'],
             'level': settings.LEVEL_LOG,
             'propagate': False,

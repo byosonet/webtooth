@@ -1,7 +1,7 @@
 from datetime import datetime
 from webtooth.config import logger, sendEmailLogs
 
-log = logger('apppatients.config', False)
+log = logger('tasks.config', False)
 FORMAT_TIME = "%d/%m/%Y %H:%M:%S %p"
 
 def logMailTask():

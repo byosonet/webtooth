@@ -32,22 +32,16 @@ urlpatterns = [
 
     #Urls apppatients
     path('service/', include('apppatients.urls')),
-    
     #Urls appfiles
     path('service/', include('appfiles.urls')),
-
     #Urls appnavigations
     path('service/', include('appnavigations.urls')),
-
     #Urls appimports
     path('service/', include('appimports.urls')),
-
     #Urls apptasks
     path('service/', include('apptasks.urls')),
-
     #Urls apprecipes
     path('service/', include('apprecipes.urls')),
-
     #Urls appproperties
     path('service/', include('appproperties.urls')),
 

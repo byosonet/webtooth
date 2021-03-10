@@ -7,6 +7,3 @@ class ApppatientsConfig(AppConfig):
 
     def ready(self):
         from webtooth import signals
-        from webtooth.cron import timer
-        timer.logMailTimer()
-        timer.monitorTimer()
