@@ -36,14 +36,8 @@ def buscarPaciente(request):
 @validRequest
 def buscarNombre(request):
     log.info("[Load view method: buscarNombre]")
-    try:
-        listadoPacientes = filterSearch(request)
-        return render(request, "patient/listaPacientes.html", {"listaPaciente":listadoPacientes,"txtbuscado":"No se encontraron datos"})
-    except Exception as ex:
-        log.error("Faltan campos por llenarse: "+str(ex))
-        message="Para poder realizar la acción, primero se debe introducir los parámetros faltantes."
-        data = {"data":message}
-        return render(request,'error/error.html', data)
+    listadoPacientes = filterSearch(request)
+    return render(request, "patient/listaPacientes.html", {"listaPaciente":listadoPacientes,"txtbuscado":"No se encontraron datos"})
 
 @login_required(login_url=getLogin())
 @permission_required(viewPatient(),login_url=notPermission())

@@ -6,6 +6,8 @@ from . models import File
 from . forms import FileForm
 from . config import validErrors
 
+import os
+from django.conf import settings
 from appfiles.permissions import *
 from webtooth.config import logger, getLogin, currentLocalTime, filterQuery
 from django.contrib import messages
@@ -27,7 +29,6 @@ def altaArchivo(request):
             file.fechaSubida = currentLocalTime()
             fileName = file.nombre+"."+file.path.name[::-1].split(".")[0][::-1]            
             file.path.name = fileName
-            file.nombre = file.nombre.capitalize()
             file.userId = userRequest()
             file.userName = user.get_full_name()
             log.info("Formulario valido, preparando alta de archivo...")
@@ -72,7 +73,7 @@ def eliminarArchivo(request, idFile):
             file = File.objects.get(pk=idFile, userId=userRequest())
         fileOld = file.path
         log.info("Se ha eliminado el archivo de BD: {}".format(file.fileName))
-        fileN = file.path.name.split("/")[1]
+        fileN = file.nombre+"."+file.path.name[::-1].split(".")[0][::-1] 
         file.delete()
         try:
             if fileOld:
@@ -85,7 +86,7 @@ def eliminarArchivo(request, idFile):
         return render(request, "file/listaArchivos.html", {"listaArchivo": listadoArchivos})
     except Exception as ex:
         log.error("Error: "+str(ex))
-        messages.error(request, f"[ERROR]: {str(ex)}")
+        listadoArchivos = None
         return render(request, "file/listaArchivos.html", {"listaArchivo": listadoArchivos})
 
 def userRequest():
