@@ -9,6 +9,7 @@ from apppatients.models import Patient
 from apprecipes.models import Recipe
 from apptasks.models import Task
 from appfiles.models import File
+from appimports.models import Import
 
 from django.db.models import Q
 from webtooth.decorators import validRequest
@@ -16,7 +17,7 @@ from webtooth.config import currentLocalTimestamp
 
 from webtooth.signals import getUser
 
-import os, shutil
+import os, shutil, glob
 from django.conf import settings
 
 log = logger('webtooth',True)
@@ -83,6 +84,7 @@ def homeView(request):
 	printLogHome("Porcentaje de Eliminados: {}%".format(porcentajeEliminados))
 	infoDisk(request)
 	infoDiskUpload(request)
+	verifyFolderFiles()
 	data = {"rowsFile": rowsFile, "rowsRegister": rowsRegister, "loggedUsers": loggedUsers,
          "percentActive": porcentajeActivos, "percentInactive": porcentajeInactivos, 
          "patientActive": patientActive, "inactivePatients": patientInactive, "lastRow": lastRow, "patientDelete": patientDelete, "porcentajeEliminados": porcentajeEliminados, 
@@ -164,3 +166,26 @@ def folderSizeMB(path):
 
 def printLogHome(register):
 	log.debug(register)
+
+def verifyFolderFiles():
+	rowPatients = Patient.objects.all()
+	if not rowPatients:
+		delefteFileByFolder('img/')
+
+	rowImports = Import.objects.all()
+	if not rowImports:
+		delefteFileByFolder('upload-xls/')
+
+	rowFiles = File.objects.all()
+	if not rowFiles:
+		delefteFileByFolder('upload/')
+
+def delefteFileByFolder(folder):
+	try:
+		log.info("No hay registros en BD, se procede a verificar el directorio "+str(folder))
+		for cleanFile in glob.glob(settings.MEDIA_PATH+str(folder+'*.*')):
+			if not cleanFile.endswith('.gitignore'):
+				log.info("Archivo removido: "+str(cleanFile))
+				os.remove(cleanFile)
+	except Exception as ex:
+		log.error("No se pudieron borrar los ficheros: "+str(ex))
