@@ -216,7 +216,7 @@ def getListTaskHome(user):
 		return None
 
 def compressLogsZip():
-	today = str('webtooth-logs-')+str(currentLocalDate())
+	today = str('webtooth-logs-')+str(currentLocalDateFormat())
 	shutil.make_archive(settings.PATH_ZIPMAIL+today, 'zip',settings.PATH_LOGS)
 	ficheroGenerado = str(today+'.zip')
 	log.info("Logs comprimidos con exito, fichero generado: " + ficheroGenerado)
@@ -224,8 +224,8 @@ def compressLogsZip():
 
 def sendEmailLogs():	
 	fileZip = compressLogsZip()
-	today = str(currentLocalDate())
-	subject = 'Logs del sistema Webtooth - '+today
+	today = str(currentLocalDateFormat())
+	subject = 'Logs de webtooth - [{}]'.format(today)
 	message = "Se envía los ficheros logs de la plataforma Webtooth lanzado por el cron del sistema."
 	email_from = settings.EMAIL_HOST_USER
 	email_to = settings.EMAIL_HOST_SUPPORT
@@ -246,6 +246,10 @@ def currentLocalDate():
 	printLogConfig("Return value date now: "+str(date))
 	return date
 
+def currentLocalDateFormat():
+	date = timezone.localtime(timezone.now()).date().strftime('%d-%m-%Y')
+	printLogConfig("Return value date now: "+str(date))
+	return date
 
 def currentLocalTime():
 	time = timezone.localtime(timezone.now())

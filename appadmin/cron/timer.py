@@ -7,7 +7,7 @@ from django.conf import settings
 def logMailTimer():
     if settings.JOBLOGMAILTIMER:
         cron = BackgroundScheduler()
-        cron.add_job(tasks.logMailTask, 'cron', hour='09', minute='58', id="jobLogMailTimer")
+        cron.add_job(tasks.logMailTask, 'cron', hour='17', minute='15', id="jobLogMailTimer")
         cron.start()
 
 
