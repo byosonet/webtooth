@@ -133,7 +133,7 @@ def filterByIdPatientAdress(idPatient, formAdress):
 		return None
 
 def generateKlave():
-	klave = 'P'+date.today().strftime('%d%m%y')+'-'+uuid.uuid4().hex[:5].upper()
+	klave = 'P'+date.today().strftime('%d%m%y')+''+uuid.uuid4().hex[:4].upper()
 	log.info("La clave generada para el paciente es: "+str(klave))
 	return klave
 

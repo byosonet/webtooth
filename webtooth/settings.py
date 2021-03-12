@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'ee@#=1ivnkbyqflvaj#l=fn02xcec@eu6(_=v6%lcpinchwqee'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 #Si debug esta en False hay que añadir valores a los HOSTS
 ALLOWED_HOSTS = ['*']
@@ -198,7 +198,7 @@ MAX_ROWS_QUERY_MODEL_NAVIGATION = 1000
 CORS_ORIGIN_ALLOW_ALL = True
 
 ##CONFIG LEVEL LOG
-LEVEL_LOG = 'INFO'
+LEVEL_LOG = 'DEBUG'
 PROPAGATE_LOG = True
 FILTER_FILE_ERROR = 'ERROR'
 FLAG_ERROR = False

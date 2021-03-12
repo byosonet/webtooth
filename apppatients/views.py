@@ -195,11 +195,15 @@ def actualizarPaciente(request,idPatient):
             log.error("Formulario formAdress recibido no pasa la validacion..." + str(formAdress.errors))
             validErrors(formPatient)
             validErrors(formAdress)
+            dataNombre = formPatient.cleaned_data.get("nombre")
+            dataAppaterno = formPatient.cleaned_data.get("apellidoPaterno")
+            if dataNombre == None or dataAppaterno == None:
+                printLogPatients("El campo nombre/apellido paterno viene vacío, se recarga los datos de patient.")
+                return buscarId(request, idPatient)
             return render(request, "patient/datosPaciente.html", {"form": formPatient, "id": idPatient, "formAdress": formAdress, "expediente": expediente})
-            ###return buscarId(request, idPatient)
     except Exception as ex:
         log.error("Error: "+str(ex))
-        return render(request,"patient/datosPaciente.html",{"form": formPatient,"id":idPatient,"formAdress":formAdress})
+        return buscarId(request, idPatient)
 
 
 @login_required(login_url=getLogin())
