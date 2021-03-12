@@ -6,7 +6,7 @@ import uuid
 from datetime import date
 
 from webtooth.config import logger, filterQuery
-log = logger('apppatients.config', False)
+log = logger('apppatients.query', False)
 
 def filterSearch(request):
 	listadoPacientes = None	

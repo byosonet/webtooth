@@ -165,7 +165,19 @@ LOGGING = {
             'propagate': settings.PROPAGATE_LOG,
             'formatter': 'backend',
         },
-        'tasks.config': {
+        'apptasks.tasks': {
+            'handlers': ['file', 'console','file_error'],
+            'level': settings.LEVEL_LOG,
+            'propagate': settings.PROPAGATE_LOG,
+            'formatter': 'backend',
+        },
+        'apppatients.query': {
+            'handlers': ['file', 'console','file_error'],
+            'level': settings.LEVEL_LOG,
+            'propagate': settings.PROPAGATE_LOG,
+            'formatter': 'backend',
+        },
+        'apptasks.query': {
             'handlers': ['file', 'console','file_error'],
             'level': settings.LEVEL_LOG,
             'propagate': settings.PROPAGATE_LOG,

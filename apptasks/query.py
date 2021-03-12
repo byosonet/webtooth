@@ -2,7 +2,7 @@ from . models import Task
 from webtooth.config import logger
 from webtooth.signals import getUser
 
-log = logger('apptasks.config', False)
+log = logger('apptasks.query', False)
 
 def filterByIdTask(idTask, formTask):
 	printLogQuery("Id recibido for task: "+str(idTask))	

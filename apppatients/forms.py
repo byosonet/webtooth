@@ -30,7 +30,6 @@ class PatientForm(forms.ModelForm):
                     'email', 'telefono', 'numexp', 'foto', 'activo', 'rfc', 'fechaAlta', 'sexo', 'ocupacion', 'fechaNacimiento', 'fechaUpdate']
 	
 	def clean_email(self):
-		log.info("cleaned_data field email to lower!!")
 		email = self.cleaned_data['email'].lower()
 		return email
 
