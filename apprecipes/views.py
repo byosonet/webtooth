@@ -68,6 +68,7 @@ def contactoPaciente(request):
             printLogRecipes("descRecipe: "+descRecipe)
             formContact = ContactForm(request.GET)
         except Exception as ex:
+            log.error("Error: "+str(ex))
             formContact = ContactForm()
     return render(request,"contact/contacto.html", {"form":formContact, "listadoEnviados":listadoEnviados})
 

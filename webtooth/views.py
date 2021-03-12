@@ -30,8 +30,8 @@ def homeView(request):
 	try:
 		lastRow = Patient.objects.filter(filterQuery()).order_by('-fechaUpdate')[0].id
 		updatePropertie(user.id,'last_row', str(lastRow))
-	except Exception:
-		pass
+	except Exception as ex:
+		log.error("Error: "+str(ex))
 	getListTask(request, user.get_username())
 	listadoTareasHome = getListTaskHome(user.get_username())
 	printLogHome("LastRow: {}".format(lastRow))	
