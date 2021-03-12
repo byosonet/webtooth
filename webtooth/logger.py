@@ -1,8 +1,15 @@
 from django.conf import settings
 
 def filter_record_error(record):
-    if record.levelname == settings.FILTER_FILE_ERROR:
-        return True
+    if record.levelname == settings.FILTER_FILE_ERROR or settings.FLAG_ERROR:
+        settings.FLAG_ERROR = True
+        if settings.FLAG_COUNT > 0:
+            settings.FLAG_COUNT = settings.FLAG_COUNT - 1
+            return True
+        else:
+            settings.FLAG_COUNT = 6
+            settings.FLAG_ERROR = False
+            return False
     else:
         return False
 
