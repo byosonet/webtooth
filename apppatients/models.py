@@ -23,7 +23,7 @@ class Patient(AuditModel, models.Model):
 	foto = models.ImageField(blank=True, null=True, verbose_name="Foto", upload_to="img")
 
 	def __str__(self):
-		return "expediente: {}, de {} {}".format(self.numexp,self.nombre,self.apellidoPaterno)
+		return "{}".format(self.numexp)
 
 	class Meta:
 		verbose_name = 'paciente'

@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'apprecipes',
     'appproperties',
     'appadmin',
+    'apphistory',
 ]
 
 MIDDLEWARE = [
