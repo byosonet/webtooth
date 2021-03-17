@@ -103,15 +103,100 @@ td, th {
 #changelist .actions .button {
     color: white !important;
 }
+{% else %}
+
+    .module h2, .module caption, .inline-group h2, #header
+    {   
+        font-size: 13px;
+        text-align: left;
+        background-image: linear-gradient(85deg,#3498db,#8e44ad);
+        color: #fff;
+    }
+
+    #user-tools {
+        font-size: 14px;
+    }
+
+
+    #branding h1, #branding h1 a:link, #branding h1 a:visited {
+        color: white;
+    }
+
+    div.breadcrumbs {
+        background-image: linear-gradient(85deg,#3498db,#8e44ad);
+        padding: 10px 40px;
+        border: none;
+        font-size: 14px;
+        color: #fff;
+        text-align: left;
+    }
+
+    .object-tools a:link, .object-tools a:visited {
+        background-image: linear-gradient(85deg,#3498db,#8e44ad);
+    }
+
+    .dashboard .module table th {
+        font-size: 14px;
+    }
+    .dashboard .module table td a {
+        font-size: 14px;
+    }
+
+    td, th {
+    font-size: 14px;   
+    font-family: webtooth,Nunito,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+    }
+
+    .selector-chosen h2 {
+        background-image: linear-gradient(85deg,#3498db,#8e44ad) !important;
+    }
+
+    #user-tools{
+        text-align: center;
+    }
+
+    .topnav a {
+    padding: 10px 5px;
+    }
+
+    .button, input[type=submit], input[type=button], .submit-row input, a.button{
+        background-image: linear-gradient(85deg,#3498db,#8e44ad);
+        border-radius:10rem;
+    }
+
+    .module h2, .module caption, .inline-group h2, #header {
+        background-image: linear-gradient(85deg,#3498db,#8e44ad);
+    }
+
+    .button, input[type=submit], input[type=button], .submit-row input, a.button {
+        background-image: linear-gradient(85deg,#3498db,#8e44ad);
+        border-radius:10rem;
+    }
+
+    .object-tools a:link, .object-tools a:visited {
+        background-image: linear-gradient(85deg,#3498db,#8e44ad);
+    }
+
+    .button.default, input[type=submit].default, .submit-row input.default {
+        background-image: linear-gradient(85deg,#3498db,#8e44ad);
+        border-radius:10rem;
+    }
+
+    .submit-row a.closelink {
+        background-image: linear-gradient(85deg,#3498db,#8e44ad);
+    }
+
+    #changelist #toolbar form input[type="submit"] {
+        color: white !important;
+    }
+
+    #changelist .actions .button {
+        color: white !important;
+    }
 {% endif %}
 .submit-row a.deletelink {
     border-radius:10rem !important;
 }
-
-body.login{
-    background-color:darkgray !important;
-}
-
 .login #container{
     border:0px !important;
     margin:220px auto !important;
