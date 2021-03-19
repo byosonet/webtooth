@@ -117,6 +117,12 @@ LOGGING = {
             'propagate': settings.PROPAGATE_LOG,
             'formatter': 'backend',
         },
+        'apphistory.views': {
+            'handlers': ['file', 'console','file_error'],
+            'level': settings.LEVEL_LOG,
+            'propagate': settings.PROPAGATE_LOG,
+            'formatter': 'backend',
+        },
         'appinventories.views': {
             'handlers': ['file', 'console','file_error'],
             'level': settings.LEVEL_LOG,
@@ -178,6 +184,12 @@ LOGGING = {
             'formatter': 'backend',
         },
         'apptasks.query': {
+            'handlers': ['file', 'console','file_error'],
+            'level': settings.LEVEL_LOG,
+            'propagate': settings.PROPAGATE_LOG,
+            'formatter': 'backend',
+        },
+        'apphistory.query': {
             'handlers': ['file', 'console','file_error'],
             'level': settings.LEVEL_LOG,
             'propagate': settings.PROPAGATE_LOG,

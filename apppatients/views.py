@@ -19,6 +19,7 @@ from webtooth.decorators import validRequest
 from django.contrib import messages
 from webtooth.signals import getUser
 
+from apphistory.views import createHistoryGroup, createHistoryStudy, getAllHistoryByPatient
 import pandas as pd
 
 log = logger('apppatients', True)
@@ -115,6 +116,9 @@ def buscarId(request, idPatient):
     try:
         result = filterByIdPatient(idPatient,formPatient)
         adress = filterByIdPatientAdress(idPatient,formAdress)
+        group = createHistoryGroup(request)
+        study = createHistoryStudy(request)
+        history = getAllHistoryByPatient(request,idPatient)
 
         patient = filterPatientDelete(idPatient)
         if patient:
@@ -128,7 +132,7 @@ def buscarId(request, idPatient):
         expediente = result.fields['numexp'].initial
         log.info("Expdiente: "+str(expediente))
 
-        return render(request, "patient/datosPaciente.html", {"form": result, "id": idPatient, "formAdress": adress, "expediente": expediente, "delPatient": delPatient})
+        return render(request, "patient/datosPaciente.html", {"form": result, "id": idPatient, "formAdress": adress, "expediente": expediente, "delPatient": delPatient, "group":group,"study":study, "history":history})
     except Exception as ex:
         log.error("Error al buscar por id: "+str(ex))
         return render(request,"patient/datosPaciente.html",{"form": None,"formAdress":None})

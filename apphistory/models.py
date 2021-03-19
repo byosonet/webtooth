@@ -46,7 +46,7 @@ class History(AuditModel, models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True, verbose_name="Usuario")
 
     def __str__(self):
-        return "History of patient: {}, group: {}, study: {}, check: {}".format(self.patient,self.grupo, self.estudio,self.check)
+        return "History of patient: {}, {}, {}, check: {}".format(self.patient,self.grupo, self.estudio,self.check)
 
     class Meta:
         verbose_name = 'Historial'

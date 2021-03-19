@@ -44,6 +44,8 @@ urlpatterns = [
     path('service/', include('apprecipes.urls')),
     #Urls appproperties
     path('service/', include('appproperties.urls')),
+    #Urls appphistory
+    path('service/', include('apphistory.urls')),
 
     #UrlsNotHasPermissions
     path('permission/required/', notHasPermission, name="notpermission"),
