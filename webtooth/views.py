@@ -10,6 +10,7 @@ from apprecipes.models import Recipe
 from apptasks.models import Task
 from appfiles.models import File
 from appimports.models import Import
+from apphistory.query import getGroup, createGroupFirstOnly
 
 from django.db.models import Q
 from webtooth.decorators import validRequest
@@ -32,6 +33,7 @@ def homeView(request):
 		updatePropertie(user.id,'last_row', str(lastRow))
 	except Exception as ex:
 		log.error("Error: "+str(ex))
+	examineGroup(request)
 	getListTask(request, user.get_username())
 	listadoTareasHome = getListTaskHome(user.get_username())
 	printLogHome("LastRow: {}".format(lastRow))	
@@ -189,3 +191,14 @@ def delefteFileByFolder(folder):
 				os.remove(cleanFile)
 	except Exception as ex:
 		log.error("No se pudieron borrar los ficheros: "+str(ex))
+
+def examineGroup(request):
+	try:
+		listaGrupos = getGroup(request)
+		if len(listaGrupos) == 0:
+			log.info("-- Creando estructura de grupo y estudios, ya que en sistema no se ha encontrado registros.")
+			createGroupFirstOnly(request)
+		else:
+			log.info("-- Este usuario ya cuenta con una estructura de grupo y estudios para pacientes.")
+	except Exception as ex:
+		log.error("-- No se pudieron crear las estructuras de grupo y estudios: {}".format(ex))

@@ -148,6 +148,10 @@ def actualizarPaciente(request,idPatient):
     formAdress = None
     expediente = None
     try:
+        group = createHistoryGroup(request)
+        study = createHistoryStudy(request)
+        history = getAllHistoryByPatient(request,idPatient)
+
         user = getUser()
         if user.get_username() == 'admin':
             obj = Patient.objects.get(pk=idPatient)
@@ -193,7 +197,7 @@ def actualizarPaciente(request,idPatient):
 
             log.info("Se ha actualizado el registro en BD para el Expediente {}".format(dataPatient['numexp']))
             messages.success(request, "Los datos han sido actualizados correctamente para el expediente: {}".format(dataPatient['numexp']))
-            return render(request, "patient/datosPaciente.html", {"form": formPatient, "id": idPatient, "formAdress": formAdress, "expediente": expediente})
+            return render(request, "patient/datosPaciente.html", {"form": formPatient, "id": idPatient, "formAdress": formAdress, "expediente": expediente, "group":group,"study":study, "history":history})
         else:
             log.error("Formulario formPatient recibido no pasa la validacion..." +str(formPatient.errors))
             log.error("Formulario formAdress recibido no pasa la validacion..." + str(formAdress.errors))
@@ -204,7 +208,7 @@ def actualizarPaciente(request,idPatient):
             if dataNombre == None or dataAppaterno == None:
                 printLogPatients("El campo nombre/apellido paterno viene vacío, se recarga los datos de patient.")
                 return buscarId(request, idPatient)
-            return render(request, "patient/datosPaciente.html", {"form": formPatient, "id": idPatient, "formAdress": formAdress, "expediente": expediente})
+            return render(request, "patient/datosPaciente.html", {"form": formPatient, "id": idPatient, "formAdress": formAdress, "expediente": expediente, "group":group,"study":study, "history":history})
     except Exception as ex:
         log.error("Error: "+str(ex))
         return buscarId(request, idPatient)

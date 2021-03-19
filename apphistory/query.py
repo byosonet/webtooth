@@ -46,6 +46,68 @@ def delHistory(idPatient):
         printLogHistory("-- Se han borrado los history del paciente: {}".format(idPatient))
     except Exception as ex:
         log.error("No se pudo borrar el historial de paciente: {}".format(ex))
-
-
+        
+def createGroupFirstOnly(request):
     
+    listaGrupos = ['Examen de Tejidos (Duros)','Examen de Tejidos (Blandos)','Examen de Tejidos (Oclusión)','Motivo de Consulta','Habitos']
+    listaEstudioGrupo1 = ['Esmalte','Raí­z','Dentina','Huesos']
+    listaEstudioGrupo2 = ['Encía','Inserción','Epitelial (Migración)','Pulpa (Alteraciones)','Velo del Paladar','Carrillos']
+    listaEstudioGrupo3 = ['Sobre Mordida Vertical','Mordida Abierta','Desgaste','Mal Oclusión','Intercuspideo','Desmayos','Mareos','Vertigos','Otros']
+    listaEstudioGrupo4 = ['Emergencia','Revisión','Lesión Caries','Odontoxesis','Puente','Prostodoncia','Extracción','Malestares']
+    listaEstudioGrupo5 = ['Bricomanía','Contracciones Musculares','Habitos de Mordida','Respiración Bucal','Chupadores de Labio','Lengua','Dedos']
+    listIdsGrupos = []
+
+    log.info("-- Creando grupos:")
+    for grp in listaGrupos:
+        grupo = Group()
+        grupo.nombre = grp
+        grupo.user = request.user
+        grupo.save()
+        listIdsGrupos.append(grupo.id)
+        log.info("-- Grupo creado con el nombre: "+str(grp))
+
+    log.info("-- Creando estudios:")
+    grupo1 = Group.objects.get(pk=listIdsGrupos[0])
+    for est1 in listaEstudioGrupo1:
+        estudio = Study()
+        estudio.nombre = est1
+        estudio.user = request.user
+        estudio.grupo = grupo1
+        estudio.save()
+        log.info("-- Estudio creado con el nombre: "+str(est1))
+
+    grupo2 = Group.objects.get(pk=listIdsGrupos[1])
+    for est2 in listaEstudioGrupo2:
+        estudio = Study()
+        estudio.nombre = est2
+        estudio.user = request.user
+        estudio.grupo = grupo2
+        estudio.save()
+        log.info("-- Estudio creado con el nombre: "+str(est2))
+
+    grupo3 = Group.objects.get(pk=listIdsGrupos[2])
+    for est3 in listaEstudioGrupo3:
+        estudio = Study()
+        estudio.nombre = est3
+        estudio.user = request.user
+        estudio.grupo = grupo3
+        estudio.save()
+        log.info("-- Estudio creado con el nombre: "+str(est3))
+
+    grupo4 = Group.objects.get(pk=listIdsGrupos[3])
+    for est4 in listaEstudioGrupo4:
+        estudio = Study()
+        estudio.nombre = est4
+        estudio.user = request.user
+        estudio.grupo = grupo4
+        estudio.save()
+        log.info("-- Estudio creado con el nombre: "+str(est4))
+
+    grupo5 = Group.objects.get(pk=listIdsGrupos[4])
+    for est5 in listaEstudioGrupo5:
+        estudio = Study()
+        estudio.nombre = est5
+        estudio.user = request.user
+        estudio.grupo = grupo5
+        estudio.save()
+        log.info("-- Estudio creado con el nombre: "+str(est5))

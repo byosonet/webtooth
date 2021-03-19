@@ -1,77 +1,89 @@
+{% if group %}
+<p style="text-align: justify;">
+    &nbsp;&nbsp;<i class="fas fa-info-circle fa-1x"></i> Grupos de estudios asociados al paciente.
+</p>
 <form class="user" action="{% url 'updateHistory' id %}" method="POST">{% csrf_token %}
-<div class="container">
-    <div class="row">  
-        {% for grupo in group %}
-        <div class="col-sm-3">
-
-            <div class="card border-{{request.session.bt_color}} mb-3" style="max-width: 18rem;">
-                <div class="card-header bg-{{request.session.bt_color}} text-white">{{grupo.nombre}}</div>
-                <div class="card-body text-dark">
-           {% for estudio in study %}
-                {% if estudio.grupo.id == grupo.id %}
-                    <div class="card-text form-check">
-                        {% if history %}
-                            {% if estudio.id in history %}
-                                <input class="form-check-input" type="checkbox" id="{{estudio.id}}" name="{{estudio.id}}" checked>
-                                <label class="form-check-label" for="{{estudio.id}}">
-                                    {{estudio.nombre}}
-                                </label>
+    <div class="container">
+        <div class="row">  
+            {% for grupo in group %}
+            <div class="col-sm-3">
+    
+                <div class="card border-{{request.session.bt_color}} mb-3" style="max-width: 18rem;">
+                    <div class="card-header bg-{{request.session.bt_color}} text-white">{{grupo.nombre}}</div>
+                    <div class="card-body text-dark">
+               {% for estudio in study %}
+                    {% if estudio.grupo.id == grupo.id %}
+                        <div class="card-text form-check">
+                            {% if history %}
+                                {% if estudio.id in history %}
+                                    <input class="form-check-input" type="checkbox" id="{{estudio.id}}" name="{{estudio.id}}" checked>
+                                    <label class="form-check-label" for="{{estudio.id}}">
+                                        {{estudio.nombre}}
+                                    </label>
+                                {% else %}
+                                    <input class="form-check-input" type="checkbox" id="{{estudio.id}}" name="{{estudio.id}}">
+                                    <label class="form-check-label" for="{{estudio.id}}">
+                                        {{estudio.nombre}}
+                                    </label>
+                                {% endif %}
                             {% else %}
                                 <input class="form-check-input" type="checkbox" id="{{estudio.id}}" name="{{estudio.id}}">
                                 <label class="form-check-label" for="{{estudio.id}}">
                                     {{estudio.nombre}}
                                 </label>
                             {% endif %}
-                        {% else %}
-                            <input class="form-check-input" type="checkbox" id="{{estudio.id}}" name="{{estudio.id}}">
-                            <label class="form-check-label" for="{{estudio.id}}">
-                                {{estudio.nombre}}
-                            </label>
-                        {% endif %}
+                        </div>
+                    {% endif %}
+                {% endfor %}
                     </div>
-                {% endif %}
-            {% endfor %}
                 </div>
             </div>
+            {% endfor %}
         </div>
-        {% endfor %}
     </div>
-</div>
+    
+    <div class="container">
+    <div class="row">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-3"></div>
+        <div class="col-sm-3">
+            <button id="modbuttonGroup" type="button" class="btn btn-danger btn-user btn-block" href="#" data-toggle="modal"
+                    data-target="#modifyModalGroup" role="button"><i class="fa fa-pen"></i> Modificar</button>
+        </div>
+        <div class="col-sm-3">
+                <button id="updateGroup" type="submit"
+                    class="btn btn-user btn-{{request.session.bt_color}} btn-block"><i class="fa fa-check"></i>&nbsp;Actualizar</button>
+        </div>
+    </div>
+    </div>
+    </form>
+    
+    <!-- Logout modificar grupo -->
+    <div class="modal fade" id="modifyModalGroup" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-info-circle fa-1x"></i> Aviso de sistema</h5>
+            </div>
+            <div class="modal-body">¿Est&aacute; seguro de modificar el apartado de datos cl&iacute;nicos?</div>
+            <div class="modal-footer">
+                <button class="btn btn-{{request.session.bt_color}}" type="button"
+                    data-dismiss="modal" style="border-radius: 10rem;"><i class="fas fa-times"></i> Cancelar</button>
+                <button id="modidyGroup" class="btn btn-{{request.session.bt_color}}" type="button"
+                    data-dismiss="modal" style="border-radius: 10rem;"><i class="fas fa-check"></i> Aceptar</button>
+            </div>
+        </div>
+    </div>
+    </div>
+{% else %}
 
-<div class="container">
-<div class="row">
-    <div class="col-sm-3"></div>
-    <div class="col-sm-3"></div>
-    <div class="col-sm-3">
-        <button id="modbuttonGroup" type="button" class="btn btn-danger btn-user btn-block" href="#" data-toggle="modal"
-                data-target="#modifyModalGroup" role="button"><i class="fa fa-pen"></i> Modificar</button>
-    </div>
-    <div class="col-sm-3">
-            <button id="updateGroup" type="submit"
-                class="btn btn-user btn-{{request.session.bt_color}} btn-block"><i class="fa fa-check"></i>&nbsp;Actualizar</button>
-    </div>
-</div>
-</div>
-</form>
+    <p style="text-align: justify;">
+        &nbsp;&nbsp;<i class="fas fa-info-circle fa-1x"></i> Para gestionar los grupos de estudio para el paciente, primero hay que crearlos desde el
+        apartado de configuraci&oacute;n.
+    </p>
 
-<!-- Logout modificar grupo -->
-<div class="modal fade" id="modifyModalGroup" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-aria-hidden="true" data-backdrop="static" data-keyboard="false">
-<div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-info-circle fa-1x"></i> Aviso de sistema</h5>
-        </div>
-        <div class="modal-body">¿Est&aacute; seguro de modificar el apartado de datos cl&iacute;nicos?</div>
-        <div class="modal-footer">
-            <button class="btn btn-{{request.session.bt_color}}" type="button"
-                data-dismiss="modal" style="border-radius: 10rem;"><i class="fas fa-times"></i> Cancelar</button>
-            <button id="modidyGroup" class="btn btn-{{request.session.bt_color}}" type="button"
-                data-dismiss="modal" style="border-radius: 10rem;"><i class="fas fa-check"></i> Aceptar</button>
-        </div>
-    </div>
-</div>
-</div>
+{% endif %}
 
 
 {% load static %}
