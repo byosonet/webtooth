@@ -3,6 +3,7 @@ from webtooth.config import logger
 from . query import getGroup, getStudy, addHistory, delHistory, getHistory
 from webtooth.decorators import validRequest
 from apppatients import views
+from django.contrib import messages
 
 # Create your views here.
 log = logger('apphistory', True)
@@ -39,4 +40,5 @@ def updateHistory(request, idPatient):
     except Exception as ex:
         log.error("-- No se pudo procesar el modulo history: {}".format(ex))
     printLogHistory("Se redirige nuevamente a los datos del paciente")
+    messages.success(request, "¡Los datos han sido actualizados correctamente!")
     return views.buscarId(request, idPatient)
