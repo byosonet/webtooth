@@ -11,16 +11,7 @@
 
   <!-- Divider -->
   <hr class="sidebar-divider my-0">
-
-  <!-- Nav Item - Dashboard -->
-  {% if user.get_username == "admin" %}
-  <li class="nav-item active">
-    <a class="nav-link" href="{% url 'admin:index' %}">
-      <i class="fas fa-fw fa-wrench text-{{request.session.fg_color}}"></i>
-      <span class="text-{{request.session.fg_color}}">Administraci&oacute;n</span></a>
-  </li>
-  {% endif %}
-
+  <!-- Nav Item - Dashboard -->  
   <li class="nav-item active">
     <a class="nav-link" href="{% url 'home' %}">
       <i class="fas fa-fw fa-home text-{{request.session.fg_color}}"></i>
@@ -44,6 +35,9 @@
     <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
       <div class="bg-white py-2 collapse-inner rounded">
         <h6 class="collapse-header">Acciones:</h6>
+        {% if user.get_username == "admin" %}
+          <a class="collapse-item" href="{% url 'admin:index' %}"><i class="fas fa-wrench fa-sm fa-fw mr-2"></i>Administraci&oacute;n</a>
+        {% endif %}
         <a class="collapse-item" href="{% url 'listarNavegacion' %}"><i class="fas fa-list-ul fa-sm fa-fw mr-2"></i>Historial</a>
         <a class="collapse-item" href="{% url 'importPatients' %}"><i class="fas fa-upload fa-sm fa-fw mr-2"></i>Pacientes</a>        
         <a class="collapse-item" href="{% url 'altaTarea' %}"><i class="fas fa-plus fa-sm fa-fw mr-2"></i>Agregar tarea</a>
@@ -61,6 +55,21 @@
         {% else %}
           <a class="collapse-item" href="{% url 'updateFontMenu' 'true' %}"><i class="fas fa-italic"></i> Activar Italic</a>
         {% endif %}
+      </div>
+    </div>
+  </li>
+
+  <li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePagesOtros" aria-expanded="true"
+      aria-controls="collapsePagesOtros">
+      <i class="fas fa-fw fa-notes-medical text-{{request.session.fg_color}}"></i>
+      <span class="text-{{request.session.fg_color}}">Datos cl&iacute;nicos</span>
+    </a>
+    <div id="collapsePagesOtros" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+      <div class="bg-white py-2 collapse-inner rounded">
+        <h6 class="collapse-header">Acciones:</h6>
+        <a class="collapse-item" href="#"><i class="fas fa-plus fa-sm fa-fw mr-2"></i>Crear grupo</a>
+        <a class="collapse-item" href="#"><i class="fas fa-list fa-sm fa-fw mr-2"></i>Crear estudio</a>
       </div>
     </div>
   </li>
@@ -90,8 +99,7 @@
     </div>
   </li>
 
-
-    <!-- Nav Item - Pages Collapse Menu -->
+  <!-- Nav Item - Pages Collapse Menu -->
   <li class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePagesAdress" aria-expanded="true" aria-controls="collapsePagesInvent">
       <i class="fas fa-fw fa-map-marker text-{{request.session.fg_color}}"></i>
@@ -122,35 +130,6 @@
         </div>
       </div>
     </li>
-
-  <!-- Divider -->
-  <hr class="sidebar-divider">
-  <!-- Heading -->
-  <div class="sidebar-heading text-{{request.session.fg_color}}">
-    Otros
-  </div>
- 
-  <li class="nav-item">
-    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePagesOtros" aria-expanded="true"
-      aria-controls="collapsePagesOtros">
-      <i class="fas fa-fw fa-folder text-{{request.session.fg_color}}"></i>
-      <span class="text-{{request.session.fg_color}}">Pendiente</span>
-    </a>
-    <div id="collapsePagesOtros" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-      <div class="bg-white py-2 collapse-inner rounded">
-        <h6 class="collapse-header">Acciones:</h6>
-        <a class="collapse-item" href="#"><i class="fas fa-plus fa-sm fa-fw mr-2"></i>Agregar</a>
-        <a class="collapse-item" href="#"><i class="fas fa-list fa-sm fa-fw mr-2"></i>Listar</a>
-      </div>
-    </div>
-  </li>
-
-  <!-- Nav Item - Tables -->
-  <li class="nav-item">
-    <a class="nav-link" href="#">
-      <i class="fas fa-fw fa-table text-{{request.session.fg_color}}"></i>
-      <span class="text-{{request.session.fg_color}}">Sin acci&oacute;n</span></a>
-  </li>
 
   <!-- Divider -->
   <hr class="sidebar-divider d-none d-md-block">

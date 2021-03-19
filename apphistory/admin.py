@@ -16,11 +16,11 @@ class GroupAdmin(admin.ModelAdmin):
 		}
 
 	def has_add_permission(self, request):
-		return True
+		return False
 	def has_change_permission(self, request, obj=None):
-		return True
+		return False
 	def has_delete_permission(self, request, obj=None):
-		return True
+		return False
 	def has_module_permission(self, request):
 		return validUser(request)
 
@@ -36,11 +36,11 @@ class StudyAdmin(admin.ModelAdmin):
 		}
 
 	def has_add_permission(self, request):
-		return True
+		return False
 	def has_change_permission(self, request, obj=None):
-		return True
+		return False
 	def has_delete_permission(self, request, obj=None):
-		return True
+		return False
 	def has_module_permission(self, request):
 		return validUser(request)
 
@@ -56,11 +56,11 @@ class HistoryAdmin(admin.ModelAdmin):
 		}
 
 	def has_add_permission(self, request):
-		return True
+		return False
 	def has_change_permission(self, request, obj=None):
-		return True
+		return False
 	def has_delete_permission(self, request, obj=None):
-		return True
+		return False
 	def has_module_permission(self, request):
 		return validUser(request)
 
