@@ -42,20 +42,23 @@
         </div>
     </div>
     
-    <div class="container">
-    <div class="row">
-        <div class="col-sm-3"></div>
-        <div class="col-sm-3"></div>
-        <div class="col-sm-3">
-            <button id="modbuttonGroup" type="button" class="btn btn-danger btn-user btn-block" href="#" data-toggle="modal"
-                    data-target="#modifyModalGroup" role="button"><i class="fa fa-pen"></i> Modificar</button>
+    {% if not delPatient %}
+        <div class="container">
+        <div class="row">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-3"></div>
+            <div class="col-sm-3">
+                <button id="modbuttonGroup" type="button" class="btn btn-danger btn-user btn-block" href="#" data-toggle="modal"
+                        data-target="#modifyModalGroup" role="button"><i class="fa fa-pen"></i> Modificar</button>
+            </div>
+            </br></br>
+            <div class="col-sm-3">
+                    <button id="updateGroup" type="submit"
+                        class="btn btn-user btn-{{request.session.bt_color}} btn-block"><i class="fa fa-check"></i>&nbsp;Actualizar</button>
+            </div>
         </div>
-        <div class="col-sm-3">
-                <button id="updateGroup" type="submit"
-                    class="btn btn-user btn-{{request.session.bt_color}} btn-block"><i class="fa fa-check"></i>&nbsp;Actualizar</button>
         </div>
-    </div>
-    </div>
+    {% endif %}
     </form>
     
     <!-- Logout modificar grupo -->
