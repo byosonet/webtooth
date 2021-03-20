@@ -28,3 +28,12 @@
 .select2-container--classic .select2-results__option--highlighted.select2-results__option--selectable{
     background-color: #000;
 }
+
+.custom-checkbox .custom-control-input:checked~.custom-control-label::before{
+    background-color: #5a5c69 !important;
+    border-color: #5a5c69 !important;
+}
+.custom-checkbox .custom-control-input:checked:disabled~.custom-control-label::before{
+    background-color: #5a5c69 !important;
+    border-color: #5a5c69 !important;
+}
