@@ -49,6 +49,15 @@
               url: window.location.protocol+'//'+window.location.host+"/service/class/user/",type: "post",data: data,success: function(d) {}
           });
        });
+       $('#sidebarToggleTop').click(function(){
+          result = $('#accordionSidebar').hasClass("toggled");
+          classMenu = ''
+          if (result){classMenu = 'toggled'}
+          var data = {'classMenu': classMenu};
+          $.ajax({
+              url: window.location.protocol+'//'+window.location.host+"/service/class/user/",type: "post",data: data,success: function(d) {}
+          });
+       });
     });
 
 </script>
