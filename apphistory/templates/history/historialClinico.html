@@ -9,26 +9,26 @@
             <div class="col-sm-3">
     
                 <div class="card border-{{request.session.bt_color}} mb-3">
-                    <div class="card-header bg-{{request.session.bt_color}} text-white">{{grupo.nombre}}</div>
+                    <div class="card-header bg-{{request.session.bt_color}} text-white" style="text-align: center;">{{grupo.nombre}}</div>
                     <div class="card-body text-dark">
                {% for estudio in study %}
                     {% if estudio.grupo.id == grupo.id %}
-                        <div class="card-text form-check">
+                        <div class="card-text custom-control custom-checkbox">
                             {% if history %}
                                 {% if estudio.id in history %}
-                                    <input class="form-check-input" type="checkbox" id="{{estudio.id}}" name="{{estudio.id}}" checked>
-                                    <label class="form-check-label" for="{{estudio.id}}">
+                                    <input class="custom-control-input" type="checkbox" id="{{estudio.id}}" name="{{estudio.id}}" checked>
+                                    <label class="custom-control-label" for="{{estudio.id}}">
                                         {{estudio.nombre}}
                                     </label>
                                 {% else %}
-                                    <input class="form-check-input" type="checkbox" id="{{estudio.id}}" name="{{estudio.id}}">
-                                    <label class="form-check-label" for="{{estudio.id}}">
+                                    <input class="custom-control-input" type="checkbox" id="{{estudio.id}}" name="{{estudio.id}}">
+                                    <label class="custom-control-label" for="{{estudio.id}}">
                                         {{estudio.nombre}}
                                     </label>
                                 {% endif %}
                             {% else %}
-                                <input class="form-check-input" type="checkbox" id="{{estudio.id}}" name="{{estudio.id}}">
-                                <label class="form-check-label" for="{{estudio.id}}">
+                                <input class="custom-control-input" type="checkbox" id="{{estudio.id}}" name="{{estudio.id}}">
+                                <label class="custom-control-label" for="{{estudio.id}}">
                                     {{estudio.nombre}}
                                 </label>
                             {% endif %}
