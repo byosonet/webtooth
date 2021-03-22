@@ -129,12 +129,16 @@
                                 <h5 class="modal-title" id="modalLabelFile"><i class="fas fa-info-circle fa-1x"></i> Aviso de sistema</h5>                                   
                             </div>
                             <div class="modal-body">¿Est&aacute; seguro de eliminar el registro actual?
-                                </br></br>Grupo: <b>{{item.nombre}}</b>
+                                </br></br>&nbsp;&nbsp;Grupo: <b>{{item.nombre}}</b>
+                                <br/><br/>
+                                <p style="text-align: justify;">
+                                  &nbsp;&nbsp;<i class="fas fa-info-circle fa-1x"></i> Nota: Se borrar&aacute;n todos los registros relacionados a este grupo, esta operaci&oacute;n no se puede revertir.
+                                </p>
                             </div>
                             <div class="modal-footer">
                                 <button class="btn btn-{{request.session.bt_color}}" type="button"
                                     data-dismiss="modal" style="border-radius: 10rem;"><i class="fas fa-times"></i> Cancelar</button>
-                                <a class="btn btn-{{request.session.bt_color}}" href="#" style="border-radius: 10rem;"><i class="fas fa-check"></i> Aceptar</a>
+                                <a class="btn btn-{{request.session.bt_color}}" href="{% url 'deleteGroup' item.id %}" style="border-radius: 10rem;"><i class="fas fa-check"></i> Aceptar</a>
                             </div>
                         </div>
                     </div>

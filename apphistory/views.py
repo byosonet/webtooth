@@ -80,3 +80,19 @@ def addGroup(request):
         log.error("-- No se pudo procesar el modulo addGroup: {}".format(ex))
     printLogHistory("Se redirige nuevamente al listado de grupos")
     return redirect("viewGroup")
+
+@login_required(login_url=getLogin())
+@permission_required(deleteGroup(), login_url=notPermission())
+@validRequest
+def deleteGroup(request, idGroup):
+    log.info("[Load view method: deleteGroup]")
+    try:
+        grupo = Group.objects.get(pk=idGroup)
+        valueNameGrp = grupo.nombre
+        grupo.delete()
+        messages.success(request, "¡Se ha eliminado correctamente el grupo: {}!".format(valueNameGrp))
+    except Exception as ex:
+        log.error("-- No se pudo procesar el modulo deleteGroup: {}".format(ex))
+        messages.error(request, "¡No se ha podido eliminar el grupo: {}!".format(ex))
+    printLogHistory("Se redirige nuevamente al listado de grupos")
+    return redirect("viewGroup")
