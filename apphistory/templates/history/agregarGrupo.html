@@ -1,0 +1,220 @@
+{% extends "home/body.html" %}
+
+{% block title %} Grupos  {%endblock%}
+{% block titlepage %} Registro de grupos de estudio <div style="text-align: center;">
+  <hr style="margin: 5 auto;"><b><i class="fas fa-tasks"></i></b>
+</div>{%endblock%}
+
+{% block body %} 
+
+    {% if form.errors %}
+        {% for field in form %}
+            {% if field.errors %}
+              <strong style="color:red;">{{ field.errors }}</strong>
+            {% endif %}
+        {% endfor %}          
+    {% endif %}
+
+<nav>
+  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+    <a class="nav-item nav-link text-{{request.session.bt_color}}" id="nav-group-tab" data-toggle="tab" href="#grupo" role="tab"
+      aria-controls="nav-group" aria-selected="true"> <i class="fas fa-plus fa-1x"></i> Nuevo grupo</a>
+    <a class="nav-item nav-link active text-{{request.session.bt_color}}" id="nav-listGroup-tab" data-toggle="tab" href="#listGroup" role="tab" 
+      aria-controls="nav-group" aria-selected="true"> <i class="fas fa-list-ol fa-1x"></i> Grupos</a>
+    <a class="nav-item nav-link text-{{request.session.bt_color}}" id="nav-help-group-tab" data-toggle="tab" href="#ayuda" role="tab"
+      aria-controls="nav-help-group" aria-selected="false"> <i class="fas fa-info-circle fa-1x"></i> Ayuda</a>
+  </div>
+</nav>
+<div class="tab-content" id="nav-tabContent">
+  <div class="tab-pane fade" id="grupo" role="tabpanel" aria-labelledby="nav-group-tab">
+    <div style="margin-top: 20px; width: 98%; margin-left: 5px;margin-right: 5px;">
+
+
+      <form class="user" action="#" method="POST">{% csrf_token %}
+        <div class="form-group row">
+          <div class="col-sm-4">
+            
+            <div class="input-group">
+              <input type="text" name="nombre_grupo_add" class="form-control form-control-user" 
+                                            placeholder="Nombre del grupo (*)" data-placement="top" data-trigger="hover" 
+                                            rel="popover" data-original-title="Nombre del grupo (*)" data-content="Nombre del grupo (*)" 
+                                            maxlength="50" required="" id="nombre_grupo_add">
+              <div class="input-group-append">
+                <div class="input-group-text"><i class="fas fa-keyboard"></i></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <div class="col-sm-8"></div>
+          <div class="col-sm-2">
+            <button type="reset" class="btn btn-{{request.session.bt_color}} btn-user btn-block"><i
+                class="fa fa-eraser"></i> Limpiar</button>
+          </div>
+          </br></br>
+          <div class="col-sm-2">
+            <button type="submit" class="btn btn-{{request.session.bt_color}} btn-user btn-block"><i
+                class="fa fa-check"></i> Agregar</button>
+          </div>
+        </div>
+      </form>
+
+
+
+    </div>
+  </div>
+
+  <div class="tab-pane fade show active" id="listGroup" role="tabpanel" aria-labelledby="nav-listGroup-tab">
+    <div style="margin-top: 20px; width: 98%; margin-left: 5px;margin-right: 10px;">
+  
+      {% if listadoGrupos %}
+      <div class="card shadow mb-4">
+        <div class="card-header py-3 bg-gray-200">
+          <h6 class="m-0 font-weight-bold text-{{request.session.bt_color}}">
+            <div class="col-sm-12">
+              <center></center>
+            </div>
+            {% if listadoGrupos %}
+            <div style="float: right;margin-top: -10px;">
+              <a style="border-radius: 10rem;" href="#" id="ReportePrintGroup"
+                class="d-none d-sm-inline-block btn btn-sm btn-{{request.session.bt_color}} shadow-sm"><i
+                  class="fas fa-print"></i> </a>
+  
+              <a style="border-radius: 10rem;" href="#" id="ReporteExcelGroup"
+                class="d-none d-sm-inline-block btn btn-sm btn-{{request.session.bt_color}} shadow-sm"><i
+                  class="fas fa-file-excel"></i> </a>
+  
+              <a style="border-radius: 10rem;" href="#" id="ReportePdfGroup"
+                class="d-none d-sm-inline-block btn btn-sm btn-{{request.session.bt_color}} shadow-sm"><i
+                  class="fas fa-file-pdf"></i> </a>
+            </div>
+            {% endif %}
+          </h6>
+        </div>
+        <div class="card-body bg-gray-200">
+          <div class="table-responsive">
+            <table class="table table-striped table-hover webtooth" id="dataTableGroup" width="100%" cellspacing="0">
+              <thead class="bg-gradient-light">
+                <tr style="text-align: center;">
+                  <th>Nº</th>
+                  <th>Nombre grupo</th>
+                  <th>Fecha alta</th>
+                  <th>Subido por</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tfoot>
+              </tfoot>
+              <tbody>
+                {% for item in listadoGrupos %}
+                <tr>
+                  <td style="text-align: center;width: 100px;">{{item.id}}</td>
+                  <td style="width: 350px;">{{item.nombre}}</td>
+                  <td style="width: 200px;">{{item.fechaAlta}}</td>
+                  <td style="text-align: center;">{{item.user.first_name}}&nbsp;{{item.user.last_name}}</td>
+                  <td style="text-align: center;width: 100px;">
+                    <div class="row">
+                      <a href="#" href="#" data-toggle="modal" data-target="#editGroup{{item.id}}" role="button"><span class="btn btn-{{request.session.bt_color}} btn-sm" style="font-size: 10px;"> &nbsp;&nbsp;<i class="fa fa-pen"></i>&nbsp;&nbsp; </span></a>
+                      &nbsp;&nbsp;<a href="#" href="#" data-toggle="modal" data-target="#deleteGroup{{item.id}}" role="button"><span class="btn btn-danger btn-sm" style="font-size: 10px;"> &nbsp;&nbsp;<i class="fa fa-trash"></i>&nbsp;&nbsp; </span></a>
+                    </div>
+                  </td>
+                </tr>
+                <!-- Delete Group Modal-->
+                <div class="modal fade" id="deleteGroup{{item.id}}" tabindex="-1" role="dialog" aria-labelledby="modalLabelFile" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modalLabelFile"><i class="fas fa-info-circle fa-1x"></i> Aviso de sistema</h5>                                   
+                            </div>
+                            <div class="modal-body">¿Est&aacute; seguro de eliminar el registro actual?
+                                </br></br>Grupo: <b>{{item.nombre}}</b>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-{{request.session.bt_color}}" type="button"
+                                    data-dismiss="modal" style="border-radius: 10rem;"><i class="fas fa-times"></i> Cancelar</button>
+                                <a class="btn btn-{{request.session.bt_color}}" href="#" style="border-radius: 10rem;"><i class="fas fa-check"></i> Aceptar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                  <!-- Delete Group Modal-->
+                  <div class="modal fade" id="editGroup{{item.id}}" tabindex="-1" role="dialog" aria-labelledby="modalLabelFile" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="container modal-content">
+                          <form id="form{{item.id}}" name="form{{item.id}}" class="user" method="POST" action="#">{% csrf_token %}
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modalLabelFile"><i class="fas fa-info-circle fa-1x"></i> Aviso de sistema</h5>                                   
+                            </div>
+                            <div class="modal-body"><b>Favor de indicar el nuevo valor:</b>
+                                </br></br> 
+                                
+                                <div class="input-group">
+                                  <input type="text" name="nombre_grupo_{{item.id}}" class="form-control form-control-user" 
+                                                                placeholder="Nombre del grupo (*)" data-placement="top" data-trigger="hover" 
+                                                                rel="popover" data-original-title="Nombre del grupo (*)" data-content="Nombre del grupo (*)" 
+                                                                maxlength="50" required="" id="id_grupo_{{item.id}}" value="{{item.nombre}}">
+                                  <div class="input-group-append">
+                                    <div class="input-group-text"><i class="fas fa-keyboard"></i></div>
+                                  </div>
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button onclick="resetForm('form{{item.id}}')" id="cancelar{{item.id}}" class="btn btn-{{request.session.bt_color}}" type="reset"
+                                    data-dismiss="modal" style="border-radius: 10rem;"><i class="fas fa-times"></i> Cancelar</button>
+                                <a class="btn btn-{{request.session.bt_color}}" href="#" style="border-radius: 10rem;"><i class="fas fa-check"></i> Aceptar</a>
+                            </div>
+                          </form>
+                        </div>
+                    </div>
+                  </div>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      {% else %}
+      <div>
+        <h6 style="text-align: center;" class="m-0 font-weight-bold"> <i class="fas fa-info-circle"></i> No hay ningún
+          registro en la base de datos actual</h6>
+      </div>
+      {% endif %}
+  
+    </div>
+  </div>
+
+  <div class="tab-pane fade" id="ayuda" role="tabpanel" aria-labelledby="nav-help-group-tab">
+    <div style="margin-top: 20px; width: 98%; margin-left: 10px;margin-right: 20px;">
+
+      <p style="text-align: justify;">
+        &nbsp;&nbsp;<i class="fas fa-info-circle fa-1x"></i> Desde este apartado podr&aacute;s agregar nuevos grupos de estudio al sistema.
+        <br/>
+        &nbsp;&nbsp;<i class="fas fa-info-circle fa-1x"></i> Si se eliminan todos los grupos, el sistema volver&aacute; a generar los grupos por defecto.
+      </p>
+      <div>
+        <ul class="list-group">
+          <li class="list-group-item list-group-item-{{request.session.bt_color}}" style="text-align: center;"><b>Grupos por defecto</b></li>
+          <li class="list-group-item">1.- Habitos</li>
+          <li class="list-group-item">2.- Motivo de Consulta</li>
+          <li class="list-group-item">3.- Examen de Tejidos (Oclusión)</li>
+          <li class="list-group-item">4.- Examen de Tejidos (Blandos)</li>
+          <li class="list-group-item">5.- Examen de Tejidos (Duros)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+{% load static %}
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script>
+    function resetForm(form){
+      $('#'+form)[0].reset();
+    }
+</script>
+{% endblock %}

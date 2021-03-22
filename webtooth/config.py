@@ -276,3 +276,11 @@ def filterQuery():
 	else:
 		customQuery = Q(userId=user.id)
 	return customQuery
+
+def filterQueryUser_id():
+	user = getUser()
+	if user.get_username() == 'admin':
+		customQuery = Q()
+	else:
+		customQuery = Q(user_id=user.id)
+	return customQuery

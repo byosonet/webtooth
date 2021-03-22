@@ -358,5 +358,50 @@
 			$('#verReceta'+ data[6]).modal('show')
 		});
 
+
+		/*Para Grupos*/
+		tableGroup = $('#dataTableGroup').DataTable({
+			"language": {
+				"url": "{% static 'json/spanish.json' %}"
+			},
+			"lengthMenu": [7, 14, 20, 25],
+			"aaSorting": [],
+			buttons: [{
+				extend: 'excelHtml5',
+				title: 'Listado de grupos al día {% now "DATE_FORMAT" %}',
+				exportOptions: {
+					columns: [1, 2, 3]
+				}
+			},
+			{
+				extend: 'pdfHtml5',
+				title: 'Listado de grupos al día {% now "DATE_FORMAT" %}',
+				orientation: 'landscape',
+				pageSize: 'LETTER',
+				download: 'open',
+				customize: function (doc) {
+					setDoc(180,doc);
+				},
+				exportOptions: {
+					columns: [1, 2, 3]
+				}
+			}, {
+				extend: 'print',
+				title: 'Listado de grupos al día {% now "DATE_FORMAT" %}',
+				exportOptions: {
+					columns: [1, 2, 3]
+				}
+			}]
+		});
+		$("#ReporteExcelGroup").on("click", function () {
+			tableGroup.button('.buttons-excel').trigger();
+		});
+		$("#ReportePdfGroup").on("click", function () {
+			tableGroup.button('.buttons-pdf').trigger();
+		});
+		$("#ReportePrintGroup").on("click", function () {
+			tableGroup.button('.buttons-print').trigger();
+		});		
+
 	});
 </script>
