@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required, permission_required
 from webtooth.decorators import validRequest
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from . models import File
 from . forms import FileForm
@@ -38,7 +38,8 @@ def altaArchivo(request):
             log.info("Se ha agregado a la BD el nuevo registro de archivo")
             messages.success(request, f"El archivo {fileName} ha sido agregado correctamente")
             formFile = FileForm()
-            return render(request, "file/altaArchivo.html", {"form": formFile})
+            ###return render(request, "file/altaArchivo.html", {"form": formFile})
+            return redirect("altaArchivo")
         else:
             log.error("Formulario recibido no pasa la validacion...")
             validErrors(formFile)
@@ -62,8 +63,7 @@ def listarArchivo(request):
 @validRequest
 def eliminarArchivo(request, idFile):
     log.info("[Load view method: eliminarArchivo(idFile)]")
-    log.info("idFile: "+str(idFile))    
-    listadoArchivos = File.objects.filter(filterQuery()).order_by('-fechaSubida')
+    log.info("idFile: "+str(idFile))
     try:
         log.info("ID File recibido: "+str(idFile))
         user = getUser()
@@ -83,11 +83,10 @@ def eliminarArchivo(request, idFile):
             log.error("No se pudo eliminar el archivo {} por el siguiente error:  {}".format(
                 fileOld, ex))
         messages.success(request, "El archivo: {} fue eliminado correctamente".format(str(fileN)))
-        return render(request, "file/listaArchivos.html", {"listaArchivo": listadoArchivos})
+        return redirect("listarArchivo")
     except Exception as ex:
         log.error("Error: "+str(ex))
-        listadoArchivos = None
-        return render(request, "file/listaArchivos.html", {"listaArchivo": listadoArchivos})
+        return redirect("listarArchivo")
 
 def userRequest():
     user = getUser()

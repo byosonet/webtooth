@@ -92,7 +92,8 @@ def altaPaciente(request):
 
             log.info("Se ha agregado a la BD el nuevo registro")
             messages.success(request, "Los datos han sido agregados correctamente con el expediente: {}".format(patient.numexp))
-            return buscarId(request,patient.id)
+            ###return buscarId(request,patient.id)
+            return redirect("buscarId",idPatient=patient.id)
         else:
             log.error("Formulario recibido no pasa la validacion...")
             messages.error(request, "[ERROR]: Algunos campos necesitan llenarse de forma correcta.")
@@ -197,7 +198,8 @@ def actualizarPaciente(request,idPatient):
 
             log.info("Se ha actualizado el registro en BD para el Expediente {}".format(dataPatient['numexp']))
             messages.success(request, "Los datos han sido actualizados correctamente para el expediente: {}".format(dataPatient['numexp']))
-            return render(request, "patient/datosPaciente.html", {"form": formPatient, "id": idPatient, "formAdress": formAdress, "expediente": expediente, "group":group,"study":study, "history":history})
+            ###return render(request, "patient/datosPaciente.html", {"form": formPatient, "id": idPatient, "formAdress": formAdress, "expediente": expediente, "group":group,"study":study, "history":history})
+            return redirect("buscarId",idPatient=idPatient)
         else:
             log.error("Formulario formPatient recibido no pasa la validacion..." +str(formPatient.errors))
             log.error("Formulario formAdress recibido no pasa la validacion..." + str(formAdress.errors))
@@ -207,11 +209,14 @@ def actualizarPaciente(request,idPatient):
             dataAppaterno = formPatient.cleaned_data.get("apellidoPaterno")
             if dataNombre == None or dataAppaterno == None:
                 printLogPatients("El campo nombre/apellido paterno viene vacío, se recarga los datos de patient.")
-                return buscarId(request, idPatient)
-            return render(request, "patient/datosPaciente.html", {"form": formPatient, "id": idPatient, "formAdress": formAdress, "expediente": expediente, "group":group,"study":study, "history":history})
+                ###return buscarId(request, idPatient)
+                return redirect("buscarId",idPatient=idPatient)
+            ###return render(request, "patient/datosPaciente.html", {"form": formPatient, "id": idPatient, "formAdress": formAdress, "expediente": expediente, "group":group,"study":study, "history":history})
+            return redirect("buscarId",idPatient=idPatient)
     except Exception as ex:
         log.error("Error: "+str(ex))
-        return buscarId(request, idPatient)
+        ###return buscarId(request, idPatient)
+        return redirect("buscarId",idPatient=idPatient)
 
 
 @login_required(login_url=getLogin())
@@ -229,6 +234,7 @@ def eliminarPaciente(request,idPatient):
         imageOld = patient.foto
         numexp = patient.numexp
         patient.eliminado = True
+        patient.fechaUpdate = currentLocalTime()
         patient.foto = ''
         patient.save()
         log.info("Se ha eliminado el registro de BD con NumExp: {}".format(numexp))
