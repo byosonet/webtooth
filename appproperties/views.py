@@ -1,13 +1,17 @@
 from django.shortcuts import render, redirect
-from webtooth.config import logger, updatePropertie, loadPropertie
+from webtooth.config import logger, updatePropertie, loadPropertie, getLogin
 from webtooth.signals import getUser
 from django.http import HttpResponse
+from django.contrib.auth.decorators import login_required
+from webtooth.decorators import validRequest
 
 import json
 
 # Create your views here.
 log = logger('appproperties', True)
 
+@login_required(login_url=getLogin())
+@validRequest
 def updateClassMenu(request):
     try:
         if request.method == 'POST':
@@ -23,6 +27,8 @@ def updateClassMenu(request):
         data = json.dumps({'result': 'KO'})
         return HttpResponse(data, content_type='application/json')
 
+@login_required(login_url=getLogin())
+@validRequest
 def updateFontMenu(request,value):
     updatePropertie(userRequest(), 'font_italic', value)
     loadPropertie(userRequest(), request)

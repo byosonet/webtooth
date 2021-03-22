@@ -1,6 +1,6 @@
 @font-face {
     font-family: 'webtooth';
-    src: url('../font/webtooth.ttf');
+    src: url('../font/Ubuntu-Italic.ttf');
 }
 body {
     font-family: webtooth !important;
