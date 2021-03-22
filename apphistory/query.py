@@ -1,4 +1,4 @@
-from webtooth.config import logger
+from webtooth.config import logger, currentLocalTime
 from . models import Group, Study, History
 from apppatients.models import Patient
 
@@ -9,13 +9,13 @@ def printLogHistory(register):
 def getGroup(request):
     printLogHistory("Get list group")
     printLogHistory("Filter by user: "+str(request.user))
-    listGroup = Group.objects.filter(user=request.user)
+    listGroup = Group.objects.filter(user=request.user).order_by('fechaAlta')
     return listGroup
 
 def getStudy(request):
     printLogHistory("Get list study")
     printLogHistory("Filter by user: "+str(request.user))
-    listStudy = Study.objects.filter(user=request.user)
+    listStudy = Study.objects.filter(user=request.user).order_by('fechaAlta')
     return listStudy
 
 def getHistory(request, idPatient):
@@ -38,6 +38,9 @@ def addHistory(request,idPatient,idStudy):
     history.grupo = study.grupo
     history.check = True
     history.save()
+
+    patient.fechaUpdate = currentLocalTime()
+    patient.save()
     log.info("-- Se ha añadido nuevo registro en history")
 
 def delHistory(idPatient):

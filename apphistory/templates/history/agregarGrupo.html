@@ -100,7 +100,7 @@
                 <tr style="text-align: center;">
                   <th>Nº</th>
                   <th>Nombre grupo</th>
-                  <th>Fecha alta</th>
+                  <th>Fecha actualizaci&oacute;n</th>
                   <th>Subido por</th>
                   <th>Acciones</th>
                 </tr>
@@ -112,7 +112,7 @@
                 <tr>
                   <td style="text-align: center;width: 100px;">{{item.id}}</td>
                   <td style="width: 350px;">{{item.nombre}}</td>
-                  <td style="width: 200px;">{{item.fechaAlta}}</td>
+                  <td style="text-align: center;">{{item.fechaUpdate}}</td>
                   <td style="text-align: center;">{{item.user.first_name}}&nbsp;{{item.user.last_name}}</td>
                   <td style="text-align: center;width: 100px;">
                     <div class="row">
@@ -148,7 +148,7 @@
                   <div class="modal fade" id="editGroup{{item.id}}" tabindex="-1" role="dialog" aria-labelledby="modalLabelFile" aria-hidden="true" data-backdrop="static" data-keyboard="false">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="container modal-content">
-                          <form id="form{{item.id}}" name="form{{item.id}}" class="user" method="POST" action="#">{% csrf_token %}
+                          <form id="form{{item.id}}" name="form{{item.id}}" class="user" method="POST" action="{% url 'editGroup' item.id %}">{% csrf_token %}
                             <div class="modal-header">
                                 <h5 class="modal-title" id="modalLabelFile"><i class="fas fa-info-circle fa-1x"></i> Aviso de sistema</h5>                                   
                             </div>

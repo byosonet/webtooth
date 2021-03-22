@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import render, redirect
-from webtooth.config import logger, getLogin, filterQueryUser_id
+from webtooth.config import logger, getLogin, filterQueryUser_id, currentLocalTime
 from . query import getGroup, getStudy, addHistory, delHistory, getHistory
 from webtooth.decorators import validRequest
 from apppatients import views
@@ -44,14 +44,14 @@ def updateHistory(request, idPatient):
         log.error("-- No se pudo procesar el modulo history: {}".format(ex))
     printLogHistory("Se redirige nuevamente a los datos del paciente")
     messages.success(request, "¡Los datos han sido actualizados correctamente!")
-    return views.buscarId(request, idPatient)
+    return redirect("buscarId",idPatient=idPatient)
 
 @login_required(login_url=getLogin())
 @permission_required(viewGroup(), login_url=notPermission())
 @validRequest
 def viewGroup(request):
     log.info("[Load view method: viewGroup]")
-    listadoGrupos = Group.objects.filter(filterQueryUser_id()).order_by('-fechaAlta')   
+    listadoGrupos = Group.objects.filter(filterQueryUser_id()).order_by('-fechaUpdate')   
     return render(request, "history/agregarGrupo.html", {"listadoGrupos": listadoGrupos})
 
 @login_required(login_url=getLogin())
@@ -76,6 +76,7 @@ def addGroup(request):
                 grupo.user = request.user
                 grupo.save()
                 messages.success(request, "¡Se ha agredado correctamente el grupo: {}!".format(valueNameGroup))
+                log.info("¡Se ha agredado correctamente el grupo: {}!".format(valueNameGroup))
     except Exception as ex:
         log.error("-- No se pudo procesar el modulo addGroup: {}".format(ex))
     printLogHistory("Se redirige nuevamente al listado de grupos")
@@ -91,8 +92,39 @@ def deleteGroup(request, idGroup):
         valueNameGrp = grupo.nombre
         grupo.delete()
         messages.success(request, "¡Se ha eliminado correctamente el grupo: {}!".format(valueNameGrp))
+        log.info("¡Se ha eliminado correctamente el grupo: {}!".format(valueNameGrp))
     except Exception as ex:
         log.error("-- No se pudo procesar el modulo deleteGroup: {}".format(ex))
         messages.error(request, "¡No se ha podido eliminar el grupo: {}!".format(ex))
+    printLogHistory("Se redirige nuevamente al listado de grupos")
+    return redirect("viewGroup")
+
+@login_required(login_url=getLogin())
+@permission_required(updateGroup(), login_url=notPermission())
+@validRequest
+def editGroup(request, idGroup):
+    log.info("[Load view method: editGroup]")
+    try:
+        if request.method == 'POST':
+            log.debug("Method POST with params: "+str(request.POST))
+            params = []
+            for p in request.POST:
+                log.debug("field: {}, value: {}".format(p, request.POST.get(p)))
+                if not p == "csrfmiddlewaretoken":
+                    log.info("-- Add param: "+str(p))
+                    params.append(p)
+            if request.POST.get(params[0]):
+                newNameGroup = request.POST.get(params[0])
+                log.info("Group name to update: {}".format(newNameGroup))
+                grupo = Group.objects.get(pk=idGroup)
+                nameOld = grupo.nombre
+                grupo.nombre = newNameGroup
+                grupo.fechaUpdate = currentLocalTime()
+                grupo.save()
+                messages.success(request, "¡Se ha actualizado correctamente el grupo de: {} a: {}!".format(nameOld,newNameGroup))
+                log.info("¡Se ha actualizado correctamente el grupo de: {} a:{}!".format(nameOld,newNameGroup))
+    except Exception as ex:
+        log.error("-- No se pudo procesar el modulo editGroup: {}".format(ex))
+        messages.error(request, "¡No se ha podido actualizar el grupo: {}!".format(ex))
     printLogHistory("Se redirige nuevamente al listado de grupos")
     return redirect("viewGroup")
