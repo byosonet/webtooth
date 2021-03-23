@@ -5,8 +5,8 @@ from . query import getGroup, getStudy, addHistory, delHistory, getHistory
 from webtooth.decorators import validRequest
 from apppatients import views
 from django.contrib import messages
-from apphistory.permissions import addGroup, viewGroup, updateGroup, deleteGroup, notPermission
-from . models import Group
+from apphistory.permissions import addGroup, viewGroup, updateGroup, deleteGroup, notPermission, addStudy, viewStudy, updateStudy, deleteStudy
+from . models import Group, Study
 
 # Create your views here.
 log = logger('apphistory', True)
@@ -128,3 +128,12 @@ def editGroup(request, idGroup):
         messages.error(request, "¡No se ha podido actualizar el grupo: {}!".format(ex))
     printLogHistory("Se redirige nuevamente al listado de grupos")
     return redirect("viewGroup")
+
+
+@login_required(login_url=getLogin())
+@permission_required(viewStudy(), login_url=notPermission())
+@validRequest
+def viewStudy(request):
+    log.info("[Load view method: viewStudy]")
+    listadoEstudios = Study.objects.filter(filterQueryUser_id()).order_by('-fechaUpdate')   
+    return render(request, "history/agregarEstudio.html", {"listadoEstudios": listadoEstudios})

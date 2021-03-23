@@ -403,5 +403,50 @@
 			tableGroup.button('.buttons-print').trigger();
 		});		
 
+
+		/*Para Estudios*/
+		tableStudy = $('#dataTableStudy').DataTable({
+			"language": {
+				"url": "{% static 'json/spanish.json' %}"
+			},
+			"lengthMenu": [7, 14, 20, 25],
+			"aaSorting": [],
+			buttons: [{
+				extend: 'excelHtml5',
+				title: 'Listado de estudios al día {% now "DATE_FORMAT" %}',
+				exportOptions: {
+					columns: [1, 2, 3, 4]
+				}
+			},
+			{
+				extend: 'pdfHtml5',
+				title: 'Listado de estudios al día {% now "DATE_FORMAT" %}',
+				orientation: 'landscape',
+				pageSize: 'LETTER',
+				download: 'open',
+				customize: function (doc) {
+					setDoc(125,doc);
+				},
+				exportOptions: {
+					columns: [1, 2, 3, 4]
+				}
+			}, {
+				extend: 'print',
+				title: 'Listado de estudios al día {% now "DATE_FORMAT" %}',
+				exportOptions: {
+					columns: [1, 2, 3, 4]
+				}
+			}]
+		});
+		$("#ReporteExcelStudy").on("click", function () {
+			tableStudy.button('.buttons-excel').trigger();
+		});
+		$("#ReportePdfStudy").on("click", function () {
+			tableStudy.button('.buttons-pdf').trigger();
+		});
+		$("#ReportePrintStudy").on("click", function () {
+			tableStudy.button('.buttons-print').trigger();
+		});	
+
 	});
 </script>

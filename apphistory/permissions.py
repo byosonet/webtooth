@@ -13,3 +13,13 @@ def deleteGroup():
 	return APP_NAME_MANAGEMENT_HISTORY+'deleteGroup'
 def updateGroup():
 	return APP_NAME_MANAGEMENT_HISTORY+'updateGroup'
+
+#Gestion de permisos para Estudios
+def viewStudy():
+	return APP_NAME_MANAGEMENT_HISTORY+'viewStudy'
+def addStudy():
+	return APP_NAME_MANAGEMENT_HISTORY+'addStudy'
+def deleteStudy():
+	return APP_NAME_MANAGEMENT_HISTORY+'deleteStudy'
+def updateStudy():
+	return APP_NAME_MANAGEMENT_HISTORY+'updateStudy'
