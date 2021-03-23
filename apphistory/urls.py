@@ -8,4 +8,6 @@ urlpatterns=[
     path('delete/group/<int:idGroup>', views.deleteGroup, name="deleteGroup"),
     path('edit/group/<int:idGroup>', views.editGroup, name="editGroup"),
     path('view/study/', views.viewStudy, name="viewStudy"),
+    path('delete/study/<int:idStudy>', views.deleteStudy, name="deleteStudy"),
+    path('edit/study/<int:idStudy>', views.editStudy, name="editStudy"),
 ]

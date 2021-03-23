@@ -140,17 +140,17 @@
                             <div class="modal-footer">
                                 <button class="btn btn-{{request.session.bt_color}}" type="button"
                                     data-dismiss="modal" style="border-radius: 10rem;"><i class="fas fa-times"></i> Cancelar</button>
-                                <a class="btn btn-{{request.session.bt_color}}" href="#" style="border-radius: 10rem;"><i class="fas fa-check"></i> Aceptar</a>
+                                <a class="btn btn-{{request.session.bt_color}}" href="{% url 'deleteStudy' item.id %}" style="border-radius: 10rem;"><i class="fas fa-check"></i> Aceptar</a>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                  <!-- Delete Study Modal-->
+                  <!-- Edit Study Modal-->
                   <div class="modal fade" id="editStudy{{item.id}}" tabindex="-1" role="dialog" aria-labelledby="modalLabelFile" aria-hidden="true" data-backdrop="static" data-keyboard="false">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="container modal-content">
-                          <form id="form{{item.id}}" name="form{{item.id}}" class="user" method="POST" action="#">{% csrf_token %}
+                          <form id="form{{item.id}}" name="form{{item.id}}" class="user" method="POST" action="{% url 'editStudy' item.id %}">{% csrf_token %}
                             <div class="modal-header">
                                 <h5 class="modal-title" id="modalLabelFile"><i class="fas fa-info-circle fa-1x"></i> Aviso de sistema</h5>                                   
                             </div>

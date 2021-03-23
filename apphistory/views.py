@@ -137,3 +137,50 @@ def viewStudy(request):
     log.info("[Load view method: viewStudy]")
     listadoEstudios = Study.objects.filter(filterQueryUser_id()).order_by('-fechaUpdate')   
     return render(request, "history/agregarEstudio.html", {"listadoEstudios": listadoEstudios})
+
+@login_required(login_url=getLogin())
+@permission_required(deleteStudy(), login_url=notPermission())
+@validRequest
+def deleteStudy(request, idStudy):
+    log.info("[Load view method: deleteStudy]")
+    try:
+        estudio = Study.objects.get(pk=idStudy)
+        valueNameStd = estudio.nombre
+        estudio.delete()
+        messages.success(request, "¡Se ha eliminado correctamente el estudio: {}!".format(valueNameStd))
+        log.info("¡Se ha eliminado correctamente el estudio: {}!".format(valueNameStd))
+    except Exception as ex:
+        log.error("-- No se pudo procesar el modulo deleteStudy: {}".format(ex))
+        messages.error(request, "¡No se ha podido eliminar el estudio: {}!".format(ex))
+    printLogHistory("Se redirige nuevamente al listado de estudios")
+    return redirect("viewStudy")
+
+@login_required(login_url=getLogin())
+@permission_required(updateStudy(), login_url=notPermission())
+@validRequest
+def editStudy(request, idStudy):
+    log.info("[Load view method: editStudy]")
+    try:
+        if request.method == 'POST':
+            log.debug("Method POST with params: "+str(request.POST))
+            params = []
+            for p in request.POST:
+                log.debug("field: {}, value: {}".format(p, request.POST.get(p)))
+                if not p == "csrfmiddlewaretoken":
+                    log.info("-- Add param: "+str(p))
+                    params.append(p)
+            if request.POST.get(params[0]):
+                newNameStudy = request.POST.get(params[0])
+                log.info("Study name to update: {}".format(newNameStudy))
+                estudio = Study.objects.get(pk=idStudy)
+                nameOld = estudio.nombre
+                estudio.nombre = newNameStudy
+                estudio.fechaUpdate = currentLocalTime()
+                estudio.save()
+                messages.success(request, "¡Se ha actualizado correctamente el estudio de: {} a: {}!".format(nameOld,newNameStudy))
+                log.info("¡Se ha actualizado correctamente el estudio de: {} a:{}!".format(nameOld,newNameStudy))
+    except Exception as ex:
+        log.error("-- No se pudo procesar el modulo editStudy: {}".format(ex))
+        messages.error(request, "¡No se ha podido actualizar el estudio: {}!".format(ex))
+    printLogHistory("Se redirige nuevamente al listado de estudios")
+    return redirect("viewStudy")
