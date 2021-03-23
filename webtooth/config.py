@@ -14,6 +14,7 @@ from webtooth.signals import getUser
 from webtooth.logger import LOGGING
 from django.db import connection
 from django.db.models import Q
+from django.contrib.sites.models import Site
 
 #Service logger
 def logger(app,view):
@@ -98,6 +99,7 @@ def createFirstOnly(request):
 	createPropertie(userRequest(), 'last_row', str(0))
 	createPropertie(userRequest(),'class_menu', '')
 	createPropertie(userRequest(),'font_italic', 'false')
+	setDomainName()
 
 def setColorSystem(request,idColor):
 	log.info("Cambiando el color al sistema, idColor recibido: {}".format(idColor))	
@@ -284,3 +286,10 @@ def filterQueryUser_id():
 	else:
 		customQuery = Q(user_id=user.id)
 	return customQuery
+
+def setDomainName():
+	site = Site.objects.get(pk=int(settings.SITE_ID))
+	site.domain = settings.SITE_DOMAIN
+	site.name = settings.SITE_NAME
+	site.save()
+	printLogConfig("Create domain and name of site, OK!")
