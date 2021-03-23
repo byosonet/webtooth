@@ -10,4 +10,5 @@ urlpatterns=[
     path('view/study/', views.viewStudy, name="viewStudy"),
     path('delete/study/<int:idStudy>', views.deleteStudy, name="deleteStudy"),
     path('edit/study/<int:idStudy>', views.editStudy, name="editStudy"),
+    path('add/study/', views.addStudy, name="addStudy"),
 ]

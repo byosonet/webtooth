@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required, permission_required
 from django.conf import settings
 
@@ -49,8 +49,7 @@ def contactoPaciente(request):
                 recipe.stateRecipe = 'Enviado'
                 messages.success(request, f"¡El correo se ha enviado correctamente ha: {email}!")
             recipe.save()
-            formContact = ContactForm()
-            return render(request,"contact/contacto.html", {"form":formContact, "listadoEnviados":listadoEnviados})
+            return redirect("contactoPaciente")
         else:
             log.error("Formulario recibido no pasa la validacion...")
             messages.error(request, "¡Algunos campos necesitan llenarse de forma correcta!")

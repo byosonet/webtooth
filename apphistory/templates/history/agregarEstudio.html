@@ -30,7 +30,7 @@
     <div style="margin-top: 20px; width: 98%; margin-left: 5px;margin-right: 5px;">
 
 
-      <form class="user" action="#" method="POST">{% csrf_token %}
+      <form class="user" action="{% url 'addStudy' %}" method="POST">{% csrf_token %}
         <div class="form-group row">
           <div class="col-sm-4">
             <div class="input-group">
@@ -123,8 +123,8 @@
                 {% for item in listadoEstudios %}
                 <tr>
                   <td style="text-align: center;width: 100px;">{{item.id}}</td>
-                  <td style="width: 200px;">{{item.nombre}}</td>
-                  <td style="width: 150px;">{{item.grupo.nombre}}</td>
+                  <td style="">{{item.nombre}}</td>
+                  <td style="">{{item.grupo.nombre}}</td>
                   <td style="text-align: center;">{{item.fechaUpdate}}</td>
                   <td style="text-align: center;">{{item.user.first_name}}&nbsp;{{item.user.last_name}}</td>
                   <td style="text-align: center;width: 100px;">

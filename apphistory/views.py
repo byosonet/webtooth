@@ -185,3 +185,34 @@ def editStudy(request, idStudy):
         messages.error(request, "¡No se ha podido actualizar el estudio: {}!".format(ex))
     printLogHistory("Se redirige nuevamente al listado de estudios")
     return redirect("viewStudy")
+
+@login_required(login_url=getLogin())
+@permission_required(addStudy(), login_url=notPermission())
+@validRequest
+def addStudy(request):
+    log.info("[Load view method: addStudy]")
+    try:
+        if request.method == 'POST':
+            log.debug("Method POST with params: "+str(request.POST))
+            params = []
+            for p in request.POST:
+                log.debug("field: {}, value: {}".format(p, request.POST.get(p)))
+                if not p == "csrfmiddlewaretoken":
+                    log.info("-- Add param: "+str(p))
+                    params.append(p)
+            if request.POST.get(params[0]):
+                idGroup = int(request.POST.get(params[0]))
+                grupo = Group.objects.get(pk=idGroup)
+                valueNameStudy = request.POST.get(params[1])
+                log.info("Study name to process: {}".format(valueNameStudy))
+                estudio = Study()
+                estudio.nombre = valueNameStudy
+                estudio.user = request.user
+                estudio.grupo = grupo
+                estudio.save()
+                messages.success(request, "¡Se ha agredado correctamente el estudio: {}!".format(valueNameStudy))
+                log.info("¡Se ha agredado correctamente el estudio: {}!".format(valueNameStudy))
+    except Exception as ex:
+        log.error("-- No se pudo procesar el modulo addStudy: {}".format(ex))
+    printLogHistory("Se redirige nuevamente al listado de estudios")
+    return redirect("viewStudy")
