@@ -136,7 +136,8 @@ def editGroup(request, idGroup):
 def viewStudy(request):
     log.info("[Load view method: viewStudy]")
     listadoEstudios = Study.objects.filter(filterQueryUser_id()).order_by('-fechaUpdate')   
-    return render(request, "history/agregarEstudio.html", {"listadoEstudios": listadoEstudios})
+    selectGrp = getGroup(request)
+    return render(request, "history/agregarEstudio.html", {"listadoEstudios": listadoEstudios, "selectGrp":selectGrp})
 
 @login_required(login_url=getLogin())
 @permission_required(deleteStudy(), login_url=notPermission())
