@@ -34,6 +34,7 @@ ALLOWED_HOSTS = ['*']
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
+    'django.contrib.sites',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -204,3 +205,6 @@ PROPAGATE_LOG = True
 FILTER_FILE_ERROR = 'ERROR'
 FLAG_ERROR = False
 FLAG_COUNT = 6
+
+##PARA HABILITAR REGISTRO DE SITIO
+SITE_ID = 1

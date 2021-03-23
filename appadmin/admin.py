@@ -2,6 +2,28 @@ from django.contrib import admin
 
 # Register your models here.
 from django.contrib.admin.models import LogEntry
+from django.contrib.sites.models import Site
+
+admin.site.unregister(Site)
+class SiteAdmin(admin.ModelAdmin):
+	fields = ('id', 'domain', 'name')
+	list_display = ('id', 'domain', 'name')
+	list_display_links = ('domain',)
+	list_filter = ['domain']
+
+	class Media:
+		css = {
+			'all': ('css/customAdmin.css',)
+		}
+
+	def has_add_permission(self, request):
+		return False
+	def has_change_permission(self, request, obj=None):
+		return False
+	def has_delete_permission(self, request, obj=None):
+		return False
+	def has_module_permission(self, request):
+		return validUser(request)
 
 class LogAdmin(admin.ModelAdmin):
 	list_display = ('action_time','_user','_content_type','_change_message','_object_repr')
@@ -51,3 +73,4 @@ def validUser(request):
 		return False
 
 admin.site.register(LogEntry,LogAdmin)
+admin.site.register(Site, SiteAdmin)

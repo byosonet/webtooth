@@ -116,15 +116,15 @@
     {{ form.password.label_tag }} {{ form.password }}
     <input type="hidden" name="next" value="{{ next }}">
   </div>
-  {% url 'admin_password_reset' as password_reset_url %}
+  {% url 'reset_password' as password_reset_url %}
   {% if password_reset_url %}
   <div class="password-reset-link">
-    <a href="{{ password_reset_url }}">{% trans 'Forgotten your password or username?' %}</a>
+    <i><a href="{{ password_reset_url }}">¿Ha olvidado la contrase&ntilde;a?</a></i>
   </div>
   {% endif %}
     <div class="form-row">
         <div class="submit-row">
-            <label>&nbsp;</label><button class="button btncss" type="submit">{% trans 'Log in' %}</button>
+            <label>&nbsp;</label><button class="button btncss" type="submit"><i>{% trans 'Log in' %}</i></button>
         </div>
     </div>
 </form>
