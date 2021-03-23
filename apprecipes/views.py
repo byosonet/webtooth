@@ -44,16 +44,16 @@ def contactoPaciente(request):
             if email == None:
                 recipe.stateRecipe = 'No enviado'
                 messages.error(
-                    request, f"Servidor de correo no disponible, intentelo más tarde.")
+                    request, f"¡Servidor de correo no disponible, intentelo más tarde!")
             else:
                 recipe.stateRecipe = 'Enviado'
-                messages.success(request, f"El correo se ha enviado correctamente ha: {email}")
+                messages.success(request, f"¡El correo se ha enviado correctamente ha: {email}!")
             recipe.save()
             formContact = ContactForm()
             return render(request,"contact/contacto.html", {"form":formContact, "listadoEnviados":listadoEnviados})
         else:
             log.error("Formulario recibido no pasa la validacion...")
-            messages.error(request, "[ERROR]: Algunos campos necesitan llenarse de forma correcta.")
+            messages.error(request, "¡Algunos campos necesitan llenarse de forma correcta!")
             validErrors(formContact)
 
     else:

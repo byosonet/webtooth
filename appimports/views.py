@@ -68,7 +68,7 @@ def importPatients(request):
                         file.save()
                         importFile = ImportForm()
                         log.info("Existen errores de validacion, revisar archivo")
-                        messages.error(request, f"[ERROR]: El archivo {fileName} contiene errores o le faltan campos por cumplimentar.")
+                        messages.error(request, f"¡El archivo {fileName} contiene errores o le faltan campos por cumplimentar!")
                         return render(request, "import/importarPaciente.html", {"form": importFile, "listadoImportacion":listadoImportacion})
                     file.importado = True
                     file.userId = userRequest()
@@ -81,12 +81,12 @@ def importPatients(request):
                 file.save()
                 importFile = ImportForm()
                 log.info("Existen errores de validacion, revisar archivo")
-                messages.error(request, f"[ERROR]: El archivo {fileName} debe contener al menos un registro")
+                messages.error(request, f"¡El archivo {fileName} debe contener al menos un registro!")
                 return render(request, "import/importarPaciente.html", {"form": importFile,"listadoImportacion":listadoImportacion})
 
             log.info("Se ha agregado a la BD el nuevo archivo importado")
             messages.success(
-                request, f"El archivo {fileName} ha sido importado correctamente")
+                request, f"¡El archivo {fileName} ha sido importado correctamente!")
             importFile = ImportForm()
             return render(request, "import/importarPaciente.html", {"form": importFile,"listadoImportacion":listadoImportacion})
         else:

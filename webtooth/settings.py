@@ -180,11 +180,11 @@ MAX_TIME_MINUTES_SESSION = 3
 SESSION_EXPIRY_SECONDS = 300
 
 MESSAGE_TAGS = {
-    messages.DEBUG: 'bg-',
-    messages.INFO: 'bg-',
-    messages.SUCCESS: 'bg-',
-    messages.WARNING: 'bg-',
-    messages.ERROR: 'bg-',
+    messages.DEBUG: 'alert-info',
+    messages.INFO: 'alert-info',
+    messages.SUCCESS: 'alert-success',
+    messages.WARNING: 'alert-warning',
+    messages.ERROR: 'alert-danger',
  }
 
 #JOBS LIST FOR WEBTOOTH

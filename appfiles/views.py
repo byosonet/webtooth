@@ -36,7 +36,7 @@ def altaArchivo(request):
             printLogFiles("Data recibida del formulario archivo: "+str(dataFile))
             file.save()            
             log.info("Se ha agregado a la BD el nuevo registro de archivo")
-            messages.success(request, f"El archivo {fileName} ha sido agregado correctamente")
+            messages.success(request, f"¡El archivo {fileName} ha sido agregado correctamente!")
             formFile = FileForm()
             ###return render(request, "file/altaArchivo.html", {"form": formFile})
             return redirect("altaArchivo")
@@ -82,7 +82,7 @@ def eliminarArchivo(request, idFile):
         except Exception as ex:
             log.error("No se pudo eliminar el archivo {} por el siguiente error:  {}".format(
                 fileOld, ex))
-        messages.success(request, "El archivo: {} fue eliminado correctamente".format(str(fileN)))
+        messages.success(request, "¡El archivo: {} fue eliminado correctamente!".format(str(fileN)))
         return redirect("listarArchivo")
     except Exception as ex:
         log.error("Error: "+str(ex))

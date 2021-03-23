@@ -45,13 +45,13 @@ def altaTarea(request):
 
             log.info("Se ha agregado a la BD el nuevo registro")
 
-            messages.success(request, f"La tarea {task.nameTask} ha sido agregada correctamente")
+            messages.success(request, f"¡La tarea {task.nameTask} ha sido agregada correctamente!")
             ###return buscarTaskId(request, task.id)
             return redirect("buscarTaskId",idTask=task.id)
 
         else:
             log.error("Formulario recibido no pasa la validacion...")
-            messages.error(request, "[ERROR]: Algunos campos necesitan llenarse de forma correcta.")
+            messages.error(request, "¡Algunos campos necesitan llenarse de forma correcta!")
             validErrors(taskForm)
     else:
         taskForm = TaskForm()
@@ -98,7 +98,7 @@ def actualizarTask(request, idTask):
             formTask.save()            
 
             log.info("Se ha actualizado el registro en BD para la tarea {}".format(dataTask['nameTask']))
-            messages.success(request, "Los datos han sido actualizados correctamente")
+            messages.success(request, "¡Los datos han sido actualizados correctamente!")
             ###return buscarTaskId(request, idTask)
             return redirect("buscarTaskId",idTask=idTask)
         else:

@@ -91,12 +91,12 @@ def altaPaciente(request):
             adress.save()
 
             log.info("Se ha agregado a la BD el nuevo registro")
-            messages.success(request, "Los datos han sido agregados correctamente con el expediente: {}".format(patient.numexp))
+            messages.success(request, "¡Los datos han sido agregados correctamente con el expediente: {}!".format(patient.numexp))
             ###return buscarId(request,patient.id)
             return redirect("buscarId",idPatient=patient.id)
         else:
             log.error("Formulario recibido no pasa la validacion...")
-            messages.error(request, "[ERROR]: Algunos campos necesitan llenarse de forma correcta.")
+            messages.error(request, "¡Algunos campos necesitan llenarse de forma correcta!")
             validErrors(formPatient)
             validErrors(formAdress)
 
@@ -197,7 +197,7 @@ def actualizarPaciente(request,idPatient):
             formAdress.save()
 
             log.info("Se ha actualizado el registro en BD para el Expediente {}".format(dataPatient['numexp']))
-            messages.success(request, "Los datos han sido actualizados correctamente para el expediente: {}".format(dataPatient['numexp']))
+            messages.success(request, "¡Los datos han sido actualizados correctamente para el expediente: {}!".format(dataPatient['numexp']))
             ###return render(request, "patient/datosPaciente.html", {"form": formPatient, "id": idPatient, "formAdress": formAdress, "expediente": expediente, "group":group,"study":study, "history":history})
             return redirect("buscarId",idPatient=idPatient)
         else:
