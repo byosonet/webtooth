@@ -89,6 +89,7 @@ def loadPropertie(userId, request):
 	request.session[lr.key] = lr.value
 	request.session[cm.key] = cm.value
 	request.session[fi.key] = fi.value
+	request.session['vapp'] =  settings.VERSION_WEBTOOTH
 	printLogConfig("{}, {}, {}".format(bg,bt,fg))
 
 def createFirstOnly(request):	

@@ -59,13 +59,13 @@
         </div>
 
         <div class="form-group row">
-          <div class="col-sm-8"></div>
-          <div class="col-sm-2">
+          <div class="col-sm-6"></div>
+          <div class="col-sm-3">
             <button type="reset" class="btn btn-{{request.session.bt_color}} btn-user btn-block"><i
                 class="fa fa-eraser"></i> Limpiar</button>
           </div>
           </br></br>
-          <div class="col-sm-2">
+          <div class="col-sm-3">
             <button type="submit" class="btn btn-{{request.session.bt_color}} btn-user btn-block"><i
                 class="fa fa-check"></i> Agregar</button>
           </div>
@@ -138,8 +138,8 @@
                 <div class="modal fade" id="deleteStudy{{item.id}}" tabindex="-1" role="dialog" aria-labelledby="modalLabelFile" aria-hidden="true" data-backdrop="static" data-keyboard="false">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="modalLabelFile"><i class="fas fa-info-circle fa-1x"></i> Aviso de sistema</h5>                                   
+                            <div class="modal-header alert-{{request.session.bt_color}}">
+                                <h6 class="modal-title" id="modalLabelFile"><i class="fas fa-info-circle fa-1x"></i> Informaci&oacute;n del sistema</h6>                                   
                             </div>
                             <div class="modal-body">¿Est&aacute; seguro de eliminar el registro actual?
                                 </br></br>&nbsp;&nbsp;Estudio: <b>{{item.nombre}}</b>
@@ -151,7 +151,7 @@
                             <div class="modal-footer">
                                 <button class="btn btn-{{request.session.bt_color}}" type="button"
                                     data-dismiss="modal" style="border-radius: 10rem;"><i class="fas fa-times"></i> Cancelar</button>
-                                <a class="btn btn-{{request.session.bt_color}}" href="{% url 'deleteStudy' item.id %}" style="border-radius: 10rem;"><i class="fas fa-check"></i> Aceptar</a>
+                                <a class="btn btn-{{request.session.bt_color}}" href="{% url 'deleteStudy' item.id %}" style="border-radius: 10rem;"><i class="fas fa-check"></i> Eliminar</a>
                             </div>
                         </div>
                     </div>
@@ -160,11 +160,11 @@
                   <!-- Edit Study Modal-->
                   <div class="modal fade" id="editStudy{{item.id}}" tabindex="-1" role="dialog" aria-labelledby="modalLabelFile" aria-hidden="true" data-backdrop="static" data-keyboard="false">
                     <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="container modal-content">
-                          <form id="form{{item.id}}" name="form{{item.id}}" class="user" method="POST" action="{% url 'editStudy' item.id %}">{% csrf_token %}
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="modalLabelFile"><i class="fas fa-info-circle fa-1x"></i> Aviso de sistema</h5>                                   
+                        <div class="modal-content">
+                            <div class="modal-header alert-{{request.session.bt_color}}">
+                                <h6 class="modal-title" id="modalLabelFile"><i class="fas fa-info-circle fa-1x"></i> Informaci&oacute;n del sistema</h6>                                   
                             </div>
+                            <form id="form{{item.id}}" name="form{{item.id}}" class="user" method="POST" action="{% url 'editStudy' item.id %}">{% csrf_token %}
                             <div class="modal-body"><b>Favor de indicar el nuevo valor:</b>
                                 </br></br> 
                                 
@@ -182,9 +182,9 @@
                             <div class="modal-footer">
                                 <button onclick="resetForm('form{{item.id}}')" id="cancelar{{item.id}}" class="btn btn-{{request.session.bt_color}}" type="reset"
                                     data-dismiss="modal" style="border-radius: 10rem;"><i class="fas fa-times"></i> Cancelar</button>
-                                <button type="submit" id="enviar{{item.id}}" class="btn btn-{{request.session.bt_color}}" style="border-radius: 10rem;"><i class="fas fa-check"></i> Aceptar</button>
+                                <button type="submit" id="enviar{{item.id}}" class="btn btn-{{request.session.bt_color}}" style="border-radius: 10rem;"><i class="fas fa-check"></i> Guardar</button>
                             </div>
-                          </form>
+                            </form>
                         </div>
                     </div>
                   </div>

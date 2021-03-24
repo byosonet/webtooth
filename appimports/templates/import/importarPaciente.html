@@ -35,19 +35,19 @@
 
             <form class="user" action="{% url 'importPatients' %}" method="POST" enctype="multipart/form-data">{% csrf_token %}
                 <div class="form-group row">
-                    <div class="col-sm-4">
+                    <div class="col-sm-6">
                         <i class="fas fa-file-excel fa-1x"></i> {{form.path}}
                         
                     </div>
                     </br></br>
-                    <div class="col-sm-2">
+                    <div class="col-sm-3">
                         <button type="reset" class="btn btn-{{request.session.bt_color}} btn-user btn-block"><i class="fa fa-eraser"></i> Limpiar</button>
                     </div>
                     </br></br>
-                    <div class="col-sm-2">
+                    <div class="col-sm-3">
                         <button type="submit" class="btn btn-{{request.session.bt_color}} btn-user btn-block"><i class="fa fa-upload"></i> Importar</button>
                     </div>
-                    <div class="col-sm-4"></div>
+                    
                 </div>
             </form>
 
@@ -131,14 +131,18 @@
 
             <p style="text-align: justify;">
                 <i class="fas fa-info-circle fa-1x"></i> Desde este apartado podr&aacute;s realizar importaciones de ficheros excel que contengan listado de
-                pacientes. 
-                <ul>
-                    <li>
-                        <div><i class="fas fa-file-excel fa-1x"></i><a class="text-{{request.session.bt_color}}" href="{% static 'import/plantilla-pacientes.xlsx' %}">
-                            <b> Descargar plantilla para importar</b></a></div>
-                    </li>
-                </ul>
+                pacientes.
             </p>
+
+            <div>
+                <ul class="list-group">
+                  <li class="list-group-item list-group-item-{{request.session.bt_color}}" style="text-align: center;"><b>Plantillas de importaci&oacute;n</b></li>
+                  <li class="list-group-item">
+                    <div><i class="fas fa-file-excel fa-1x"></i><a class="text-{{request.session.bt_color}}" href="{% static 'import/plantilla-pacientes.xlsx' %}">
+                        <b> 1.- Descargar plantilla para importar pacientes</b></a></div>
+                  </li>
+                </ul>
+            </div>
 
         </div>
     </div>

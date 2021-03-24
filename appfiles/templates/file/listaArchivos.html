@@ -75,8 +75,8 @@
                     <div class="modal fade" id="deleteFile{{archivo.id}}" tabindex="-1" role="dialog" aria-labelledby="modalLabelFile" aria-hidden="true" data-backdrop="static" data-keyboard="false">
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="modalLabelFile"><i class="fas fa-info-circle fa-1x"></i> Aviso de sistema</h5>                                   
+                                <div class="modal-header alert-{{request.session.bt_color}}">
+                                    <h6 class="modal-title" id="modalLabelFile"><i class="fas fa-info-circle fa-1x"></i> Informaci&oacute;n del sistema</h6>                                   
                                 </div>
                                 <div class="modal-body">¿Est&aacute; seguro de eliminar el fichero actual?
                                     </br></br>Archivo: <b>{{archivo.fileName}}</b>
@@ -84,7 +84,7 @@
                                 <div class="modal-footer">
                                     <button class="btn btn-{{request.session.bt_color}}" type="button"
                                         data-dismiss="modal" style="border-radius: 10rem;"><i class="fas fa-times"></i> Cancelar</button>
-                                    <a class="btn btn-{{request.session.bt_color}}" href="{% url 'eliminarArchivo' archivo.id %}" style="border-radius: 10rem;"><i class="fas fa-check"></i> Aceptar</a>
+                                    <a class="btn btn-{{request.session.bt_color}}" href="{% url 'eliminarArchivo' archivo.id %}" style="border-radius: 10rem;"><i class="fas fa-check"></i> Eliminar</a>
                                 </div>
                             </div>
                         </div>
