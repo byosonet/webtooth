@@ -112,13 +112,17 @@
     <div class="tab-pane fade" id="ayuda" role="tabpanel" aria-labelledby="nav-help-receta-tab">
         <div style="margin-top: 20px; width: 98%; margin-left: 5px;margin-right: 5px;">
 
-            <p style="text-align: justify;">
-                <i class="fas fa-info-circle fa-1x"></i> Desde este apartado podr&aacute;s ver los detalles de la tarea. 
-                <ul>
-                <li>Para indicar que una tarea ha sido ejecutada, favor de marcar el check al guardar. </li>
-                <li>Una vez ejecutada la tarea, ya no se podr&aacute; realizar modificaciones a la misma.</li>
-                </ul>
+            <p class="alert alert-{{request.session.bt_color}}" style="text-align: justify;">
+                <i class="fas fa-info-circle fa-1x"></i> Desde este apartado podr&aacute;s ver los detalles de la tarea.
             </p>
+
+            <div>
+                <ul class="list-group">
+                  <li class="list-group-item list-group-item-{{request.session.bt_color}}" style="text-align: center;"><b>Indicaciones</b></li>
+                  <li class="list-group-item">1.- Para indicar que una tarea ha sido ejecutada, favor de marcar el check al guardar. 
+                      <br/> 2.- Una vez ejecutada la tarea, ya no se podr&aacute; realizar modificaciones a la misma</li>
+                </ul>
+            </div>
 
         </div>
     </div>

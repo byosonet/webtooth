@@ -192,7 +192,7 @@
   <div class="tab-pane fade" id="ayuda" role="tabpanel" aria-labelledby="nav-help-group-tab">
     <div style="margin-top: 20px; width: 98%; margin-left: 10px;margin-right: 20px;">
 
-      <p style="text-align: justify;">
+      <p class="alert alert-{{request.session.bt_color}}" style="text-align: justify;">
         &nbsp;&nbsp;<i class="fas fa-info-circle fa-1x"></i> Desde este apartado podr&aacute;s agregar nuevos grupos de estudio al sistema.
         <br/>
         &nbsp;&nbsp;<i class="fas fa-info-circle fa-1x"></i> Si se eliminan todos los grupos, el sistema volver&aacute; a generar los grupos por defecto.
@@ -200,11 +200,13 @@
       <div>
         <ul class="list-group">
           <li class="list-group-item list-group-item-{{request.session.bt_color}}" style="text-align: center;"><b>Grupos por defecto</b></li>
-          <li class="list-group-item">1.- Habitos</li>
-          <li class="list-group-item">2.- Motivo de Consulta</li>
-          <li class="list-group-item">3.- Examen de Tejidos (Oclusión)</li>
-          <li class="list-group-item">4.- Examen de Tejidos (Blandos)</li>
-          <li class="list-group-item">5.- Examen de Tejidos (Duros)</li>
+          <li class="list-group-item">
+            1.- Habitos
+            <br/>2.- Motivo de Consulta
+            <br/>3.- Examen de Tejidos (Oclusión)
+            <br/>4.- Examen de Tejidos (Blandos)
+            <br/>5.- Examen de Tejidos (Duros)
+          </li>
         </ul>
       </div>
     </div>
