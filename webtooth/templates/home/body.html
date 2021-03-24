@@ -53,8 +53,8 @@
         <div class="container-fluid">
           <!-- Page Heading -->
           {% include 'message/message.html' %}
-          <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 style="margin: 0 auto;text-align: center;" class="h5 mb-0 text-{{request.session.bt_color}}">{% block titlepage %} {% endblock %}</h1>
+          <div class="d-sm-flex align-items-center justify-content-between mb-0">
+            <h6 style="margin: 0 auto;text-align: center;" class="mb-0 text-{{request.session.bt_color}}">{% block titlepage %} {% endblock %}</h6>
             <img id="loading" width="5%" heigth="auto" src="{% static 'img/loader.gif' %}" data-placement="bottom" 
                 data-trigger="hover" rel="popover" data-original-title="¡Espere por favor!" data-content="¡Espere por favor!"/>
             {% block report %} {%endblock%}
