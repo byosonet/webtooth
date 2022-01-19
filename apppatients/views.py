@@ -13,13 +13,13 @@ from apppatients.forms import PatientForm, AdressForm
 from apppatients.config import validErrors
 from apppatients.query import filterSearch, filterByIdPatient, generateKlave, filterByIdPatientAdress, filterPatientDelete
 
-from webtooth.config import logger, sendEmailContact, getLogin, getListTask
+from webtooth.config import logger, getLogin
 from apppatients.permissions import *
 from webtooth.decorators import validRequest
 from django.contrib import messages
 from webtooth.signals import getUser
 
-from apphistory.views import createHistoryGroup, createHistoryStudy, getAllHistoryByPatient
+from apphistory.views import getHistoryGroupByPatient, getHistoryStudyByPatient, getAllHistoryByPatient
 import pandas as pd
 
 log = logger('apppatients', True)
@@ -117,8 +117,8 @@ def buscarId(request, idPatient):
     try:
         result = filterByIdPatient(idPatient,formPatient)
         adress = filterByIdPatientAdress(idPatient,formAdress)
-        group = createHistoryGroup(request)
-        study = createHistoryStudy(request)
+        group = getHistoryGroupByPatient(request,idPatient)
+        study = getHistoryStudyByPatient(request,idPatient)
         history = getAllHistoryByPatient(request,idPatient)
 
         patient = filterPatientDelete(idPatient)
@@ -149,8 +149,8 @@ def actualizarPaciente(request,idPatient):
     formAdress = None
     expediente = None
     try:
-        group = createHistoryGroup(request)
-        study = createHistoryStudy(request)
+        group = getHistoryGroupByPatient(request,idPatient)
+        study = getHistoryStudyByPatient(request,idPatient)
         history = getAllHistoryByPatient(request,idPatient)
 
         user = getUser()

@@ -28,6 +28,35 @@ def getHistory(request, idPatient):
         listIdsHistory.append(his.estudio.id)
     return listIdsHistory
 
+def getUserOfPatient(idPatient):
+    patient = Patient.objects.get(pk=idPatient)
+    return patient.userId
+
+def getGroupByPatient(request, idPatient):
+    printLogHistory("Get list group")
+    printLogHistory("Filter by user: "+str(request.user))
+    listGroup = Group.objects.filter(
+        user=getUserOfPatient(idPatient)).order_by('fechaAlta')
+    return listGroup
+
+def getStudyByPatient(request, idPatient):
+    printLogHistory("Get list study")
+    printLogHistory("Filter by user: "+str(request.user))
+    listStudy = Study.objects.filter(
+        user=getUserOfPatient(idPatient)).order_by('fechaAlta')
+    return listStudy
+
+def getHistoryByPatient(request, idPatient):
+    printLogHistory("Get list history")
+    printLogHistory("Filter by user: "+str(request.user))
+    listHistory = History.objects.filter(
+        user=getUserOfPatient(idPatient), patient_id=idPatient)
+    listIdsHistory = []
+    for his in listHistory:
+        printLogHistory(his)
+        listIdsHistory.append(his.estudio.id)
+    return listIdsHistory
+
 def addHistory(request,idPatient,idStudy):
     study = Study.objects.get(pk=idStudy)
     patient = Patient.objects.get(pk=idPatient)

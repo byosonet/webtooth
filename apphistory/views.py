@@ -1,9 +1,8 @@
 from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import render, redirect
 from webtooth.config import logger, getLogin, filterQueryUser_id, currentLocalTime
-from . query import getGroup, getStudy, addHistory, delHistory, getHistory
+from . query import getGroup, getGroupByPatient, getStudyByPatient, addHistory, delHistory, getHistoryByPatient
 from webtooth.decorators import validRequest
-from apppatients import views
 from django.contrib import messages
 from apphistory.permissions import addGroup, viewGroup, updateGroup, deleteGroup, notPermission, addStudy, viewStudy, updateStudy, deleteStudy
 from . models import Group, Study
@@ -15,17 +14,18 @@ def printLogHistory(register):
     log.debug(register)
 
 
-def createHistoryGroup(request):
-    printLogHistory("-- createHistoryGroup")
-    return getGroup(request)
+def getHistoryGroupByPatient(request,idPatient):
+    printLogHistory("-- getHistoryGroupByPatient")
+    return getGroupByPatient(request,idPatient)
 
-def createHistoryStudy(request):
-    printLogHistory("-- createHistoryStudy")
-    return getStudy(request)
+
+def getHistoryStudyByPatient(request, idPatient):
+    printLogHistory("-- getHistoryStudyByPatient")
+    return getStudyByPatient(request,idPatient)
 
 def getAllHistoryByPatient(request,idPatient):
     printLogHistory("-- getAllHistoryByPatient")
-    return getHistory(request,idPatient)
+    return getHistoryByPatient(request, idPatient)
 
 @validRequest
 def updateHistory(request, idPatient):
