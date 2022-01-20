@@ -75,7 +75,7 @@ def altaPaciente(request):
             dataPatient = formPatient.cleaned_data
             printLogPatients("Data recibida del formulario patient: "+str(dataPatient))
             name = dataPatient['nombre']+" "+dataPatient['apellidoPaterno']
-       	    patient.save()
+            patient.save()
             adress = formAdress.save(commit=False)
             adress.patient = patient
             adress.calle = adress.calle.title()

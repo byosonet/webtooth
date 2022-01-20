@@ -1,6 +1,7 @@
 from webtooth.config import logger, currentLocalTime
 from . models import Group, Study, History
 from apppatients.models import Patient
+from django.contrib.auth.models import User
 
 log = logger('apphistory.query', False)
 def printLogHistory(register):
@@ -57,13 +58,14 @@ def getHistoryByPatient(request, idPatient):
         listIdsHistory.append(his.estudio.id)
     return listIdsHistory
 
-def addHistory(request,idPatient,idStudy):
+def addHistory(idPatient,idStudy):
     study = Study.objects.get(pk=idStudy)
     patient = Patient.objects.get(pk=idPatient)
     history = History()
     history.patient = patient
     history.estudio = study
-    history.user = request.user
+    user = User.objects.get(id=patient.userId)
+    history.user = user
     history.grupo = study.grupo
     history.check = True
     history.save()

@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import render, redirect
+from apppatients.models import Patient
 from webtooth.config import logger, getLogin, filterQueryUser_id, currentLocalTime
 from . query import getGroup, getGroupByPatient, getStudyByPatient, addHistory, delHistory, getHistoryByPatient
 from webtooth.decorators import validRequest
@@ -29,7 +30,7 @@ def getAllHistoryByPatient(request,idPatient):
 
 @validRequest
 def updateHistory(request, idPatient):
-    printLogHistory("-- Load updateHistory by idPatient: "+str(idPatient))
+    printLogHistory("-- Load updateHistory by idPatient: "+str(idPatient))    
     try:
         if request.method == 'POST':
             log.debug("Method POST with params: "+str(request.POST))
@@ -39,7 +40,7 @@ def updateHistory(request, idPatient):
                 if request.POST.get(p) == 'on':
                     log.info("Check recibido con id: {}".format(int(p)))
                     study = int(p)
-                    addHistory(request, idPatient, study)
+                    addHistory(idPatient, study)
     except Exception as ex:
         log.error("-- No se pudo procesar el modulo history: {}".format(ex))
     printLogHistory("Se redirige nuevamente a los datos del paciente")
