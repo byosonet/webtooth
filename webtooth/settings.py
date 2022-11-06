@@ -106,7 +106,21 @@ DATABASES = {
         'USER': 'webtooth',
         'PASSWORD': 'mysql2022*',
         'HOST': '127.0.0.1',
-        'DATABASE_PORT': '3306'
+        'DATABASE_PORT': '3306',
+        'OPTIONS': {
+            'sql_mode': 'traditional',
+        }
+    },
+    'python': {
+        'ENGINE': 'mysql.connector.django',
+        'NAME': 'webtooth$webtooth',
+        'USER': 'webtooth',
+        'PASSWORD': 'mysql2022*',
+        'HOST': 'webtooth.mysql.pythonanywhere-services.com',
+        'DATABASE_PORT': '3306',
+        'OPTIONS': {
+            'sql_mode': 'traditional',
+        }
     }
 }
 
@@ -197,7 +211,7 @@ MESSAGE_TAGS = {
  }
 
 #JOBS LIST FOR WEBTOOTH
-JOBLOGMAILTIMER = True
+JOBLOGMAILTIMER = False
 JOBMONITORTIMER = False
 
 #MAX RESULT QUERY
@@ -208,7 +222,7 @@ MAX_ROWS_QUERY_MODEL_NAVIGATION = 1000
 CORS_ORIGIN_ALLOW_ALL = True
 
 ##CONFIG LEVEL LOG
-LEVEL_LOG = 'DEBUG'
+LEVEL_LOG = 'INFO'
 PROPAGATE_LOG = True
 FILTER_FILE_ERROR = 'ERROR'
 FLAG_ERROR = False
@@ -216,7 +230,7 @@ FLAG_COUNT = 6
 
 ##PARA HABILITAR REGISTRO DE SITIO
 SITE_ID = 1
-SITE_DOMAIN = '127.0.0.1:8000'
+SITE_DOMAIN = 'webtooth.pythonanywhere.com'
 SITE_NAME = 'Webtooth'
 
 ##VERSION DEL SOFTWARE
