@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'ee@#=1ivnkbyqflvaj#l=fn02xcec@eu6(_=v6%lcpinchwqee'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 #Si debug esta en False hay que añadir valores a los HOSTS
 ALLOWED_HOSTS = ['*']
@@ -92,21 +92,13 @@ WSGI_APPLICATION = 'webtooth.wsgi.application'
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
 DATABASES = {
-    'postgres': {
+    'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'postgres',
         'USER':'postgres',
         'PASSWORD':'root',
         'HOST':'127.0.0.1',
         'DATABASE_PORT':'5432'
-    },
-    'default': {
-        'ENGINE': 'mysql.connector.django',
-        'NAME': 'webtooth',
-        'USER': 'webtooth',
-        'PASSWORD': 'mysql2022*',
-        'HOST': '127.0.0.1',
-        'DATABASE_PORT': '3306'
     }
 }
 

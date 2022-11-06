@@ -12,11 +12,8 @@ APScheduler==3.6.3
 django-cors-middleware==1.5.0
 Pillow==7.2.0
 whitenoise==5.2.0
-mysql-connector-python==8.0.23
-django-mysql==3.9.0
 
 # 1.-> python manage.py makemigrations
 # 2.-> python manage.py migrate
 # 3.-> python manage.py createsuperuser
 # 4.-> python manage.py collectstatic
-# 5.-> mysql -u root -p mysql < timezone_posix.sql
