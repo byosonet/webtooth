@@ -11,6 +11,7 @@ xlrd==1.2.0
 APScheduler==3.6.3
 django-cors-middleware==1.5.0
 Pillow==7.2.0
+gunicorn==20.1.0
 whitenoise==5.2.0
 
 # 1.-> python manage.py makemigrations --settings=webtooth.settings.development
