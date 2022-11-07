@@ -1,7 +1,5 @@
 from .base import *
 
-from .base import *
-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
@@ -31,5 +29,5 @@ LEVEL_LOG = 'INFO'
 
 ##PARA HABILITAR REGISTRO DE SITIO
 SITE_ID = 1
-SITE_DOMAIN = ''
+SITE_DOMAIN = 'webtooth.herokuapp.com'
 SITE_NAME = 'Webtooth'
