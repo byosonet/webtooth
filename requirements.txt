@@ -24,3 +24,11 @@ python-decouple==3.6
 # 5.- heroku python manage.py makemigrations
 # 5.- heroku run python manage.py migrate
 # 6.- heroku run python manage.py createsuperuser
+# 7.- heroku open
+# 8.- heroku logs
+
+#https://codigofacilito.com/articulos/deploy-django-heroku
+
+# 9.- cd E:\MIS-PROYECTOS\PYTHON\practicas_django\proyectoDjango\webtooth>
+#10.- heroku login
+#11.- heroku logs -t 
