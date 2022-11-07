@@ -58,3 +58,5 @@ zipp==3.10.0
 
 # 8.- python .\manage.py runserver 127.0.0.1:8001
 # 9.-  .\webtooth-env\Scripts\python.exe .\manage.py runserver 127.0.0.1:8001
+
+# 10.- Add project to remote heroku > heroku git:remote -a webtooth
