@@ -13,7 +13,15 @@ django-cors-middleware==1.5.0
 Pillow==7.2.0
 whitenoise==5.2.0
 
-# 1.-> python manage.py makemigrations
-# 2.-> python manage.py migrate
-# 3.-> python manage.py createsuperuser
-# 4.-> python manage.py collectstatic
+# 1.-> python manage.py makemigrations --settings=webtooth.settings.development
+# 2.-> python manage.py migrate --settings=webtooth.settings.development
+# 3.-> python manage.py createsuperuser --settings=webtooth.settings.development
+# 4.-> python manage.py collectstatic --settings=webtooth.settings.development
+
+# 1.-> python manage.py makemigrations --settings=webtooth.settings.production 
+# 2.-> python manage.py migrate --settings=webtooth.settings.production 
+# 3.-> python manage.py createsuperuser --settings=webtooth.settings.production 
+# 4.-> python manage.py collectstatic --settings=webtooth.settings.production
+
+# 5.- python manage.py runserver --settings=webtooth.settings.development
+# 6.- python manage.py runserver --settings=webtooth.settings.production

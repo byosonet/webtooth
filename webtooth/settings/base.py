@@ -22,13 +22,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'ee@#=1ivnkbyqflvaj#l=fn02xcec@eu6(_=v6%lcpinchwqee'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-#Si debug esta en False hay que añadir valores a los HOSTS
-ALLOWED_HOSTS = ['*']
-
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -67,11 +60,11 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'webtooth.urls'
 
 #Indicando el path del proyecto:
-projectPath=BASE_DIR+"/webtooth/"
+projectPath = BASE_DIR+"/"
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [projectPath+'templates',projectPath+'css'],
+        'DIRS': [projectPath+'templates', projectPath+'css'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -86,22 +79,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'webtooth.wsgi.application'
-
-
-# Database
-# https://docs.djangoproject.com/en/2.2/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'postgres',
-        'USER':'postgres',
-        'PASSWORD':'root',
-        'HOST':'127.0.0.1',
-        'DATABASE_PORT':'5432'
-    }
-}
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -121,7 +98,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
@@ -137,7 +113,7 @@ USE_TZ = True
 
 DECIMAL_SEPARATOR = '.'
 DATE_FORMAT = 'l d/F/Y'
-DATETIME_FORMAT='d/b/y H:i a'
+DATETIME_FORMAT = 'd/b/y H:i a'
 
 DATE_INPUT_FORMAT = ('%d/%m/%Y', '%Y-%m-%d')
 DATE_INPUT_SHOW = '%d/%m/%Y'
@@ -161,14 +137,14 @@ PATH_LOGS = projectPath+'logs'
 PATH_ZIPMAIL = projectPath+'zipmail/'
 
 #DATOS PARA ENVIO DE EMAIL DESDE CTA DE GMAIL
-EMAIL_BACKEND="django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST="smtp.gmail.com"
-EMAIL_USE_TLS=True
-EMAIL_PORT=587
-EMAIL_HOST_USER="noreply.webtooth@gmail.com"
-EMAIL_HOST_PASSWORD="fxqhjfqtammvdndu"
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = "noreply.webtooth@gmail.com"
+EMAIL_HOST_PASSWORD = "fxqhjfqtammvdndu"
 
-EMAIL_HOST_SUPPORT=["gtrejo.armenta@gmail.com"]
+EMAIL_HOST_SUPPORT = ["gtrejo.armenta@gmail.com"]
 #VARIABLES GLOBALES
 EMAIL_TO = []
 EMAIL_CC = []
@@ -186,11 +162,7 @@ MESSAGE_TAGS = {
     messages.SUCCESS: 'alert-success',
     messages.WARNING: 'alert-warning',
     messages.ERROR: 'alert-danger',
- }
-
-#JOBS LIST FOR WEBTOOTH
-JOBLOGMAILTIMER = True
-JOBMONITORTIMER = False
+}
 
 #MAX RESULT QUERY
 MAX_ROWS_QUERY_MODEL = 999999
@@ -199,17 +171,10 @@ MAX_ROWS_QUERY_MODEL_NAVIGATION = 1000
 ##CONFIG CROSS ORIGIN
 CORS_ORIGIN_ALLOW_ALL = True
 
-##CONFIG LEVEL LOG
-LEVEL_LOG = 'DEBUG'
 PROPAGATE_LOG = True
 FILTER_FILE_ERROR = 'ERROR'
 FLAG_ERROR = False
 FLAG_COUNT = 6
-
-##PARA HABILITAR REGISTRO DE SITIO
-SITE_ID = 1
-SITE_DOMAIN = '127.0.0.1:8000'
-SITE_NAME = 'Webtooth'
 
 ##VERSION DEL SOFTWARE
 VERSION_WEBTOOTH = '1.0.1'
