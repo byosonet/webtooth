@@ -21,10 +21,6 @@ python-decouple==3.6
 # 3.-> python manage.py createsuperuser --settings=webtooth.settings.development
 # 4.-> python manage.py collectstatic --settings=webtooth.settings.development
 
-# 1.-> python manage.py makemigrations --settings=webtooth.settings.production 
-# 2.-> python manage.py migrate --settings=webtooth.settings.production 
-# 3.-> python manage.py createsuperuser --settings=webtooth.settings.production 
-# 4.-> python manage.py collectstatic --settings=webtooth.settings.production
-
-# 5.- python manage.py runserver --settings=webtooth.settings.development
-# 6.- python manage.py runserver --settings=webtooth.settings.production
+# 5.- heroku python manage.py makemigrations
+# 5.- heroku run python manage.py migrate
+# 6.- heroku run python manage.py createsuperuser
