@@ -196,6 +196,7 @@ ALLOWED_HOSTS = ['*']
 DATABASES = {
     'default': dj_database_url.config(
         default=config('DATABASE_URL')
+        #default=config('DATABASE_URL_LOCAL')
     )
 }
 

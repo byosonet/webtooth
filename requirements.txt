@@ -2,19 +2,32 @@
 # install version min > posgtres 10.16
 
 # 1.- > pip install -r requirements.txt
+APScheduler==3.6.3
+backports.zoneinfo==0.2.1
+beautifulsoup4==4.11.1
+dj-database-url==0.5.0
 Django==2.2.3
 django-bootstrap4==2.2.0
-django-stronghold==0.4.0
-psycopg2==2.8.5
-pandas==1.2.0
-xlrd==1.2.0
-APScheduler==3.6.3
 django-cors-middleware==1.5.0
-Pillow==7.2.0
+django-stronghold==0.4.0
 gunicorn==20.1.0
-whitenoise==5.2.0
-dj-database-url==0.5.0
+importlib-metadata==1.7.0
+numpy==1.21.6
+pandas==1.2.0
+Pillow==7.2.0
+psycopg2==2.8.5
+python-dateutil==2.8.2
 python-decouple==3.6
+pytz==2022.6
+pytz-deprecation-shim==0.1.0.post0
+six==1.16.0
+soupsieve==2.3.2.post1
+sqlparse==0.4.3
+tzdata==2022.6
+tzlocal==4.2
+whitenoise==5.2.0
+xlrd==1.2.0
+zipp==3.10.0
 
 # 1.-> python manage.py makemigrations --settings=webtooth.settings.development
 # 2.-> python manage.py migrate --settings=webtooth.settings.development
@@ -32,3 +45,16 @@ python-decouple==3.6
 # 9.- cd E:\MIS-PROYECTOS\PYTHON\practicas_django\proyectoDjango\webtooth>
 #10.- heroku login
 #11.- heroku logs -t 
+
+# Virtual env
+# 1.- pip install virtualenv
+# 2.- virtualenv --version
+# 3.- virtualenv webtooth-env
+# 4.- virtualenv -p C:\Python38\python.exe webtooth-env
+# 5.- .\webtooth-env\Scripts\activate
+# 6.- deactivate
+# 7.- run in webtooth-env > .\webtooth-env\Scripts\python.exe .\manage.py runserver
+
+
+# 8.- python .\manage.py runserver 127.0.0.1:8001
+# 9.-  .\webtooth-env\Scripts\python.exe .\manage.py runserver 127.0.0.1:8001
