@@ -15,10 +15,10 @@
     background-color: #fff;
     background-position: 5px 12px;  
     text-align: justify;
-    font-style: italic;
+    font-style: normal;
     }
  .login .form-row {
-    font-style: italic;
+    font-style: normal;
 }
     body.login{
      background-image: linear-gradient(85deg,#000000,#8e44ad);
@@ -119,12 +119,12 @@
   {% url 'reset_password' as password_reset_url %}
   {% if password_reset_url %}
   <div class="password-reset-link">
-    <i><a href="{{ password_reset_url }}">¿Ha olvidado la contrase&ntilde;a?</a></i>
+    <i style="font-style: normal;"><a href="{{ password_reset_url }}">¿Ha olvidado la contrase&ntilde;a?</a></i>
   </div>
   {% endif %}
     <div class="form-row">
-        <div class="submit-row">
-            <label>&nbsp;</label><button class="button btncss" type="submit"><i>{% trans 'Log in' %}</i></button>
+        <div class="submit-row" style="border-radius: 20px;">
+            <label></label><button class="button btncss" type="submit"><i style="font-style: normal;font-size: 16px;margin-left: -8px;">{% trans 'Log in' %}</i></button>
         </div>
     </div>
 </form>
